@@ -1,0 +1,7 @@
+pandas>=2.2
+pyreadstat>=1.2      # reads Stata .dta with variable and value labels intact
+pyarrow>=15.0        # Parquet output
+openpyxl>=3.1        # INS aggregate annexes (.xlsx)
+pdfplumber>=0.11     # table extraction from the INS PDF volumes
+requests>=2.31
+pytest>=8.0

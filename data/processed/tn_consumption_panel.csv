@@ -1,0 +1,760 @@
+wave,geography_level,geography,milieu,subgroup_type,subgroup,indicator,value,unit,basis,methodology,source_key,source_table
+1990,national,Tunisia,all,pre-2010 expenditure post,Clothing,budget_share,10.2,percent,published,,ebcnv2005_vol1,Jadwal 8
+1990,national,Tunisia,all,pre-2010 expenditure post,Communication,budget_share,0.5,percent,published,,ebcnv2005_vol1,Jadwal 8
+1990,national,Tunisia,all,pre-2010 expenditure post,Culture and leisure,budget_share,6.2,percent,published,,ebcnv2005_vol1,Jadwal 8
+1990,national,Tunisia,all,pre-2010 expenditure post,Education,budget_share,2.3,percent,published,,ebcnv2005_vol1,Jadwal 8
+1990,national,Tunisia,all,pre-2010 expenditure post,Food,budget_share,40.0,percent,published,,ebcnv2005_vol1,Jadwal 8
+1990,national,Tunisia,all,pre-2010 expenditure post,Housing,budget_share,22.0,percent,published,,ebcnv2005_vol1,Jadwal 8
+1990,national,Tunisia,all,pre-2010 expenditure post,Hygiene and care,budget_share,8.7,percent,published,,ebcnv2005_vol1,Jadwal 8
+1990,national,Tunisia,all,pre-2010 expenditure post,Other,budget_share,2.4,percent,published,,ebcnv2005_vol1,Jadwal 8
+1990,national,Tunisia,all,pre-2010 expenditure post,Transport,budget_share,7.7,percent,published,,ebcnv2005_vol1,Jadwal 8
+1995,national,Tunisia,all,pre-2010 expenditure post,Clothing,budget_share,11.8,percent,published,,ebcnv2005_vol1,Jadwal 8
+1995,national,Tunisia,all,pre-2010 expenditure post,Communication,budget_share,0.9,percent,published,,ebcnv2005_vol1,Jadwal 8
+1995,national,Tunisia,all,pre-2010 expenditure post,Culture and leisure,budget_share,6.2,percent,published,,ebcnv2005_vol1,Jadwal 8
+1995,national,Tunisia,all,pre-2010 expenditure post,Education,budget_share,2.7,percent,published,,ebcnv2005_vol1,Jadwal 8
+1995,national,Tunisia,all,pre-2010 expenditure post,Food,budget_share,37.7,percent,published,,ebcnv2005_vol1,Jadwal 8
+1995,national,Tunisia,all,pre-2010 expenditure post,Housing,budget_share,22.2,percent,published,,ebcnv2005_vol1,Jadwal 8
+1995,national,Tunisia,all,pre-2010 expenditure post,Hygiene and care,budget_share,9.6,percent,published,,ebcnv2005_vol1,Jadwal 8
+1995,national,Tunisia,all,pre-2010 expenditure post,Other,budget_share,1.1,percent,published,,ebcnv2005_vol1,Jadwal 8
+1995,national,Tunisia,all,pre-2010 expenditure post,Transport,budget_share,7.8,percent,published,,ebcnv2005_vol1,Jadwal 8
+2000,national,Tunisia,all,pre-2010 expenditure post,Clothing,budget_share,11.1,percent,published,,ebcnv2005_vol1,Jadwal 8
+2000,national,Tunisia,all,pre-2010 expenditure post,Communication,budget_share,1.1,percent,published,,ebcnv2005_vol1,Jadwal 8
+2000,national,Tunisia,all,pre-2010 expenditure post,Culture and leisure,budget_share,5.8,percent,published,,ebcnv2005_vol1,Jadwal 8
+2000,national,Tunisia,all,pre-2010 expenditure post,Education,budget_share,2.9,percent,published,,ebcnv2005_vol1,Jadwal 8
+2000,national,Tunisia,all,pre-2010 expenditure post,Food,budget_share,38.0,percent,published,,ebcnv2005_vol1,Jadwal 8
+2000,national,Tunisia,all,pre-2010 expenditure post,Housing,budget_share,21.5,percent,published,,ebcnv2005_vol1,Jadwal 8
+2000,national,Tunisia,all,pre-2010 expenditure post,Hygiene and care,budget_share,10.0,percent,published,,ebcnv2005_vol1,Jadwal 8
+2000,national,Tunisia,all,pre-2010 expenditure post,Other,budget_share,1.0,percent,published,,ebcnv2005_vol1,Jadwal 8
+2000,national,Tunisia,all,pre-2010 expenditure post,Transport,budget_share,8.6,percent,published,,ebcnv2005_vol1,Jadwal 8
+2005,national,Tunisia,all,pre-2010 expenditure post,Clothing,budget_share,8.8,percent,published,,ebcnv2005_vol1,Jadwal 8
+2005,national,Tunisia,all,pre-2010 expenditure post,Communication,budget_share,3.7,percent,published,,ebcnv2005_vol1,Jadwal 8
+2005,national,Tunisia,all,pre-2010 expenditure post,Culture and leisure,budget_share,5.6,percent,published,,ebcnv2005_vol1,Jadwal 8
+2005,national,Tunisia,all,pre-2010 expenditure post,Education,budget_share,2.8,percent,published,,ebcnv2005_vol1,Jadwal 8
+2005,national,Tunisia,all,pre-2010 expenditure post,Food,budget_share,34.8,percent,published,,ebcnv2005_vol1,Jadwal 8
+2005,national,Tunisia,all,pre-2010 expenditure post,Housing,budget_share,22.8,percent,published,,ebcnv2005_vol1,Jadwal 8
+2005,national,Tunisia,all,pre-2010 expenditure post,Hygiene and care,budget_share,10.3,percent,published,,ebcnv2005_vol1,Jadwal 8
+2005,national,Tunisia,all,pre-2010 expenditure post,Other,budget_share,0.5,percent,published,,ebcnv2005_vol1,Jadwal 8
+2005,national,Tunisia,all,pre-2010 expenditure post,Transport,budget_share,10.7,percent,published,,ebcnv2005_vol1,Jadwal 8
+2010,national,Tunisia,all,COICOP function,1,budget_share,29.3,percent,published,,ebcnv2021_note,Tableau 4
+2010,national,Tunisia,all,COICOP function,10,budget_share,2.1,percent,published,,ebcnv2021_note,Tableau 4
+2010,national,Tunisia,all,COICOP function,11,budget_share,3.2,percent,published,,ebcnv2021_note,Tableau 4
+2010,national,Tunisia,all,COICOP function,12,budget_share,0.5,percent,published,,ebcnv2021_note,Tableau 4
+2010,national,Tunisia,all,COICOP function,2,budget_share,2.8,percent,published,,ebcnv2021_note,Tableau 4
+2010,national,Tunisia,all,COICOP function,3,budget_share,8.6,percent,published,,ebcnv2021_note,Tableau 4
+2010,national,Tunisia,all,COICOP function,4,budget_share,24.4,percent,published,,ebcnv2021_note,Tableau 4
+2010,national,Tunisia,all,COICOP function,5,budget_share,4.5,percent,published,,ebcnv2021_note,Tableau 4
+2010,national,Tunisia,all,COICOP function,6,budget_share,8.8,percent,published,,ebcnv2021_note,Tableau 4
+2010,national,Tunisia,all,COICOP function,7,budget_share,9.0,percent,published,,ebcnv2021_note,Tableau 4
+2010,national,Tunisia,all,COICOP function,8,budget_share,5.4,percent,published,,ebcnv2021_note,Tableau 4
+2010,national,Tunisia,all,COICOP function,9,budget_share,1.4,percent,published,,ebcnv2021_note,Tableau 4
+2015,national,Tunisia,all,COICOP function,1,budget_share,28.9,percent,published,,ebcnv2021_note,Tableau 4
+2015,national,Tunisia,all,COICOP function,10,budget_share,2.2,percent,published,,ebcnv2021_note,Tableau 4
+2015,national,Tunisia,all,COICOP function,11,budget_share,4.0,percent,published,,ebcnv2021_note,Tableau 4
+2015,national,Tunisia,all,COICOP function,12,budget_share,0.2,percent,published,,ebcnv2021_note,Tableau 4
+2015,national,Tunisia,all,COICOP function,2,budget_share,2.6,percent,published,,ebcnv2021_note,Tableau 4
+2015,national,Tunisia,all,COICOP function,3,budget_share,7.6,percent,published,,ebcnv2021_note,Tableau 4
+2015,national,Tunisia,all,COICOP function,4,budget_share,26.6,percent,published,,ebcnv2021_note,Tableau 4
+2015,national,Tunisia,all,COICOP function,5,budget_share,3.7,percent,published,,ebcnv2021_note,Tableau 4
+2015,national,Tunisia,all,COICOP function,6,budget_share,9.4,percent,published,,ebcnv2021_note,Tableau 4
+2015,national,Tunisia,all,COICOP function,7,budget_share,9.3,percent,published,,ebcnv2021_note,Tableau 4
+2015,national,Tunisia,all,COICOP function,8,budget_share,4.4,percent,published,,ebcnv2021_note,Tableau 4
+2015,national,Tunisia,all,COICOP function,9,budget_share,1.1,percent,published,,ebcnv2021_note,Tableau 4
+2021,national,Tunisia,all,COICOP function,1,budget_share,30.1,percent,published,,ebcnv2021_note,Tableau 4
+2021,national,Tunisia,all,COICOP function,1,budget_share,30.085900582751172,percent,recomputed,revised (2011),ebcnv2021_depenses,produit2021_plus.dta
+2021,national,Tunisia,all,COICOP function,10,budget_share,1.5,percent,published,,ebcnv2021_note,Tableau 4
+2021,national,Tunisia,all,COICOP function,10,budget_share,1.4849288869203316,percent,recomputed,revised (2011),ebcnv2021_depenses,produit2021_plus.dta
+2021,national,Tunisia,all,COICOP function,11,budget_share,3.0,percent,published,,ebcnv2021_note,Tableau 4
+2021,national,Tunisia,all,COICOP function,11,budget_share,2.9933102714678737,percent,recomputed,revised (2011),ebcnv2021_depenses,produit2021_plus.dta
+2021,national,Tunisia,all,COICOP function,12,budget_share,0.1,percent,published,,ebcnv2021_note,Tableau 4
+2021,national,Tunisia,all,COICOP function,12,budget_share,0.13864044569791223,percent,recomputed,revised (2011),ebcnv2021_depenses,produit2021_plus.dta
+2021,national,Tunisia,all,COICOP function,2,budget_share,3.3,percent,published,,ebcnv2021_note,Tableau 4
+2021,national,Tunisia,all,COICOP function,2,budget_share,3.3477637273987537,percent,recomputed,revised (2011),ebcnv2021_depenses,produit2021_plus.dta
+2021,national,Tunisia,all,COICOP function,3,budget_share,11.6,percent,published,,ebcnv2021_note,Tableau 4
+2021,national,Tunisia,all,COICOP function,3,budget_share,11.609974458212301,percent,recomputed,revised (2011),ebcnv2021_depenses,produit2021_plus.dta
+2021,national,Tunisia,all,COICOP function,4,budget_share,23.9,percent,published,,ebcnv2021_note,Tableau 4
+2021,national,Tunisia,all,COICOP function,4,budget_share,23.901070934192933,percent,recomputed,revised (2011),ebcnv2021_depenses,produit2021_plus.dta
+2021,national,Tunisia,all,COICOP function,5,budget_share,3.5,percent,published,,ebcnv2021_note,Tableau 4
+2021,national,Tunisia,all,COICOP function,5,budget_share,3.4995474001028333,percent,recomputed,revised (2011),ebcnv2021_depenses,produit2021_plus.dta
+2021,national,Tunisia,all,COICOP function,6,budget_share,11.1,percent,published,,ebcnv2021_note,Tableau 4
+2021,national,Tunisia,all,COICOP function,6,budget_share,11.13695222882303,percent,recomputed,revised (2011),ebcnv2021_depenses,produit2021_plus.dta
+2021,national,Tunisia,all,COICOP function,7,budget_share,6.9,percent,published,,ebcnv2021_note,Tableau 4
+2021,national,Tunisia,all,COICOP function,7,budget_share,6.86467374521755,percent,recomputed,revised (2011),ebcnv2021_depenses,produit2021_plus.dta
+2021,national,Tunisia,all,COICOP function,8,budget_share,4.1,percent,published,,ebcnv2021_note,Tableau 4
+2021,national,Tunisia,all,COICOP function,8,budget_share,4.093980745025445,percent,recomputed,revised (2011),ebcnv2021_depenses,produit2021_plus.dta
+2021,national,Tunisia,all,COICOP function,9,budget_share,0.8,percent,published,,ebcnv2021_note,Tableau 4
+2021,national,Tunisia,all,COICOP function,9,budget_share,0.8432565741898636,percent,recomputed,revised (2011),ebcnv2021_depenses,produit2021_plus.dta
+2021,national,Tunisia,all,,,consumption_pc_mean,5134.805974039024,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head education,higher,consumption_pc_mean,7880.758278681676,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head education,none,consumption_pc_mean,4318.719022861202,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head education,primary,consumption_pc_mean,4430.380946101567,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head education,secondary,consumption_pc_mean,5610.319401489954,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,agricultural workers,consumption_pc_mean,3275.5373041807056,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,"employers in industry, trade and services",consumption_pc_mean,5681.604591968676,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,farm operators,consumption_pc_mean,4259.488047042564,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,mid-level managers and professionals,consumption_pc_mean,5947.7488300788145,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,non-agricultural workers,consumption_pc_mean,3913.443260070472,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,other employees,consumption_pc_mean,5212.4713735189225,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,other inactive,consumption_pc_mean,4879.600446492987,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,"own-account workers and artisans in industry, trade and services",consumption_pc_mean,4801.16161112311,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,retired,consumption_pc_mean,6454.333695895999,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,senior managers and professionals,consumption_pc_mean,7174.1468367238585,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,unemployed,consumption_pc_mean,3745.9077033317503,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,rural,,,consumption_pc_mean,3791.4697804077264,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,urban,,,consumption_pc_mean,5768.03515094871,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre East,all,,,consumption_pc_mean,5597.2409817478265,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre East,rural,,,consumption_pc_mean,4257.264957845533,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre East,urban,,,consumption_pc_mean,6099.794735678633,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre West,all,,,consumption_pc_mean,3439.7412303325705,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre West,rural,,,consumption_pc_mean,3141.1487580096145,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre West,urban,,,consumption_pc_mean,3987.004506735364,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Grand Tunis,all,,,consumption_pc_mean,6611.624088489104,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Grand Tunis,rural,,,consumption_pc_mean,4647.448190529142,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Grand Tunis,urban,,,consumption_pc_mean,6792.804609614027,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North East,all,,,consumption_pc_mean,4678.684212930113,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North East,rural,,,consumption_pc_mean,3812.4811738736557,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North East,urban,,,consumption_pc_mean,5160.648681898767,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North West,all,,,consumption_pc_mean,4292.255809211269,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North West,rural,,,consumption_pc_mean,3862.0488298896244,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North West,urban,,,consumption_pc_mean,4890.786796637176,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South East,all,,,consumption_pc_mean,4325.284198452408,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South East,rural,,,consumption_pc_mean,3515.3694906900973,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South East,urban,,,consumption_pc_mean,4622.266549112779,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South West,all,,,consumption_pc_mean,4590.232495834385,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South West,rural,,,consumption_pc_mean,4243.864470452008,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South West,urban,,,consumption_pc_mean,4752.519493137618,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2005,national,Tunisia,all,,,expenditure_hh_mean,8211.0,DT per year,published,,ebcnv2005_vol1,Jadwal 4
+2005,region,Centre East,all,,,expenditure_hh_mean,9485.0,DT per year,published,,ebcnv2005_vol1,Jadwal 4
+2005,region,Centre West,all,,,expenditure_hh_mean,5667.0,DT per year,published,,ebcnv2005_vol1,Jadwal 4
+2005,region,Grand Tunis,all,,,expenditure_hh_mean,9982.0,DT per year,published,,ebcnv2005_vol1,Jadwal 4
+2005,region,North East,all,,,expenditure_hh_mean,6979.0,DT per year,published,,ebcnv2005_vol1,Jadwal 4
+2005,region,North West,all,,,expenditure_hh_mean,6149.0,DT per year,published,,ebcnv2005_vol1,Jadwal 4
+2005,region,South East,all,,,expenditure_hh_mean,9323.0,DT per year,published,,ebcnv2005_vol1,Jadwal 4
+2005,region,South West,all,,,expenditure_hh_mean,7035.0,DT per year,published,,ebcnv2005_vol1,Jadwal 4
+2015,national,Tunisia,all,,,expenditure_hh_mean,15561.0,DT per year,published,,ebcnv2021_note,Tableau 1
+2015,national,Tunisia,rural,,,expenditure_hh_mean,11204.0,DT per year,published,,ebcnv2021_note,Tableau 1
+2015,national,Tunisia,urban,,,expenditure_hh_mean,17365.0,DT per year,published,,ebcnv2021_note,Tableau 1
+2021,national,Tunisia,all,,,expenditure_hh_mean,20328.0,DT per year,published,,ebcnv2021_note,Tableau 1
+2021,national,Tunisia,all,,,expenditure_hh_mean,20328.002997216277,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head education,higher,expenditure_hh_mean,30942.271584393464,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head education,none,expenditure_hh_mean,14444.971972672049,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head education,primary,expenditure_hh_mean,18299.120615772066,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head education,secondary,expenditure_hh_mean,23261.113093635005,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,agricultural workers,expenditure_hh_mean,14831.63121622152,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,"employers in industry, trade and services",expenditure_hh_mean,25710.532112180616,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,farm operators,expenditure_hh_mean,18890.921652057586,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,mid-level managers and professionals,expenditure_hh_mean,26859.158335789423,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,non-agricultural workers,expenditure_hh_mean,17659.667586086456,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,other employees,expenditure_hh_mean,22748.878326977636,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,other inactive,expenditure_hh_mean,14836.84610017161,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,"own-account workers and artisans in industry, trade and services",expenditure_hh_mean,20547.852960749988,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,retired,expenditure_hh_mean,22265.937629465607,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,senior managers and professionals,expenditure_hh_mean,32199.18508865969,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,unemployed,expenditure_hh_mean,16184.200340459065,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,rural,,,expenditure_hh_mean,16065.0,DT per year,published,,ebcnv2021_note,Tableau 1
+2021,national,Tunisia,rural,,,expenditure_hh_mean,16064.505613914811,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,urban,,,expenditure_hh_mean,22152.0,DT per year,published,,ebcnv2021_note,Tableau 1
+2021,national,Tunisia,urban,,,expenditure_hh_mean,22151.706607338896,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre East,all,,,expenditure_hh_mean,23806.081493537517,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre East,rural,,,expenditure_hh_mean,19527.951358328344,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre East,urban,,,expenditure_hh_mean,25249.988022647573,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre West,all,,,expenditure_hh_mean,14388.012565782235,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre West,rural,,,expenditure_hh_mean,13397.093654025206,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre West,urban,,,expenditure_hh_mean,16077.819573298799,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Grand Tunis,all,,,expenditure_hh_mean,23763.288059888673,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Grand Tunis,rural,,,expenditure_hh_mean,17097.83217920941,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Grand Tunis,urban,,,expenditure_hh_mean,24363.823288821506,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North East,all,,,expenditure_hh_mean,17596.267057460267,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North East,rural,,,expenditure_hh_mean,15370.305927643847,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North East,urban,,,expenditure_hh_mean,18713.93713667893,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North West,all,,,expenditure_hh_mean,16239.047780703391,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North West,rural,,,expenditure_hh_mean,14954.362652849284,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North West,urban,,,expenditure_hh_mean,17974.83707855747,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South East,all,,,expenditure_hh_mean,18801.862764895206,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South East,rural,,,expenditure_hh_mean,16958.05561769789,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South East,urban,,,expenditure_hh_mean,19375.587583860764,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South West,all,,,expenditure_hh_mean,19929.14405816831,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South West,rural,,,expenditure_hh_mean,20561.088459827875,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South West,urban,,,expenditure_hh_mean,19675.14794309447,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2010,national,Tunisia,all,COICOP function,1,expenditure_pc_by_function,763.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2010,national,Tunisia,all,COICOP function,10,expenditure_pc_by_function,54.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2010,national,Tunisia,all,COICOP function,11,expenditure_pc_by_function,84.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2010,national,Tunisia,all,COICOP function,12,expenditure_pc_by_function,12.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2010,national,Tunisia,all,COICOP function,2,expenditure_pc_by_function,73.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2010,national,Tunisia,all,COICOP function,3,expenditure_pc_by_function,224.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2010,national,Tunisia,all,COICOP function,4,expenditure_pc_by_function,635.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2010,national,Tunisia,all,COICOP function,5,expenditure_pc_by_function,117.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2010,national,Tunisia,all,COICOP function,6,expenditure_pc_by_function,228.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2010,national,Tunisia,all,COICOP function,7,expenditure_pc_by_function,233.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2010,national,Tunisia,all,COICOP function,8,expenditure_pc_by_function,141.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2010,national,Tunisia,all,COICOP function,9,expenditure_pc_by_function,36.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2015,national,Tunisia,all,COICOP function,1,expenditure_pc_by_function,1118.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2015,national,Tunisia,all,COICOP function,10,expenditure_pc_by_function,84.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2015,national,Tunisia,all,COICOP function,11,expenditure_pc_by_function,157.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2015,national,Tunisia,all,COICOP function,12,expenditure_pc_by_function,6.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2015,national,Tunisia,all,COICOP function,2,expenditure_pc_by_function,102.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2015,national,Tunisia,all,COICOP function,3,expenditure_pc_by_function,293.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2015,national,Tunisia,all,COICOP function,4,expenditure_pc_by_function,1030.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2015,national,Tunisia,all,COICOP function,5,expenditure_pc_by_function,143.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2015,national,Tunisia,all,COICOP function,6,expenditure_pc_by_function,363.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2015,national,Tunisia,all,COICOP function,7,expenditure_pc_by_function,360.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2015,national,Tunisia,all,COICOP function,8,expenditure_pc_by_function,171.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2015,national,Tunisia,all,COICOP function,9,expenditure_pc_by_function,44.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2021,national,Tunisia,all,COICOP function,1,expenditure_pc_by_function,1645.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2021,national,Tunisia,all,COICOP function,1,expenditure_pc_by_function,1645.2022844060018,DT per year,recomputed,revised (2011),ebcnv2021_depenses,produit2021_plus.dta
+2021,national,Tunisia,all,COICOP function,10,expenditure_pc_by_function,81.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2021,national,Tunisia,all,COICOP function,10,expenditure_pc_by_function,81.20110582105744,DT per year,recomputed,revised (2011),ebcnv2021_depenses,produit2021_plus.dta
+2021,national,Tunisia,all,COICOP function,11,expenditure_pc_by_function,164.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2021,national,Tunisia,all,COICOP function,11,expenditure_pc_by_function,163.68467624925492,DT per year,recomputed,revised (2011),ebcnv2021_depenses,produit2021_plus.dta
+2021,national,Tunisia,all,COICOP function,12,expenditure_pc_by_function,8.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2021,national,Tunisia,all,COICOP function,12,expenditure_pc_by_function,7.581344535321664,DT per year,recomputed,revised (2011),ebcnv2021_depenses,produit2021_plus.dta
+2021,national,Tunisia,all,COICOP function,2,expenditure_pc_by_function,183.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2021,national,Tunisia,all,COICOP function,2,expenditure_pc_by_function,183.06743109846212,DT per year,recomputed,revised (2011),ebcnv2021_depenses,produit2021_plus.dta
+2021,national,Tunisia,all,COICOP function,3,expenditure_pc_by_function,635.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2021,national,Tunisia,all,COICOP function,3,expenditure_pc_by_function,634.8740150892157,DT per year,recomputed,revised (2011),ebcnv2021_depenses,produit2021_plus.dta
+2021,national,Tunisia,all,COICOP function,4,expenditure_pc_by_function,1307.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2021,national,Tunisia,all,COICOP function,4,expenditure_pc_by_function,1306.9941646762015,DT per year,recomputed,revised (2011),ebcnv2021_depenses,produit2021_plus.dta
+2021,national,Tunisia,all,COICOP function,5,expenditure_pc_by_function,191.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2021,national,Tunisia,all,COICOP function,5,expenditure_pc_by_function,191.3674932615157,DT per year,recomputed,revised (2011),ebcnv2021_depenses,produit2021_plus.dta
+2021,national,Tunisia,all,COICOP function,6,expenditure_pc_by_function,609.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2021,national,Tunisia,all,COICOP function,6,expenditure_pc_by_function,609.007504953494,DT per year,recomputed,revised (2011),ebcnv2021_depenses,produit2021_plus.dta
+2021,national,Tunisia,all,COICOP function,7,expenditure_pc_by_function,375.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2021,national,Tunisia,all,COICOP function,7,expenditure_pc_by_function,375.38437303115865,DT per year,recomputed,revised (2011),ebcnv2021_depenses,produit2021_plus.dta
+2021,national,Tunisia,all,COICOP function,8,expenditure_pc_by_function,224.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2021,national,Tunisia,all,COICOP function,8,expenditure_pc_by_function,223.87318789092848,DT per year,recomputed,revised (2011),ebcnv2021_depenses,produit2021_plus.dta
+2021,national,Tunisia,all,COICOP function,9,expenditure_pc_by_function,46.0,DT per year,published,,ebcnv2021_note,Tableau 4
+2021,national,Tunisia,all,COICOP function,9,expenditure_pc_by_function,46.112219189906,DT per year,recomputed,revised (2011),ebcnv2021_depenses,produit2021_plus.dta
+1985,national,Tunisia,all,,,expenditure_pc_mean,471.0,DT per year,published,,ebcnv2005_vol1,"chart, p.17"
+1990,national,Tunisia,all,,,expenditure_pc_mean,716.0,DT per year,published,,ebcnv2005_vol1,Jadwal 2
+1990,national,Tunisia,rural,,,expenditure_pc_mean,460.0,DT per year,published,,ebcnv2005_vol1,Jadwal 2
+1990,national,Tunisia,urban,,,expenditure_pc_mean,890.0,DT per year,published,,ebcnv2005_vol1,Jadwal 2
+1990,region,Centre East,all,,,expenditure_pc_mean,806.0,DT per year,published,,ebcnv2005_vol1,Jadwal 3
+1990,region,Centre West,all,,,expenditure_pc_mean,502.0,DT per year,published,,ebcnv2005_vol1,Jadwal 3
+1990,region,Grand Tunis,all,,,expenditure_pc_mean,1007.0,DT per year,published,,ebcnv2005_vol1,Jadwal 3
+1990,region,North East,all,,,expenditure_pc_mean,760.0,DT per year,published,,ebcnv2005_vol1,Jadwal 3
+1990,region,North West,all,,,expenditure_pc_mean,501.0,DT per year,published,,ebcnv2005_vol1,Jadwal 3
+1990,region,South East,all,,,expenditure_pc_mean,600.0,DT per year,published,,ebcnv2005_vol1,Jadwal 3
+1990,region,South West,all,,,expenditure_pc_mean,521.0,DT per year,published,,ebcnv2005_vol1,Jadwal 3
+1995,national,Tunisia,all,,,expenditure_pc_mean,966.0,DT per year,published,,ebcnv2005_vol1,Jadwal 2
+1995,national,Tunisia,rural,,,expenditure_pc_mean,581.0,DT per year,published,,ebcnv2005_vol1,Jadwal 2
+1995,national,Tunisia,urban,,,expenditure_pc_mean,1209.0,DT per year,published,,ebcnv2005_vol1,Jadwal 2
+1995,region,Centre East,all,,,expenditure_pc_mean,1275.0,DT per year,published,,ebcnv2005_vol1,Jadwal 3
+1995,region,Centre West,all,,,expenditure_pc_mean,586.0,DT per year,published,,ebcnv2005_vol1,Jadwal 3
+1995,region,Grand Tunis,all,,,expenditure_pc_mean,1289.0,DT per year,published,,ebcnv2005_vol1,Jadwal 3
+1995,region,North East,all,,,expenditure_pc_mean,958.0,DT per year,published,,ebcnv2005_vol1,Jadwal 3
+1995,region,North West,all,,,expenditure_pc_mean,677.0,DT per year,published,,ebcnv2005_vol1,Jadwal 3
+1995,region,South East,all,,,expenditure_pc_mean,739.0,DT per year,published,,ebcnv2005_vol1,Jadwal 3
+1995,region,South West,all,,,expenditure_pc_mean,711.0,DT per year,published,,ebcnv2005_vol1,Jadwal 3
+2000,national,Tunisia,all,,,expenditure_pc_mean,1329.0,DT per year,published,,ebcnv2005_vol1,Jadwal 2
+2000,national,Tunisia,rural,,,expenditure_pc_mean,864.0,DT per year,published,,ebcnv2005_vol1,Jadwal 2
+2000,national,Tunisia,urban,,,expenditure_pc_mean,1604.0,DT per year,published,,ebcnv2005_vol1,Jadwal 2
+2000,region,Centre East,all,,,expenditure_pc_mean,1594.0,DT per year,published,,ebcnv2005_vol1,Jadwal 3
+2000,region,Centre West,all,,,expenditure_pc_mean,909.0,DT per year,published,,ebcnv2005_vol1,Jadwal 3
+2000,region,Grand Tunis,all,,,expenditure_pc_mean,1761.0,DT per year,published,,ebcnv2005_vol1,Jadwal 3
+2000,region,North East,all,,,expenditure_pc_mean,1190.0,DT per year,published,,ebcnv2005_vol1,Jadwal 3
+2000,region,North West,all,,,expenditure_pc_mean,1103.0,DT per year,published,,ebcnv2005_vol1,Jadwal 3
+2000,region,South East,all,,,expenditure_pc_mean,1097.0,DT per year,published,,ebcnv2005_vol1,Jadwal 3
+2000,region,South West,all,,,expenditure_pc_mean,1017.0,DT per year,published,,ebcnv2005_vol1,Jadwal 3
+2005,national,Tunisia,all,,,expenditure_pc_mean,1820.0,DT per year,published,,ebcnv2005_vol1,Jadwal 2
+2005,national,Tunisia,rural,,,expenditure_pc_mean,1161.0,DT per year,published,,ebcnv2005_vol1,Jadwal 2
+2005,national,Tunisia,urban,,,expenditure_pc_mean,2171.0,DT per year,published,,ebcnv2005_vol1,Jadwal 2
+2005,region,Centre East,all,,,expenditure_pc_mean,2084.0,DT per year,published,,ebcnv2005_vol1,Jadwal 3
+2005,region,Centre East,rural,,,expenditure_pc_mean,1411.0,DT per year,published,,ebcnv2005_vol1,Jadwal 4
+2005,region,Centre East,urban,,,expenditure_pc_mean,2344.0,DT per year,published,,ebcnv2005_vol1,Jadwal 4
+2005,region,Centre West,all,,,expenditure_pc_mean,1138.0,DT per year,published,,ebcnv2005_vol1,Jadwal 3
+2005,region,Centre West,rural,,,expenditure_pc_mean,890.0,DT per year,published,,ebcnv2005_vol1,Jadwal 4
+2005,region,Centre West,urban,,,expenditure_pc_mean,1652.0,DT per year,published,,ebcnv2005_vol1,Jadwal 4
+2005,region,Grand Tunis,all,,,expenditure_pc_mean,2390.0,DT per year,published,,ebcnv2005_vol1,Jadwal 3
+2005,region,Grand Tunis,rural,,,expenditure_pc_mean,1386.0,DT per year,published,,ebcnv2005_vol1,Jadwal 4
+2005,region,Grand Tunis,urban,,,expenditure_pc_mean,2475.0,DT per year,published,,ebcnv2005_vol1,Jadwal 4
+2005,region,North East,all,,,expenditure_pc_mean,1613.0,DT per year,published,,ebcnv2005_vol1,Jadwal 3
+2005,region,North East,rural,,,expenditure_pc_mean,1189.0,DT per year,published,,ebcnv2005_vol1,Jadwal 4
+2005,region,North East,urban,,,expenditure_pc_mean,1884.0,DT per year,published,,ebcnv2005_vol1,Jadwal 4
+2005,region,North West,all,,,expenditure_pc_mean,1416.0,DT per year,published,,ebcnv2005_vol1,Jadwal 3
+2005,region,North West,rural,,,expenditure_pc_mean,1162.0,DT per year,published,,ebcnv2005_vol1,Jadwal 4
+2005,region,North West,urban,,,expenditure_pc_mean,1841.0,DT per year,published,,ebcnv2005_vol1,Jadwal 4
+2005,region,South East,all,,,expenditure_pc_mean,1826.0,DT per year,published,,ebcnv2005_vol1,Jadwal 3
+2005,region,South East,rural,,,expenditure_pc_mean,1424.0,DT per year,published,,ebcnv2005_vol1,Jadwal 4
+2005,region,South East,urban,,,expenditure_pc_mean,1989.0,DT per year,published,,ebcnv2005_vol1,Jadwal 4
+2005,region,South West,all,,,expenditure_pc_mean,1466.0,DT per year,published,,ebcnv2005_vol1,Jadwal 3
+2005,region,South West,rural,,,expenditure_pc_mean,965.0,DT per year,published,,ebcnv2005_vol1,Jadwal 4
+2005,region,South West,urban,,,expenditure_pc_mean,1702.0,DT per year,published,,ebcnv2005_vol1,Jadwal 4
+2015,national,Tunisia,all,,,expenditure_pc_mean,3871.0,DT per year,published,,ebcnv2021_note,Tableau 1
+2015,national,Tunisia,all,expenditure quintile,Quintile 1,expenditure_pc_mean,1392.0,DT per year,published,,ebcnv2021_note,Tableau 3
+2015,national,Tunisia,all,expenditure quintile,Quintile 2,expenditure_pc_mean,2228.0,DT per year,published,,ebcnv2021_note,Tableau 3
+2015,national,Tunisia,all,expenditure quintile,Quintile 3,expenditure_pc_mean,3014.0,DT per year,published,,ebcnv2021_note,Tableau 3
+2015,national,Tunisia,all,expenditure quintile,Quintile 4,expenditure_pc_mean,4176.0,DT per year,published,,ebcnv2021_note,Tableau 3
+2015,national,Tunisia,all,expenditure quintile,Quintile 5,expenditure_pc_mean,8548.0,DT per year,published,,ebcnv2021_note,Tableau 3
+2015,national,Tunisia,rural,,,expenditure_pc_mean,2585.0,DT per year,published,,ebcnv2021_note,Tableau 1
+2015,national,Tunisia,urban,,,expenditure_pc_mean,4465.0,DT per year,published,,ebcnv2021_note,Tableau 1
+2015,region,Centre East,all,,,expenditure_pc_mean,4309.0,DT per year,published,,ebcnv2021_note,Tableau 2
+2015,region,Centre West,all,,,expenditure_pc_mean,2466.0,DT per year,published,,ebcnv2021_note,Tableau 2
+2015,region,Grand Tunis,all,,,expenditure_pc_mean,5312.0,DT per year,published,,ebcnv2021_note,Tableau 2
+2015,region,North East,all,,,expenditure_pc_mean,3440.0,DT per year,published,,ebcnv2021_note,Tableau 2
+2015,region,North West,all,,,expenditure_pc_mean,2696.0,DT per year,published,,ebcnv2021_note,Tableau 2
+2015,region,South East,all,,,expenditure_pc_mean,3250.0,DT per year,published,,ebcnv2021_note,Tableau 2
+2015,region,South West,all,,,expenditure_pc_mean,3077.0,DT per year,published,,ebcnv2021_note,Tableau 2
+2021,national,Tunisia,all,,,expenditure_pc_mean,5468.0,DT per year,published,,ebcnv2021_note,Tableau 1
+2021,national,Tunisia,all,,,expenditure_pc_mean,5468.349800343091,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,expenditure quintile,Quintile 1,expenditure_pc_mean,2014.0,DT per year,published,,ebcnv2021_note,Tableau 3
+2021,national,Tunisia,all,expenditure quintile,Quintile 2,expenditure_pc_mean,3258.0,DT per year,published,,ebcnv2021_note,Tableau 3
+2021,national,Tunisia,all,expenditure quintile,Quintile 3,expenditure_pc_mean,4382.0,DT per year,published,,ebcnv2021_note,Tableau 3
+2021,national,Tunisia,all,expenditure quintile,Quintile 4,expenditure_pc_mean,5921.0,DT per year,published,,ebcnv2021_note,Tableau 3
+2021,national,Tunisia,all,expenditure quintile,Quintile 5,expenditure_pc_mean,11767.0,DT per year,published,,ebcnv2021_note,Tableau 3
+2021,national,Tunisia,all,head education,higher,expenditure_pc_mean,8651.085337980066,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head education,none,expenditure_pc_mean,4479.424147211801,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head education,primary,expenditure_pc_mean,4675.226078471737,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head education,secondary,expenditure_pc_mean,6017.357073991844,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,agricultural workers,expenditure_pc_mean,3472.1121993949923,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,"employers in industry, trade and services",expenditure_pc_mean,6120.263807001674,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,farm operators,expenditure_pc_mean,4617.189915843399,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,mid-level managers and professionals,expenditure_pc_mean,6462.328095137947,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,non-agricultural workers,expenditure_pc_mean,4147.989989036846,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,other employees,expenditure_pc_mean,5563.415753723321,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,other inactive,expenditure_pc_mean,5032.187558758497,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,"own-account workers and artisans in industry, trade and services",expenditure_pc_mean,5051.590354017492,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,retired,expenditure_pc_mean,6849.0469873986585,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,senior managers and professionals,expenditure_pc_mean,7992.82542169012,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,unemployed,expenditure_pc_mean,3850.7602150166344,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,rural,,,expenditure_pc_mean,4041.0,DT per year,published,,ebcnv2021_note,Tableau 1
+2021,national,Tunisia,rural,,,expenditure_pc_mean,4041.2509396869395,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,urban,,,expenditure_pc_mean,6141.0,DT per year,published,,ebcnv2021_note,Tableau 1
+2021,national,Tunisia,urban,,,expenditure_pc_mean,6141.063482283888,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre East,all,,,expenditure_pc_mean,6130.0,DT per year,published,,ebcnv2021_note,Tableau 2
+2021,region,Centre East,all,,,expenditure_pc_mean,6129.936427327479,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre East,rural,,,expenditure_pc_mean,4652.058645638277,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre East,urban,,,expenditure_pc_mean,6684.209797738917,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre West,all,,,expenditure_pc_mean,3614.0,DT per year,published,,ebcnv2021_note,Tableau 2
+2021,region,Centre West,all,,,expenditure_pc_mean,3614.069608796669,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre West,rural,,,expenditure_pc_mean,3278.619298031362,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre West,urban,,,expenditure_pc_mean,4228.886300964308,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Grand Tunis,all,,,expenditure_pc_mean,6874.0,DT per year,published,,ebcnv2021_note,Tableau 2
+2021,region,Grand Tunis,all,,,expenditure_pc_mean,6874.399643786164,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Grand Tunis,rural,,,expenditure_pc_mean,4840.618645109389,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Grand Tunis,urban,,,expenditure_pc_mean,7062.0007143302755,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North East,all,,,expenditure_pc_mean,5057.0,DT per year,published,,ebcnv2021_note,Tableau 2
+2021,region,North East,all,,,expenditure_pc_mean,5056.570743067622,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North East,rural,,,expenditure_pc_mean,4129.924808468377,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North East,urban,,,expenditure_pc_mean,5572.166273969444,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North West,all,,,expenditure_pc_mean,4493.0,DT per year,published,,ebcnv2021_note,Tableau 2
+2021,region,North West,all,,,expenditure_pc_mean,4493.434593313379,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North West,rural,,,expenditure_pc_mean,4087.198648567678,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North West,urban,,,expenditure_pc_mean,5058.615570897553,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South East,all,,,expenditure_pc_mean,4675.0,DT per year,published,,ebcnv2021_note,Tableau 2
+2021,region,South East,all,,,expenditure_pc_mean,4675.170921454271,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South East,rural,,,expenditure_pc_mean,3729.75816961305,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South East,urban,,,expenditure_pc_mean,5021.838167641007,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South West,all,,,expenditure_pc_mean,4847.0,DT per year,published,,ebcnv2021_note,Tableau 2
+2021,region,South West,all,,,expenditure_pc_mean,4846.727904256693,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South West,rural,,,expenditure_pc_mean,4493.32899068335,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South West,urban,,,expenditure_pc_mean,5012.309148283847,DT per year,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2015,national,Tunisia,all,,,expenditure_share,100.0,percent,published,revised (2011),ebcnv2021_note,Tableau 10
+2015,region,Centre East,all,,,expenditure_share,26.8,percent,published,revised (2011),ebcnv2021_note,Tableau 10
+2015,region,Centre West,all,,,expenditure_share,8.0,percent,published,revised (2011),ebcnv2021_note,Tableau 10
+2015,region,Grand Tunis,all,,,expenditure_share,33.7,percent,published,revised (2011),ebcnv2021_note,Tableau 10
+2015,region,North East,all,,,expenditure_share,12.0,percent,published,revised (2011),ebcnv2021_note,Tableau 10
+2015,region,North West,all,,,expenditure_share,7.1,percent,published,revised (2011),ebcnv2021_note,Tableau 10
+2015,region,South East,all,,,expenditure_share,7.9,percent,published,revised (2011),ebcnv2021_note,Tableau 10
+2015,region,South West,all,,,expenditure_share,4.6,percent,published,revised (2011),ebcnv2021_note,Tableau 10
+2021,national,Tunisia,all,,,expenditure_share,100.0,percent,published,revised (2011),ebcnv2021_note,Tableau 10
+2021,region,Centre East,all,,,expenditure_share,26.8,percent,published,revised (2011),ebcnv2021_note,Tableau 10
+2021,region,Centre West,all,,,expenditure_share,8.6,percent,published,revised (2011),ebcnv2021_note,Tableau 10
+2021,region,Grand Tunis,all,,,expenditure_share,30.7,percent,published,revised (2011),ebcnv2021_note,Tableau 10
+2021,region,North East,all,,,expenditure_share,13.0,percent,published,revised (2011),ebcnv2021_note,Tableau 10
+2021,region,North West,all,,,expenditure_share,8.3,percent,published,revised (2011),ebcnv2021_note,Tableau 10
+2021,region,South East,all,,,expenditure_share,7.8,percent,published,revised (2011),ebcnv2021_note,Tableau 10
+2021,region,South West,all,,,expenditure_share,4.8,percent,published,revised (2011),ebcnv2021_note,Tableau 10
+2005,national,Tunisia,all,,,extreme_poverty_line,546.0,DT per person per year,published,revised (2011),ebcnv2021_note,Tableau 5
+2005,national,Tunisia,rural,,,extreme_poverty_line,506.0,DT per person per year,published,revised (2011),ebcnv2021_note,Tableau 5
+2005,national,Tunisia,urban,,,extreme_poverty_line,567.0,DT per person per year,published,revised (2011),ebcnv2021_note,Tableau 5
+2010,national,Tunisia,all,,,extreme_poverty_line,733.0,DT per person per year,published,revised (2011),ebcnv2021_note,Tableau 5
+2010,national,Tunisia,rural,,,extreme_poverty_line,679.0,DT per person per year,published,revised (2011),ebcnv2021_note,Tableau 5
+2010,national,Tunisia,urban,,,extreme_poverty_line,761.0,DT per person per year,published,revised (2011),ebcnv2021_note,Tableau 5
+2015,national,Tunisia,all,,,extreme_poverty_line,1032.0,DT per person per year,published,revised (2011),ebcnv2021_note,Tableau 5
+2015,national,Tunisia,rural,,,extreme_poverty_line,952.0,DT per person per year,published,revised (2011),ebcnv2021_note,Tableau 5
+2015,national,Tunisia,urban,,,extreme_poverty_line,1070.0,DT per person per year,published,revised (2011),ebcnv2021_note,Tableau 5
+2021,national,Tunisia,all,,,extreme_poverty_line,1471.0,DT per person per year,published,revised (2011),ebcnv2021_note,Tableau 5
+2021,national,Tunisia,rural,,,extreme_poverty_line,1347.0,DT per person per year,published,revised (2011),ebcnv2021_note,Tableau 5
+2021,national,Tunisia,urban,,,extreme_poverty_line,1529.0,DT per person per year,published,revised (2011),ebcnv2021_note,Tableau 5
+2005,national,Tunisia,all,,,extreme_poverty_rate,7.4,percent,published,revised (2011),ebcnv2021_note,Tableau 6
+2005,national,Tunisia,rural,,,extreme_poverty_rate,15.5,percent,published,revised (2011),ebcnv2021_note,Tableau 6
+2005,national,Tunisia,urban,,,extreme_poverty_rate,3.0,percent,published,revised (2011),ebcnv2021_note,Tableau 6
+2005,region,Centre East,all,,,extreme_poverty_rate,2.7,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2005,region,Centre West,all,,,extreme_poverty_rate,25.0,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2005,region,Grand Tunis,all,,,extreme_poverty_rate,1.8,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2005,region,North East,all,,,extreme_poverty_rate,4.9,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2005,region,North West,all,,,extreme_poverty_rate,8.5,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2005,region,South East,all,,,extreme_poverty_rate,6.9,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2005,region,South West,all,,,extreme_poverty_rate,10.8,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2010,national,Tunisia,all,,,extreme_poverty_rate,6.0,percent,published,revised (2011),ebcnv2021_note,Tableau 6
+2010,national,Tunisia,rural,,,extreme_poverty_rate,13.6,percent,published,revised (2011),ebcnv2021_note,Tableau 6
+2010,national,Tunisia,urban,,,extreme_poverty_rate,2.1,percent,published,revised (2011),ebcnv2021_note,Tableau 6
+2010,region,Centre East,all,,,extreme_poverty_rate,2.3,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2010,region,Centre West,all,,,extreme_poverty_rate,17.4,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2010,region,Grand Tunis,all,,,extreme_poverty_rate,1.2,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2010,region,North East,all,,,extreme_poverty_rate,3.3,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2010,region,North West,all,,,extreme_poverty_rate,12.5,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2010,region,South East,all,,,extreme_poverty_rate,6.2,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2010,region,South West,all,,,extreme_poverty_rate,7.7,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2015,national,Tunisia,all,,,extreme_poverty_rate,2.9,percent,published,revised (2011),ebcnv2021_note,Tableau 6
+2015,national,Tunisia,rural,,,extreme_poverty_rate,6.6,percent,published,revised (2011),ebcnv2021_note,Tableau 6
+2015,national,Tunisia,urban,,,extreme_poverty_rate,1.2,percent,published,revised (2011),ebcnv2021_note,Tableau 6
+2015,region,Centre East,all,,,extreme_poverty_rate,1.9,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2015,region,Centre West,all,,,extreme_poverty_rate,8.4,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2015,region,Grand Tunis,all,,,extreme_poverty_rate,0.3,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2015,region,North East,all,,,extreme_poverty_rate,1.6,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2015,region,North West,all,,,extreme_poverty_rate,6.4,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2015,region,South East,all,,,extreme_poverty_rate,3.0,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2015,region,South West,all,,,extreme_poverty_rate,2.6,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2021,national,Tunisia,all,,,extreme_poverty_rate,2.9,percent,published,revised (2011),ebcnv2021_note,Tableau 6
+2021,national,Tunisia,all,,,extreme_poverty_rate,2.8670689356622945,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head education,higher,extreme_poverty_rate,0.8521712785002504,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head education,none,extreme_poverty_rate,4.9263959018250345,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head education,primary,extreme_poverty_rate,3.3612594664819495,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head education,secondary,extreme_poverty_rate,1.8251052681349411,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,agricultural workers,extreme_poverty_rate,8.759033088932611,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,"employers in industry, trade and services",extreme_poverty_rate,1.1718483685791312,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,farm operators,extreme_poverty_rate,4.464550740232025,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,mid-level managers and professionals,extreme_poverty_rate,1.994692883044399,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,non-agricultural workers,extreme_poverty_rate,3.703859362297953,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,other employees,extreme_poverty_rate,2.048715467949127,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,other inactive,extreme_poverty_rate,5.003070398240953,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,"own-account workers and artisans in industry, trade and services",extreme_poverty_rate,0.5930387927223697,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,retired,extreme_poverty_rate,0.6402025695209329,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,senior managers and professionals,extreme_poverty_rate,0.4668950538334259,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,unemployed,extreme_poverty_rate,7.120987328839587,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,rural,,,extreme_poverty_rate,5.3,percent,published,revised (2011),ebcnv2021_note,Tableau 6
+2021,national,Tunisia,rural,,,extreme_poverty_rate,5.319259024333534,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,urban,,,extreme_poverty_rate,1.7,percent,published,revised (2011),ebcnv2021_note,Tableau 6
+2021,national,Tunisia,urban,,,extreme_poverty_rate,1.7111421327985483,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre East,all,,,extreme_poverty_rate,2.1,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2021,region,Centre East,all,,,extreme_poverty_rate,2.0719847028941225,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre East,rural,,,extreme_poverty_rate,2.2855206464706357,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre East,urban,,,extreme_poverty_rate,1.9918987251383302,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre West,all,,,extreme_poverty_rate,7.2,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2021,region,Centre West,all,,,extreme_poverty_rate,7.249343630087431,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre West,rural,,,extreme_poverty_rate,9.645481967715776,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre West,urban,,,extreme_poverty_rate,2.8576772656838547,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Grand Tunis,all,,,extreme_poverty_rate,0.2,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2021,region,Grand Tunis,all,,,extreme_poverty_rate,0.23101044667651338,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Grand Tunis,rural,,,extreme_poverty_rate,0.0,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Grand Tunis,urban,,,extreme_poverty_rate,0.25231943084520386,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North East,all,,,extreme_poverty_rate,2.4,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2021,region,North East,all,,,extreme_poverty_rate,2.3960137320785493,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North East,rural,,,extreme_poverty_rate,4.46512866824045,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North East,urban,,,extreme_poverty_rate,1.2447364489502681,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North West,all,,,extreme_poverty_rate,4.6,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2021,region,North West,all,,,extreme_poverty_rate,4.587679501309963,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North West,rural,,,extreme_poverty_rate,6.021757299606695,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North West,urban,,,extreme_poverty_rate,2.5925003389134,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South East,all,,,extreme_poverty_rate,4.3,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2021,region,South East,all,,,extreme_poverty_rate,4.291969743340116,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South East,rural,,,extreme_poverty_rate,6.360436163761468,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South East,urban,,,extreme_poverty_rate,3.533497259865897,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South West,all,,,extreme_poverty_rate,3.4,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2021,region,South West,all,,,extreme_poverty_rate,3.439225143805476,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South West,rural,,,extreme_poverty_rate,0.8535380759845819,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South West,urban,,,extreme_poverty_rate,4.650720892407575,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2015,national,Tunisia,all,,,gini,36.5,index (0-100),published,revised (2011),ebcnv2021_note,Tableau 10
+2015,region,Centre East,all,,,gini,35.1,index (0-100),published,revised (2011),ebcnv2021_note,Tableau 10
+2015,region,Centre West,all,,,gini,32.0,index (0-100),published,revised (2011),ebcnv2021_note,Tableau 10
+2015,region,Grand Tunis,all,,,gini,35.6,index (0-100),published,revised (2011),ebcnv2021_note,Tableau 10
+2015,region,North East,all,,,gini,31.2,index (0-100),published,revised (2011),ebcnv2021_note,Tableau 10
+2015,region,North West,all,,,gini,32.8,index (0-100),published,revised (2011),ebcnv2021_note,Tableau 10
+2015,region,South East,all,,,gini,32.0,index (0-100),published,revised (2011),ebcnv2021_note,Tableau 10
+2015,region,South West,all,,,gini,29.6,index (0-100),published,revised (2011),ebcnv2021_note,Tableau 10
+2021,national,Tunisia,all,,,gini,35.3,index (0-100),published,revised (2011),ebcnv2021_note,Tableau 10
+2021,national,Tunisia,all,,,gini,35.319209357642144,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head education,higher,gini,34.02113830173693,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head education,none,gini,33.34132020758987,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head education,primary,gini,32.09254125142346,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head education,secondary,gini,34.43454570975257,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,agricultural workers,gini,29.652184285417896,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,"employers in industry, trade and services",gini,29.727056750852427,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,farm operators,gini,36.9444880604597,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,mid-level managers and professionals,gini,32.46364518710083,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,non-agricultural workers,gini,29.0585650308913,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,other employees,gini,34.702739664255645,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,other inactive,gini,36.558236965869504,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,"own-account workers and artisans in industry, trade and services",gini,26.514132908340564,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,retired,gini,31.318404413692797,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,senior managers and professionals,gini,34.975096654026245,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,unemployed,gini,40.53747733411036,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,rural,,,gini,33.73779089836103,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,urban,,,gini,33.797178159704444,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre East,all,,,gini,36.8,index (0-100),published,revised (2011),ebcnv2021_note,Tableau 10
+2021,region,Centre East,all,,,gini,36.80221057097246,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre East,rural,,,gini,30.625577105667467,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre East,urban,,,gini,37.61441819870153,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre West,all,,,gini,34.4,index (0-100),published,revised (2011),ebcnv2021_note,Tableau 10
+2021,region,Centre West,all,,,gini,34.35010795702568,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre West,rural,,,gini,34.94460931976088,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre West,urban,,,gini,30.917332203637315,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Grand Tunis,all,,,gini,30.4,index (0-100),published,revised (2011),ebcnv2021_note,Tableau 10
+2021,region,Grand Tunis,all,,,gini,30.35884660612378,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Grand Tunis,rural,,,gini,26.626301579108702,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Grand Tunis,urban,,,gini,30.149984655104596,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North East,all,,,gini,31.5,index (0-100),published,revised (2011),ebcnv2021_note,Tableau 10
+2021,region,North East,all,,,gini,31.535680120887562,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North East,rural,,,gini,31.89713687334514,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North East,urban,,,gini,29.922251850056906,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North West,all,,,gini,34.7,index (0-100),published,revised (2011),ebcnv2021_note,Tableau 10
+2021,region,North West,all,,,gini,34.72911760016601,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North West,rural,,,gini,35.05270841632066,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North West,urban,,,gini,33.04660513958221,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South East,all,,,gini,32.7,index (0-100),published,revised (2011),ebcnv2021_note,Tableau 10
+2021,region,South East,all,,,gini,32.707954022915715,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South East,rural,,,gini,30.876803783588297,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South East,urban,,,gini,32.321863899940546,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South West,all,,,gini,32.7,index (0-100),published,revised (2011),ebcnv2021_note,Tableau 10
+2021,region,South West,all,,,gini,32.74956943416614,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South West,rural,,,gini,35.05272141505136,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South West,urban,,,gini,31.225513769345774,index (0-100),recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,,,poor_population,1951278.375968933,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head education,higher,poor_population,64408.91049194336,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head education,none,poor_population,470571.15016174316,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head education,primary,poor_population,995531.6413574219,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head education,secondary,poor_population,405338.9216079712,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,agricultural workers,poor_population,90900.17895507812,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,"employers in industry, trade and services",poor_population,9484.179107666016,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,farm operators,poor_population,177458.76023864746,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,mid-level managers and professionals,poor_population,26704.177703857422,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,non-agricultural workers,poor_population,637859.0314941406,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,other employees,poor_population,236474.9750366211,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,other inactive,poor_population,399453.94274139404,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,"own-account workers and artisans in industry, trade and services",poor_population,54193.60319519043,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,retired,poor_population,120675.28854370117,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,senior managers and professionals,poor_population,61984.37057495117,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,unemployed,poor_population,136089.86837768555,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,rural,,,poor_population,933501.1879043579,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,urban,,,poor_population,1017777.1880645752,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre East,all,,,poor_population,370679.98321533203,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre East,rural,,,poor_population,115429.33276367188,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre East,urban,,,poor_population,255250.65045166016,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre West,all,,,poor_population,563552.1683197021,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre West,rural,,,poor_population,393108.1009674072,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre West,urban,,,poor_population,170444.06735229492,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Grand Tunis,all,,,poor_population,135784.74336242676,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Grand Tunis,rural,,,poor_population,16374.48876953125,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Grand Tunis,urban,,,poor_population,119410.25459289551,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North East,all,,,poor_population,250934.69953918457,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North East,rural,,,poor_population,128578.41757202148,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North East,urban,,,poor_population,122356.28196716309,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North West,all,,,poor_population,266457.73668670654,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North West,rural,,,poor_population,166420.48265838623,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North West,urban,,,poor_population,100037.25402832031,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South East,all,,,poor_population,247509.22465515137,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South East,rural,,,poor_population,78484.67247009277,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South East,urban,,,poor_population,169024.5521850586,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South West,all,,,poor_population,116359.82019042969,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South West,rural,,,poor_population,35105.69270324707,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South West,urban,,,poor_population,81254.12748718262,persons,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2015,national,Tunisia,all,,,population_share,100.0,percent,published,revised (2011),ebcnv2021_note,Tableau 10
+2015,region,Centre East,all,,,population_share,24.1,percent,published,revised (2011),ebcnv2021_note,Tableau 10
+2015,region,Centre West,all,,,population_share,12.5,percent,published,revised (2011),ebcnv2021_note,Tableau 10
+2015,region,Grand Tunis,all,,,population_share,24.5,percent,published,revised (2011),ebcnv2021_note,Tableau 10
+2015,region,North East,all,,,population_share,13.5,percent,published,revised (2011),ebcnv2021_note,Tableau 10
+2015,region,North West,all,,,population_share,10.2,percent,published,revised (2011),ebcnv2021_note,Tableau 10
+2015,region,South East,all,,,population_share,9.4,percent,published,revised (2011),ebcnv2021_note,Tableau 10
+2015,region,South West,all,,,population_share,5.8,percent,published,revised (2011),ebcnv2021_note,Tableau 10
+2021,national,Tunisia,all,,,population_share,100.0,percent,published,revised (2011),ebcnv2021_note,Tableau 10
+2021,national,Tunisia,all,,,population_share,100.0,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head education,higher,population_share,10.7,percent,published,revised (2011),ebcnv2021_note,Tableau 8
+2021,national,Tunisia,all,head education,higher,population_share,10.704424918268925,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head education,none,population_share,17.0,percent,published,revised (2011),ebcnv2021_note,Tableau 8
+2021,national,Tunisia,all,head education,none,population_share,17.013283780229827,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head education,primary,population_share,41.7,percent,published,revised (2011),ebcnv2021_note,Tableau 8
+2021,national,Tunisia,all,head education,primary,population_share,41.65818599276703,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head education,secondary,population_share,29.4,percent,published,revised (2011),ebcnv2021_note,Tableau 8
+2021,national,Tunisia,all,head education,secondary,population_share,29.448573471478234,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,agricultural workers,population_share,2.4,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,agricultural workers,population_share,2.420530241522154,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,"employers in industry, trade and services",population_share,1.6,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,"employers in industry, trade and services",population_share,1.5827732765225906,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,farm operators,population_share,6.6,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,farm operators,population_share,6.625344566452315,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,mid-level managers and professionals,population_share,2.9,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,mid-level managers and professionals,population_share,2.9058678317637483,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,non-agricultural workers,population_share,22.2,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,non-agricultural workers,population_share,22.234050697399198,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,other employees,population_share,14.0,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,other employees,population_share,14.048098797405332,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,other inactive,population_share,15.7,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,other inactive,population_share,15.702991740080526,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,"own-account workers and artisans in industry, trade and services",population_share,4.1,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,"own-account workers and artisans in industry, trade and services",population_share,4.091528259781193,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,retired,population_share,19.1,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,retired,population_share,19.10545585090115,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,senior managers and professionals,population_share,8.4,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,senior managers and professionals,population_share,8.449699593465704,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,unemployed,population_share,2.8,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,unemployed,population_share,2.805323177917996,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,rural,,,population_share,32.03684463703683,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,urban,,,population_share,67.96315536296316,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre East,all,,,population_share,24.0,percent,published,revised (2011),ebcnv2021_note,Tableau 10
+2021,region,Centre East,all,,,population_share,23.952548129412413,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre East,rural,,,population_share,6.533106342954803,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre East,urban,,,population_share,17.41944178645761,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre West,all,,,population_share,12.9,percent,published,revised (2011),ebcnv2021_note,Tableau 10
+2021,region,Centre West,all,,,population_share,12.94028960082478,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre West,rural,,,population_share,8.37228486679526,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre West,urban,,,population_share,4.56800473402952,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Grand Tunis,all,,,population_share,24.4,percent,published,revised (2011),ebcnv2021_note,Tableau 10
+2021,region,Grand Tunis,all,,,population_share,24.429598085929847,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Grand Tunis,rural,,,population_share,2.0631384476287775,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Grand Tunis,urban,,,population_share,22.36645963830107,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North East,all,,,population_share,14.1,percent,published,revised (2011),ebcnv2021_note,Tableau 10
+2021,region,North East,all,,,population_share,14.084135542996574,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North East,rural,,,population_share,5.035021885230336,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North East,urban,,,population_share,9.049113657766238,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North West,all,,,population_share,10.1,percent,published,revised (2011),ebcnv2021_note,Tableau 10
+2021,region,North West,all,,,population_share,10.072780692321247,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North West,rural,,,population_share,5.860453846143615,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North West,urban,,,population_share,4.212326846177633,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South East,all,,,population_share,9.1,percent,published,revised (2011),ebcnv2021_note,Tableau 10
+2021,region,South East,all,,,population_share,9.063947984046605,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South East,rural,,,population_share,2.431872555882773,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South East,urban,,,population_share,6.632075428163832,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South West,all,,,population_share,5.5,percent,published,revised (2011),ebcnv2021_note,Tableau 10
+2021,region,South West,all,,,population_share,5.456699964468531,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South West,rural,,,population_share,1.7409666924012632,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South West,urban,,,population_share,3.715733272067268,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head education,higher,poverty_contribution_absolute,0.5,percent,published,revised (2011),ebcnv2021_note,Tableau 8
+2021,national,Tunisia,all,head education,none,poverty_contribution_absolute,4.0,percent,published,revised (2011),ebcnv2021_note,Tableau 8
+2021,national,Tunisia,all,head education,primary,poverty_contribution_absolute,8.5,percent,published,revised (2011),ebcnv2021_note,Tableau 8
+2021,national,Tunisia,all,head education,secondary,poverty_contribution_absolute,3.4,percent,published,revised (2011),ebcnv2021_note,Tableau 8
+2021,national,Tunisia,all,head socio-professional category,agricultural workers,poverty_contribution_absolute,0.8,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,"employers in industry, trade and services",poverty_contribution_absolute,0.1,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,farm operators,poverty_contribution_absolute,1.5,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,mid-level managers and professionals,poverty_contribution_absolute,0.2,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,non-agricultural workers,poverty_contribution_absolute,5.4,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,other employees,poverty_contribution_absolute,2.0,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,other inactive,poverty_contribution_absolute,3.4,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,"own-account workers and artisans in industry, trade and services",poverty_contribution_absolute,0.5,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,retired,poverty_contribution_absolute,1.0,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,senior managers and professionals,poverty_contribution_absolute,0.5,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,unemployed,poverty_contribution_absolute,1.2,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head education,higher,poverty_contribution_relative,3.3,percent,published,revised (2011),ebcnv2021_note,Tableau 8
+2021,national,Tunisia,all,head education,none,poverty_contribution_relative,24.1,percent,published,revised (2011),ebcnv2021_note,Tableau 8
+2021,national,Tunisia,all,head education,primary,poverty_contribution_relative,51.0,percent,published,revised (2011),ebcnv2021_note,Tableau 8
+2021,national,Tunisia,all,head education,secondary,poverty_contribution_relative,20.8,percent,published,revised (2011),ebcnv2021_note,Tableau 8
+2021,national,Tunisia,all,head socio-professional category,agricultural workers,poverty_contribution_relative,4.7,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,"employers in industry, trade and services",poverty_contribution_relative,0.5,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,farm operators,poverty_contribution_relative,9.1,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,mid-level managers and professionals,poverty_contribution_relative,1.4,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,non-agricultural workers,poverty_contribution_relative,32.7,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,other employees,poverty_contribution_relative,12.1,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,other inactive,poverty_contribution_relative,20.5,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,"own-account workers and artisans in industry, trade and services",poverty_contribution_relative,2.8,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,retired,poverty_contribution_relative,6.2,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,senior managers and professionals,poverty_contribution_relative,3.2,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,unemployed,poverty_contribution_relative,7.0,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2005,national,Tunisia,all,,,poverty_line,897.0,DT per person per year,published,revised (2011),ebcnv2021_note,Tableau 5
+2005,national,Tunisia,rural,,,poverty_line,798.0,DT per person per year,published,revised (2011),ebcnv2021_note,Tableau 5
+2005,national,Tunisia,urban,,,poverty_line,949.0,DT per person per year,published,revised (2011),ebcnv2021_note,Tableau 5
+2010,national,Tunisia,all,,,poverty_line,1206.0,DT per person per year,published,revised (2011),ebcnv2021_note,Tableau 5
+2010,national,Tunisia,rural,,,poverty_line,1070.0,DT per person per year,published,revised (2011),ebcnv2021_note,Tableau 5
+2010,national,Tunisia,urban,,,poverty_line,1275.0,DT per person per year,published,revised (2011),ebcnv2021_note,Tableau 5
+2015,national,Tunisia,all,,,poverty_line,1706.0,DT per person per year,published,revised (2011),ebcnv2021_note,Tableau 5
+2015,national,Tunisia,rural,,,poverty_line,1501.0,DT per person per year,published,revised (2011),ebcnv2021_note,Tableau 5
+2015,national,Tunisia,urban,,,poverty_line,1801.0,DT per person per year,published,revised (2011),ebcnv2021_note,Tableau 5
+2021,national,Tunisia,all,,,poverty_line,2536.0,DT per person per year,published,revised (2011),ebcnv2021_note,Tableau 5
+2021,national,Tunisia,rural,,,poverty_line,2224.0,DT per person per year,published,revised (2011),ebcnv2021_note,Tableau 5
+2021,national,Tunisia,urban,,,poverty_line,2683.0,DT per person per year,published,revised (2011),ebcnv2021_note,Tableau 5
+1995,national,Tunisia,all,,,poverty_rate,6.2,percent,published,pre-2011,ebcnv2005_vol1,"text, p.24"
+2000,national,Tunisia,all,,,poverty_rate,4.2,percent,published,pre-2011,ebcnv2005_vol1,"text, p.24"
+2005,national,Tunisia,all,,,poverty_rate,23.1,percent,published,revised (2011),ebcnv2021_note,Tableau 6
+2005,national,Tunisia,all,,,poverty_rate,3.8,percent,published,pre-2011,ebcnv2005_vol1,"text, p.24"
+2005,national,Tunisia,rural,,,poverty_rate,38.8,percent,published,revised (2011),ebcnv2021_note,Tableau 6
+2005,national,Tunisia,urban,,,poverty_rate,14.8,percent,published,revised (2011),ebcnv2021_note,Tableau 6
+2005,region,Centre East,all,,,poverty_rate,12.5,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2005,region,Centre West,all,,,poverty_rate,49.7,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2005,region,Grand Tunis,all,,,poverty_rate,12.3,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2005,region,North East,all,,,poverty_rate,21.8,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2005,region,North West,all,,,poverty_rate,29.6,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2005,region,South East,all,,,poverty_rate,24.5,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2005,region,South West,all,,,poverty_rate,32.3,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2010,national,Tunisia,all,,,poverty_rate,20.5,percent,published,revised (2011),ebcnv2021_note,Tableau 6
+2010,national,Tunisia,rural,,,poverty_rate,36.0,percent,published,revised (2011),ebcnv2021_note,Tableau 6
+2010,national,Tunisia,urban,,,poverty_rate,12.6,percent,published,revised (2011),ebcnv2021_note,Tableau 6
+2010,region,Centre East,all,,,poverty_rate,11.6,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2010,region,Centre West,all,,,poverty_rate,42.3,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2010,region,Grand Tunis,all,,,poverty_rate,11.1,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2010,region,North East,all,,,poverty_rate,15.2,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2010,region,North West,all,,,poverty_rate,36.2,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2010,region,South East,all,,,poverty_rate,20.7,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2010,region,South West,all,,,poverty_rate,25.9,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2015,national,Tunisia,all,,,poverty_rate,15.2,percent,published,revised (2011),ebcnv2021_note,Tableau 6
+2015,national,Tunisia,rural,,,poverty_rate,26.0,percent,published,revised (2011),ebcnv2021_note,Tableau 6
+2015,national,Tunisia,urban,,,poverty_rate,10.1,percent,published,revised (2011),ebcnv2021_note,Tableau 6
+2015,region,Centre East,all,,,poverty_rate,11.5,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2015,region,Centre West,all,,,poverty_rate,30.8,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2015,region,Grand Tunis,all,,,poverty_rate,5.3,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2015,region,North East,all,,,poverty_rate,11.6,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2015,region,North West,all,,,poverty_rate,28.4,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2015,region,South East,all,,,poverty_rate,18.6,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2015,region,South West,all,,,poverty_rate,17.6,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2019,national,Tunisia,all,,,poverty_rate,13.8,percent,published,"revised (2011), modelled from 2018-19 follow-up panel",ebcnv2021_note,"text, p.10"
+2021,national,Tunisia,all,,,poverty_rate,16.6,percent,published,revised (2011),ebcnv2021_note,Tableau 6
+2021,national,Tunisia,all,,,poverty_rate,16.59378763434349,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head education,higher,poverty_rate,5.1,percent,published,revised (2011),ebcnv2021_note,Tableau 8
+2021,national,Tunisia,all,head education,higher,poverty_rate,5.116923316581951,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head education,none,poverty_rate,23.5,percent,published,revised (2011),ebcnv2021_note,Tableau 8
+2021,national,Tunisia,all,head education,none,poverty_rate,23.52141518169927,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head education,primary,poverty_rate,20.3,percent,published,revised (2011),ebcnv2021_note,Tableau 8
+2021,national,Tunisia,all,head education,primary,poverty_rate,20.322681424511043,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head education,secondary,poverty_rate,11.7,percent,published,revised (2011),ebcnv2021_note,Tableau 8
+2021,national,Tunisia,all,head education,secondary,poverty_rate,11.705240516653351,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,agricultural workers,poverty_rate,31.9,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,agricultural workers,poverty_rate,31.936000119768,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,"employers in industry, trade and services",poverty_rate,5.1,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,"employers in industry, trade and services",poverty_rate,5.095740857237324,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,farm operators,poverty_rate,22.8,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,farm operators,poverty_rate,22.77798325965558,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,mid-level managers and professionals,poverty_rate,7.8,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,mid-level managers and professionals,poverty_rate,7.815011979414031,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,non-agricultural workers,poverty_rate,24.4,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,non-agricultural workers,poverty_rate,24.396774584625025,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,other employees,poverty_rate,14.3,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,other employees,poverty_rate,14.315085009903708,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,other inactive,poverty_rate,21.6,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,other inactive,poverty_rate,21.63269393930898,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,"own-account workers and artisans in industry, trade and services",poverty_rate,11.3,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,"own-account workers and artisans in industry, trade and services",poverty_rate,11.263899527319731,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,retired,poverty_rate,5.4,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,retired,poverty_rate,5.371396818896089,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,senior managers and professionals,poverty_rate,6.2,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,senior managers and professionals,poverty_rate,6.238313879986165,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,all,head socio-professional category,unemployed,poverty_rate,41.3,percent,published,revised (2011),ebcnv2021_note,Tableau 9
+2021,national,Tunisia,all,head socio-professional category,unemployed,poverty_rate,41.25429692971701,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,rural,,,poverty_rate,24.8,percent,published,revised (2011),ebcnv2021_note,Tableau 6
+2021,national,Tunisia,rural,,,poverty_rate,24.77943705874145,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,national,Tunisia,urban,,,poverty_rate,12.7,percent,published,revised (2011),ebcnv2021_note,Tableau 6
+2021,national,Tunisia,urban,,,poverty_rate,12.735191348427108,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre East,all,,,poverty_rate,13.2,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2021,region,Centre East,all,,,poverty_rate,13.160539990364484,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre East,rural,,,poverty_rate,15.025286220534252,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre East,urban,,,poverty_rate,12.461172836487355,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre West,all,,,poverty_rate,37.0,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2021,region,Centre West,all,,,poverty_rate,37.035347610340814,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre West,rural,,,poverty_rate,39.92953869681271,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Centre West,urban,,,poverty_rate,31.730845175312073,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Grand Tunis,all,,,poverty_rate,4.7,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2021,region,Grand Tunis,all,,,poverty_rate,4.726731681278822,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Grand Tunis,rural,,,poverty_rate,6.749407865395164,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,Grand Tunis,urban,,,poverty_rate,4.540154946737991,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North East,all,,,poverty_rate,15.2,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2021,region,North East,all,,,poverty_rate,15.151541518418526,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North East,rural,,,poverty_rate,21.71665889713026,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North East,urban,,,poverty_rate,11.498641253147762,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North West,all,,,poverty_rate,22.5,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2021,region,North West,all,,,poverty_rate,22.495997349971365,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North West,rural,,,poverty_rate,24.1491485609916,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,North West,urban,,,poverty_rate,20.19602948739398,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South East,all,,,poverty_rate,23.2,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2021,region,South East,all,,,poverty_rate,23.222035313853215,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South East,rural,,,poverty_rate,27.4454486490469,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South East,urban,,,poverty_rate,21.673379377524327,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South West,all,,,poverty_rate,18.1,percent,published,revised (2011),ebcnv2021_note,Tableau 7
+2021,region,South West,all,,,poverty_rate,18.134235968849012,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South West,rural,,,poverty_rate,17.14799627533928,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta
+2021,region,South West,urban,,,poverty_rate,18.5963279252421,percent,recomputed,revised (2011),ebcnv2021_depenses,pov_2021.dta

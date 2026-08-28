@@ -1,0 +1,1447 @@
+product_code,product_label_fr,consumption_function_code,consumption_function,consumption_function_fr
+151,POISSONS FRAIS,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1011,Blé dur en grain,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1012,Borghol,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1020,Semoule industriel en paquet,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1021,Semoule industrielle,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1022,Couscous industriel en paquet,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1023,Couscous industriel en vrac,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1024,M’hames industriel,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1025,Pâte  alimentaire en paquet,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1026,Pâte  alimentaire en vrac,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1027,Pain à base de semoule,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1028,Pain à base de son blé dur,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1029,"Autres produits à base de blé dur (soupe, nouasser, hlelem, ravioli préparé avec de la viande, des légumes, du fromage …)",1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1031,Blé tendre en grain,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1041,Farine de blé tendre industrielle en paquet,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1042,Farine de blé tendre industrielle en vrac,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1043,Gros pain de boulangerie,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1044,Baguette de boulangerie ou assimilé,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1045,Pain «grillé » (Bochmat),1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1046,Autre pain à base de farine (pain mbassès ; pain brioche…),1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1049,Autres produits à base de blé tendre( pate pizza…),1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1051,Orge en grain,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1061,Semoule d’orge en paquet,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1062,Semoule d’orge en vrac,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1063,Pain d’orge,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1069,Autres produits à base d’orge,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1071,Riz en grain ; en paquet,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1072,Riz en grain ; en vrac,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1073,Sorgho en grain,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1074,Maïs en grains,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1075,Farine de sorgho,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1076,Amidon,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1078,Mélange farine et semoule,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1079,Autres céréales transformées,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1080,Levure pour pain et pâtisserie,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1081,"Biscuit simple, Biscuit fourré, gaufrettes",1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1082,"Cake( prince, break...)",1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1083,Pâtisserie souk,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1084,Beignet souk,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1085,Bsissa,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1086,Farine lactée (Céréale ; Sha ; Sinlac …),1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1087,Malsouka (brik),1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1088,Dépense de pâtisserie maison non ventilées,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1089,"Autres produits à base de céréales (biscotte - grain d'or ,avoine,sans gluten…)",1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1091,"Frais de mouture (blé, orge, sorgho, condiments…)",1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1092,Frais de cuisson pour pain,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1093,Frais de cuisson pour gâteau ; maison,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1094,Frais de cuisson pour autres produits alimentaires,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1095,Frais pour égorger (aiguisage des couteaux),1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1099,Autres services relatifs aux produits alimentaires (Oula),1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1111,Fève sèche,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1112,Petit fève sèche,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1113,Pois chiche sec,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1114,Pois chiche moulu,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1115,Petit pois sec,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1116,Haricot sec,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1117,Lentilles sèches,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1118,Mélange de légumineuses sèches,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1119,Autres légumineuses sèches (Helba…),1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1121,Fève trempée,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1123,Pois chiche trempé,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1126,Haricot trempé,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1129,Autres légumineuses trempées,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1131,Fève vert,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1133,Pois chiche vert,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1135,Petit pois vers,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1136,Haricot vert,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1139,Autres légumineuses vertes (Helba...),1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1145,Petit pois en conserve,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1146,Haricot en conserve,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1149,Autres légumineuses en conserve,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1151,Sel,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1161,Poivre,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1162,Tabel,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1163,Carouia,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1164,Tabel et  Carouia,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1165,Cumin (camoun),1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1166,Korkom,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1167,Naânaâ sec,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1168,Mloukhia en poudre,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1169,Autres condiments,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1171,Naânaâ vert,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1172,Feuilles de coriandre (rand),1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1173,Mloukhia feuilles vertes,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1179,Autres condiments verts,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1181,Vinaigre,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1191,Condiments sans autres indications,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1201,Piments frais,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1211,Tomates fraîches,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1212,Tomates sèches,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1221,Oignon vert,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1222,Oignon sec,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1223,Ail sec,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1224,Ail vert,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1231,Navet,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1232,carotte,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1233,Radis,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1234,betterave,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1235,Poireaux,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1239,Autres légumes à bulbe et tubercules,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1241,Blette,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1242,Epinard,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1243,Choux,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1244,Feuille de fenouil,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1245,Salade verte (laitue…),1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1246,Persil,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1247,Cèleri,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1248,Choux fleur,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1249,Autres légumes à feuilles vertes,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1251,Pomme de terre,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1261,Aubergine,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1262,Courge,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1263,Courgette,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1264,Artichaut,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1265,Concombre,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1266,Cardon,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1267,Fenouil,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1268,Gombo,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1269,"Autres légumes (champignons,,,)",1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1271,Harissa industrielle,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1272,Harissa « diari »,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1273,Piment sec moulu,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1274,Piment sec en gousse,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1275,Salade michwia en boite,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1281,"Tomate en conserve industrielle (en boite, en vrac)",1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1282,Ketchup +sauce pizza +autre sauce(sauce barbacus…),1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1291,Olive en conserve,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1292,Variantes,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1293,Câpre en conserve,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1294,Piment frais en conserve,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1295,champignons en conserve,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1296,Maïs en conserve,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1299,Autres produits en conserve,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1301,Clémentine (mandarine),1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1303,Orange,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1304,Citron,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1309,Autres agrumes (pamplemousse…),1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1310,figue,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1311,Grenade,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1312,Raisin de table,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1313,Pomme,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1314,Poire,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1315,Melon,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1316,Pastèque,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1317,Fraise,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1318,Figue de barbarie,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1319,Autres fruits à pépins,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1321,Abricot,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1322,Nèfle,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1323,Pèche,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1324,Prune,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1325,Dattes vertes,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1326,Olives vertes (non en conserve),1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1327,capres vert,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1329,Autres fruits à noyaux (cerise),1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1330,Dattes degla,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1331,Dattes aligh,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1332,Kenta,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1333,Dattes communes,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1334,Raisin sec,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1335,Amande sèche avec coque,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1336,Amande sèche sans coque,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1337,Kharroub,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1338,Figue sèche,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1339,Autres fruits secs,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1341,Amande verte,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1342,Banane,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1343,Fruits de cueillette,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1349,Autres fruits non ventilés ailleurs,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1351,Arachide sèche décortiquée,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1352,Arachide sèche non décortiquée,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1353,"Pignon, pistache, noisette, noix, mélange",1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1354,Graine de courge et de tournesol,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1355,Graines de maïs grillé,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1356,Jeljlan + tahina,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1357,Zgougou,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1359,Autres graines et noix (et dépense ventilées),1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1361,"Fruits en conserve(péche,ananas...)",1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1401,Viande de mouton,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1402,Tête et pattes  de mouton,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1403,Mouton vivant,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1411,Viande bovine avec os,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1412,Viande bovine sans os,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1413,Viande de tête et pattes de  bovin,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1414,Veau ou bœuf vivant,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1415,Os de bœuf,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1419,Viande bovine sans indication,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1421,Viande de caprin,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1422,Tête et pattes de caprin,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1423,Chèvre ou chevreau vivant,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1431,Viande de chameau,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1432,Viande de tête de chameau,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1433,Chameau vivant,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1441,Tripes de mouton,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1442,Tripes de bœuf,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1443,Tripes de caprin,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1444,Tripes de chameau,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1445,Daouara de mouton,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1446,Daouara de caprin,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1447,Daouara sans indications,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1449,Autres (langue…),1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1451,Foie de mouton,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1452,Foie de bœuf,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1453,Foie de caprin,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1454,Foie de chameau,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1455,"Rognon, rognon blanc, cervelle",1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1461,Viande hachée bovine,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1462,Merguez,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1463,Salami de bœuf,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1471,Poulet vif,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1472,Poulet éplumé,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1473,Viande de poulet en détail (foie de poulet…),1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1474,Dindon vif,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1475,Escalope de dinde,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1476,"Autre viande de dinde (salami, quika...)",1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1477,Viande d’autruche,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1478,Lapin,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1479,"Autres volailles et gibiers (perdrix , alouette, caille, tourterelle…)",1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1481,Viande  chevaline,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1482,Merguez chevaline,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1483,Viande de porc,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1491,« knor » viandes,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1492,« knor » volailles,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1511,Sardine,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1512,Maquereau,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1513,Rouget,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1514,Pageau,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1515,Mulet,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1516,""" Sbares""",1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1517,loup de mer,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1518,daurade,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1519,Autres variétés de poisons frais,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1521,Poulpe frais,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1522,Seiche,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1523,Calamar,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1531,Escargot,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1532,Fruits de mer(écrevisse…),1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1533,"Crustacés (chevrette, crevettes, langouste)",1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1534,Poissons congelés,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1541,Poisons salés séchés,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1542,Poulpe séché,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1551,Thon en conserve,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1552,Sardine en conserve,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1553,Onchoua,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1554,Knor poisson,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1559,Autres poisons en conserve,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1601,Lait de vache frais ou caillé,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1602,Lait de chèvre frais ou caillé,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1603,Lait de brebis frais ou caillé,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1609,Lait frais sans indications (lait de chamelle…),1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1611,Petit lait frais de vache (lben),1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1612,Petit lait frais de chèvre (lben),1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1613,Petit lait frais de brebis,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1614,Petit lait en berlingot,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1615,Lait caillé en berlingot,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1619,Petit lait frais sans indications,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1621,"Lait naturel entier stérilisé (en bouteille plastique ou en carton tetrabrik) exemple : (Délice, Beldi, Vitalait…)",1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1622,Lait naturel demi-écrémé stérilisé,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1623,Lait naturel écrémé stérilisé (0% matière grace),1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1624,Lait naturel stérilisé sans indications,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1625,Lait pasteurisé,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1626,Lait régénéré stérilisé,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1627,Lait aromatisé stérilisé,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1629,Lait industriel sans autres indications,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1631,Lait concentré sucré(nestlé...),1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1632,Lait concentré non sucré,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1639,Lait concentré sans autres indications,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1641,Lait en poudre sucré,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1642,Lait en poudre non  sucré,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1643,lait en poudre pour bébé,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1649,Lait en poudre sans autres indications,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1651,Yaourt naturel,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1652,Yaourt aromatisé+mamzouj,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1653,Yaourt aux fruits,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1654,"Yaourt crème dessert (chocolat, flan, liégeoise…)",1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1655,"Yaourt à boire (DAN-UP, NOV-UP, YOGO…)",1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1656,"Autres types de Yaourt (petit suisse, jockey,,,)",1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1657,Crème fraiche,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1659,Yaourt sans autres indications,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1661,Fromage type Nestlé (morceau),1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1662,Fromage type gruyère,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1663,Fromage type rouge,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1664,Fromage « gervais »,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1665,Rigouta,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1666,Jebna frais,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1667,Fromage râpé,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1669,Fromage sans indications,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1671,Beurre animal,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1672,"Beurre végétale (goldina, jedida…)",1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1673,Smen,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1674,Crème légère,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1675,Crème chantilly,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1679,Autres produits laitiers,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1691,Œufs,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1692,"Produits à base d’œufs (mayonnaise, moutarde…)",1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1701,Sucre en morceau,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1702,Sucre cristallisé ou en poudre,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1703,Sucre vanillé,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1704,Sucre Glacé,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1705,Saccharine,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1706,Sucre Roux,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1711,Bonbon,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1712,Halwa chamia,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1713,Halkoum,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1714,Shwing gum,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1719,Autres produits sucrés (sucre nbet…),1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1721,Confiture et compôte de fruits,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1731,Miel d’abeille,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1732,"Chocolat (tablette, barre …)",1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1733,"Glace, thelja, gervais…",1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1734,Crème en poudre pour fabrication de glace,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1735,Crème en poudre pour fabrication,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1739,"Autres produits sucrés non indiqués ailleurs (fruits confis,sauce déssert, beurre de cacao...)",1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1811,Huile d’Olive emballé,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1812,Huile d’olive en vrac,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1821,Huile de graine végétale subventionné,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1822,Huile de maïs,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1823,Huile de tournesol,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1824,Huiles mélangées (huile d'olives et huile de graine végétale),1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1825,"Huile de friture (frit's,,,)",1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1826,Autres huiles (huile de colsa),1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1829,Autres huiles (soja…),1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1901,Thé noir,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1902,Thé vert,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1903,Café nature pur,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1904,Café nature mélangé,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1905,"Café (nescafé, Mawell,,,)",1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1906,Tisane,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1907,Thé infusion et autre infusion,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1908,Capsul café,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1909,Autres café,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1911,Eau minérale,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1912,Boisson gazeuse,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1913,"Boisson non gazeuse sucré (sirop, essence pour sirop…)",1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1914,Jus de fruits (en bouteille tetrabrik…),1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1915,Jus de légumes,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1916,Boisson infusion,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1917,Legmi doux,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1918,Boisson énergitique,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1919,Autres boissons,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1921,Pizza à domicile,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1922,Poulet à emporter,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1929,Autres plats cuisinés ou livrés à domicile,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1981,Graines de tournesol et de courge,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1982,Pois chiche grillé,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1983,"Amandes grillées, noix cajou",1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1984,Arachides grillées (cacahouète),1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1985,"Noix, noisettes, pistache, pignon, Mélange",1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1989,"Kaki, maïs grillé, pop-corn",1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+1999,"Dépenses alimentaires exceptionelles non ventilées (événement familial, fête religieuse…)",1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+2111,Bière,2,Alcohol and tobacco,Alcool et tabacs
+2112,Vin,2,Alcohol and tobacco,Alcool et tabacs
+2113,Liqueur,2,Alcohol and tobacco,Alcool et tabacs
+2114,Legmi fermenté,2,Alcohol and tobacco,Alcool et tabacs
+2119,Boissons alcoolisées sans indications,2,Alcohol and tobacco,Alcool et tabacs
+2121,Bière au bar,2,Alcohol and tobacco,Alcool et tabacs
+2122,Vin au bar,2,Alcohol and tobacco,Alcool et tabacs
+2123,Liqueur au bar,2,Alcohol and tobacco,Alcool et tabacs
+2124,Legmi fermenté au bar,2,Alcohol and tobacco,Alcool et tabacs
+2129,Boissons alcoolisées sans indications au bar,2,Alcohol and tobacco,Alcool et tabacs
+2211,Paquet de cigarette,2,Alcohol and tobacco,Alcool et tabacs
+2212,Cigarette (en détail),2,Alcohol and tobacco,Alcool et tabacs
+2213,Autre tabac (cigare…),2,Alcohol and tobacco,Alcool et tabacs
+2214,Nefa,2,Alcohol and tobacco,Alcool et tabacs
+2215,"Maâssel, chicha",2,Alcohol and tobacco,Alcool et tabacs
+2216,vape+recharge,2,Alcohol and tobacco,Alcool et tabacs
+2219,"Accessoires (pipe, étui à cigarettes, filtre, briquet, chicha, cendrier…)",2,Alcohol and tobacco,Alcool et tabacs
+3001,Costume,3,Clothing and footwear,Habillement
+3002,Costume,3,Clothing and footwear,Habillement
+3003,Costume,3,Clothing and footwear,Habillement
+3004,Costume,3,Clothing and footwear,Habillement
+3005,Costume,3,Clothing and footwear,Habillement
+3006,Costume,3,Clothing and footwear,Habillement
+3007,Costume,3,Clothing and footwear,Habillement
+3008,Costume,3,Clothing and footwear,Habillement
+3009,Costume,3,Clothing and footwear,Habillement
+3011,"Veste, blouson, veste « fourrure »",3,Clothing and footwear,Habillement
+3012,"Veste, blouson, veste « fourrure »",3,Clothing and footwear,Habillement
+3013,"Veste, blouson, veste « fourrure »",3,Clothing and footwear,Habillement
+3014,"Veste, blouson, veste « fourrure »",3,Clothing and footwear,Habillement
+3015,"Veste, blouson, veste « fourrure »",3,Clothing and footwear,Habillement
+3016,"Veste, blouson, veste « fourrure »",3,Clothing and footwear,Habillement
+3017,"Veste, blouson, veste « fourrure »",3,Clothing and footwear,Habillement
+3018,"Veste, blouson, veste « fourrure »",3,Clothing and footwear,Habillement
+3019,"Veste, blouson, veste « fourrure »",3,Clothing and footwear,Habillement
+3021,"Manteau, imperméable, cape, parkas...",3,Clothing and footwear,Habillement
+3022,"Manteau, imperméable, cape, parkas...",3,Clothing and footwear,Habillement
+3023,"Manteau, imperméable, cape, parkas...",3,Clothing and footwear,Habillement
+3024,"Manteau, imperméable, cape, parkas...",3,Clothing and footwear,Habillement
+3025,"Manteau, imperméable, cape, parkas...",3,Clothing and footwear,Habillement
+3026,"Manteau, imperméable, cape, parkas...",3,Clothing and footwear,Habillement
+3027,"Manteau, imperméable, cape, parkas...",3,Clothing and footwear,Habillement
+3028,"Manteau, imperméable, cape, parkas...",3,Clothing and footwear,Habillement
+3029,"Manteau, imperméable, cape, parkas...",3,Clothing and footwear,Habillement
+3031,"Robe, tailleur, ensemble",3,Clothing and footwear,Habillement
+3032,"Robe, tailleur, ensemble",3,Clothing and footwear,Habillement
+3033,"Robe, tailleur, ensemble",3,Clothing and footwear,Habillement
+3034,"Robe, tailleur, ensemble",3,Clothing and footwear,Habillement
+3035,"Robe, tailleur, ensemble",3,Clothing and footwear,Habillement
+3036,"Robe, tailleur, ensemble",3,Clothing and footwear,Habillement
+3037,"Robe, tailleur, ensemble",3,Clothing and footwear,Habillement
+3038,"Robe, tailleur, ensemble",3,Clothing and footwear,Habillement
+3039,"Robe, tailleur, ensemble",3,Clothing and footwear,Habillement
+3041,Pantalon jean,3,Clothing and footwear,Habillement
+3042,Pantalon jean,3,Clothing and footwear,Habillement
+3043,Pantalon jean,3,Clothing and footwear,Habillement
+3044,Pantalon jean,3,Clothing and footwear,Habillement
+3045,Pantalon jean,3,Clothing and footwear,Habillement
+3046,Pantalon jean,3,Clothing and footwear,Habillement
+3047,Pantalon jean,3,Clothing and footwear,Habillement
+3048,Pantalon jean,3,Clothing and footwear,Habillement
+3049,Pantalon jean,3,Clothing and footwear,Habillement
+3051,"Pantalon en autre tissu, pantacour",3,Clothing and footwear,Habillement
+3052,"Pantalon en autre tissu, pantacour",3,Clothing and footwear,Habillement
+3053,"Pantalon en autre tissu, pantacour",3,Clothing and footwear,Habillement
+3054,"Pantalon en autre tissu, pantacour",3,Clothing and footwear,Habillement
+3055,"Pantalon en autre tissu, pantacour",3,Clothing and footwear,Habillement
+3056,"Pantalon en autre tissu, pantacour",3,Clothing and footwear,Habillement
+3057,"Pantalon en autre tissu, pantacour",3,Clothing and footwear,Habillement
+3058,"Pantalon en autre tissu, pantacour",3,Clothing and footwear,Habillement
+3059,"Pantalon en autre tissu, pantacour",3,Clothing and footwear,Habillement
+3061,Short,3,Clothing and footwear,Habillement
+3062,Short,3,Clothing and footwear,Habillement
+3063,Short,3,Clothing and footwear,Habillement
+3064,Short,3,Clothing and footwear,Habillement
+3065,Short,3,Clothing and footwear,Habillement
+3066,Short,3,Clothing and footwear,Habillement
+3067,Short,3,Clothing and footwear,Habillement
+3068,Short,3,Clothing and footwear,Habillement
+3069,Short,3,Clothing and footwear,Habillement
+3071,"Jupe, jupe short",3,Clothing and footwear,Habillement
+3072,"Jupe, jupe short",3,Clothing and footwear,Habillement
+3073,"Jupe, jupe short",3,Clothing and footwear,Habillement
+3074,"Jupe, jupe short",3,Clothing and footwear,Habillement
+3075,"Jupe, jupe short",3,Clothing and footwear,Habillement
+3076,"Jupe, jupe short",3,Clothing and footwear,Habillement
+3077,"Jupe, jupe short",3,Clothing and footwear,Habillement
+3078,"Jupe, jupe short",3,Clothing and footwear,Habillement
+3079,"Jupe, jupe short",3,Clothing and footwear,Habillement
+3081,Tablier,3,Clothing and footwear,Habillement
+3082,Tablier,3,Clothing and footwear,Habillement
+3083,Tablier,3,Clothing and footwear,Habillement
+3084,Tablier,3,Clothing and footwear,Habillement
+3085,Tablier,3,Clothing and footwear,Habillement
+3086,Tablier,3,Clothing and footwear,Habillement
+3087,Tablier,3,Clothing and footwear,Habillement
+3088,Tablier,3,Clothing and footwear,Habillement
+3089,Tablier,3,Clothing and footwear,Habillement
+3091,Autres vêtements principaux modernes,3,Clothing and footwear,Habillement
+3092,Autres vêtements principaux modernes,3,Clothing and footwear,Habillement
+3093,Autres vêtements principaux modernes,3,Clothing and footwear,Habillement
+3094,Autres vêtements principaux modernes,3,Clothing and footwear,Habillement
+3095,Autres vêtements principaux modernes,3,Clothing and footwear,Habillement
+3096,Autres vêtements principaux modernes,3,Clothing and footwear,Habillement
+3097,Autres vêtements principaux modernes,3,Clothing and footwear,Habillement
+3098,Autres vêtements principaux modernes,3,Clothing and footwear,Habillement
+3099,Autres vêtements principaux modernes,3,Clothing and footwear,Habillement
+3101,"Kachabia, gadroun",3,Clothing and footwear,Habillement
+3102,"Kachabia, gadroun",3,Clothing and footwear,Habillement
+3103,"Kachabia, gadroun",3,Clothing and footwear,Habillement
+3104,"Kachabia, gadroun",3,Clothing and footwear,Habillement
+3105,"Kachabia, gadroun",3,Clothing and footwear,Habillement
+3106,"Kachabia, gadroun",3,Clothing and footwear,Habillement
+3107,"Kachabia, gadroun",3,Clothing and footwear,Habillement
+3108,"Kachabia, gadroun",3,Clothing and footwear,Habillement
+3109,"Kachabia, gadroun",3,Clothing and footwear,Habillement
+3111,Burnous,3,Clothing and footwear,Habillement
+3112,Burnous,3,Clothing and footwear,Habillement
+3113,Burnous,3,Clothing and footwear,Habillement
+3114,Burnous,3,Clothing and footwear,Habillement
+3115,Burnous,3,Clothing and footwear,Habillement
+3116,Burnous,3,Clothing and footwear,Habillement
+3117,Burnous,3,Clothing and footwear,Habillement
+3118,Burnous,3,Clothing and footwear,Habillement
+3119,Burnous,3,Clothing and footwear,Habillement
+3121,Jebba,3,Clothing and footwear,Habillement
+3122,Jebba,3,Clothing and footwear,Habillement
+3123,Jebba,3,Clothing and footwear,Habillement
+3124,Jebba,3,Clothing and footwear,Habillement
+3125,Jebba,3,Clothing and footwear,Habillement
+3126,Jebba,3,Clothing and footwear,Habillement
+3127,Jebba,3,Clothing and footwear,Habillement
+3128,Jebba,3,Clothing and footwear,Habillement
+3129,Jebba,3,Clothing and footwear,Habillement
+3131,Fouta et blousa,3,Clothing and footwear,Habillement
+3132,Fouta et blousa,3,Clothing and footwear,Habillement
+3133,Fouta et blousa,3,Clothing and footwear,Habillement
+3134,Fouta et blousa,3,Clothing and footwear,Habillement
+3135,Fouta et blousa,3,Clothing and footwear,Habillement
+3136,Fouta et blousa,3,Clothing and footwear,Habillement
+3137,Fouta et blousa,3,Clothing and footwear,Habillement
+3138,Fouta et blousa,3,Clothing and footwear,Habillement
+3139,Fouta et blousa,3,Clothing and footwear,Habillement
+3141,Koftane,3,Clothing and footwear,Habillement
+3142,Koftane,3,Clothing and footwear,Habillement
+3143,Koftane,3,Clothing and footwear,Habillement
+3144,Koftane,3,Clothing and footwear,Habillement
+3145,Koftane,3,Clothing and footwear,Habillement
+3146,Koftane,3,Clothing and footwear,Habillement
+3147,Koftane,3,Clothing and footwear,Habillement
+3148,Koftane,3,Clothing and footwear,Habillement
+3149,Koftane,3,Clothing and footwear,Habillement
+3151,"Safsari, haik, hrem",3,Clothing and footwear,Habillement
+3152,"Safsari, haik, hrem",3,Clothing and footwear,Habillement
+3153,"Safsari, haik, hrem",3,Clothing and footwear,Habillement
+3154,"Safsari, haik, hrem",3,Clothing and footwear,Habillement
+3155,"Safsari, haik, hrem",3,Clothing and footwear,Habillement
+3156,"Safsari, haik, hrem",3,Clothing and footwear,Habillement
+3157,"Safsari, haik, hrem",3,Clothing and footwear,Habillement
+3158,"Safsari, haik, hrem",3,Clothing and footwear,Habillement
+3159,"Safsari, haik, hrem",3,Clothing and footwear,Habillement
+3161,Melia,3,Clothing and footwear,Habillement
+3162,Melia,3,Clothing and footwear,Habillement
+3163,Melia,3,Clothing and footwear,Habillement
+3164,Melia,3,Clothing and footwear,Habillement
+3165,Melia,3,Clothing and footwear,Habillement
+3166,Melia,3,Clothing and footwear,Habillement
+3167,Melia,3,Clothing and footwear,Habillement
+3168,Melia,3,Clothing and footwear,Habillement
+3169,Melia,3,Clothing and footwear,Habillement
+3171,Seroual traditionnel,3,Clothing and footwear,Habillement
+3172,Seroual traditionnel,3,Clothing and footwear,Habillement
+3173,Seroual traditionnel,3,Clothing and footwear,Habillement
+3174,Seroual traditionnel,3,Clothing and footwear,Habillement
+3175,Seroual traditionnel,3,Clothing and footwear,Habillement
+3176,Seroual traditionnel,3,Clothing and footwear,Habillement
+3177,Seroual traditionnel,3,Clothing and footwear,Habillement
+3178,Seroual traditionnel,3,Clothing and footwear,Habillement
+3179,Seroual traditionnel,3,Clothing and footwear,Habillement
+3181,Fouta,3,Clothing and footwear,Habillement
+3182,Fouta,3,Clothing and footwear,Habillement
+3183,Fouta,3,Clothing and footwear,Habillement
+3184,Fouta,3,Clothing and footwear,Habillement
+3185,Fouta,3,Clothing and footwear,Habillement
+3186,Fouta,3,Clothing and footwear,Habillement
+3187,Fouta,3,Clothing and footwear,Habillement
+3188,Fouta,3,Clothing and footwear,Habillement
+3189,Fouta,3,Clothing and footwear,Habillement
+3191,Autres vêtements traditionnels,3,Clothing and footwear,Habillement
+3192,Autres vêtements traditionnels,3,Clothing and footwear,Habillement
+3193,Autres vêtements traditionnels,3,Clothing and footwear,Habillement
+3194,Autres vêtements traditionnels,3,Clothing and footwear,Habillement
+3195,Autres vêtements traditionnels,3,Clothing and footwear,Habillement
+3196,Autres vêtements traditionnels,3,Clothing and footwear,Habillement
+3197,Autres vêtements traditionnels,3,Clothing and footwear,Habillement
+3198,Autres vêtements traditionnels,3,Clothing and footwear,Habillement
+3199,Autres vêtements traditionnels,3,Clothing and footwear,Habillement
+3201,Chemise ou chemisier,3,Clothing and footwear,Habillement
+3202,Chemise ou chemisier,3,Clothing and footwear,Habillement
+3203,Chemise ou chemisier,3,Clothing and footwear,Habillement
+3204,Chemise ou chemisier,3,Clothing and footwear,Habillement
+3205,Chemise ou chemisier,3,Clothing and footwear,Habillement
+3206,Chemise ou chemisier,3,Clothing and footwear,Habillement
+3207,Chemise ou chemisier,3,Clothing and footwear,Habillement
+3208,Chemise ou chemisier,3,Clothing and footwear,Habillement
+3209,Chemise ou chemisier,3,Clothing and footwear,Habillement
+3211,"Pull over, gilet",3,Clothing and footwear,Habillement
+3212,"Pull over, gilet",3,Clothing and footwear,Habillement
+3213,"Pull over, gilet",3,Clothing and footwear,Habillement
+3214,"Pull over, gilet",3,Clothing and footwear,Habillement
+3215,"Pull over, gilet",3,Clothing and footwear,Habillement
+3216,"Pull over, gilet",3,Clothing and footwear,Habillement
+3217,"Pull over, gilet",3,Clothing and footwear,Habillement
+3218,"Pull over, gilet",3,Clothing and footwear,Habillement
+3219,"Pull over, gilet",3,Clothing and footwear,Habillement
+3221,Combinaison pour bébé,3,Clothing and footwear,Habillement
+3222,Combinaison pour bébé,3,Clothing and footwear,Habillement
+3223,Combinaison pour bébé,3,Clothing and footwear,Habillement
+3224,Combinaison pour bébé,3,Clothing and footwear,Habillement
+3225,Combinaison pour bébé,3,Clothing and footwear,Habillement
+3226,Combinaison pour bébé,3,Clothing and footwear,Habillement
+3227,Combinaison pour bébé,3,Clothing and footwear,Habillement
+3228,Combinaison pour bébé,3,Clothing and footwear,Habillement
+3229,Combinaison pour bébé,3,Clothing and footwear,Habillement
+3231,"Farmela, sidria, bidïa, mintène",3,Clothing and footwear,Habillement
+3232,"Farmela, sidria, bidïa, mintène",3,Clothing and footwear,Habillement
+3233,"Farmela, sidria, bidïa, mintène",3,Clothing and footwear,Habillement
+3234,"Farmela, sidria, bidïa, mintène",3,Clothing and footwear,Habillement
+3235,"Farmela, sidria, bidïa, mintène",3,Clothing and footwear,Habillement
+3236,"Farmela, sidria, bidïa, mintène",3,Clothing and footwear,Habillement
+3237,"Farmela, sidria, bidïa, mintène",3,Clothing and footwear,Habillement
+3238,"Farmela, sidria, bidïa, mintène",3,Clothing and footwear,Habillement
+3239,"Farmela, sidria, bidïa, mintène",3,Clothing and footwear,Habillement
+3241,"Pyjama, robe de chambre",3,Clothing and footwear,Habillement
+3242,"Pyjama, robe de chambre",3,Clothing and footwear,Habillement
+3243,"Pyjama, robe de chambre",3,Clothing and footwear,Habillement
+3244,"Pyjama, robe de chambre",3,Clothing and footwear,Habillement
+3245,"Pyjama, robe de chambre",3,Clothing and footwear,Habillement
+3246,"Pyjama, robe de chambre",3,Clothing and footwear,Habillement
+3247,"Pyjama, robe de chambre",3,Clothing and footwear,Habillement
+3248,"Pyjama, robe de chambre",3,Clothing and footwear,Habillement
+3249,"Pyjama, robe de chambre",3,Clothing and footwear,Habillement
+3251,"Survêtement, jogging",3,Clothing and footwear,Habillement
+3252,"Survêtement, jogging",3,Clothing and footwear,Habillement
+3253,"Survêtement, jogging",3,Clothing and footwear,Habillement
+3254,"Survêtement, jogging",3,Clothing and footwear,Habillement
+3255,"Survêtement, jogging",3,Clothing and footwear,Habillement
+3256,"Survêtement, jogging",3,Clothing and footwear,Habillement
+3257,"Survêtement, jogging",3,Clothing and footwear,Habillement
+3258,"Survêtement, jogging",3,Clothing and footwear,Habillement
+3259,"Survêtement, jogging",3,Clothing and footwear,Habillement
+3261,Caleçon en forme de pantalon pour femme,3,Clothing and footwear,Habillement
+3262,Caleçon en forme de pantalon pour femme,3,Clothing and footwear,Habillement
+3263,Caleçon en forme de pantalon pour femme,3,Clothing and footwear,Habillement
+3264,Caleçon en forme de pantalon pour femme,3,Clothing and footwear,Habillement
+3265,Caleçon en forme de pantalon pour femme,3,Clothing and footwear,Habillement
+3266,Caleçon en forme de pantalon pour femme,3,Clothing and footwear,Habillement
+3267,Caleçon en forme de pantalon pour femme,3,Clothing and footwear,Habillement
+3268,Caleçon en forme de pantalon pour femme,3,Clothing and footwear,Habillement
+3269,Caleçon en forme de pantalon pour femme,3,Clothing and footwear,Habillement
+3291,Autres linges de corps et linges de corps sans indications,3,Clothing and footwear,Habillement
+3292,Autres linges de corps et linges de corps sans indications,3,Clothing and footwear,Habillement
+3293,Autres linges de corps et linges de corps sans indications,3,Clothing and footwear,Habillement
+3294,Autres linges de corps et linges de corps sans indications,3,Clothing and footwear,Habillement
+3295,Autres linges de corps et linges de corps sans indications,3,Clothing and footwear,Habillement
+3296,Autres linges de corps et linges de corps sans indications,3,Clothing and footwear,Habillement
+3297,Autres linges de corps et linges de corps sans indications,3,Clothing and footwear,Habillement
+3298,Autres linges de corps et linges de corps sans indications,3,Clothing and footwear,Habillement
+3299,Autres linges de corps et linges de corps sans indications,3,Clothing and footwear,Habillement
+3301,Tricots de corps,3,Clothing and footwear,Habillement
+3302,Tricots de corps,3,Clothing and footwear,Habillement
+3303,Tricots de corps,3,Clothing and footwear,Habillement
+3304,Tricots de corps,3,Clothing and footwear,Habillement
+3305,Tricots de corps,3,Clothing and footwear,Habillement
+3306,Tricots de corps,3,Clothing and footwear,Habillement
+3307,Tricots de corps,3,Clothing and footwear,Habillement
+3308,Tricots de corps,3,Clothing and footwear,Habillement
+3309,Tricots de corps,3,Clothing and footwear,Habillement
+3311,"Tee shirt, sweat shirts",3,Clothing and footwear,Habillement
+3312,"Tee shirt, sweat shirts",3,Clothing and footwear,Habillement
+3313,"Tee shirt, sweat shirts",3,Clothing and footwear,Habillement
+3314,"Tee shirt, sweat shirts",3,Clothing and footwear,Habillement
+3315,"Tee shirt, sweat shirts",3,Clothing and footwear,Habillement
+3316,"Tee shirt, sweat shirts",3,Clothing and footwear,Habillement
+3317,"Tee shirt, sweat shirts",3,Clothing and footwear,Habillement
+3318,"Tee shirt, sweat shirts",3,Clothing and footwear,Habillement
+3319,"Tee shirt, sweat shirts",3,Clothing and footwear,Habillement
+3321,Tricots et pantalons en coton pour hommes,3,Clothing and footwear,Habillement
+3322,Tricots et pantalons en coton pour hommes,3,Clothing and footwear,Habillement
+3323,Tricots et pantalons en coton pour hommes,3,Clothing and footwear,Habillement
+3324,Tricots et pantalons en coton pour hommes,3,Clothing and footwear,Habillement
+3325,Tricots et pantalons en coton pour hommes,3,Clothing and footwear,Habillement
+3326,Tricots et pantalons en coton pour hommes,3,Clothing and footwear,Habillement
+3327,Tricots et pantalons en coton pour hommes,3,Clothing and footwear,Habillement
+3328,Tricots et pantalons en coton pour hommes,3,Clothing and footwear,Habillement
+3329,Tricots et pantalons en coton pour hommes,3,Clothing and footwear,Habillement
+3331,"Soutien gorge, gaine, justaucorps, body…",3,Clothing and footwear,Habillement
+3332,"Soutien gorge, gaine, justaucorps, body…",3,Clothing and footwear,Habillement
+3333,"Soutien gorge, gaine, justaucorps, body…",3,Clothing and footwear,Habillement
+3334,"Soutien gorge, gaine, justaucorps, body…",3,Clothing and footwear,Habillement
+3335,"Soutien gorge, gaine, justaucorps, body…",3,Clothing and footwear,Habillement
+3336,"Soutien gorge, gaine, justaucorps, body…",3,Clothing and footwear,Habillement
+3337,"Soutien gorge, gaine, justaucorps, body…",3,Clothing and footwear,Habillement
+3338,"Soutien gorge, gaine, justaucorps, body…",3,Clothing and footwear,Habillement
+3339,"Soutien gorge, gaine, justaucorps, body…",3,Clothing and footwear,Habillement
+3341,"Combinaison de femme, chemise de nuit",3,Clothing and footwear,Habillement
+3342,"Combinaison de femme, chemise de nuit",3,Clothing and footwear,Habillement
+3343,"Combinaison de femme, chemise de nuit",3,Clothing and footwear,Habillement
+3344,"Combinaison de femme, chemise de nuit",3,Clothing and footwear,Habillement
+3345,"Combinaison de femme, chemise de nuit",3,Clothing and footwear,Habillement
+3346,"Combinaison de femme, chemise de nuit",3,Clothing and footwear,Habillement
+3347,"Combinaison de femme, chemise de nuit",3,Clothing and footwear,Habillement
+3348,"Combinaison de femme, chemise de nuit",3,Clothing and footwear,Habillement
+3349,"Combinaison de femme, chemise de nuit",3,Clothing and footwear,Habillement
+3351,"Slip, culotte, maillot de bain",3,Clothing and footwear,Habillement
+3352,"Slip, culotte, maillot de bain",3,Clothing and footwear,Habillement
+3353,"Slip, culotte, maillot de bain",3,Clothing and footwear,Habillement
+3354,"Slip, culotte, maillot de bain",3,Clothing and footwear,Habillement
+3355,"Slip, culotte, maillot de bain",3,Clothing and footwear,Habillement
+3356,"Slip, culotte, maillot de bain",3,Clothing and footwear,Habillement
+3357,"Slip, culotte, maillot de bain",3,Clothing and footwear,Habillement
+3358,"Slip, culotte, maillot de bain",3,Clothing and footwear,Habillement
+3359,"Slip, culotte, maillot de bain",3,Clothing and footwear,Habillement
+3361,Couche en linge pour bébé (autre que couche pharmaceutique),3,Clothing and footwear,Habillement
+3362,Couche en linge pour bébé (autre que couche pharmaceutique),3,Clothing and footwear,Habillement
+3363,Couche en linge pour bébé (autre que couche pharmaceutique),3,Clothing and footwear,Habillement
+3364,Couche en linge pour bébé (autre que couche pharmaceutique),3,Clothing and footwear,Habillement
+3365,Couche en linge pour bébé (autre que couche pharmaceutique),3,Clothing and footwear,Habillement
+3366,Couche en linge pour bébé (autre que couche pharmaceutique),3,Clothing and footwear,Habillement
+3367,Couche en linge pour bébé (autre que couche pharmaceutique),3,Clothing and footwear,Habillement
+3368,Couche en linge pour bébé (autre que couche pharmaceutique),3,Clothing and footwear,Habillement
+3369,Couche en linge pour bébé (autre que couche pharmaceutique),3,Clothing and footwear,Habillement
+3391,Autres sous vêtement et sous vêtement sans indications,3,Clothing and footwear,Habillement
+3392,Autres sous vêtement et sous vêtement sans indications,3,Clothing and footwear,Habillement
+3393,Autres sous vêtement et sous vêtement sans indications,3,Clothing and footwear,Habillement
+3394,Autres sous vêtement et sous vêtement sans indications,3,Clothing and footwear,Habillement
+3395,Autres sous vêtement et sous vêtement sans indications,3,Clothing and footwear,Habillement
+3396,Autres sous vêtement et sous vêtement sans indications,3,Clothing and footwear,Habillement
+3397,Autres sous vêtement et sous vêtement sans indications,3,Clothing and footwear,Habillement
+3398,Autres sous vêtement et sous vêtement sans indications,3,Clothing and footwear,Habillement
+3399,Autres sous vêtement et sous vêtement sans indications,3,Clothing and footwear,Habillement
+3401,"Cravate, cache col",3,Clothing and footwear,Habillement
+3402,"Cravate, cache col",3,Clothing and footwear,Habillement
+3403,"Cravate, cache col",3,Clothing and footwear,Habillement
+3404,"Cravate, cache col",3,Clothing and footwear,Habillement
+3405,"Cravate, cache col",3,Clothing and footwear,Habillement
+3406,"Cravate, cache col",3,Clothing and footwear,Habillement
+3407,"Cravate, cache col",3,Clothing and footwear,Habillement
+3408,"Cravate, cache col",3,Clothing and footwear,Habillement
+3409,"Cravate, cache col",3,Clothing and footwear,Habillement
+3411,"Ceinture, hzem",3,Clothing and footwear,Habillement
+3412,"Ceinture, hzem",3,Clothing and footwear,Habillement
+3413,"Ceinture, hzem",3,Clothing and footwear,Habillement
+3414,"Ceinture, hzem",3,Clothing and footwear,Habillement
+3415,"Ceinture, hzem",3,Clothing and footwear,Habillement
+3416,"Ceinture, hzem",3,Clothing and footwear,Habillement
+3417,"Ceinture, hzem",3,Clothing and footwear,Habillement
+3418,"Ceinture, hzem",3,Clothing and footwear,Habillement
+3419,"Ceinture, hzem",3,Clothing and footwear,Habillement
+3421,"Chaussettes, bas, collant",3,Clothing and footwear,Habillement
+3422,"Chaussettes, bas, collant",3,Clothing and footwear,Habillement
+3423,"Chaussettes, bas, collant",3,Clothing and footwear,Habillement
+3424,"Chaussettes, bas, collant",3,Clothing and footwear,Habillement
+3425,"Chaussettes, bas, collant",3,Clothing and footwear,Habillement
+3426,"Chaussettes, bas, collant",3,Clothing and footwear,Habillement
+3427,"Chaussettes, bas, collant",3,Clothing and footwear,Habillement
+3428,"Chaussettes, bas, collant",3,Clothing and footwear,Habillement
+3429,"Chaussettes, bas, collant",3,Clothing and footwear,Habillement
+3431,Montre,3,Clothing and footwear,Habillement
+3432,Montre,3,Clothing and footwear,Habillement
+3433,Montre,3,Clothing and footwear,Habillement
+3434,Montre,3,Clothing and footwear,Habillement
+3435,Montre,3,Clothing and footwear,Habillement
+3436,Montre,3,Clothing and footwear,Habillement
+3437,Montre,3,Clothing and footwear,Habillement
+3438,Montre,3,Clothing and footwear,Habillement
+3439,Montre,3,Clothing and footwear,Habillement
+3441,Parapluie,3,Clothing and footwear,Habillement
+3442,Parapluie,3,Clothing and footwear,Habillement
+3443,Parapluie,3,Clothing and footwear,Habillement
+3444,Parapluie,3,Clothing and footwear,Habillement
+3445,Parapluie,3,Clothing and footwear,Habillement
+3446,Parapluie,3,Clothing and footwear,Habillement
+3447,Parapluie,3,Clothing and footwear,Habillement
+3448,Parapluie,3,Clothing and footwear,Habillement
+3449,Parapluie,3,Clothing and footwear,Habillement
+3451,"Sac à main, sacoche, porte feuille, pochette",3,Clothing and footwear,Habillement
+3452,"Sac à main, sacoche, porte feuille, pochette",3,Clothing and footwear,Habillement
+3453,"Sac à main, sacoche, porte feuille, pochette",3,Clothing and footwear,Habillement
+3454,"Sac à main, sacoche, porte feuille, pochette",3,Clothing and footwear,Habillement
+3455,"Sac à main, sacoche, porte feuille, pochette",3,Clothing and footwear,Habillement
+3456,"Sac à main, sacoche, porte feuille, pochette",3,Clothing and footwear,Habillement
+3457,"Sac à main, sacoche, porte feuille, pochette",3,Clothing and footwear,Habillement
+3458,"Sac à main, sacoche, porte feuille, pochette",3,Clothing and footwear,Habillement
+3459,"Sac à main, sacoche, porte feuille, pochette",3,Clothing and footwear,Habillement
+3461,Faux bijoux et autres effets similaires,3,Clothing and footwear,Habillement
+3462,Faux bijoux et autres effets similaires,3,Clothing and footwear,Habillement
+3463,Faux bijoux et autres effets similaires,3,Clothing and footwear,Habillement
+3464,Faux bijoux et autres effets similaires,3,Clothing and footwear,Habillement
+3465,Faux bijoux et autres effets similaires,3,Clothing and footwear,Habillement
+3466,Faux bijoux et autres effets similaires,3,Clothing and footwear,Habillement
+3467,Faux bijoux et autres effets similaires,3,Clothing and footwear,Habillement
+3468,Faux bijoux et autres effets similaires,3,Clothing and footwear,Habillement
+3469,Faux bijoux et autres effets similaires,3,Clothing and footwear,Habillement
+3471,lunette solaire,3,Clothing and footwear,Habillement
+3472,lunette solaire,3,Clothing and footwear,Habillement
+3473,lunette solaire,3,Clothing and footwear,Habillement
+3474,lunette solaire,3,Clothing and footwear,Habillement
+3475,lunette solaire,3,Clothing and footwear,Habillement
+3476,lunette solaire,3,Clothing and footwear,Habillement
+3477,lunette solaire,3,Clothing and footwear,Habillement
+3478,lunette solaire,3,Clothing and footwear,Habillement
+3479,lunette solaire,3,Clothing and footwear,Habillement
+3481,"Autres effets personnels (gants, bracelet de montre, porte clefs…)",3,Clothing and footwear,Habillement
+3482,"Autres effets personnels (gants, bracelet de montre, porte clefs…)",3,Clothing and footwear,Habillement
+3483,"Autres effets personnels (gants, bracelet de montre, porte clefs…)",3,Clothing and footwear,Habillement
+3484,"Autres effets personnels (gants, bracelet de montre, porte clefs…)",3,Clothing and footwear,Habillement
+3485,"Autres effets personnels (gants, bracelet de montre, porte clefs…)",3,Clothing and footwear,Habillement
+3486,"Autres effets personnels (gants, bracelet de montre, porte clefs…)",3,Clothing and footwear,Habillement
+3487,"Autres effets personnels (gants, bracelet de montre, porte clefs…)",3,Clothing and footwear,Habillement
+3488,"Autres effets personnels (gants, bracelet de montre, porte clefs…)",3,Clothing and footwear,Habillement
+3489,"Autres effets personnels (gants, bracelet de montre, porte clefs…)",3,Clothing and footwear,Habillement
+3491,"Réparation d’effets personnels (réparation de montre, de parapluie, de collier, boucles d’oreilles, de bague en or…)",3,Clothing and footwear,Habillement
+3492,"Réparation d’effets personnels (réparation de montre, de parapluie, de collier, boucles d’oreilles, de bague en or…)",3,Clothing and footwear,Habillement
+3493,"Réparation d’effets personnels (réparation de montre, de parapluie, de collier, boucles d’oreilles, de bague en or…)",3,Clothing and footwear,Habillement
+3494,"Réparation d’effets personnels (réparation de montre, de parapluie, de collier, boucles d’oreilles, de bague en or…)",3,Clothing and footwear,Habillement
+3495,"Réparation d’effets personnels (réparation de montre, de parapluie, de collier, boucles d’oreilles, de bague en or…)",3,Clothing and footwear,Habillement
+3496,"Réparation d’effets personnels (réparation de montre, de parapluie, de collier, boucles d’oreilles, de bague en or…)",3,Clothing and footwear,Habillement
+3497,"Réparation d’effets personnels (réparation de montre, de parapluie, de collier, boucles d’oreilles, de bague en or…)",3,Clothing and footwear,Habillement
+3498,"Réparation d’effets personnels (réparation de montre, de parapluie, de collier, boucles d’oreilles, de bague en or…)",3,Clothing and footwear,Habillement
+3499,"Réparation d’effets personnels (réparation de montre, de parapluie, de collier, boucles d’oreilles, de bague en or…)",3,Clothing and footwear,Habillement
+3501,"Chechia (tarboucha, kalbak, bonnet…)",3,Clothing and footwear,Habillement
+3502,"Chechia (tarboucha, kalbak, bonnet…)",3,Clothing and footwear,Habillement
+3503,"Chechia (tarboucha, kalbak, bonnet…)",3,Clothing and footwear,Habillement
+3504,"Chechia (tarboucha, kalbak, bonnet…)",3,Clothing and footwear,Habillement
+3505,"Chechia (tarboucha, kalbak, bonnet…)",3,Clothing and footwear,Habillement
+3506,"Chechia (tarboucha, kalbak, bonnet…)",3,Clothing and footwear,Habillement
+3507,"Chechia (tarboucha, kalbak, bonnet…)",3,Clothing and footwear,Habillement
+3508,"Chechia (tarboucha, kalbak, bonnet…)",3,Clothing and footwear,Habillement
+3509,"Chechia (tarboucha, kalbak, bonnet…)",3,Clothing and footwear,Habillement
+3511,Bichkir pour couver tête,3,Clothing and footwear,Habillement
+3512,Bichkir pour couver tête,3,Clothing and footwear,Habillement
+3513,Bichkir pour couver tête,3,Clothing and footwear,Habillement
+3514,Bichkir pour couver tête,3,Clothing and footwear,Habillement
+3515,Bichkir pour couver tête,3,Clothing and footwear,Habillement
+3516,Bichkir pour couver tête,3,Clothing and footwear,Habillement
+3517,Bichkir pour couver tête,3,Clothing and footwear,Habillement
+3518,Bichkir pour couver tête,3,Clothing and footwear,Habillement
+3519,Bichkir pour couver tête,3,Clothing and footwear,Habillement
+3521,"Chamla, lahfa, kachta",3,Clothing and footwear,Habillement
+3522,"Chamla, lahfa, kachta",3,Clothing and footwear,Habillement
+3523,"Chamla, lahfa, kachta",3,Clothing and footwear,Habillement
+3524,"Chamla, lahfa, kachta",3,Clothing and footwear,Habillement
+3525,"Chamla, lahfa, kachta",3,Clothing and footwear,Habillement
+3526,"Chamla, lahfa, kachta",3,Clothing and footwear,Habillement
+3527,"Chamla, lahfa, kachta",3,Clothing and footwear,Habillement
+3528,"Chamla, lahfa, kachta",3,Clothing and footwear,Habillement
+3529,"Chamla, lahfa, kachta",3,Clothing and footwear,Habillement
+3531,"Foulard, écharpe, takrita, assaba…",3,Clothing and footwear,Habillement
+3532,"Foulard, écharpe, takrita, assaba…",3,Clothing and footwear,Habillement
+3533,"Foulard, écharpe, takrita, assaba…",3,Clothing and footwear,Habillement
+3534,"Foulard, écharpe, takrita, assaba…",3,Clothing and footwear,Habillement
+3535,"Foulard, écharpe, takrita, assaba…",3,Clothing and footwear,Habillement
+3536,"Foulard, écharpe, takrita, assaba…",3,Clothing and footwear,Habillement
+3537,"Foulard, écharpe, takrita, assaba…",3,Clothing and footwear,Habillement
+3538,"Foulard, écharpe, takrita, assaba…",3,Clothing and footwear,Habillement
+3539,"Foulard, écharpe, takrita, assaba…",3,Clothing and footwear,Habillement
+3591,"Autre couvre tête (casquette, bêret…)",3,Clothing and footwear,Habillement
+3592,"Autre couvre tête (casquette, bêret…)",3,Clothing and footwear,Habillement
+3593,"Autre couvre tête (casquette, bêret…)",3,Clothing and footwear,Habillement
+3594,"Autre couvre tête (casquette, bêret…)",3,Clothing and footwear,Habillement
+3595,"Autre couvre tête (casquette, bêret…)",3,Clothing and footwear,Habillement
+3596,"Autre couvre tête (casquette, bêret…)",3,Clothing and footwear,Habillement
+3597,"Autre couvre tête (casquette, bêret…)",3,Clothing and footwear,Habillement
+3598,"Autre couvre tête (casquette, bêret…)",3,Clothing and footwear,Habillement
+3599,"Autre couvre tête (casquette, bêret…)",3,Clothing and footwear,Habillement
+3601,Souliers,3,Clothing and footwear,Habillement
+3602,Souliers,3,Clothing and footwear,Habillement
+3603,Souliers,3,Clothing and footwear,Habillement
+3604,Souliers,3,Clothing and footwear,Habillement
+3605,Souliers,3,Clothing and footwear,Habillement
+3606,Souliers,3,Clothing and footwear,Habillement
+3607,Souliers,3,Clothing and footwear,Habillement
+3608,Souliers,3,Clothing and footwear,Habillement
+3609,Souliers,3,Clothing and footwear,Habillement
+3611,Sandales,3,Clothing and footwear,Habillement
+3612,Sandales,3,Clothing and footwear,Habillement
+3613,Sandales,3,Clothing and footwear,Habillement
+3614,Sandales,3,Clothing and footwear,Habillement
+3615,Sandales,3,Clothing and footwear,Habillement
+3616,Sandales,3,Clothing and footwear,Habillement
+3617,Sandales,3,Clothing and footwear,Habillement
+3618,Sandales,3,Clothing and footwear,Habillement
+3619,Sandales,3,Clothing and footwear,Habillement
+3621,Espadrilles,3,Clothing and footwear,Habillement
+3622,Espadrilles,3,Clothing and footwear,Habillement
+3623,Espadrilles,3,Clothing and footwear,Habillement
+3624,Espadrilles,3,Clothing and footwear,Habillement
+3625,Espadrilles,3,Clothing and footwear,Habillement
+3626,Espadrilles,3,Clothing and footwear,Habillement
+3627,Espadrilles,3,Clothing and footwear,Habillement
+3628,Espadrilles,3,Clothing and footwear,Habillement
+3629,Espadrilles,3,Clothing and footwear,Habillement
+3631,"Babouche, belgha, affase, kontra",3,Clothing and footwear,Habillement
+3632,"Babouche, belgha, affase, kontra",3,Clothing and footwear,Habillement
+3633,"Babouche, belgha, affase, kontra",3,Clothing and footwear,Habillement
+3634,"Babouche, belgha, affase, kontra",3,Clothing and footwear,Habillement
+3635,"Babouche, belgha, affase, kontra",3,Clothing and footwear,Habillement
+3636,"Babouche, belgha, affase, kontra",3,Clothing and footwear,Habillement
+3637,"Babouche, belgha, affase, kontra",3,Clothing and footwear,Habillement
+3638,"Babouche, belgha, affase, kontra",3,Clothing and footwear,Habillement
+3639,"Babouche, belgha, affase, kontra",3,Clothing and footwear,Habillement
+3641,Chlaka,3,Clothing and footwear,Habillement
+3642,Chlaka,3,Clothing and footwear,Habillement
+3643,Chlaka,3,Clothing and footwear,Habillement
+3644,Chlaka,3,Clothing and footwear,Habillement
+3645,Chlaka,3,Clothing and footwear,Habillement
+3646,Chlaka,3,Clothing and footwear,Habillement
+3647,Chlaka,3,Clothing and footwear,Habillement
+3648,Chlaka,3,Clothing and footwear,Habillement
+3649,Chlaka,3,Clothing and footwear,Habillement
+3651,Pantoufles,3,Clothing and footwear,Habillement
+3652,Pantoufles,3,Clothing and footwear,Habillement
+3653,Pantoufles,3,Clothing and footwear,Habillement
+3654,Pantoufles,3,Clothing and footwear,Habillement
+3655,Pantoufles,3,Clothing and footwear,Habillement
+3656,Pantoufles,3,Clothing and footwear,Habillement
+3657,Pantoufles,3,Clothing and footwear,Habillement
+3658,Pantoufles,3,Clothing and footwear,Habillement
+3659,Pantoufles,3,Clothing and footwear,Habillement
+3661,Bottes,3,Clothing and footwear,Habillement
+3662,Bottes,3,Clothing and footwear,Habillement
+3663,Bottes,3,Clothing and footwear,Habillement
+3664,Bottes,3,Clothing and footwear,Habillement
+3665,Bottes,3,Clothing and footwear,Habillement
+3666,Bottes,3,Clothing and footwear,Habillement
+3667,Bottes,3,Clothing and footwear,Habillement
+3668,Bottes,3,Clothing and footwear,Habillement
+3669,Bottes,3,Clothing and footwear,Habillement
+3671,Tmak (mule),3,Clothing and footwear,Habillement
+3672,Tmak (mule),3,Clothing and footwear,Habillement
+3673,Tmak (mule),3,Clothing and footwear,Habillement
+3674,Tmak (mule),3,Clothing and footwear,Habillement
+3675,Tmak (mule),3,Clothing and footwear,Habillement
+3676,Tmak (mule),3,Clothing and footwear,Habillement
+3677,Tmak (mule),3,Clothing and footwear,Habillement
+3678,Tmak (mule),3,Clothing and footwear,Habillement
+3679,Tmak (mule),3,Clothing and footwear,Habillement
+3681,Sabot - kobkab,3,Clothing and footwear,Habillement
+3682,Sabot - kobkab,3,Clothing and footwear,Habillement
+3683,Sabot - kobkab,3,Clothing and footwear,Habillement
+3684,Sabot - kobkab,3,Clothing and footwear,Habillement
+3685,Sabot - kobkab,3,Clothing and footwear,Habillement
+3686,Sabot - kobkab,3,Clothing and footwear,Habillement
+3687,Sabot - kobkab,3,Clothing and footwear,Habillement
+3688,Sabot - kobkab,3,Clothing and footwear,Habillement
+3689,Sabot - kobkab,3,Clothing and footwear,Habillement
+3691,Réparation et entretien des chaussures,3,Clothing and footwear,Habillement
+3692,Réparation et entretien des chaussures,3,Clothing and footwear,Habillement
+3693,Réparation et entretien des chaussures,3,Clothing and footwear,Habillement
+3694,Réparation et entretien des chaussures,3,Clothing and footwear,Habillement
+3695,Réparation et entretien des chaussures,3,Clothing and footwear,Habillement
+3696,Réparation et entretien des chaussures,3,Clothing and footwear,Habillement
+3697,Réparation et entretien des chaussures,3,Clothing and footwear,Habillement
+3698,Réparation et entretien des chaussures,3,Clothing and footwear,Habillement
+3699,Réparation et entretien des chaussures,3,Clothing and footwear,Habillement
+3701,Tissus pour habillement,3,Clothing and footwear,Habillement
+3702,Tissus pour habillement,3,Clothing and footwear,Habillement
+3703,Tissus pour habillement,3,Clothing and footwear,Habillement
+3704,Tissus pour habillement,3,Clothing and footwear,Habillement
+3705,Tissus pour habillement,3,Clothing and footwear,Habillement
+3706,Tissus pour habillement,3,Clothing and footwear,Habillement
+3707,Tissus pour habillement,3,Clothing and footwear,Habillement
+3708,Tissus pour habillement,3,Clothing and footwear,Habillement
+3709,Tissus pour habillement,3,Clothing and footwear,Habillement
+3711,Achat de laine,3,Clothing and footwear,Habillement
+3712,Achat de laine,3,Clothing and footwear,Habillement
+3713,Achat de laine,3,Clothing and footwear,Habillement
+3714,Achat de laine,3,Clothing and footwear,Habillement
+3715,Achat de laine,3,Clothing and footwear,Habillement
+3716,Achat de laine,3,Clothing and footwear,Habillement
+3717,Achat de laine,3,Clothing and footwear,Habillement
+3718,Achat de laine,3,Clothing and footwear,Habillement
+3719,Achat de laine,3,Clothing and footwear,Habillement
+3801,"Serviette de toilette, bichkir, cap de bain",3,Clothing and footwear,Habillement
+3802,"Serviette de toilette, bichkir, cap de bain",3,Clothing and footwear,Habillement
+3803,"Serviette de toilette, bichkir, cap de bain",3,Clothing and footwear,Habillement
+3804,"Serviette de toilette, bichkir, cap de bain",3,Clothing and footwear,Habillement
+3805,"Serviette de toilette, bichkir, cap de bain",3,Clothing and footwear,Habillement
+3806,"Serviette de toilette, bichkir, cap de bain",3,Clothing and footwear,Habillement
+3807,"Serviette de toilette, bichkir, cap de bain",3,Clothing and footwear,Habillement
+3808,"Serviette de toilette, bichkir, cap de bain",3,Clothing and footwear,Habillement
+3809,"Serviette de toilette, bichkir, cap de bain",3,Clothing and footwear,Habillement
+3891,Autres articles d’habillement et dépense d’habillement non ventilés (Trousseau pour bébé),3,Clothing and footwear,Habillement
+3892,Autres articles d’habillement et dépense d’habillement non ventilés (Trousseau pour bébé),3,Clothing and footwear,Habillement
+3893,Autres articles d’habillement et dépense d’habillement non ventilés (Trousseau pour bébé),3,Clothing and footwear,Habillement
+3894,Autres articles d’habillement et dépense d’habillement non ventilés (Trousseau pour bébé),3,Clothing and footwear,Habillement
+3895,Autres articles d’habillement et dépense d’habillement non ventilés (Trousseau pour bébé),3,Clothing and footwear,Habillement
+3896,Autres articles d’habillement et dépense d’habillement non ventilés (Trousseau pour bébé),3,Clothing and footwear,Habillement
+3897,Autres articles d’habillement et dépense d’habillement non ventilés (Trousseau pour bébé),3,Clothing and footwear,Habillement
+3898,Autres articles d’habillement et dépense d’habillement non ventilés (Trousseau pour bébé),3,Clothing and footwear,Habillement
+3899,Autres articles d’habillement et dépense d’habillement non ventilés (Trousseau pour bébé),3,Clothing and footwear,Habillement
+3901,Frais de couture,3,Clothing and footwear,Habillement
+3902,Frais de couture,3,Clothing and footwear,Habillement
+3903,Frais de couture,3,Clothing and footwear,Habillement
+3904,Frais de couture,3,Clothing and footwear,Habillement
+3905,Frais de couture,3,Clothing and footwear,Habillement
+3906,Frais de couture,3,Clothing and footwear,Habillement
+3907,Frais de couture,3,Clothing and footwear,Habillement
+3908,Frais de couture,3,Clothing and footwear,Habillement
+3909,Frais de couture,3,Clothing and footwear,Habillement
+3911,"Mercerie (fil à coudre, fil à tricoter, bouton, fermeture éclair, rubants, dantelle…)",3,Clothing and footwear,Habillement
+3912,"Mercerie (fil à coudre, fil à tricoter, bouton, fermeture éclair, rubants, dantelle…)",3,Clothing and footwear,Habillement
+3913,"Mercerie (fil à coudre, fil à tricoter, bouton, fermeture éclair, rubants, dantelle…)",3,Clothing and footwear,Habillement
+3914,"Mercerie (fil à coudre, fil à tricoter, bouton, fermeture éclair, rubants, dantelle…)",3,Clothing and footwear,Habillement
+3915,"Mercerie (fil à coudre, fil à tricoter, bouton, fermeture éclair, rubants, dantelle…)",3,Clothing and footwear,Habillement
+3916,"Mercerie (fil à coudre, fil à tricoter, bouton, fermeture éclair, rubants, dantelle…)",3,Clothing and footwear,Habillement
+3917,"Mercerie (fil à coudre, fil à tricoter, bouton, fermeture éclair, rubants, dantelle…)",3,Clothing and footwear,Habillement
+3918,"Mercerie (fil à coudre, fil à tricoter, bouton, fermeture éclair, rubants, dantelle…)",3,Clothing and footwear,Habillement
+3919,"Mercerie (fil à coudre, fil à tricoter, bouton, fermeture éclair, rubants, dantelle…)",3,Clothing and footwear,Habillement
+3921,Frais de couture et Mercerie sans indications de détail,3,Clothing and footwear,Habillement
+3922,Frais de couture et Mercerie sans indications de détail,3,Clothing and footwear,Habillement
+3923,Frais de couture et Mercerie sans indications de détail,3,Clothing and footwear,Habillement
+3924,Frais de couture et Mercerie sans indications de détail,3,Clothing and footwear,Habillement
+3925,Frais de couture et Mercerie sans indications de détail,3,Clothing and footwear,Habillement
+3926,Frais de couture et Mercerie sans indications de détail,3,Clothing and footwear,Habillement
+3927,Frais de couture et Mercerie sans indications de détail,3,Clothing and footwear,Habillement
+3928,Frais de couture et Mercerie sans indications de détail,3,Clothing and footwear,Habillement
+3929,Frais de couture et Mercerie sans indications de détail,3,Clothing and footwear,Habillement
+3931,Frais de location d’habillement,3,Clothing and footwear,Habillement
+3932,Frais de location d’habillement,3,Clothing and footwear,Habillement
+3933,Frais de location d’habillement,3,Clothing and footwear,Habillement
+3934,Frais de location d’habillement,3,Clothing and footwear,Habillement
+3935,Frais de location d’habillement,3,Clothing and footwear,Habillement
+3936,Frais de location d’habillement,3,Clothing and footwear,Habillement
+3937,Frais de location d’habillement,3,Clothing and footwear,Habillement
+3938,Frais de location d’habillement,3,Clothing and footwear,Habillement
+3939,Frais de location d’habillement,3,Clothing and footwear,Habillement
+3941,"Autres frais liés à l’habillement (tricotage, broderie…)",3,Clothing and footwear,Habillement
+3942,"Autres frais liés à l’habillement (tricotage, broderie…)",3,Clothing and footwear,Habillement
+3943,"Autres frais liés à l’habillement (tricotage, broderie…)",3,Clothing and footwear,Habillement
+3944,"Autres frais liés à l’habillement (tricotage, broderie…)",3,Clothing and footwear,Habillement
+3945,"Autres frais liés à l’habillement (tricotage, broderie…)",3,Clothing and footwear,Habillement
+3946,"Autres frais liés à l’habillement (tricotage, broderie…)",3,Clothing and footwear,Habillement
+3947,"Autres frais liés à l’habillement (tricotage, broderie…)",3,Clothing and footwear,Habillement
+3948,"Autres frais liés à l’habillement (tricotage, broderie…)",3,Clothing and footwear,Habillement
+3949,"Autres frais liés à l’habillement (tricotage, broderie…)",3,Clothing and footwear,Habillement
+4011,Loyer effectif,4,Housing and energy,Logement et énergie
+4012,Loyer estimé,4,Housing and energy,Logement et énergie
+4013,Remboursement d’un prêt logement,4,Housing and energy,Logement et énergie
+4014,Charges communes (de copropriété),4,Housing and energy,Logement et énergie
+4015,Taxe locative annuelle,4,Housing and energy,Logement et énergie
+4021,Loyer annuel,4,Housing and energy,Logement et énergie
+4023,Remboursement annuel,4,Housing and energy,Logement et énergie
+4024,Charges communes annuelles,4,Housing and energy,Logement et énergie
+4025,Taxes locatives annuelles,4,Housing and energy,Logement et énergie
+4111,Dépense d’eau courante SONEDE,4,Housing and energy,Logement et énergie
+4112,Dépense d’électricité STEG,4,Housing and energy,Logement et énergie
+4113,Dépense de gaz de ville STEG,4,Housing and energy,Logement et énergie
+4114,Dépense d’électricité et de gaz de ville STEG,4,Housing and energy,Logement et énergie
+4116,"Dépense d’eau achetée (par citerne, « guarbaji »…)",4,Housing and energy,Logement et énergie
+4121,Dépense annuelle d’eau courante SONEDE,4,Housing and energy,Logement et énergie
+4122,Dépense annuelle d’électricité STEG,4,Housing and energy,Logement et énergie
+4123,Dépense annuelle de gaz naturel STEG,4,Housing and energy,Logement et énergie
+4124,Dépense annuelle d’électricité et de gaz naturel STEG,4,Housing and energy,Logement et énergie
+4126,"Dépense d’eau achetée (par citerne, « guarbaji »…)",4,Housing and energy,Logement et énergie
+4131,Gaz en bouteille,4,Housing and energy,Logement et énergie
+4132,Pétrole,4,Housing and energy,Logement et énergie
+4133,Charbon de bois,4,Housing and energy,Logement et énergie
+4134,Bois,4,Housing and energy,Logement et énergie
+4135,Gaz oil (fuel lourd),4,Housing and energy,Logement et énergie
+4136,Alcool,4,Housing and energy,Logement et énergie
+4137,Bougie,4,Housing and energy,Logement et énergie
+4138,allumette,4,Housing and energy,Logement et énergie
+4139,"Autres dépenses liées aux combustibles (accessoires de briquet, essence…)",4,Housing and energy,Logement et énergie
+4211,"Matières première de maçonnerie et de marbririe (ciment, sable, chaux, fer, briques, gravier…)",4,Housing and energy,Logement et énergie
+4212,"Fer forgé (porte, fenêtre, porte-fenêtre, clôture…)",4,Housing and energy,Logement et énergie
+4213,Main d’œuvre de maçonnerie et de marbrerie,4,Housing and energy,Logement et énergie
+4219,Dépense de maçonnerie non ventilée (matière première et main d’œuvre),4,Housing and energy,Logement et énergie
+4221,"Dépense de boiserie (bois, contre plaqué…)",4,Housing and energy,Logement et énergie
+4222,"Dépense de quincaillerie (serrure, charnière, vis...)",4,Housing and energy,Logement et énergie
+4223,"Dépense de vitrerie (miroir, carreau de vitre…)",4,Housing and energy,Logement et énergie
+4224,Main d’œuvre de menuiserie,4,Housing and energy,Logement et énergie
+4225,Main d’œuvre de vitrerie,4,Housing and energy,Logement et énergie
+4229,"Dépense de menuiserie, vitrerie, et de quincaillerie non ventilée",4,Housing and energy,Logement et énergie
+4231,"Articles sanitaires (baignoire, lavabo, évier…)",4,Housing and energy,Logement et énergie
+4232,"Dépense de robinetterie et d’accessoires de plomberie (robinet, mélangeur, coudes, tuyaux  en plomb, en plastique, en cuivre…)",4,Housing and energy,Logement et énergie
+4233,"Chauffe bain, chauffe eau (à gaz ou électrique) + energie solaire",4,Housing and energy,Logement et énergie
+4234,Main d’œuvre de plomberie et d’installation sanitaire,4,Housing and energy,Logement et énergie
+4239,Dépense de plomberie et d’installation sanitaire,4,Housing and energy,Logement et énergie
+4241,"Dépense d’installation et de branchement électrique (tuyaux, fils électriques, interrupteur, fusible, boite de dérivation)",4,Housing and energy,Logement et énergie
+4242,"Ampoule électrique, tube néon, starter électrique",4,Housing and energy,Logement et énergie
+4243,"Ampoule électrique (tube néon, starter électrique) économique",4,Housing and energy,Logement et énergie
+4244,"Lampadaire lustre, veilleuse appliqué « abat jour »",4,Housing and energy,Logement et énergie
+4245,"Autres accessoires électriques (transformateur, fiche, douille…)",4,Housing and energy,Logement et énergie
+4246,Main d’œuvre pour installation et branchement électrique,4,Housing and energy,Logement et énergie
+4249,"Dépense d’installation, de branchement et d’accessoires électriques non ventilée",4,Housing and energy,Logement et énergie
+4251,Chaux,4,Housing and energy,Logement et énergie
+4252,"Peinture à l’eau (type “surfaçaire”, “flash”…)",4,Housing and energy,Logement et énergie
+4253,Peinture à l’huile (laquet…),4,Housing and energy,Logement et énergie
+4254,"Autres matières liées à la peinture au badigeonnage  et d’étanchéité (mastic, blanc d’Espagne, flincot, pinceau, colorant…)",4,Housing and energy,Logement et énergie
+4255,Main d’oeuvre,4,Housing and energy,Logement et énergie
+4259,"Dépense de peinture, badigeonnage et d’étanchéité non ventilée",4,Housing and energy,Logement et énergie
+4261,"Services domestiques (bonne, femme de ménage…)",4,Housing and energy,Logement et énergie
+4262,Services de gardiennage du logement,4,Housing and energy,Logement et énergie
+4263,Services de jardinage (main d’œuvre pour jardinier…),4,Housing and energy,Logement et énergie
+4264,Service syndicat,4,Housing and energy,Logement et énergie
+4265,Service chauffeur,4,Housing and energy,Logement et énergie
+4269,Autres services liés à l’habitation (location de meubles …),4,Housing and energy,Logement et énergie
+4271,"Articles de bricolage (marteau, scies, pince, tenaille, clou, échelle…)",4,Housing and energy,Logement et énergie
+4272,"Articles de jardinage (râteau, semence et pépinières pour jardin, pelle, brouette, tuyaux de rosages…)",4,Housing and energy,Logement et énergie
+4273,"Achat, alimentation et entretien d’animaux domestique (de compagnie) (oiseau, chien, cage,niche…)",4,Housing and energy,Logement et énergie
+4279,Autres dépenses d’entretien,4,Housing and energy,Logement et énergie
+4311,Achat de terrain pour construction de logement,4,Housing and energy,Logement et énergie
+4312,Dépense pour construction de logement,4,Housing and energy,Logement et énergie
+4313,Achat de logement,4,Housing and energy,Logement et énergie
+5111,Chambre à coucher,5,Furniture and household equipment,Meubles et équipement ménager
+5112,Salle à manger,5,Furniture and household equipment,Meubles et équipement ménager
+5113,Salon,5,Furniture and household equipment,Meubles et équipement ménager
+5114,Bibliothèque,5,Furniture and household equipment,Meubles et équipement ménager
+5115,Autres mobiliers complets,5,Furniture and household equipment,Meubles et équipement ménager
+5119,Frais d’entretien et de réparation de mobilier complet,5,Furniture and household equipment,Meubles et équipement ménager
+5121,"Table, maïda",5,Furniture and household equipment,Meubles et équipement ménager
+5122,"Armoire, commode, étagère",5,Furniture and household equipment,Meubles et équipement ménager
+5123,"Buffet, argentière",5,Furniture and household equipment,Meubles et équipement ménager
+5124,Banc,5,Furniture and household equipment,Meubles et équipement ménager
+5125,"Chaise, chaise longue",5,Furniture and household equipment,Meubles et équipement ménager
+5126,"Fauteuil, canapé divan",5,Furniture and household equipment,Meubles et équipement ménager
+5127,"Lit, sommier",5,Furniture and household equipment,Meubles et équipement ménager
+5128,"Autres mobiliers séparés (porte manteau, ceintres…)",5,Furniture and household equipment,Meubles et équipement ménager
+5129,Frais d’entretien et de réparation de mobilier séparés,5,Furniture and household equipment,Meubles et équipement ménager
+5131,Matelas,5,Furniture and household equipment,Meubles et équipement ménager
+5132,"Oreiller, cousins, traversin",5,Furniture and household equipment,Meubles et équipement ménager
+5133,"Achat de laine, de mousse ou de crin (pour matelas, pour oreiller, pour traversin…)",5,Furniture and household equipment,Meubles et équipement ménager
+5134,Frais de couture de matelas en laine ou en crin,5,Furniture and household equipment,Meubles et équipement ménager
+5141,Lit pour Bébé,5,Furniture and household equipment,Meubles et équipement ménager
+5142,Landau et berceau,5,Furniture and household equipment,Meubles et équipement ménager
+5143,Poussette,5,Furniture and household equipment,Meubles et équipement ménager
+5144,"Chaise pour bébé, parc et autres articles",5,Furniture and household equipment,Meubles et équipement ménager
+5151,Tapis,5,Furniture and household equipment,Meubles et équipement ménager
+5152,Klim et margoum,5,Furniture and household equipment,Meubles et équipement ménager
+5153,Jild,5,Furniture and household equipment,Meubles et équipement ménager
+5154,Natte,5,Furniture and household equipment,Meubles et équipement ménager
+5155,Mousse pour revêtement du sol,5,Furniture and household equipment,Meubles et équipement ménager
+5156,Moquette,5,Furniture and household equipment,Meubles et équipement ménager
+5157,Papier peint,5,Furniture and household equipment,Meubles et équipement ménager
+5158,"Frais de tissage de tapis, klim, margoum et frais de pose de moquette et papier peint",5,Furniture and household equipment,Meubles et équipement ménager
+5161,Tableau de décor,5,Furniture and household equipment,Meubles et équipement ménager
+5162,Bouquets de fleurs (naturel ou synthétique),5,Furniture and household equipment,Meubles et équipement ménager
+5163,"Biblots (objet d’art décoratif en verre, en porcelaine, en bois, en marbre…)",5,Furniture and household equipment,Meubles et équipement ménager
+5164,Pots et bacs à fleurs ou plantes synthétiques ou naturel,5,Furniture and household equipment,Meubles et équipement ménager
+5169,Autres objets de décor (papier collant de décor…),5,Furniture and household equipment,Meubles et équipement ménager
+5210,"Réfrigérateur, congélateur",5,Furniture and household equipment,Meubles et équipement ménager
+5211,Lave  linge – sèche linge,5,Furniture and household equipment,Meubles et équipement ménager
+5212,Lave vaisselle,5,Furniture and household equipment,Meubles et équipement ménager
+5213,"Micro-onde, four electrique …",5,Furniture and household equipment,Meubles et équipement ménager
+5214,"Séchoir, babilisse",5,Furniture and household equipment,Meubles et équipement ménager
+5215,Cafetière électrique,5,Furniture and household equipment,Meubles et équipement ménager
+5216,Fer à repasser,5,Furniture and household equipment,Meubles et équipement ménager
+5217,"Batteur électrique, yaourtière, presse fruits et légumes (citron, orange, carotte, tomate…), hachoir de viande",5,Furniture and household equipment,Meubles et équipement ménager
+5218,"Autres appareils électroménagers (aspirateur de moquette, moulin à café…)",5,Furniture and household equipment,Meubles et équipement ménager
+5219,Accessoires et frais de réparation et d’entretien d’appareils électroménagers,5,Furniture and household equipment,Meubles et équipement ménager
+5221,Cuisinière à gaz ou électrique  plaque de cuisson,5,Furniture and household equipment,Meubles et équipement ménager
+5222,Primus à pétrole pour cuisine,5,Furniture and household equipment,Meubles et équipement ménager
+5223,Réchaud électrique de cuisine Réchaud à gaz (pour camping),5,Furniture and household equipment,Meubles et équipement ménager
+5224,Chauffe-eau( bouilloire),5,Furniture and household equipment,Meubles et équipement ménager
+5225,"Foureau (en terre cuite, en métal)",5,Furniture and household equipment,Meubles et équipement ménager
+5226,Aspirateur électrique de cuisine,5,Furniture and household equipment,Meubles et équipement ménager
+5227,Glacière,5,Furniture and household equipment,Meubles et équipement ménager
+5229,Accessoires et frais de réparation et d’entretien d’appareil de cuisine,5,Furniture and household equipment,Meubles et équipement ménager
+5231,"Appareil de chauffage (électrique, à pétrole, à gaz à mazout…)",5,Furniture and household equipment,Meubles et équipement ménager
+5232,Ventilateur,5,Furniture and household equipment,Meubles et équipement ménager
+5233,Climatiseur,5,Furniture and household equipment,Meubles et équipement ménager
+5234,"Autres articles de chauffage et de climatisation (bouillotte, éventail en vannerie…)",5,Furniture and household equipment,Meubles et équipement ménager
+5239,"Dépense d’installation, d’entretien et réparation d’appareils de chauffage et de climatisation",5,Furniture and household equipment,Meubles et équipement ménager
+5241,Primus d’éclairage,5,Furniture and household equipment,Meubles et équipement ménager
+5242,Autres appareils d’éclairage,5,Furniture and household equipment,Meubles et équipement ménager
+5243,Accessoires d’appareils d’éclairage,5,Furniture and household equipment,Meubles et équipement ménager
+5249,Frais d’entretien et de réparation,5,Furniture and household equipment,Meubles et équipement ménager
+5311,Service de table,5,Furniture and household equipment,Meubles et équipement ménager
+5312,Service à eau,5,Furniture and household equipment,Meubles et équipement ménager
+5313,Service à café,5,Furniture and household equipment,Meubles et équipement ménager
+5314,Service d’ustensile en métal,5,Furniture and household equipment,Meubles et équipement ménager
+5315,Cocotte minute,5,Furniture and household equipment,Meubles et équipement ménager
+5319,"Autres services (de couvert, de thé, de glace…)",5,Furniture and household equipment,Meubles et équipement ménager
+5321,"Ustensiles en métal  (casserole, marmite, couscoussier, cuillère, couteau, fourchette, poêle, sceau, plateau, cuvette, assiette, plat, cafetière, théière, grille…)",5,Furniture and household equipment,Meubles et équipement ménager
+5322,"Ustensiles en verre  (verre à eau, verre de thé, carage, bouteille, assiette, bol, plat, marmite ou casserole type « pyrex »…)",5,Furniture and household equipment,Meubles et équipement ménager
+5323,"Ustensiles en faïence et en porcelaine    (assiette, plat, tasse à café, bol…)",5,Furniture and household equipment,Meubles et équipement ménager
+5324,"Ustensiles de cuisine en plastique (sceau, bol, tasse, bassin, plateau, égouttoir, sac, couffin en plastique, panier à linge, planche à repasser…)",5,Furniture and household equipment,Meubles et équipement ménager
+5325,"Ustensiles en poterie (assiette, plat, gargoulette, jarre…)",5,Furniture and household equipment,Meubles et équipement ménager
+5326,"Ustensiles en vannerie, en osier, en bois, en peau (couffin, tamis, cuillère, pince à linge en bois…)",5,Furniture and household equipment,Meubles et équipement ménager
+5327,Ustensiles de cuisine sans spécification de matière première (tablier de cuisine ...),5,Furniture and household equipment,Meubles et équipement ménager
+5329,"Autres ustensiles de cuisine  (ouvre boite, bouchon, allume gaz…)",5,Furniture and household equipment,Meubles et équipement ménager
+5411,Drap et taie,5,Furniture and household equipment,Meubles et équipement ménager
+5412,Couvert lit et couvre matelas,5,Furniture and household equipment,Meubles et équipement ménager
+5413,"Serviette de table, nappe",5,Furniture and household equipment,Meubles et équipement ménager
+5419,"Frais liés au linge de maison (frais de couture, de broderie…)",5,Furniture and household equipment,Meubles et équipement ménager
+5421,"Couvertures (en laine, coton…)",5,Furniture and household equipment,Meubles et équipement ménager
+5422,Achat de laine pour couverture,5,Furniture and household equipment,Meubles et équipement ménager
+5423,Frais de filature et tissage,5,Furniture and household equipment,Meubles et équipement ménager
+5431,"Tissus d’ameublement (pour salon, salle à manger…)",5,Furniture and household equipment,Meubles et équipement ménager
+5432,Rideaux,5,Furniture and household equipment,Meubles et équipement ménager
+5433,Accessoires de rideaux (tringles…),5,Furniture and household equipment,Meubles et équipement ménager
+5434,Frais de couture de tapisserie et d’entretien d’ameublement,5,Furniture and household equipment,Meubles et équipement ménager
+5511,"Machine à coudre, à tricoter, à broder -coffre fort-",5,Furniture and household equipment,Meubles et équipement ménager
+5512,Appareils manuels et artisanaux de broderie et de tissage,5,Furniture and household equipment,Meubles et équipement ménager
+5513,"Accessoires de couture et broderie (ciseaux, mètre ruban, dé, épingle, aiguille…)",5,Furniture and household equipment,Meubles et équipement ménager
+5519,Frais d’entretien et de réparation des appareils de couture de tissage…,5,Furniture and household equipment,Meubles et équipement ménager
+5521,"Valise, sac, mallette, cabas",5,Furniture and household equipment,Meubles et équipement ménager
+5522,Autres produits de maroquinerie,5,Furniture and household equipment,Meubles et équipement ménager
+5531,"Réveils, pendule",5,Furniture and household equipment,Meubles et équipement ménager
+5532,Autres biens durables,5,Furniture and household equipment,Meubles et équipement ménager
+5539,Frais d’entretien et de réparation d'autres biens durables,5,Furniture and household equipment,Meubles et équipement ménager
+5611,Savon de ménage,5,Furniture and household equipment,Meubles et équipement ménager
+5612,"Détergent (Omo, vif, nadhif, dinol…)",5,Furniture and household equipment,Meubles et équipement ménager
+5613,"Eau de javel, clor pour piscine",5,Furniture and household equipment,Meubles et équipement ménager
+5614,Autres désinfectant (grésil…),5,Furniture and household equipment,Meubles et équipement ménager
+5615,"Insecticides (fly tox, Shell tox…)",5,Furniture and household equipment,Meubles et équipement ménager
+5616,"Articles d’hygiène (balai, ventouse, frottoir, torchon, brosse, poubelle, éponge, sacs, chiffon, peau de chamois…)",5,Furniture and household equipment,Meubles et équipement ménager
+5617,"Autres produits d’entretien (Ajax pour vitre, boite à cirage…)",5,Furniture and household equipment,Meubles et équipement ménager
+5618,"Déodorants, encens et assimilés",5,Furniture and household equipment,Meubles et équipement ménager
+5619,"Autres produits d’hygiène (papier aluminium, cellophane, serviette…)",5,Furniture and household equipment,Meubles et équipement ménager
+5621,"Nettoyage à sec, teinturerie",5,Furniture and household equipment,Meubles et équipement ménager
+5622,Lavage et repassage,5,Furniture and household equipment,Meubles et équipement ménager
+5623,"Autres service d'entretien des chaussures, des tapis, tapisseries…",5,Furniture and household equipment,Meubles et équipement ménager
+6111,"Consultation dans un établissement public (hôpital, centre de maternité, dispensaire, polyclinique de la CNSS)",6,Health and personal hygiene,Hygiène et soins
+6112,Consultation dans un clinique ou cabinet privé,6,Health and personal hygiene,Hygiène et soins
+6119,Consultation sans indications,6,Health and personal hygiene,Hygiène et soins
+6121,Soins  dentaires dans un établissement public,6,Health and personal hygiene,Hygiène et soins
+6122,Soins  dentaires dans un clinique ou cabinet privé,6,Health and personal hygiene,Hygiène et soins
+6129,Soins  dentaires sans autre indication,6,Health and personal hygiene,Hygiène et soins
+6131,"Services de laboratoire, d'analyses médicales et de rdiologie dans un établissement public",6,Health and personal hygiene,Hygiène et soins
+6132,"Services de laboratoire, d'analyses médicales et de radiologie dans un établissement privé",6,Health and personal hygiene,Hygiène et soins
+6133,"Services de laboratoire, d'analyses médicales et de radiologie sans indication de l’établissement",6,Health and personal hygiene,Hygiène et soins
+6134,"Frais d'infirmerie (injection de piqûre, soin de plaie …)",6,Health and personal hygiene,Hygiène et soins
+6135,"Frais de kinésithérapie, d'orthophonistes …",6,Health and personal hygiene,Hygiène et soins
+6136,"Frais d'analyse, de radiologie et chimiothérapie",6,Health and personal hygiene,Hygiène et soins
+6139,"Autres frais liés à des services paramédicaux (location de matériel thérapeutique, service d'ambulance…)",6,Health and personal hygiene,Hygiène et soins
+6141,Plantes médicamenteuses,6,Health and personal hygiene,Hygiène et soins
+6142,Consultation d'un voyant,6,Health and personal hygiene,Hygiène et soins
+6211,Frais de séjour et opérations chirurgicales (circoncision) dans un établissement public,6,Health and personal hygiene,Hygiène et soins
+6212,Frais de séjour et opérations chirurgicales (circoncision) dans un établissement privé,6,Health and personal hygiene,Hygiène et soins
+6219,Frais de séjour et opérations chirurgicales (circoncision) sans autre indication,6,Health and personal hygiene,Hygiène et soins
+6221,Dépenses exceptionnelles de chirurgie dentaire dans un établissement public,6,Health and personal hygiene,Hygiène et soins
+6222,Dépenses exceptionnelles de chirurgie dentaire dans un établissement privé,6,Health and personal hygiene,Hygiène et soins
+6229,Dépenses exceptionnelles de chirurgie dentaire sans autre indication,6,Health and personal hygiene,Hygiène et soins
+6231,"Frais de radio, scanner, IRM, échographie, fibro dans un établissement public",6,Health and personal hygiene,Hygiène et soins
+6232,"Frais de radio, scanner, IRM, échographie, fibro dans un établissement privé",6,Health and personal hygiene,Hygiène et soins
+6239,"Frais de radio, scanner, IRM, échographie, fibro sans autre indication",6,Health and personal hygiene,Hygiène et soins
+6241,Frais d’accouchement dans un établissement public,6,Health and personal hygiene,Hygiène et soins
+6242,Frais d’accouchement dans un établissement privé,6,Health and personal hygiene,Hygiène et soins
+6249,Frais d’accouchement IRM sans autre indication,6,Health and personal hygiene,Hygiène et soins
+6251,Frais de séjour et de traitement à l’étranger,6,Health and personal hygiene,Hygiène et soins
+6261,Consultation de maladie longue durée,6,Health and personal hygiene,Hygiène et soins
+6262,Médicament de maladie longue durée,6,Health and personal hygiene,Hygiène et soins
+6263,Dépense de maladie longue durée sans indication,6,Health and personal hygiene,Hygiène et soins
+6271,"Frais de chirurgie esthétique, lifting, liposuccion et autres opérations esthétiques",6,Health and personal hygiene,Hygiène et soins
+6311,Médicaments sans indication,6,Health and personal hygiene,Hygiène et soins
+6312,Analgésiques et Anti-inflammatoires,6,Health and personal hygiene,Hygiène et soins
+6313,"Antibiotiques , Antibactériens et antimycosiques",6,Health and personal hygiene,Hygiène et soins
+6314,Vaccins,6,Health and personal hygiene,Hygiène et soins
+6315,Autres medicaments,6,Health and personal hygiene,Hygiène et soins
+6321,"Produit pour bébé (talc, savon, biberon, tétine…)",6,Health and personal hygiene,Hygiène et soins
+6322,Gel antibactérien,6,Health and personal hygiene,Hygiène et soins
+6323,Bavette,6,Health and personal hygiene,Hygiène et soins
+6324,"Autres produits pharmaceutiques non indiqués ailleurs (thermomètre, coton, batonnet,  pansement adhésif, seringues, préservatifs…)",6,Health and personal hygiene,Hygiène et soins
+6325,Couche bébé,6,Health and personal hygiene,Hygiène et soins
+6326,Couche periodique,6,Health and personal hygiene,Hygiène et soins
+6327,Couche adulte,6,Health and personal hygiene,Hygiène et soins
+6328,Papier mouchoir + papier toilette +lingette,6,Health and personal hygiene,Hygiène et soins
+6411,"Lunettes de vue, lentilles de contact",6,Health and personal hygiene,Hygiène et soins
+6412,Appareil acoustique,6,Health and personal hygiene,Hygiène et soins
+6413,"Appareil de mesure (de tension d’artère, de diabète…)",6,Health and personal hygiene,Hygiène et soins
+6414,"Autres appareils (fauteuil roulant, béquille, prothèse, chaussures et ceintures orthopédiques…)",6,Health and personal hygiene,Hygiène et soins
+6419,Frais de réparation et d’entretien d’appareils médicaux,6,Health and personal hygiene,Hygiène et soins
+6511,"Produits de maquillage (rouge à lèvre, fond de teint, acétone, manucure, démaquillant…)",6,Health and personal hygiene,Hygiène et soins
+6512,"Eau de Cologne, eau de toilette, parfum, after shave…",6,Health and personal hygiene,Hygiène et soins
+6513,"Autres produits de beauté (teinture pour cheveux, henna, souak, produit solaire…)",6,Health and personal hygiene,Hygiène et soins
+6514,"Accessoires de beauté (brosse, peigne, perruque, pince, coupe ongle, rouleaux…)",6,Health and personal hygiene,Hygiène et soins
+6521,"Bain, douche",6,Health and personal hygiene,Hygiène et soins
+6522,Coiffure (abonnement chez le coiffeur),6,Health and personal hygiene,Hygiène et soins
+6523,Savon de toilette,6,Health and personal hygiene,Hygiène et soins
+6524,"Shampooing, Tfal",6,Health and personal hygiene,Hygiène et soins
+6525,"Gel douche, après shampoing,,,",6,Health and personal hygiene,Hygiène et soins
+6526,Dentifrice,6,Health and personal hygiene,Hygiène et soins
+6527,Crème à raser,6,Health and personal hygiene,Hygiène et soins
+6528,"Accessoires de toilette (brosse à dent, brosse à ongle, épingle à cheveux, rasoir, blaireau, lame, gant de toilette …)",6,Health and personal hygiene,Hygiène et soins
+6529,"Autres articles et frais de soins  corporels, service de toilette et santé (frais d'épilation, frais de pédicure, frais de sauna …)",6,Health and personal hygiene,Hygiène et soins
+7111,Achat de voiture,7,Transport,Transport
+7112,Achat de cyclomoteur - motocyclette,7,Transport,Transport
+7113,Achat de bicyclette,7,Transport,Transport
+7119,"Achat d’autre moyen de transport (véhicule à traction animale, cheval, âne…)",7,Transport,Transport
+7121,Vignette et taxe,7,Transport,Transport
+7122,Assurance auto,7,Transport,Transport
+7123,Assurance de cyclomoteur,7,Transport,Transport
+7124,Frais de visite technique,7,Transport,Transport
+7129,Autres charges (frais de remorquage…),7,Transport,Transport
+7131,Essence pour véhicule,7,Transport,Transport
+7132,Gasoil pour véhicule,7,Transport,Transport
+7133,Gaz pour véhicule,7,Transport,Transport
+7134,Carburant pour véhicule sans indications,7,Transport,Transport
+7135,Essence mélangée pour cyclomoteur,7,Transport,Transport
+7136,"Fourrage pour monture animale (foin, orge…)",7,Transport,Transport
+7141,"Vidange, lavage et graissage de voiture",7,Transport,Transport
+7142,Lavage et entretien de cyclomoteur,7,Transport,Transport
+7143,Dépense d’entretien de monture animale,7,Transport,Transport
+7144,Autre dépense d’entretien (charge de batterie),7,Transport,Transport
+7145,Dépense journalier de gardiennage et de parking,7,Transport,Transport
+7146,Peinture pour moyen de transport,7,Transport,Transport
+7147,Dépense total d'entretien de moyen de transport,7,Transport,Transport
+7149,Autres dépenses d'entretien (housse…),7,Transport,Transport
+7151,Achat de pièce de rechange,7,Transport,Transport
+7152,Main d’œuvre,7,Transport,Transport
+7153,Frais de réparation non ventilés (frais de dépannage…),7,Transport,Transport
+7154,Frais de remorquage,7,Transport,Transport
+7161,Location de voiture,7,Transport,Transport
+7162,Location de motocyclette,7,Transport,Transport
+7163,"Achat d’accessoires de cyclomoteur (casque, pompe…)",7,Transport,Transport
+7164,Accessoires pour animaux de traction,7,Transport,Transport
+7165,Abonnement parking,7,Transport,Transport
+7166,"Frais journalier de péage ""autoroute""",7,Transport,Transport
+7167,"Abonnement pour ""autoroute""",7,Transport,Transport
+7169,Accessoires pour véhicule,7,Transport,Transport
+7211,Abonnement bus,7,Transport,Transport
+7212,Abonnement scolaire train,7,Transport,Transport
+7213,Abonnement scolaire métro,7,Transport,Transport
+7214,Abonnement scolaire bus et métro,7,Transport,Transport
+7215,Transport rural scolaire régulier,7,Transport,Transport
+7221,Abonnement bus,7,Transport,Transport
+7222,Abonnement train,7,Transport,Transport
+7223,Abonnement métro,7,Transport,Transport
+7224,Abonnement bus et métro,7,Transport,Transport
+7225,Transport rural régulier,7,Transport,Transport
+7226,Abonnement moyen de transport prive,7,Transport,Transport
+7231,"Bus, autobus (urbain), public (TRANSTU)",7,Transport,Transport
+7232,"Bus, autobus (urbain), privé (TUS, TUT, TCV,,,)",7,Transport,Transport
+7233,"Louage, car (interurbain)",7,Transport,Transport
+7234,Taxi,7,Transport,Transport
+7235,Train,7,Transport,Transport
+7236,Métro - bus + métro,7,Transport,Transport
+7237,Transport rural,7,Transport,Transport
+7238,Frais de transport de bagage et de porte faix déménagement,7,Transport,Transport
+7239,Transport maritime (par bac…),7,Transport,Transport
+7241,Avion,7,Transport,Transport
+7242,Bateau,7,Transport,Transport
+7243,Car,7,Transport,Transport
+7244,Train,7,Transport,Transport
+7245,Dépense de transport pour voyage et vacances en Tunisie (voiture personnelle),7,Transport,Transport
+7249,Dépenses exceptionnelles de transport non ventilées,7,Transport,Transport
+8111,Achat d'appareil téléphone fixe,8,Communication,Télécommunication
+8112,Achat d'appareil téléphone portable,8,Communication,Télécommunication
+8113,Achat d’accessoires pour téléphone portable,8,Communication,Télécommunication
+8114,Frais d'installation téléphone fixe (abonnement et équipement),8,Communication,Télécommunication
+8115,Achat carte SIM pour téléphone portable,8,Communication,Télécommunication
+8121,Facture téléphone fixe,8,Communication,Télécommunication
+8122,Facture téléphone portable,8,Communication,Télécommunication
+8123,Dépense Forfait pour télépohone fixe,8,Communication,Télécommunication
+8124,Dépense Forfait pour télépohone Portable,8,Communication,Télécommunication
+8125,Carte de recharge pour téléphone fixe,8,Communication,Télécommunication
+8126,Carte de recharge pour téléphone portable,8,Communication,Télécommunication
+8127,"Recharge téléphone fixe (TTcach,,,)",8,Communication,Télécommunication
+8128,"Recharge téléphone portable (Tunisiana light, TTcach,,,)",8,Communication,Télécommunication
+8131,Frais de réparation  de téléphone,8,Communication,Télécommunication
+8141,Dépenses de téléphone  public (taxiphone),8,Communication,Télécommunication
+8151,Dépenses abonnement Internet,8,Communication,Télécommunication
+8152,Achat carte Internet,8,Communication,Télécommunication
+8153,Frais de publinet (Internet…),8,Communication,Télécommunication
+8161,"Timbre postal, lettre recommandée, lettre express…",8,Communication,Télécommunication
+8162,Dépense de télégramme,8,Communication,Télécommunication
+8163,"Autres frais (frais de mandat, envoi de colis postaux…)",8,Communication,Télécommunication
+8171,"Fax, émail",8,Communication,Télécommunication
+9110,Radio transistor – radio réveil,9,Recreation and culture,Loisirs et culture
+9111,Téléviseur,9,Recreation and culture,Loisirs et culture
+9112,"Magnétophone cassette, Video, lecteur DVD, VCD, lecture de disque compact , chaine stério",9,Recreation and culture,Loisirs et culture
+9113,Appareil de photo,9,Recreation and culture,Loisirs et culture
+9114,Caméra vidéo,9,Recreation and culture,Loisirs et culture
+9115,Ordinateur personnel,9,Recreation and culture,Loisirs et culture
+9116,"Instrument de musique (violon, flûte, guitare, orgue, darbouka, bendir…)",9,Recreation and culture,Loisirs et culture
+9117,"Articles de sport, de pêche de chasse et articles de plage  (ballon, ligne, hameçon, fusil de chasse, tente, parasol, chambre à air...)",9,Recreation and culture,Loisirs et culture
+9118,Jouet pour enfant de tout type (console de jeux de vidéo …),9,Recreation and culture,Loisirs et culture
+9119,"Autres articles de loisirs (jumelle, boussole…)",9,Recreation and culture,Loisirs et culture
+9121,Parabole,9,Recreation and culture,Loisirs et culture
+9122,Récepteur,9,Recreation and culture,Loisirs et culture
+9123,Photocopeuse,9,Recreation and culture,Loisirs et culture
+9124,"Achat de CD, DVD,,,",9,Recreation and culture,Loisirs et culture
+9125,"Achat d'accessoires d’articles de loisirs (pile, cassette de magnétophone de vidéo, antenne de télévision, retors, pellicule, cartouche, imprimante, cassette، souris, clavier…)",9,Recreation and culture,Loisirs et culture
+9126,Dépenses de réparation et d’entretien d’articles de loisirs (réparation oridinateur...),9,Recreation and culture,Loisirs et culture
+9129,"Autres de dépenses liées aux articles de loisirs (développement de film, location de CD ou DVD, charge de batterie pour télévision…)",9,Recreation and culture,Loisirs et culture
+9131,Abonnement chaines sportives,9,Recreation and culture,Loisirs et culture
+9132,abonnement Dream-BOX,9,Recreation and culture,Loisirs et culture
+9133,Abonnement chaines crypée,9,Recreation and culture,Loisirs et culture
+9211,Cinéma,9,Recreation and culture,Loisirs et culture
+9212,"Spectacle sportif (stade, champ de course, piscine…)",9,Recreation and culture,Loisirs et culture
+9213,Théâtre,9,Recreation and culture,Loisirs et culture
+9219,"Autres spectacles (cirque, foire, manège,  parc de zoo, festival…)",9,Recreation and culture,Loisirs et culture
+9221,Jeux de cartes,9,Recreation and culture,Loisirs et culture
+9222,"Achat de jeux d’échec, de scrabble et autre jeux similaires",9,Recreation and culture,Loisirs et culture
+9223,"Jeux de loisirs (ping-pong, billard, flipper,…) dans les salles de jeux, jeux de carte à café",9,Recreation and culture,Loisirs et culture
+9224,"Jeux de hasard (promo sport, tiercé, lotterie…)",9,Recreation and culture,Loisirs et culture
+9231,Argent de poche,9,Recreation and culture,Loisirs et culture
+9232,"Prise de photo, développement de péllicule",9,Recreation and culture,Loisirs et culture
+9239,"Autres dépenses de loisirs (achat de fleurs, jasmin, œillet…)",9,Recreation and culture,Loisirs et culture
+9311,Revues et journaux,9,Recreation and culture,Loisirs et culture
+9321,Livres non scolaires,9,Recreation and culture,Loisirs et culture
+9331,Excursion,9,Recreation and culture,Loisirs et culture
+9341,Association culturelle,9,Recreation and culture,Loisirs et culture
+9342,Association sportive,9,Recreation and culture,Loisirs et culture
+9343,Centre syndicale,9,Recreation and culture,Loisirs et culture
+9344,Club de  loisirs,9,Recreation and culture,Loisirs et culture
+9345,Association politique,9,Recreation and culture,Loisirs et culture
+9351,"Dépense de correspondance (carte postale, carte de vœux , enveloppe…)",9,Recreation and culture,Loisirs et culture
+9352,"Droit d’entrée aux monuments culturels (musée, monument…)",9,Recreation and culture,Loisirs et culture
+9359,"Autres dépenses culturelles (achat de bloc note, calendrier, annonce dans le journal, photocopie, album, agenda…)",9,Recreation and culture,Loisirs et culture
+9411,Frais de location de salle,9,Recreation and culture,Loisirs et culture
+9412,"Frais de troupe musicale, orchestre troupe soulamia",9,Recreation and culture,Loisirs et culture
+9413,"Frais de location d’articles pour cérémonie, caméra vidéo….",9,Recreation and culture,Loisirs et culture
+9419,"Autres frais liés à la cérémonie (coiffure, robe mariée, location de robe pour cérémonie…)",9,Recreation and culture,Loisirs et culture
+9421, Frais de cérémonie funèbre,9,Recreation and culture,Loisirs et culture
+9511,Allocation pour pèlerinage,9,Recreation and culture,Loisirs et culture
+9512,Allocation pour « omra »,9,Recreation and culture,Loisirs et culture
+9513,Autres frais,9,Recreation and culture,Loisirs et culture
+9519,Frais liés au culte et au recueillement,9,Recreation and culture,Loisirs et culture
+10111,Frais de jardin d’enfant,10,Education,Éducation et enseignement
+10112,Frais d’école coranique (kottab),10,Education,Éducation et enseignement
+10113,Frais de crèche,10,Education,Éducation et enseignement
+10119,Autres frais d’enseignement préscolaire,10,Education,Éducation et enseignement
+10121,Cartable pour rentrée scolaire,10,Education,Éducation et enseignement
+10122,Livres pour rentrée scolaire,10,Education,Éducation et enseignement
+10123,Cahier et autres fournitures scolaires pour rentrée scolaire,10,Education,Éducation et enseignement
+10124,Dépenses de rentrée scolaire non ventilées,10,Education,Éducation et enseignement
+10125,"Achats courants de fournitures scolaires et frais de photocopie de documents scolaires, stylo …",10,Education,Éducation et enseignement
+10126,Frais pour  leçon particulières et études,10,Education,Éducation et enseignement
+10127,Frais de scolarité (pour les écoles et les facultés privés),10,Education,Éducation et enseignement
+10128,Frais de pension (pour les élèves internes ou demi pensionnaires),10,Education,Éducation et enseignement
+10129,"Autres frais d’enseignement scolaire (droit d’inscription, assurance scolaire  et universitaire…)",10,Education,Éducation et enseignement
+10131,Frais d’Auto Ecole (ou camion école),10,Education,Éducation et enseignement
+10132,Frais de formation en couture,10,Education,Éducation et enseignement
+10133,Frais de formation en coiffure,10,Education,Éducation et enseignement
+10134,Frais de formation en informatique (bureautique),10,Education,Éducation et enseignement
+10139,"Autres frais d’enseignement (enseignement par correspondance, de langue, musique, danse …)",10,Education,Éducation et enseignement
+10141,Frais de formation professionnelle,10,Education,Éducation et enseignement
+10142,Frais d’internat,10,Education,Éducation et enseignement
+11111,"Frais d’hôtel (hébergement, restauration, loisirs…)",11,"Restaurants, cafes and holidays","Vacances, restaurants et cafés"
+11121,Montant de loyer,11,"Restaurants, cafes and holidays","Vacances, restaurants et cafés"
+11122,Autres frais de vacances,11,"Restaurants, cafes and holidays","Vacances, restaurants et cafés"
+11129,Frais de vacances non ventilés,11,"Restaurants, cafes and holidays","Vacances, restaurants et cafés"
+11131,Allocation touristique,11,"Restaurants, cafes and holidays","Vacances, restaurants et cafés"
+11132,Autres frais,11,"Restaurants, cafes and holidays","Vacances, restaurants et cafés"
+11141,"Casse-croûte  au thon, à la sardine ,chappati",11,"Restaurants, cafes and holidays","Vacances, restaurants et cafés"
+11142,Casse-croûte  harissa,11,"Restaurants, cafes and holidays","Vacances, restaurants et cafés"
+11143,"Casse-croûte  à la confiture, beurre, fromage",11,"Restaurants, cafes and holidays","Vacances, restaurants et cafés"
+11144,"Hamburger, viande, escalope, poulet, salami",11,"Restaurants, cafes and holidays","Vacances, restaurants et cafés"
+11145,Plat tunisien,11,"Restaurants, cafes and holidays","Vacances, restaurants et cafés"
+11146,Plat ou casse croûte kaftegi,11,"Restaurants, cafes and holidays","Vacances, restaurants et cafés"
+11147,Casse-croûte  ou bol de lablebi,11,"Restaurants, cafes and holidays","Vacances, restaurants et cafés"
+11148,"Autre repas (œufs à la coque, hendi, fenouil en morceau…)",11,"Restaurants, cafes and holidays","Vacances, restaurants et cafés"
+11149,Repas dans un restaurant,11,"Restaurants, cafes and holidays","Vacances, restaurants et cafés"
+11151,Thé préparé,11,"Restaurants, cafes and holidays","Vacances, restaurants et cafés"
+11152,Café préparé,11,"Restaurants, cafes and holidays","Vacances, restaurants et cafés"
+11153,Thé et Café préparés non ventilés,11,"Restaurants, cafes and holidays","Vacances, restaurants et cafés"
+11154,Tisane,11,"Restaurants, cafes and holidays","Vacances, restaurants et cafés"
+11159,Autres boissons chaudes,11,"Restaurants, cafes and holidays","Vacances, restaurants et cafés"
+11161,Boisson gazeuse,11,"Restaurants, cafes and holidays","Vacances, restaurants et cafés"
+11162,Boisson non gazeuse sucré,11,"Restaurants, cafes and holidays","Vacances, restaurants et cafés"
+11163,Eau minérale,11,"Restaurants, cafes and holidays","Vacances, restaurants et cafés"
+11164,Jus de fruits,11,"Restaurants, cafes and holidays","Vacances, restaurants et cafés"
+11169,Autres boissons,11,"Restaurants, cafes and holidays","Vacances, restaurants et cafés"
+11171,Pâtisserie,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+11172,Bol de sorgho,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+11173,Crêpe,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+11174,Beignet,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+11175,"Fricassé, pâté",1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+11176,Pizza,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+11177,Brik,1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+11178,"Glace, gervais, thelja",1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+11179,"Chips, pomme de terre frite",1,Food and non-alcoholic beverages,Produits alimentaires et boissons non alcoolisées
+11181,Chiche au café,11,"Restaurants, cafes and holidays","Vacances, restaurants et cafés"
+12111,"Timbres fiscaux (carte d’identité, passeport, imprimé timbre, timbre de voyage, plastification…)",12,Other goods and services,Autres
+12112,"Droit et frais de formalités administratives (bulletin ou extrait de naissance, livret familial, légalisation de signature…)",12,Other goods and services,Autres
+12113,Droit d’enregistrement,12,Other goods and services,Autres
+12114,Frais d’autorisation (permi de construire),12,Other goods and services,Autres
+12115,Frais de parution d'annonce et de publicité dans la presse,12,Other goods and services,Autres
+12211,"Frais de notaire (frais pour contrat de mariage, …)",12,Other goods and services,Autres
+12221,"Frais d’avocat, huissier notaire, écrivain public",12,Other goods and services,Autres
+12222,Autres frais de tribunaux,12,Other goods and services,Autres
+12311,Frais d’assurance assurance vie,12,Other goods and services,Autres
+12312,"Frais d’assurance assurance logement (incendie,vol···)",12,Other goods and services,Autres
+12411,Réparation de bijoux,12,Other goods and services,Autres
+12412,Achat de bijoux,12,Other goods and services,Autres
+12511,Transfert en espèces à l’intérieur de pays,12,Other goods and services,Autres
+12522,Petit dons et charité,12,Other goods and services,Autres
+12523,Dons en espèces de montant important à l’occasion d’un événement familial ou d’une fête religieuse,12,Other goods and services,Autres
+12531,Dons importants et aumône sur les fonds (ezzaket),12,Other goods and services,Autres
+12541,Amendes et pénalités,12,Other goods and services,Autres
+12611,Transfert en espèces à l’étranger,12,Other goods and services,Autres
+12911,Autres dépenses non alimentaires,12,Other goods and services,Autres
