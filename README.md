@@ -49,14 +49,22 @@ alongside, code by code.
 ## Quick start
 
 ```bash
-make setup     # bsdtar, pdftotext, Python requirements
-make fetch     # 21 INS artefacts, ~86 MB, checksummed into data/raw/manifest.json
-make build     # datasets + codebooks, ~3 minutes
-make test      # reproduce INS's published figures from the microdata
+make setup           # bsdtar, pdftotext, Python requirements
+make fetch           # 21 INS artefacts, ~86 MB, checksummed into data/raw/manifest.json
+make build           # datasets + codebooks, ~3 minutes
+make test            # reproduce INS's published figures from the microdata
+
+make check-upstream  # has INS republished any of the 21 files? ~2 minutes
 ```
 
 `make test-fast` skips everything needing `data/raw` and runs in under a second, so it is
-worth having in a watch loop while editing.
+worth having in a watch loop while editing; `make lint` is the same ruff check CI runs.
+
+`make check-upstream` is the one to reach for when you want to know whether the sources
+have moved. It re-downloads all 21 artefacts with the cache bypassed and compares them to
+the committed manifest, exiting non-zero if anything changed. It needs no CI and no
+waiting for a schedule. `make verify` is the cheaper cousin: it only checks the files
+already on disk, so it cannot see an upstream change you have not fetched.
 
 ```python
 import pandas as pd, numpy as np
@@ -127,7 +135,9 @@ which is exactly the kind of error that survives casual checking.
 
 Two workflows, split on whether they need the survey data:
 
-**`checks`** runs on every push and pull request. Ruff, plus the 20 structural tests that
+**`checks`** runs on every pull request, and on pushes to `main`. (Not on pushes to a
+branch with an open PR — that would run it twice for every commit.) Ruff, plus the 20
+structural tests that
 need no data and no network — that every decode rule names a real value set, that no
 value set is orphaned, that every source URL is HTTPS on ins.tn, that the committed
 manifest covers every registered source, that no dataset is missing a codebook title. It
@@ -141,10 +151,15 @@ datasets can be downloaded without running anything. It runs weekly, on demand, 
 pull requests that touch the pipeline. `data/raw` is cached on the committed manifest's
 hash, so ins.tn is only contacted when the manifest changes or the cache expires.
 
-A weekly `upstream-drift` job re-downloads everything with the cache disabled and fails
-if any checksum has moved — that is `make check-upstream`, and a red run means INS has
+The `upstream-drift` job re-downloads everything with the cache disabled and fails if any
+checksum has moved — that is `make check-upstream`, and a red run means INS has
 republished a file under the same URL, which is worth knowing before it silently changes
-a number.
+a number. It runs on the weekly schedule **and on demand**: Actions → `pipeline` → Run
+workflow, or just `make check-upstream` locally. You never have to wait for Monday.
+
+It is deliberately excluded from pull requests. Force-fetching 86 MB with the cache off
+is not a cost a PR should pay, and INS changing a file unrelated to the diff is not a
+reason to block one.
 
 ## Layout
 
