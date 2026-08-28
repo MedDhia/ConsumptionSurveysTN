@@ -16,7 +16,11 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from consumptiontn import build_expenditure, build_household, build_panel, labels
+from consumptiontn import build_expenditure, build_household, build_panel
+
+# Every test in this module reads a Stata file out of data/raw. Run `make fetch` first,
+# or select against it with `pytest -m "not needs_raw"`.
+pytestmark = pytest.mark.needs_raw
 
 TOLERANCE_DT = 1.0  # published expenditure figures are rounded to whole dinars
 TOLERANCE_PCT = 0.06  # published rates are rounded to one decimal
@@ -72,7 +76,8 @@ def test_mean_per_capita_expenditure(household, milieu, expected):
 def test_mean_household_expenditure(household, milieu, expected):
     """Note de synthèse, Tableau 1. Household-unit figure, so weighted by `weight_hh`."""
     frame = household if milieu is None else household[household["milieu"] == milieu]
-    assert wmean(frame, "expenditure_total", "weight_hh") == pytest.approx(expected, abs=TOLERANCE_DT)
+    actual = wmean(frame, "expenditure_total", "weight_hh")
+    assert actual == pytest.approx(expected, abs=TOLERANCE_DT)
 
 
 @pytest.mark.parametrize(
@@ -104,7 +109,8 @@ def test_poverty_rate(household):
 def test_poor_population_counts(household):
     """Landing page: 1,950,000 poor and 337,141 extremely poor persons."""
     poor = float((household["poor"].eq("poor") * household["weight_pop"]).sum())
-    extreme = float((household["extreme_poor"].eq("extremely poor") * household["weight_pop"]).sum())
+    is_extreme = household["extreme_poor"].eq("extremely poor")
+    extreme = float((is_extreme * household["weight_pop"]).sum())
     assert poor == pytest.approx(1_950_000, rel=0.005)
     assert extreme == pytest.approx(337_141, rel=0.005)
 
@@ -159,14 +165,19 @@ def test_expenditure_by_function(household, by_function, code, expected):
     counts as food are reassigned -- see `labels.PRODUCT_FUNCTION_OVERRIDES`.
     """
     merged = household[["hh_id", "hh_size", "weight_pop"]].merge(by_function, on="hh_id")
-    column = next(c for c in by_function.columns if c.startswith("exp_") and c.endswith(f"_{code:02d}"))
+    suffix = f"_{code:02d}"
+    column = next(
+        c for c in by_function.columns if c.startswith("exp_") and c.endswith(suffix)
+    )
     dpa = float(np.average(merged[column] / merged["hh_size"], weights=merged["weight_pop"]))
     assert dpa == pytest.approx(expected, abs=TOLERANCE_DT)
 
 
 def test_function_totals_sum_to_household_total(household, by_function):
     """The twelve functions must exhaust household expenditure, not approximate it."""
-    merged = household[["hh_id", "expenditure_total"]].merge(by_function[["hh_id", "exp_total"]], on="hh_id")
+    merged = household[["hh_id", "expenditure_total"]].merge(
+        by_function[["hh_id", "exp_total"]], on="hh_id"
+    )
     assert (merged["exp_total"] - merged["expenditure_total"]).abs().max() < 0.1
 
 

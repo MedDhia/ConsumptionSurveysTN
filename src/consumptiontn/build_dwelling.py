@@ -31,5 +31,14 @@ def build() -> pd.DataFrame:
     df["hh_size"] = pd.to_numeric(df["hh_size"], errors="coerce").astype("Int64")
 
     df = labels.decode_frame(df)
-    lead = ["hh_id", "survey_year", "region", "milieu", "weight_hh", "weight_pop", "hh_size", "poor"]
+    lead = [
+        "hh_id",
+        "survey_year",
+        "region",
+        "milieu",
+        "weight_hh",
+        "weight_pop",
+        "hh_size",
+        "poor",
+    ]
     return df[lead + [c for c in df.columns if c not in lead]]

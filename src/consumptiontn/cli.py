@@ -1,8 +1,10 @@
 """Build every dataset and its codebook.
 
-    python -m consumptiontn.cli fetch      # download the INS artefacts
-    python -m consumptiontn.cli build      # build datasets + codebooks
-    python -m consumptiontn.cli verify     # re-check raw files against the manifest
+    python -m consumptiontn.cli fetch            # download the INS artefacts
+    python -m consumptiontn.cli fetch --force    # re-download even if already present
+    python -m consumptiontn.cli build            # build datasets + codebooks
+    python -m consumptiontn.cli verify           # re-check raw files against the manifest
+    python -m consumptiontn.cli check-upstream   # has INS republished anything?
 
 Outputs land in ``data/processed`` as CSV, plus Parquet for the two large files.
 ``tn_hbs_2021_expenditure`` (3.26M rows) is written as Parquet only and is not committed
@@ -15,7 +17,17 @@ import sys
 
 import pandas as pd
 
-from . import build_dwelling, build_expenditure, build_household, build_individual, build_panel, codebook, download, extract_pdf, panel_sources
+from . import (
+    build_dwelling,
+    build_expenditure,
+    build_household,
+    build_individual,
+    build_panel,
+    codebook,
+    download,
+    extract_pdf,
+    panel_sources,
+)
 from .config import PROCESSED_DIR
 
 INTROS = {
@@ -145,8 +157,9 @@ def build_all() -> dict[str, pd.DataFrame]:
 
 def main(argv: list[str]) -> int:
     command = argv[1] if len(argv) > 1 else "build"
+    flags = set(argv[2:])
     if command == "fetch":
-        download.fetch_all()
+        download.fetch_all(force="--force" in flags)
     elif command == "build":
         build_all()
     elif command == "verify":
@@ -155,6 +168,17 @@ def main(argv: list[str]) -> int:
             print("\n".join(problems))
             return 1
         print("all raw files match the manifest")
+    elif command == "check-upstream":
+        changed = download.check_upstream()
+        if changed:
+            print(
+                "INS has republished: "
+                + ", ".join(changed)
+                + "\n  Re-run `make fetch build` and check whether the numbers moved "
+                "before committing the new manifest."
+            )
+            return 1
+        print(f"all {len(download.SOURCES)} sources match the committed manifest")
     else:
         print(__doc__)
         return 2

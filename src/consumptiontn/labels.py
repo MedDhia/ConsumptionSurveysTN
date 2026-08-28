@@ -649,4 +649,5 @@ def french_labels(set_name: str, meta, column: str) -> dict[float, tuple[str, st
 
     original = value_labels(meta, column)
     english = VALUE_SETS[set_name]
-    return {code: (original.get(code, ""), english.get(code, "")) for code in sorted(set(original) | set(english))}
+    codes = sorted(set(original) | set(english))
+    return {code: (original.get(code, ""), english.get(code, "")) for code in codes}

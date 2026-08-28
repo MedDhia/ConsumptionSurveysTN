@@ -1,5 +1,8 @@
 # ConsumptionSurveysTN
 
+[![checks](https://github.com/MedDhia/ConsumptionSurveysTN/actions/workflows/tests.yml/badge.svg)](https://github.com/MedDhia/ConsumptionSurveysTN/actions/workflows/tests.yml)
+[![pipeline](https://github.com/MedDhia/ConsumptionSurveysTN/actions/workflows/pipeline.yml/badge.svg)](https://github.com/MedDhia/ConsumptionSurveysTN/actions/workflows/pipeline.yml)
+
 Research-ready datasets built from Tunisia's *Enquête Nationale sur le Budget, la
 Consommation et le Niveau de vie des ménages* (EBCNV), the household consumption survey
 the Institut National de la Statistique has run every five years since 1968.
@@ -52,6 +55,9 @@ make build     # datasets + codebooks, ~3 minutes
 make test      # reproduce INS's published figures from the microdata
 ```
 
+`make test-fast` skips everything needing `data/raw` and runs in under a second, so it is
+worth having in a watch loop while editing.
+
 ```python
 import pandas as pd, numpy as np
 
@@ -93,8 +99,8 @@ every row `pre-2011` or `revised (2011)` and the two must never be plotted as on
 
 ## Validating against INS
 
-`make test` runs 49 checks. The substantive ones recompute INS's published figures from
-the microdata:
+`make test` runs 64 checks — 20 structural ones that need no data, and 44 that do. The
+substantive ones recompute INS's published figures from the microdata:
 
 | Quantity | Published | Source |
 | --- | --- | --- |
@@ -109,16 +115,42 @@ the microdata:
 | Poverty rate, all 7 regions | 4.7–37.0% | Tableau 7 |
 | Gini index | 35.3 | Tableau 10 |
 
-All ten reproduce within the precision INS prints them at. Reproducing Tableau 4 needed
+All ten reproduce within the precision INS prints them at, on a clean CI runner as well
+as locally. Reproducing Tableau 4 needed
 one non-obvious correction: nine ready-to-eat products coded `11171`–`11179` (pizza,
 crêpe, brik, ice cream and so on) are counted under food, not under restaurants and
 cafés. The override is read off INS's own `DPA_5Cfiffres` sheet and moves 32.3 DT per
 person — without it, two of the twelve functions are wrong and the other ten are right,
 which is exactly the kind of error that survives casual checking.
 
+## Continuous integration
+
+Two workflows, split on whether they need the survey data:
+
+**`checks`** runs on every push and pull request. Ruff, plus the 20 structural tests that
+need no data and no network — that every decode rule names a real value set, that no
+value set is orphaned, that every source URL is HTTPS on ins.tn, that the committed
+manifest covers every registered source, that no dataset is missing a codebook title. It
+finishes in well under a minute, and a red result always means something about the diff.
+
+**`pipeline`** does the real work: installs bsdtar and pdftotext, fetches the 86 MB from
+ins.tn, builds every dataset, and runs the full suite including the reproduction of INS's
+published figures. It also asserts that a fresh build reproduces the committed datasets
+and codebooks byte for byte, and uploads `data/processed` as an artifact so the built
+datasets can be downloaded without running anything. It runs weekly, on demand, and on
+pull requests that touch the pipeline. `data/raw` is cached on the committed manifest's
+hash, so ins.tn is only contacted when the manifest changes or the cache expires.
+
+A weekly `upstream-drift` job re-downloads everything with the cache disabled and fails
+if any checksum has moved — that is `make check-upstream`, and a red run means INS has
+republished a file under the same URL, which is worth knowing before it silently changes
+a number.
+
 ## Layout
 
 ```
+.github/workflows/  checks (fast, gating) and pipeline (full, data-dependent)
+.claude/hooks/      SessionStart hook: installs dependencies in a fresh web session
 src/consumptiontn/
   config.py          source registry: 21 INS artefacts, one place to fix a moved URL
   download.py        fetch + SHA-256 + manifest

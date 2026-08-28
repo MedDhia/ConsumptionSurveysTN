@@ -128,14 +128,26 @@ _T4 = {
 }
 
 _T5 = {  # Tableau 5, p.9 -- poverty lines, DT per person per year
-    "urban": {"poverty_line": [949, 1275, 1801, 2683], "extreme_poverty_line": [567, 761, 1070, 1529]},
-    "rural": {"poverty_line": [798, 1070, 1501, 2224], "extreme_poverty_line": [506, 679, 952, 1347]},
+    "urban": {
+        "poverty_line": [949, 1275, 1801, 2683],
+        "extreme_poverty_line": [567, 761, 1070, 1529],
+    },
+    "rural": {
+        "poverty_line": [798, 1070, 1501, 2224],
+        "extreme_poverty_line": [506, 679, 952, 1347],
+    },
     None: {"poverty_line": [897, 1206, 1706, 2536], "extreme_poverty_line": [546, 733, 1032, 1471]},
 }
 
 _T6 = {  # Tableau 6, p.10 -- poverty rates by milieu (%)
-    "urban": {"poverty_rate": [14.8, 12.6, 10.1, 12.7], "extreme_poverty_rate": [3.0, 2.1, 1.2, 1.7]},
-    "rural": {"poverty_rate": [38.8, 36.0, 26.0, 24.8], "extreme_poverty_rate": [15.5, 13.6, 6.6, 5.3]},
+    "urban": {
+        "poverty_rate": [14.8, 12.6, 10.1, 12.7],
+        "extreme_poverty_rate": [3.0, 2.1, 1.2, 1.7],
+    },
+    "rural": {
+        "poverty_rate": [38.8, 36.0, 26.0, 24.8],
+        "extreme_poverty_rate": [15.5, 13.6, 6.6, 5.3],
+    },
     None: {"poverty_rate": [23.1, 20.5, 15.2, 16.6], "extreme_poverty_rate": [7.4, 6.0, 2.9, 2.9]},
 }
 
@@ -334,7 +346,7 @@ def published_rows() -> pd.DataFrame:
             waves=w_old, values=values, indicator="expenditure_pc_mean", unit="DT per year",
             geography_level="region", geography=region, source_key=VOL2005, source_table="Jadwal 3",
         )
-    for region, (urban, rural, national, household) in _V2005_T4.items():
+    for region, (urban, rural, _national, household) in _V2005_T4.items():
         level = "national" if region == "Tunisia" else "region"
         # Jadwal 4 restates the region and national totals that Jadwal 2 and Jadwal 3
         # already give (identically). Only its two contributions are taken: the
@@ -375,13 +387,34 @@ WAVE_COVERAGE = pd.DataFrame(
         (1968, "none", "Wave conducted; no volume or series published on ins.tn."),
         (1975, "none", "Wave conducted; no volume or series published on ins.tn."),
         (1980, "none", "Wave conducted; no volume or series published on ins.tn."),
-        (1985, "partial", "National mean per-capita expenditure only, from a chart in the 2005 volume."),
-        (1990, "aggregate", "Per-capita expenditure by milieu and region, and budget shares, from the 2005 volume."),
+        (
+            1985,
+            "partial",
+            "National mean per-capita expenditure only, from a chart in the 2005 volume.",
+        ),
+        (
+            1990,
+            "aggregate",
+            "Per-capita expenditure by milieu and region, and budget shares, "
+            "from the 2005 volume.",
+        ),
         (1995, "aggregate", "As 1990, plus pre-2011-methodology poverty rate."),
         (2000, "aggregate", "As 1995."),
-        (2005, "aggregate", "2005 volume tables plus the revised-methodology series in the 2021 note."),
-        (2010, "aggregate", "Budget structure and poverty series in the 2021 note; volumes 1-3 as PDF."),
-        (2015, "aggregate", "Expenditure, poverty and Gini series in the 2021 note; volumes 1-3 as PDF."),
+        (
+            2005,
+            "aggregate",
+            "2005 volume tables plus the revised-methodology series in the 2021 note.",
+        ),
+        (
+            2010,
+            "aggregate",
+            "Budget structure and poverty series in the 2021 note; volumes 1-3 as PDF.",
+        ),
+        (
+            2015,
+            "aggregate",
+            "Expenditure, poverty and Gini series in the 2021 note; volumes 1-3 as PDF.",
+        ),
         (2019, "modelled", "Poverty rate only, imputed from the 2018-19 follow-up panel."),
         (2021, "microdata", "Seven Stata files plus aggregate annexes and volumes A and C."),
     ],

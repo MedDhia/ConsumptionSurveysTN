@@ -44,7 +44,9 @@ DERIVED: dict[str, str] = {
         "`v407 (millimes) * frequence / 1000`. The raw `v407` is a diary-period amount, "
         "not an annual one."
     ),
-    "consumption_function_code": "COICOP function 1-12, from the product code with the INS overrides applied.",
+    "consumption_function_code": (
+        "COICOP function 1-12, from the product code with the INS overrides applied."
+    ),
     "consumption_function": "English name of the COICOP function.",
     "consumption_function_fr": "French name of the COICOP function as INS writes it.",
     "product_label_fr": "INS product label, verbatim French.",
@@ -154,7 +156,8 @@ def write(
             description = f"Budget share of COICOP function {code}."
             unit = "fraction of 1"
         if col.startswith("exp_") and col != "exp_total":
-            description = f"Annual household expenditure on COICOP function {col.rsplit('_', 1)[-1]}."
+            code = col.rsplit("_", 1)[-1]
+            description = f"Annual household expenditure on COICOP function {code}."
             unit = "dinars per year"
         lines.append(f"| `{col}` | {dtype} | {unit} | {origin} | {description} |")
         if col in value_index:
@@ -166,7 +169,12 @@ def write(
                   "used in the exported file. Codes 9 and 99 mean *non déclaré* "
                   "throughout the EBCNV questionnaire and are exported as missing.", ""]
         for col in categorical:
-            lines += [f"### `{col}`", "", "| Code | French (INS) | English (exported) |", "| --- | --- | --- |"]
+            lines += [
+                f"### `{col}`",
+                "",
+                "| Code | French (INS) | English (exported) |",
+                "| --- | --- | --- |",
+            ]
             for code, (french, english) in value_index[col].items():
                 lines.append(f"| {code:g} | {french or '—'} | {english} |")
             lines.append("")

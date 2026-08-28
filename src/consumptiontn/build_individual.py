@@ -46,7 +46,18 @@ def build() -> pd.DataFrame:
     hh, _ = read_dta(find("ebcnv2021_depenses", "pov_2021.dta"))
     hh = hh.rename(columns=labels.RENAMES["pov_2021"])
     df = df.merge(
-        hh[["hh_id", "region", "milieu", "weight_hh", "weight_pop", "hh_size", "poor", "extreme_poor"]],
+        hh[
+            [
+                "hh_id",
+                "region",
+                "milieu",
+                "weight_hh",
+                "weight_pop",
+                "hh_size",
+                "poor",
+                "extreme_poor",
+            ]
+        ],
         on="hh_id",
         how="left",
     )
@@ -61,5 +72,15 @@ def build() -> pd.DataFrame:
             df[numeric] = pd.to_numeric(df[numeric], errors="coerce").astype("Int64")
 
     df = labels.decode_frame(df)
-    lead = ["hh_id", "person_id", "survey_year", "region", "milieu", "weight", "hh_size", "poor", "extreme_poor"]
+    lead = [
+        "hh_id",
+        "person_id",
+        "survey_year",
+        "region",
+        "milieu",
+        "weight",
+        "hh_size",
+        "poor",
+        "extreme_poor",
+    ]
     return df[lead + [c for c in df.columns if c not in lead]]

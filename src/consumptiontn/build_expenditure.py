@@ -39,7 +39,9 @@ def build_products() -> pd.DataFrame:
     df["product_code"] = df["product_code"].astype("int64")
     df["consumption_function_code"] = consumption_function(df["product_code"])
     df["consumption_function"] = df["consumption_function_code"].map(labels.CONSUMPTION_FUNCTIONS)
-    df["consumption_function_fr"] = df["consumption_function_code"].map(labels.CONSUMPTION_FUNCTIONS_FR)
+    df["consumption_function_fr"] = df["consumption_function_code"].map(
+        labels.CONSUMPTION_FUNCTIONS_FR
+    )
     return df.sort_values("product_code").reset_index(drop=True)
 
 
@@ -91,7 +93,12 @@ def build_by_function(long: pd.DataFrame | None = None) -> pd.DataFrame:
         .unstack(fill_value=0.0)
     )
     wide = wide.reindex(columns=sorted(labels.CONSUMPTION_FUNCTIONS), fill_value=0.0)
-    wide.columns = [f"exp_{labels.CONSUMPTION_FUNCTIONS[c].split(' ')[0].lower().strip(',')}_{c:02d}" for c in wide.columns]
+    # Column names take the first word of the function label: exp_food_01, exp_housing_04.
+    def column_name(code: int) -> str:
+        word = labels.CONSUMPTION_FUNCTIONS[code].split(" ")[0].lower().strip(",")
+        return f"exp_{word}_{code:02d}"
+
+    wide.columns = [column_name(c) for c in wide.columns]
     wide["exp_total"] = wide.sum(axis=1)
     for col in [c for c in wide.columns if c != "exp_total"]:
         wide[col.replace("exp_", "share_", 1)] = wide[col] / wide["exp_total"]

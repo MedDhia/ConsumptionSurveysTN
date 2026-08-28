@@ -226,7 +226,9 @@ SOURCES: tuple[Source, ...] = (
         filename="mesure_pauvrete_inegalites_2000_2010.pdf",
         wave=None,
         kind="reference",
-        description="Poverty, inequality and polarisation in Tunisia, 2000-2010. Retrospective series.",
+        description=(
+            "Poverty, inequality and polarisation in Tunisia, 2000-2010. Retrospective series."
+        ),
     ),
 )
 

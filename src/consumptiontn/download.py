@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import hashlib
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import requests
@@ -58,7 +58,8 @@ def load_manifest() -> dict:
 
 def save_manifest(manifest: dict) -> None:
     MANIFEST_PATH.parent.mkdir(parents=True, exist_ok=True)
-    MANIFEST_PATH.write_text(json.dumps(manifest, indent=2, ensure_ascii=False, sort_keys=True) + "\n")
+    text = json.dumps(manifest, indent=2, ensure_ascii=False, sort_keys=True)
+    MANIFEST_PATH.write_text(text + "\n")
 
 
 def fetch(src: Source, *, force: bool = False) -> Path:
@@ -72,15 +73,28 @@ def fetch(src: Source, *, force: bool = False) -> Path:
     return dest
 
 
-def fetch_all(keys: list[str] | None = None, *, force: bool = False) -> dict:
-    """Fetch the listed sources (all of them by default) and refresh the manifest."""
+def fetch_all(
+    keys: list[str] | None = None,
+    *,
+    force: bool = False,
+    write_manifest: bool = True,
+) -> tuple[dict, list[str]]:
+    """Fetch the listed sources (all of them by default).
+
+    Returns the manifest and the keys whose checksum differs from what the manifest
+    already recorded -- i.e. the files INS has republished since we last looked. Pass
+    ``write_manifest=False`` to compare without overwriting the committed record, which
+    is what ``check_upstream`` needs.
+    """
     manifest = load_manifest()
     targets = [source(k) for k in keys] if keys else list(SOURCES)
+    changed: list[str] = []
     for src in targets:
         path = fetch(src, force=force)
         digest = sha256(path)
         previous = manifest["sources"].get(src.key, {}).get("sha256")
         if previous and previous != digest:
+            changed.append(src.key)
             print(f"  ! {src.key} changed upstream (was {previous[:12]}..., now {digest[:12]}...)")
         manifest["sources"][src.key] = {
             "url": src.url,
@@ -90,10 +104,23 @@ def fetch_all(keys: list[str] | None = None, *, force: bool = False) -> dict:
             "description": src.description,
             "bytes": path.stat().st_size,
             "sha256": digest,
-            "retrieved_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "retrieved_utc": datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ"),
         }
-    save_manifest(manifest)
-    return manifest
+    if write_manifest:
+        save_manifest(manifest)
+    return manifest, changed
+
+
+def check_upstream() -> list[str]:
+    """Re-download everything and report what INS has changed since the manifest was written.
+
+    ``verify()`` cannot do this: it compares local files to the manifest, and ``fetch``
+    skips anything already on disk, so a warm cache always agrees with itself. Detecting
+    drift means fetching fresh and diffing against the committed record without
+    overwriting it.
+    """
+    _, changed = fetch_all(force=True, write_manifest=False)
+    return changed
 
 
 def verify() -> list[str]:

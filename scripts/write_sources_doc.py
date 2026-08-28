@@ -68,7 +68,10 @@ def main() -> None:
                 continue
             entry = manifest.get(src.key)
             if entry is None:
-                lines.append(f"| `{src.key}` | {src.wave or '—'} | [{src.filename}]({src.url}) | not fetched | — | — |")
+                lines.append(
+                    f"| `{src.key}` | {src.wave or '—'} | "
+                    f"[{src.filename}]({src.url}) | not fetched | — | — |"
+                )
                 continue
             size = f"{entry['bytes'] / 1e6:.1f} MB"
             lines.append(
@@ -79,7 +82,8 @@ def main() -> None:
         for src in SOURCES:
             if src.kind == kind and src.members:
                 lines.append("")
-                lines.append(f"`{src.filename}` contains: " + ", ".join(f"`{Path(m).name}`" for m in src.members))
+                members = ", ".join(f"`{Path(m).name}`" for m in src.members)
+                lines.append(f"`{src.filename}` contains: {members}")
 
     out = PROJECT_ROOT / "docs" / "SOURCES.md"
     out.write_text("\n".join(lines).rstrip() + "\n")

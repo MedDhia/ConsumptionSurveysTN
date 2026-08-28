@@ -7,6 +7,17 @@ import pytest
 
 from consumptiontn import build_panel, config, extract_pdf, panel_sources
 
+# The columns that together identify one observation in the panel.
+PANEL_KEYS = [
+    "wave",
+    "geography_level",
+    "geography",
+    "milieu",
+    "subgroup_type",
+    "subgroup",
+    "indicator",
+]
+
 
 @pytest.fixture(scope="module")
 def published() -> pd.DataFrame:
@@ -21,7 +32,7 @@ def test_every_row_cites_a_real_source(published):
 
 
 def test_no_duplicate_published_observations(published):
-    keys = ["wave", "geography_level", "geography", "milieu", "subgroup_type", "subgroup", "indicator", "methodology"]
+    keys = PANEL_KEYS + ["methodology"]
     duplicates = published[published.duplicated(keys, keep=False)]
     assert duplicates.empty, duplicates.to_string()
 
@@ -57,10 +68,11 @@ def test_wave_coverage_lists_every_wave():
     assert set(config.WAVES) <= covered
 
 
+@pytest.mark.needs_raw  # builds the panel from the 2021 microdata
 def test_recomputed_2021_matches_published(published):
     """Where the panel holds both bases for the same cell, they must agree."""
     panel = build_panel.build()
-    keys = ["wave", "geography_level", "geography", "milieu", "subgroup_type", "subgroup", "indicator"]
+    keys = PANEL_KEYS
     wide = panel.pivot_table(index=keys, columns="basis", values="value", dropna=False)
     both = wide.dropna(subset=["published", "recomputed"]).reset_index()
     assert len(both) >= 20, "expected the 2021 cells to overlap in both bases"
@@ -73,6 +85,7 @@ def test_recomputed_2021_matches_published(published):
     assert over.empty, over.sort_values("gap").to_string()
 
 
+@pytest.mark.needs_raw  # reads the poverty-map PDF and needs pdftotext
 def test_delegation_poverty_extraction():
     df = extract_pdf.delegation_poverty()
     assert len(df) > 240
