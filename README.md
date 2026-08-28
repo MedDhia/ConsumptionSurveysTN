@@ -172,6 +172,14 @@ cafés. The override is read off INS's own `DPA_5Cfiffres` sheet and moves 32.3 
 person — without it, two of the twelve functions are wrong and the other ten are right,
 which is exactly the kind of error that survives casual checking.
 
+## Figures
+
+[`figures/`](figures) holds six charts on the evolution of inequality, 1985–2021, with a
+light and a dark version of each. **None of them uses a composite index** — no Gini, no
+Theil, no Atkinson. Every figure shows an observed quantity or the relation between two
+observed quantities, so any number in them can be recovered from the datasets by hand.
+`make figures` redraws them.
+
 ## Continuous integration
 
 Two workflows, split on whether they need the survey data:
