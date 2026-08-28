@@ -92,6 +92,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - run: pip install requests
+          cache: pip
+          cache-dependency-path: requirements.txt
+      # `make check-upstream` goes through consumptiontn.cli, which imports pandas and
+      # every build module at import time. Installing only `requests` -- what the drift
+      # check itself needs -- looks leaner and fails at the first import.
+      - run: pip install -r requirements.txt
       - name: Has INS changed anything?
         run: make check-upstream

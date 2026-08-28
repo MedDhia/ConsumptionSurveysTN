@@ -1,7 +1,7 @@
 PYTHON ?= python3
 export PYTHONPATH := src
 
-.PHONY: help setup fetch build verify check-upstream lint test test-fast docs all clean
+.PHONY: help setup fetch build verify check-upstream lint test test-fast docs figures all clean
 
 help:
 	@echo "setup           install bsdtar, pdftotext and the Python requirements"
@@ -13,6 +13,7 @@ help:
 	@echo "test-fast       structural tests only -- no data, no network"
 	@echo "test            everything, including reproducing INS's published figures"
 	@echo "docs            regenerate docs/SOURCES.md from the manifest"
+	@echo "figures         redraw figures/ from data/processed"
 	@echo "all             fetch, build, docs, lint, test"
 
 setup:
@@ -41,6 +42,9 @@ test:
 
 docs:
 	$(PYTHON) scripts/write_sources_doc.py
+
+figures:
+	$(PYTHON) scripts/make_figures.py
 
 all: fetch build docs lint test
 
