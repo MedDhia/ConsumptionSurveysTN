@@ -132,7 +132,11 @@ GZIP_CSV = {"tn_hbs_2021_expenditure"}
 def _write(name: str, df: pd.DataFrame) -> None:
     PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
     extension = "csv.gz" if name in GZIP_CSV else "csv"
-    df.to_csv(PROCESSED_DIR / f"{name}.{extension}", index=False)
+    # gzip stamps an mtime into its header, so a default-compressed file differs byte for
+    # byte on every rebuild even when the CSV inside is identical -- which trips the
+    # pipeline's "committed outputs match a fresh build" check. Pin it to 0.
+    compression = {"method": "gzip", "mtime": 0} if name in GZIP_CSV else "infer"
+    df.to_csv(PROCESSED_DIR / f"{name}.{extension}", index=False, compression=compression)
     df.to_parquet(PROCESSED_DIR / f"{name}.parquet", index=False)
     codebook.write(name, df, title=TITLES[name], intro=INTROS[name], extension=extension)
     print(f"  {name:<40} {len(df):>9,} rows  -> {name}.{extension} + .parquet")
