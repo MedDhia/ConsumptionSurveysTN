@@ -78,10 +78,13 @@ jobs:
           retention-days: 14
 
   upstream-drift:
-    # Scheduled only, and deliberately cache-free: the point is to re-download from
-    # ins.tn and notice if INS has republished a file under the same URL. A red run here
-    # is the alarm, not a bug.
-    if: github.event_name == 'schedule'
+    # Deliberately cache-free: the point is to re-download from ins.tn and notice if INS
+    # has republished a file under the same URL. A red run here is the alarm, not a bug.
+    #
+    # Runs on the weekly schedule and on demand. Not on pull requests -- force-fetching
+    # 86 MB is not a cost a PR should pay, and INS changing a file unrelated to the diff
+    # is not a reason to block one.
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
