@@ -1,0 +1,23 @@
+# Raw and intermediate data are re-fetchable; only the manifest is version-controlled.
+data/raw/*
+!data/raw/manifest.json
+data/interim/*
+!data/interim/.gitkeep
+
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
+.ipynb_checkpoints/
+.DS_Store
+
+# Derived microdata is not committed: it is a ~3 minute rebuild from data/raw, and the
+# CSV forms are large. Small reference datasets (panel, products, delegations, coverage)
+# and the Parquet forms of the medium files are tracked; see docs/SOURCES.md.
+data/processed/tn_hbs_2021_expenditure.parquet
+data/processed/tn_hbs_2021_household.csv
+data/processed/tn_hbs_2021_individuals.csv
+data/processed/tn_hbs_2021_dwelling.csv
+data/processed/tn_hbs_2021_expenditure_by_function.csv

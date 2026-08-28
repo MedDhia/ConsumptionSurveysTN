@@ -1,0 +1,215 @@
+{
+  "retrieved": {},
+  "sources": {
+    "carte_pauvrete_2020": {
+      "bytes": 9358985,
+      "description": "Poverty map (Sept 2020). Small-area *modelled* estimates below the region tier -- delegation-level figures here are not survey estimates.",
+      "filename": "carte_pauvrete_tunisie_2020.pdf",
+      "kind": "reference",
+      "retrieved_utc": "2026-08-28T06:12:42Z",
+      "sha256": "069fb50f03dad674f271a6eb64a4a3238c4d3698604d6d28a52ecfae89ef46f7",
+      "url": "https://www.ins.tn/sites/default/files-ftp3/files/publication/pdf/Carte%20de%20la%20pauvret%C3%A9%20en%20Tunisie_final_0.pdf",
+      "wave": null
+    },
+    "ebcnv2005_vol1": {
+      "bytes": 10556629,
+      "description": "EBCNV 2005 Volume 1: household budget.",
+      "filename": "EBCNV2005_volume_1.pdf",
+      "kind": "report",
+      "retrieved_utc": "2026-08-28T06:12:38Z",
+      "sha256": "1cbb64e1491b38a3dba841fcfeae3e97d6487f3780fdf931af2f9b358b79e01c",
+      "url": "https://www.ins.tn/sites/default/files-ftp3/files/publication/pdf/consommation-2005%20V1.pdf",
+      "wave": 2005
+    },
+    "ebcnv2005_vol2": {
+      "bytes": 1751073,
+      "description": "EBCNV 2005 Volume 2: consumption.",
+      "filename": "EBCNV2005_volume_2.pdf",
+      "kind": "report",
+      "retrieved_utc": "2026-08-28T06:12:40Z",
+      "sha256": "cb6b2e928daa194e7ec745d9912084033abf35e257cdf2e8a4e338fc7e90c7c4",
+      "url": "https://www.ins.tn/sites/default/files-ftp3/files/publication/pdf/consomation_2005%20V2.pdf",
+      "wave": 2005
+    },
+    "ebcnv2010_vol1": {
+      "bytes": 6261260,
+      "description": "EBCNV 2010 Volume 1: household budget.",
+      "filename": "EBCNV2010_volume_1.pdf",
+      "kind": "report",
+      "retrieved_utc": "2026-08-28T06:12:33Z",
+      "sha256": "0c0f5720576054c3706c3431a1f937ecaf93e186d1bf70960569355367439947",
+      "url": "https://www.ins.tn/sites/default/files-ftp3/files/publication/pdf/consommation_2010%20V1.pdf",
+      "wave": 2010
+    },
+    "ebcnv2010_vol2": {
+      "bytes": 1068212,
+      "description": "EBCNV 2010 Volume 2: consumption.",
+      "filename": "EBCNV2010_volume_2.pdf",
+      "kind": "report",
+      "retrieved_utc": "2026-08-28T06:12:35Z",
+      "sha256": "44f56cb47c558805cd022fac2cbec68dad8214e66bd4b3a519e268b897d3585f",
+      "url": "https://www.ins.tn/sites/default/files-ftp3/files/publication/pdf/consommation-2010%20V2.pdf",
+      "wave": 2010
+    },
+    "ebcnv2010_vol3": {
+      "bytes": 4667076,
+      "description": "EBCNV 2010 Volume 3: living conditions.",
+      "filename": "EBCNV2010_volume_3.pdf",
+      "kind": "report",
+      "retrieved_utc": "2026-08-28T06:12:37Z",
+      "sha256": "fc30747ec6f5c224a1368394bb38f387ea36844299fcad2dbeab10609106f977",
+      "url": "https://www.ins.tn/sites/default/files-ftp3/files/publication/pdf/consommation_2010%20V3.pdf",
+      "wave": 2010
+    },
+    "ebcnv2015_vol1": {
+      "bytes": 2372404,
+      "description": "EBCNV 2015 Volume 1: household budget.",
+      "filename": "EBCNV2015_volume_1_budget.pdf",
+      "kind": "report",
+      "retrieved_utc": "2026-08-28T06:12:28Z",
+      "sha256": "7b8a8d6ce267a08a6394cb4187d85ab9795d316f1ae8b42cb827f58e49ac9005",
+      "url": "https://www.ins.tn/sites/default/files-ftp3/files/publication/pdf/vol1-budget-2015.pdf",
+      "wave": 2015
+    },
+    "ebcnv2015_vol2": {
+      "bytes": 2788970,
+      "description": "EBCNV 2015 Volume 2: consumption.",
+      "filename": "EBCNV2015_volume_2.pdf",
+      "kind": "report",
+      "retrieved_utc": "2026-08-28T06:12:30Z",
+      "sha256": "a11614ec7f517997839cf7b2afb8c0cda16c15180024aaa59d0debacdef0ff49",
+      "url": "https://www.ins.tn/sites/default/files-ftp3/files/publication/pdf/consommation-2015%20V2.pdf",
+      "wave": 2015
+    },
+    "ebcnv2015_vol3": {
+      "bytes": 3081883,
+      "description": "EBCNV 2015 Volume 3: living conditions.",
+      "filename": "EBCNV2015_volume_3.pdf",
+      "kind": "report",
+      "retrieved_utc": "2026-08-28T06:12:31Z",
+      "sha256": "b75e36851860234b6b826c7c1b04ca6e47542e4274a3a8e4fb9f5a35d33c45b6",
+      "url": "https://www.ins.tn/sites/default/files-ftp3/files/publication/pdf/consommation-2015%20V3.pdf",
+      "wave": 2015
+    },
+    "ebcnv2021_annexe1": {
+      "bytes": 84658,
+      "description": "Population distribution across expenditure brackets; expenditure structure.",
+      "filename": "Annexe1_2021_distribution_population_tranches_depenses.xlsx",
+      "kind": "annex",
+      "retrieved_utc": "2026-08-28T06:12:16Z",
+      "sha256": "020ef6e466bf9a9fb7c200bb77d4318917c75a96dea45b969201f8fb4a034e8d",
+      "url": "https://www.ins.tn/sites/default/files-ftp3/files/2023-05/Annexe1_2021_DistributitonPopulationTranchesD%C3%A9penses.xlsx",
+      "wave": 2021
+    },
+    "ebcnv2021_annexe2": {
+      "bytes": 113791,
+      "description": "Expenditure level by product group and region.",
+      "filename": "Annexe2_2021_niveau_depense_selon_produit.xlsx",
+      "kind": "annex",
+      "retrieved_utc": "2026-08-28T06:12:17Z",
+      "sha256": "8b73901ca07921d7575d762bdc03f7a547657d799ae8d51af85ec5135365bde0",
+      "url": "https://www.ins.tn/sites/default/files-ftp3/files/2023-05/Annexe2_2021_NiveauD%C3%A9pense%20selon%20le%20produit.xlsx",
+      "wave": 2021
+    },
+    "ebcnv2021_annexe3": {
+      "bytes": 964748,
+      "description": "Mean annual per-capita expenditure by product, cut by milieu, region, CSP, household size, expenditure bracket and decile, plus a 5-digit product sheet.",
+      "filename": "Annexe3_2021_depense_annuelle_moyenne_par_personne.xlsx",
+      "kind": "annex",
+      "retrieved_utc": "2026-08-28T06:12:19Z",
+      "sha256": "cdd279c73999595c27e97d9210ef102da700cb479f35a241f2b690e745bfa984",
+      "url": "https://www.ins.tn/sites/default/files-ftp3/files/2023-05/Annexe3_2021_D%C3%A9pense%20annuelle%20moyenne%20par%20personne%20selon%20le%20produit.xlsx",
+      "wave": 2021
+    },
+    "ebcnv2021_condvie": {
+      "bytes": 245068,
+      "description": "EBCNV 2021 living-conditions module (housing, amenities, durables).",
+      "filename": "microdonnees_condvie.rar",
+      "kind": "microdata",
+      "retrieved_utc": "2026-08-28T06:12:15Z",
+      "sha256": "11ab976b91144848ed9eb36fefe14d2364e2b4b51875bbe51023bb9676e94cb6",
+      "url": "https://www.ins.tn/sites/default/files-ftp3/files/2023-05/microdonnees_condvie.rar",
+      "wave": 2021
+    },
+    "ebcnv2021_depenses": {
+      "bytes": 19007753,
+      "description": "EBCNV 2021 expenditure microdata: household poverty/expenditure file, individual roster, product-level expenditure lines, product dictionary.",
+      "filename": "FichiersDepenses.rar",
+      "kind": "microdata",
+      "retrieved_utc": "2026-08-28T06:12:12Z",
+      "sha256": "c414e158d98d267725a5097ba6b24c2fabea77479e08521e519dc3722552f335",
+      "url": "https://www.ins.tn/sites/default/files-ftp3/files/2023-06/FichiersD%C3%A9penses.rar",
+      "wave": 2021
+    },
+    "ebcnv2021_donnees": {
+      "bytes": 546925,
+      "description": "Headline tables accompanying the results release (structure, poverty, Gini).",
+      "filename": "EBCNV2021_donnees.xlsx",
+      "kind": "annex",
+      "retrieved_utc": "2026-08-28T06:12:26Z",
+      "sha256": "43e4afb10f85767fa0ee4518d0b4f4d2f9c681a25856bd7dbb6d7096851b6b5c",
+      "url": "https://www.ins.tn/sites/default/files-ftp3/files/publication/pdf/Donn%C3%A9es.xlsx",
+      "wave": 2021
+    },
+    "ebcnv2021_educsante": {
+      "bytes": 1735646,
+      "description": "EBCNV 2021 individual-level education and health modules.",
+      "filename": "EducationSante.rar",
+      "kind": "microdata",
+      "retrieved_utc": "2026-08-28T06:12:14Z",
+      "sha256": "cb1bd63062603038a74584f15bc457c71f6b6606e1eb843c6b6893731c766364",
+      "url": "https://www.ins.tn/sites/default/files-ftp3/files/2023-11/EducationSante.rar",
+      "wave": 2021
+    },
+    "ebcnv2021_note": {
+      "bytes": 467219,
+      "description": "Synthesis note. Source of the headline figures the test suite reproduces.",
+      "filename": "EBCNV2021_note_synthese.pdf",
+      "kind": "report",
+      "retrieved_utc": "2026-08-28T06:12:21Z",
+      "sha256": "176d467c1803bae79a63db4e77091a371ac7c9fd2bc55bcb581fe1a353a7ae58",
+      "url": "https://www.ins.tn/sites/default/files-ftp3/files/publication/pdf/EBCNV2021_Note_synth%C3%A8se.pdf",
+      "wave": 2021
+    },
+    "ebcnv2021_services": {
+      "bytes": 92655,
+      "description": "47 Arabic-labelled tables on education, health and social coverage.",
+      "filename": "ENBCNV2021_acces_services_collectifs.xlsx",
+      "kind": "annex",
+      "retrieved_utc": "2026-08-28T06:12:20Z",
+      "sha256": "6e94d4bf6123056b7e980f44af268e38febbf9755191cd2d49d0538d50f76808",
+      "url": "https://www.ins.tn/sites/default/files-ftp3/files/2023-05/ENBCNV2021_Acc%C3%A8s%20aux%20services%20collectifs.xlsx",
+      "wave": 2021
+    },
+    "ebcnv2021_vol_a": {
+      "bytes": 18330497,
+      "description": "Volume A: household expenditure in level and structure.",
+      "filename": "EBCNV2021_volume_A.pdf",
+      "kind": "report",
+      "retrieved_utc": "2026-08-28T06:12:23Z",
+      "sha256": "a6ae11389b5c07a7c15a173b9d15e2cd25ef8299702925cd0bad63a67b0c204a",
+      "url": "https://www.ins.tn/sites/default/files-ftp3/files/publication/pdf/Volume%20A_EBCNV_2021.pdf",
+      "wave": 2021
+    },
+    "ebcnv2021_vol_c": {
+      "bytes": 5173606,
+      "description": "Volume C: access to public services and living conditions.",
+      "filename": "EBCNV2021_volume_C.pdf",
+      "kind": "report",
+      "retrieved_utc": "2026-08-28T06:12:25Z",
+      "sha256": "918fde4d5cd77273db25760c8c34febe36d6c36fa698c6deb755ac02fb90a9cb",
+      "url": "https://www.ins.tn/sites/default/files-ftp3/files/publication/pdf/Volume%20C_EBCNV_2021.pdf",
+      "wave": 2021
+    },
+    "mesure_pauvrete_2000_2010": {
+      "bytes": 894213,
+      "description": "Poverty, inequality and polarisation in Tunisia, 2000-2010. Retrospective series.",
+      "filename": "mesure_pauvrete_inegalites_2000_2010.pdf",
+      "kind": "reference",
+      "retrieved_utc": "2026-08-28T06:12:43Z",
+      "sha256": "e79f08785f95dd5729047242f8b089a30a5cffebd3ac1d77bc50a5484e9aad83",
+      "url": "https://www.ins.tn/sites/default/files-ftp3/files/publication/pdf/Mesure_de_la_pauvrete.pdf",
+      "wave": null
+    }
+  }
+}
