@@ -1,6 +1,6 @@
 # Product-level expenditure — EBCNV 2021
 
-`data/processed/tn_hbs_2021_expenditure.parquet` — 3,260,352 rows × 13 columns
+`data/processed/tn_hbs_2021_expenditure.csv.gz` — 3,260,352 rows × 13 columns
 
 One row per household × product acquisition, annualised.
 

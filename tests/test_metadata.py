@@ -121,7 +121,7 @@ def test_codebook_source_files_name_real_archive_members():
 def test_every_dataset_has_both_a_title_and_an_intro():
     """`cli._write` raises KeyError at build time if either is missing."""
     assert set(cli.TITLES) == set(cli.INTROS)
-    assert cli.PARQUET_ONLY <= set(cli.TITLES)
+    assert cli.GZIP_CSV <= set(cli.TITLES)
 
 
 def test_units_and_derived_descriptions_are_non_empty():

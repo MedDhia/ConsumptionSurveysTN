@@ -6,9 +6,14 @@
     python -m consumptiontn.cli verify           # re-check raw files against the manifest
     python -m consumptiontn.cli check-upstream   # has INS republished anything?
 
-Outputs land in ``data/processed`` as CSV, plus Parquet for the two large files.
-``tn_hbs_2021_expenditure`` (3.26M rows) is written as Parquet only and is not committed
--- it is a two-minute rebuild from the raw archive.
+Every dataset is written to ``data/processed`` in two formats: CSV, so it opens in R,
+Python, Stata or a spreadsheet with no extra package; and Parquet, which keeps dtypes and
+is far faster to load.
+
+One exception on the CSV side. ``tn_hbs_2021_expenditure`` is 3.26M rows and 419 MB as
+plain CSV, past GitHub's 100 MB per-file limit, so it is written gzipped. Both languages
+read that transparently -- ``pandas.read_csv`` sniffs the extension, and R's
+``read.csv(gzfile(...))`` and ``readr::read_csv`` both handle it.
 """
 
 from __future__ import annotations
@@ -119,20 +124,18 @@ TITLES = {
     "tn_poverty_delegations_2015": "Delegation-level poverty, 2015 small-area estimates",
 }
 
-# Files large enough that CSV is the wrong default.
-PARQUET_ONLY = {"tn_hbs_2021_expenditure"}
+# Datasets whose plain CSV would exceed GitHub's 100 MB per-file limit. Written as
+# .csv.gz instead; pandas and R both read that without ceremony.
+GZIP_CSV = {"tn_hbs_2021_expenditure"}
 
 
 def _write(name: str, df: pd.DataFrame) -> None:
     PROCESSED_DIR.mkdir(parents=True, exist_ok=True)
-    if name in PARQUET_ONLY:
-        df.to_parquet(PROCESSED_DIR / f"{name}.parquet", index=False)
-    else:
-        df.to_csv(PROCESSED_DIR / f"{name}.csv", index=False)
-        df.to_parquet(PROCESSED_DIR / f"{name}.parquet", index=False)
-    extension = "parquet" if name in PARQUET_ONLY else "csv"
-    path = codebook.write(name, df, title=TITLES[name], intro=INTROS[name], extension=extension)
-    print(f"  {name:<40} {len(df):>9,} rows  -> {path.name}")
+    extension = "csv.gz" if name in GZIP_CSV else "csv"
+    df.to_csv(PROCESSED_DIR / f"{name}.{extension}", index=False)
+    df.to_parquet(PROCESSED_DIR / f"{name}.parquet", index=False)
+    codebook.write(name, df, title=TITLES[name], intro=INTROS[name], extension=extension)
+    print(f"  {name:<40} {len(df):>9,} rows  -> {name}.{extension} + .parquet")
 
 
 def build_all() -> dict[str, pd.DataFrame]:

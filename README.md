@@ -29,7 +29,8 @@ each number came from rather than presenting a smooth series that isn't one.
 
 ## Datasets
 
-Built into `data/processed/`, each with a codebook in [`docs/codebooks/`](docs/codebooks).
+Built into `data/processed/` as CSV and Parquet, each with a codebook in
+[`docs/codebooks/`](docs/codebooks).
 
 | Dataset | Rows | What it is |
 | --- | --- | --- |
@@ -66,10 +67,27 @@ the committed manifest, exiting non-zero if anything changed. It needs no CI and
 waiting for a schedule. `make verify` is the cheaper cousin: it only checks the files
 already on disk, so it cannot see an upstream change you have not fetched.
 
+## File formats
+
+Every dataset is committed in two formats, so the repository is usable without running
+anything:
+
+| Format | Use it when |
+| --- | --- |
+| `.csv` | You want it to just open — R, Python, Stata, a spreadsheet, no package needed. |
+| `.parquet` | You want dtypes preserved and a much faster load. `arrow` in R, `pandas` in Python. |
+
+`tn_hbs_2021_expenditure` is the one exception: 3.26M rows is 419 MB as plain CSV, past
+GitHub's 100 MB per-file limit, so its CSV is gzipped. Both languages read that directly —
+no need to decompress it first.
+
+### Python
+
 ```python
 import pandas as pd, numpy as np
 
-hh = pd.read_parquet("data/processed/tn_hbs_2021_household.parquet")
+hh = pd.read_csv("data/processed/tn_hbs_2021_household.csv")       # or .parquet
+exp = pd.read_csv("data/processed/tn_hbs_2021_expenditure.csv.gz")  # gzip auto-detected
 
 # INS's headline: mean annual expenditure per person, 5,468 DT
 np.average(hh.expenditure_pc, weights=hh.weight_pop)
@@ -79,6 +97,29 @@ np.average(hh.expenditure_pc, weights=hh.weight_pop)
    .groupby("region", observed=True)
    .apply(lambda g: 100 * np.average(g.p, weights=g.weight_pop)))
 ```
+
+### R
+
+```r
+hh  <- read.csv("data/processed/tn_hbs_2021_household.csv", fileEncoding = "UTF-8")
+exp <- read.csv(gzfile("data/processed/tn_hbs_2021_expenditure.csv.gz"))
+
+# 5468.3 -- the same figure INS publishes
+weighted.mean(hh$expenditure_pc, hh$weight_pop)
+
+# 16.59%
+100 * weighted.mean(hh$poor == "poor", hh$weight_pop)
+
+# Poverty headcount by region
+tapply(seq_len(nrow(hh)), hh$region,
+       function(i) 100 * weighted.mean(hh$poor[i] == "poor", hh$weight_pop[i]))
+```
+
+Product labels are French and carry accents, so the files are UTF-8. Base `read.csv`
+inherits your session's locale, which on Windows or a bare container may not be UTF-8 —
+pass `fileEncoding = "UTF-8"` as above, or use `readr::read_csv()`, which assumes UTF-8.
+Skip it and accents come back as `<U+00E9>` escapes. Both were checked against the same
+files: R and Python agree on 496 accented and 438 comma-containing product labels.
 
 ## Four things that will bite you
 
