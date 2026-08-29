@@ -7,9 +7,11 @@ Research-ready datasets built from Tunisia's *Enquête Nationale sur le Budget, 
 Consommation et le Niveau de vie des ménages* (EBCNV), the household consumption survey
 the Institut National de la Statistique has run every five years since 1968.
 
-Everything here is derived from what INS publishes at [ins.tn](https://www.ins.tn). The
-pipeline downloads it, checksums it, builds the datasets, and then checks its own work by
-reproducing INS's published headline figures from the microdata.
+Everything here is derived from what INS publishes at [ins.tn](https://www.ins.tn), plus
+the *Annuaire Statistique de la Tunisie* for the annual price and labour series the
+five-yearly survey cannot give. The pipeline downloads it all, checksums it, builds the
+datasets, and then checks its own work by reproducing INS's published headline figures
+from the microdata.
 
 ## What INS actually publishes
 
@@ -27,6 +29,34 @@ The short version, because it shapes everything downstream:
 So the depth of what can be built varies by era, and the datasets below say which era
 each number came from rather than presenting a smooth series that isn't one.
 
+### The statistical yearbooks
+
+Alongside the survey, the pipeline reads the *Annuaire Statistique de la Tunisie*,
+editions 2001–2023 (2013 was never issued). These are general-statistics volumes, not
+consumption surveys, and they supply two things EBCNV cannot: an annual consumer price
+index, and annual unemployment by education level.
+
+Three things about them are worth knowing before trusting anything built on them.
+
+**They are fetched from a mirror.** The editions come from a Google Drive folder that
+mirrors documents INS also publishes. A mirror can be edited by whoever owns it, so the
+sha256 in `data/raw/manifest.json` is doing more work here than for the ins.tn sources —
+if one moves, treat the file as untrusted until re-checked against the INS release.
+
+**Table numbers move between editions.** The CPI evolution table is 13.6 in the 2023
+edition and 13.7 in 2010. Every table is located by its French title, never by number.
+
+**Two rendering faults will corrupt a naive parse.** Bold columns emit every glyph twice,
+so 70.0 arrives as `7700..00`; and thousands are separated by a space, so `1 013.5` is one
+number. Both are repaired explicitly, and both are asserted in `tests/test_yearbooks.py` —
+because each one fails silently, producing a number of the right shape and the wrong
+magnitude.
+
+The unemployment series is spliced from three editions that overlap by design: 2015
+appears in two of them and 2019 in two, and the builder requires the shared years to agree
+exactly. That is what verifies the right column was read from each volume. It does **not**
+reach before 2011 — the 2005, 2010 and 2012 editions carry no unemployment table at all.
+
 ## Datasets
 
 Built into `data/processed/` as CSV and Parquet, each with a codebook in
@@ -43,6 +73,9 @@ Built into `data/processed/` as CSV and Parquet, each with a codebook in
 | `tn_consumption_panel` | 759 | Long indicator panel 1985–2021: expenditure, poverty, Gini, budget shares. |
 | `tn_poverty_delegations_2015` | 253 | Delegation-level poverty and school-dropout rates from the 2020 poverty map. |
 | `tn_wave_coverage` | 12 | What is available for each wave since 1968. |
+| `tn_cpi_annual` | 200 | Consumer price index 1999–2023, on each of INS's eight base years. |
+| `tn_cpi_by_division` | 39 | Price index by COICOP function 2021–2023, base 2015 = 100, with INS weights. |
+| `tn_unemployment_annual` | 104 | Unemployment by education level and by sex, 2011–2023. |
 
 All labels are translated to English; every codebook keeps the original French and Arabic
 alongside, code by code.
@@ -174,17 +207,22 @@ which is exactly the kind of error that survives casual checking.
 
 ## Figures
 
-[`figures/`](figures) holds sixteen charts on inequality, with a light and a dark version
-of each. Six trace its evolution from 1985 to 2021; six look inside the groups the first
-six average over — the spread within a region, within a governorate, and across cohorts;
-four compare the two waves before January 2011 with the two after. **None of them uses a
-composite index** — no Gini, no Theil, no Atkinson. Every figure shows an observed
-quantity or the relation between two observed quantities, so any number in them can be
-recovered from the datasets by hand. `make figures` redraws them.
+[`figures/`](figures) holds twenty-six charts on inequality, with a light and a dark
+version of each. Six trace its evolution from 1985 to 2021; six look inside the groups the
+first six average over; four compare the two waves before January 2011 with the two after;
+three come from the statistical yearbooks and cover prices and unemployment annually; and
+seven use the health, education and labour modules and the product-level file, none of
+which any earlier figure had touched. **None of them uses a composite index of
+inequality** — no Gini, no Theil, no Atkinson. Every figure shows an observed quantity or
+the relation between two observed quantities, so any number in them can be recovered from
+the datasets by hand. `make figures` redraws them.
 
-The last four are descriptive before-and-after comparisons, not causal estimates: the
-2010-2021 window contains the revolution alongside the 2015 attacks, the tourism collapse,
-dinar depreciation and COVID, and nothing here separates them.
+Two caveats the figures carry in their own text rather than in a footnote. Figures 13–16
+are descriptive before-and-after comparisons, not causal estimates: the 2010–2021 window
+contains the revolution alongside the 2015 attacks, the tourism collapse, dinar
+depreciation and COVID, and nothing here separates them. And the consumer price index in
+figures 17 and 18 is a price level, not a summary of a distribution — it is not the kind
+of index the rule above is about.
 
 ## Continuous integration
 

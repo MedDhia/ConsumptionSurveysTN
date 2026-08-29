@@ -1,5 +1,5 @@
-# Full pipeline: fetch the INS artefacts, build every dataset, and reproduce INS's
-# published headline figures from the microdata.
+# Full pipeline: fetch the INS artefacts and the statistical yearbooks, build every
+# dataset, and reproduce INS's published headline figures from the microdata.
 #
 # data/raw is cached on the committed manifest's hash, so pull requests reuse the base
 # branch's copy and ins.tn is only contacted when the manifest changes or the cache
@@ -82,11 +82,15 @@ jobs:
     # has republished a file under the same URL. A red run here is the alarm, not a bug.
     #
     # Runs on the weekly schedule and on demand. Not on pull requests -- force-fetching
-    # 86 MB is not a cost a PR should pay, and INS changing a file unrelated to the diff
-    # is not a reason to block one.
+    # roughly 290 MB (the yearbook mirror is most of it) is not a cost a PR should pay,
+    # and a source changing unrelated to the diff is not a reason to block one.
+    #
+    # A download that comes back as an error or interstitial page rather than the file is
+    # rejected on its magic bytes before it reaches the manifest, so a red run here means
+    # a checksum genuinely moved, not that a host served a consent screen.
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

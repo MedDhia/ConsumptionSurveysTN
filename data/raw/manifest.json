@@ -1,6 +1,226 @@
 {
   "retrieved": {},
   "sources": {
+    "annuaire_2001": {
+      "bytes": 1216262,
+      "description": "Annuaire Statistique de la Tunisie, 2001 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable.",
+      "filename": "annuaire_2001.pdf",
+      "kind": "yearbook",
+      "retrieved_utc": "2026-08-29T09:19:13Z",
+      "sha256": "eac888e3caf5945b256a71aec83d6ec5e019e006f2a34617c8dd6445a9eabd88",
+      "url": "https://drive.usercontent.google.com/download?id=1SZJ-rQE-hjN-z-VbQTjxhJp_BdB0QN3K&export=download&confirm=t",
+      "wave": null
+    },
+    "annuaire_2002": {
+      "bytes": 5373116,
+      "description": "Annuaire Statistique de la Tunisie, 2002 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable.",
+      "filename": "annuaire_2002.pdf",
+      "kind": "yearbook",
+      "retrieved_utc": "2026-08-29T09:19:16Z",
+      "sha256": "aac92939d8825e366fe60bda16c849fccb8c63e158b1f5b282c3d37231a71322",
+      "url": "https://drive.usercontent.google.com/download?id=12Zpre3GQkBTzbTuWXoEBerJqbeJEpl6z&export=download&confirm=t",
+      "wave": null
+    },
+    "annuaire_2003": {
+      "bytes": 5389422,
+      "description": "Annuaire Statistique de la Tunisie, 2003 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable.",
+      "filename": "annuaire_2003.pdf",
+      "kind": "yearbook",
+      "retrieved_utc": "2026-08-29T09:19:20Z",
+      "sha256": "bc4a0e208f80ea1ef7e0c500a12da74b829a36a12cc50c0e5bf9aca8454a5572",
+      "url": "https://drive.usercontent.google.com/download?id=1KziS2PobYx4PoUtDjoyn9fwDUgN0emNK&export=download&confirm=t",
+      "wave": null
+    },
+    "annuaire_2004": {
+      "bytes": 7153680,
+      "description": "Annuaire Statistique de la Tunisie, 2004 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable.",
+      "filename": "annuaire_2004.pdf",
+      "kind": "yearbook",
+      "retrieved_utc": "2026-08-29T09:19:24Z",
+      "sha256": "5ebc485dbac7666f9fdd681568e67c2b4932adc48d485a2367288e3bef199b4b",
+      "url": "https://drive.usercontent.google.com/download?id=1AyE-nzhDqFcZJ2kKtgm6ueTIM3dBgcHy&export=download&confirm=t",
+      "wave": null
+    },
+    "annuaire_2005": {
+      "bytes": 6044422,
+      "description": "Annuaire Statistique de la Tunisie, 2005 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable.",
+      "filename": "annuaire_2005.pdf",
+      "kind": "yearbook",
+      "retrieved_utc": "2026-08-29T09:19:28Z",
+      "sha256": "6e40d76892fccf3eeda3dd7c4a1d6bf6aa4e1669ff3addc0f6e756f77835baad",
+      "url": "https://drive.usercontent.google.com/download?id=1tOBUSnfLIKdtF3JAr6oLBcbgt3qMCsts&export=download&confirm=t",
+      "wave": null
+    },
+    "annuaire_2006": {
+      "bytes": 7462965,
+      "description": "Annuaire Statistique de la Tunisie, 2006 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable.",
+      "filename": "annuaire_2006.pdf",
+      "kind": "yearbook",
+      "retrieved_utc": "2026-08-29T09:19:32Z",
+      "sha256": "e52fa905eed23bae248fe261bfd2fb0da54d08b41e971c75f861823f1b2aac21",
+      "url": "https://drive.usercontent.google.com/download?id=1Dcb2UnB_BJhc0Lw16EAfs88ZN3uk6dp9&export=download&confirm=t",
+      "wave": null
+    },
+    "annuaire_2007": {
+      "bytes": 5751529,
+      "description": "Annuaire Statistique de la Tunisie, 2007 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable.",
+      "filename": "annuaire_2007.pdf",
+      "kind": "yearbook",
+      "retrieved_utc": "2026-08-29T09:19:36Z",
+      "sha256": "a393b827e83fe9204636cda7867fa88e4245c11d569fc22528676b6bae156c77",
+      "url": "https://drive.usercontent.google.com/download?id=1wm8-t3fw43vc4snMPZKhSI4svBU1Agjg&export=download&confirm=t",
+      "wave": null
+    },
+    "annuaire_2008": {
+      "bytes": 5506607,
+      "description": "Annuaire Statistique de la Tunisie, 2008 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable.",
+      "filename": "annuaire_2008.pdf",
+      "kind": "yearbook",
+      "retrieved_utc": "2026-08-29T09:19:40Z",
+      "sha256": "c89dfba64e56962a72584772e548a031e3d9f7ed79f7eccf7d4b75c14eb5a612",
+      "url": "https://drive.usercontent.google.com/download?id=1HI-CSrkWLkm_rWV3-7kXcWnbHGI2MqOu&export=download&confirm=t",
+      "wave": null
+    },
+    "annuaire_2009": {
+      "bytes": 4447228,
+      "description": "Annuaire Statistique de la Tunisie, 2009 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable.",
+      "filename": "annuaire_2009.pdf",
+      "kind": "yearbook",
+      "retrieved_utc": "2026-08-29T09:19:47Z",
+      "sha256": "daa4ca794de60f84c6f9e740e708e7644a3f41e38a3f6134fab3b6b180dc1ba0",
+      "url": "https://drive.usercontent.google.com/download?id=1CqTdgsC84jbznoWQwOcSBYt48RvTm2mg&export=download&confirm=t",
+      "wave": null
+    },
+    "annuaire_2010": {
+      "bytes": 3491652,
+      "description": "Annuaire Statistique de la Tunisie, 2010 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable.",
+      "filename": "annuaire_2010.pdf",
+      "kind": "yearbook",
+      "retrieved_utc": "2026-08-29T09:19:50Z",
+      "sha256": "b15d046a5aec7fb5ab9eb688cb8f173a0159ebac02f62599bc106e9c81f7acc1",
+      "url": "https://drive.usercontent.google.com/download?id=1TvRNXFOAC27VkBK8XUe6Ic2QEPXb3588&export=download&confirm=t",
+      "wave": null
+    },
+    "annuaire_2011": {
+      "bytes": 3801088,
+      "description": "Annuaire Statistique de la Tunisie, 2011 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable.",
+      "filename": "annuaire_2011.pdf",
+      "kind": "yearbook",
+      "retrieved_utc": "2026-08-29T09:19:55Z",
+      "sha256": "de500e9765951cd88e8c4db9aa50d3f5ed1e8424bebb6f11c3c57aab9ad94cd3",
+      "url": "https://drive.usercontent.google.com/download?id=1miEEzJlB355xcWvp_UuWPn2k9RG5d3a0&export=download&confirm=t",
+      "wave": null
+    },
+    "annuaire_2012": {
+      "bytes": 3612220,
+      "description": "Annuaire Statistique de la Tunisie, 2012 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable.",
+      "filename": "annuaire_2012.pdf",
+      "kind": "yearbook",
+      "retrieved_utc": "2026-08-29T09:19:59Z",
+      "sha256": "d3caceb2d62c9cb4c37cfc6df6ce011f7ff5b43f9b93da555f9d0b7d24bf6782",
+      "url": "https://drive.usercontent.google.com/download?id=1EpiqpiY4TPGqCpWE1XswYPOW3-7Sm7V5&export=download&confirm=t",
+      "wave": null
+    },
+    "annuaire_2014": {
+      "bytes": 19969503,
+      "description": "Annuaire Statistique de la Tunisie, 2014 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable.",
+      "filename": "annuaire_2014.pdf",
+      "kind": "yearbook",
+      "retrieved_utc": "2026-08-29T09:20:05Z",
+      "sha256": "efac7f5fb5d339401427483e2f7d35b2c690a76a8659a3723bc9310008d69288",
+      "url": "https://drive.usercontent.google.com/download?id=14Cvp4Br9vcsUjg7C-0G0zZLzz_AI-Tr1&export=download&confirm=t",
+      "wave": null
+    },
+    "annuaire_2015": {
+      "bytes": 16362891,
+      "description": "Annuaire Statistique de la Tunisie, 2015 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable.",
+      "filename": "annuaire_2015.pdf",
+      "kind": "yearbook",
+      "retrieved_utc": "2026-08-29T09:20:12Z",
+      "sha256": "d8fea8cb507c2dc20b7134a359885333abf5a737d570d5c023609d1f04c01d46",
+      "url": "https://drive.usercontent.google.com/download?id=1q2eXwBcOtE5bMjx9CWMp3Q0ePJ_WXAj-&export=download&confirm=t",
+      "wave": null
+    },
+    "annuaire_2016": {
+      "bytes": 20572415,
+      "description": "Annuaire Statistique de la Tunisie, 2016 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable.",
+      "filename": "annuaire_2016.pdf",
+      "kind": "yearbook",
+      "retrieved_utc": "2026-08-29T09:20:18Z",
+      "sha256": "85444af31e0145a506d86f96a5751422fbbb58a742b651270f7850bf53f04baa",
+      "url": "https://drive.usercontent.google.com/download?id=1TY96qT7eJnwJCoEVzuTGraEI8u_xGSKp&export=download&confirm=t",
+      "wave": null
+    },
+    "annuaire_2017": {
+      "bytes": 8307984,
+      "description": "Annuaire Statistique de la Tunisie, 2017 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable.",
+      "filename": "annuaire_2017.pdf",
+      "kind": "yearbook",
+      "retrieved_utc": "2026-08-29T09:20:21Z",
+      "sha256": "43c1aef356d7684b642ed1484594e8c5e5284cc73fb6105ade874a8659d4867e",
+      "url": "https://drive.usercontent.google.com/download?id=1fD8qpm6W8bbQaU55RDOpL6iJ3ItUZNdP&export=download&confirm=t",
+      "wave": null
+    },
+    "annuaire_2018": {
+      "bytes": 8498678,
+      "description": "Annuaire Statistique de la Tunisie, 2018 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable.",
+      "filename": "annuaire_2018.pdf",
+      "kind": "yearbook",
+      "retrieved_utc": "2026-08-29T09:20:27Z",
+      "sha256": "69689afcc20cbedc96c3dc76ac9ffec169e109a60205798e280a4537e92757fb",
+      "url": "https://drive.usercontent.google.com/download?id=1sQZP86YPUwvfQOo32kP4bB_-oStqpTFd&export=download&confirm=t",
+      "wave": null
+    },
+    "annuaire_2019": {
+      "bytes": 13243784,
+      "description": "Annuaire Statistique de la Tunisie, 2019 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable.",
+      "filename": "annuaire_2019.pdf",
+      "kind": "yearbook",
+      "retrieved_utc": "2026-08-29T09:20:31Z",
+      "sha256": "f3038fd63d998ac6eeb188ba3273e8f0796306bab856fe4a4a8af94a39543457",
+      "url": "https://drive.usercontent.google.com/download?id=1_Y2X9caVVJYM1bDUCIUsZbwO6ejcynJo&export=download&confirm=t",
+      "wave": null
+    },
+    "annuaire_2020": {
+      "bytes": 15736540,
+      "description": "Annuaire Statistique de la Tunisie, 2020 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable.",
+      "filename": "annuaire_2020.pdf",
+      "kind": "yearbook",
+      "retrieved_utc": "2026-08-29T09:20:34Z",
+      "sha256": "2298535903bdaf6a3dbb0ec7d5445fd39042f7e39fd0dba415430824e7833b43",
+      "url": "https://drive.usercontent.google.com/download?id=1LrT9bSBYRjKVnMWK8Teq_ZJZuRK1ojhy&export=download&confirm=t",
+      "wave": null
+    },
+    "annuaire_2021": {
+      "bytes": 6921818,
+      "description": "Annuaire Statistique de la Tunisie, 2021 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable.",
+      "filename": "annuaire_2021.pdf",
+      "kind": "yearbook",
+      "retrieved_utc": "2026-08-29T09:20:38Z",
+      "sha256": "e07019f232590f9f207caa72faf710792fe5b79be8f54fcfcd96da403d57f78d",
+      "url": "https://drive.usercontent.google.com/download?id=1B4By95eopwmMeo86RxMBS5ZB_1lj9QFg&export=download&confirm=t",
+      "wave": null
+    },
+    "annuaire_2022": {
+      "bytes": 16207125,
+      "description": "Annuaire Statistique de la Tunisie, 2022 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable.",
+      "filename": "annuaire_2022.pdf",
+      "kind": "yearbook",
+      "retrieved_utc": "2026-08-29T09:20:44Z",
+      "sha256": "396abf395a1cde97a38b37a6398e51f364399280391011e7f3921c59d94855be",
+      "url": "https://drive.usercontent.google.com/download?id=1I9oJLCUq1bvgijiz_VAM_xmwUsouGwEI&export=download&confirm=t",
+      "wave": null
+    },
+    "annuaire_2023": {
+      "bytes": 16233493,
+      "description": "Annuaire Statistique de la Tunisie, 2023 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable.",
+      "filename": "annuaire_2023.pdf",
+      "kind": "yearbook",
+      "retrieved_utc": "2026-08-29T09:20:49Z",
+      "sha256": "45ee5d23797e9cae1de2181c9c6def84b998dc136939689dcb5cd8fe79e77012",
+      "url": "https://drive.usercontent.google.com/download?id=1MXVyGEVCrxJNrAcPfNdYm3srvszHHrS3&export=download&confirm=t",
+      "wave": null
+    },
     "carte_pauvrete_2020": {
       "bytes": 9358985,
       "description": "Poverty map (Sept 2020). Small-area *modelled* estimates below the region tier -- delegation-level figures here are not survey estimates.",

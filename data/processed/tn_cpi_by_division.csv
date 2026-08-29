@@ -1,0 +1,40 @@
+year,function_code,function,index,weight_per_100000,base_year,source_key,source_table
+2021,0,All items,139.6,100000,2015,annuaire_2023,13.7
+2021,1,Food and non-alcoholic beverages,138.4,26216,2015,annuaire_2023,13.7
+2021,2,Alcoholic beverages and tobacco,163.9,2779,2015,annuaire_2023,13.7
+2021,3,Clothing and footwear,154.7,7408,2015,annuaire_2023,13.7
+2021,4,"Housing, water, gas and electricity",133.5,19021,2015,annuaire_2023,13.7
+2021,5,Furnishings and household maintenance,143.7,5949,2015,annuaire_2023,13.7
+2021,6,Health,136.5,5764,2015,annuaire_2023,13.7
+2021,7,Transport,134.8,12729,2015,annuaire_2023,13.7
+2021,8,Communication,104.7,4629,2015,annuaire_2023,13.7
+2021,9,Recreation and culture,127.9,2068,2015,annuaire_2023,13.7
+2021,10,Education,150.3,3228,2015,annuaire_2023,13.7
+2021,11,Restaurants and hotels,158.9,4603,2015,annuaire_2023,13.7
+2021,12,Miscellaneous goods and services,153.9,5606,2015,annuaire_2023,13.7
+2022,0,All items,151.1,100000,2015,annuaire_2023,13.7
+2022,1,Food and non-alcoholic beverages,153.5,26216,2015,annuaire_2023,13.7
+2022,2,Alcoholic beverages and tobacco,185.6,2779,2015,annuaire_2023,13.7
+2022,3,Clothing and footwear,169.6,7408,2015,annuaire_2023,13.7
+2022,4,"Housing, water, gas and electricity",141.6,19021,2015,annuaire_2023,13.7
+2022,5,Furnishings and household maintenance,157.1,5949,2015,annuaire_2023,13.7
+2022,6,Health,142.0,5764,2015,annuaire_2023,13.7
+2022,7,Transport,145.0,12729,2015,annuaire_2023,13.7
+2022,8,Communication,107.0,4629,2015,annuaire_2023,13.7
+2022,9,Recreation and culture,136.5,2068,2015,annuaire_2023,13.7
+2022,10,Education,164.0,3228,2015,annuaire_2023,13.7
+2022,11,Restaurants and hotels,171.9,4603,2015,annuaire_2023,13.7
+2022,12,Miscellaneous goods and services,165.7,5606,2015,annuaire_2023,13.7
+2023,0,All items,165.2,100000,2015,annuaire_2023,13.7
+2023,1,Food and non-alcoholic beverages,175.5,26216,2015,annuaire_2023,13.7
+2023,2,Alcoholic beverages and tobacco,195.3,2779,2015,annuaire_2023,13.7
+2023,3,Clothing and footwear,185.7,7408,2015,annuaire_2023,13.7
+2023,4,"Housing, water, gas and electricity",149.7,19021,2015,annuaire_2023,13.7
+2023,5,Furnishings and household maintenance,172.8,5949,2015,annuaire_2023,13.7
+2023,6,Health,147.8,5764,2015,annuaire_2023,13.7
+2023,7,Transport,157.9,12729,2015,annuaire_2023,13.7
+2023,8,Communication,109.3,4629,2015,annuaire_2023,13.7
+2023,9,Recreation and culture,145.2,2068,2015,annuaire_2023,13.7
+2023,10,Education,175.3,3228,2015,annuaire_2023,13.7
+2023,11,Restaurants and hotels,189.8,4603,2015,annuaire_2023,13.7
+2023,12,Miscellaneous goods and services,182.3,5606,2015,annuaire_2023,13.7

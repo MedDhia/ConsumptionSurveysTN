@@ -51,18 +51,18 @@ One row per household member (65,524), combining the roster with the education a
 | `care_card` | categorical | — | `Sante2021.dta` → `v604` | «carte soin» |
 | `covered_via_other_member` | categorical | — | `Sante2021.dta` → `v605` | «couvert avec autre membre» |
 | `has_chronic_disease` | categorical | — | `Sante2021.dta` → `v607` | «maladie chronique 1» |
-| `chronic_disease_expenditure` | object | millimes per year | `Sante2021.dta` → `v613` | «depenses maladie chronique» |
+| `chronic_disease_expenditure` | object | dinars per year | `Sante2021.dta` → `v613` | «depenses maladie chronique» |
 | `n_apci_conditions` | object | — | `Sante2021.dta` → `v614` | «Nombre APCI» |
 | `has_functional_difficulty` | categorical | — | `Sante2021.dta` → `v615` | «difficulte physique/mentale» |
 | `difficulty_type` | categorical | — | `Sante2021.dta` → `v616_1` | «type 1ere difficulte» |
 | `difficulty_degree` | categorical | — | `Sante2021.dta` → `v617_1` | «degre 1ere difficulte» |
 | `illness_in_reference_year` | categorical | — | `Sante2021.dta` → `v647` | «maladie annee refer» |
-| `consultation_expenditure` | object | millimes per year | `Sante2021.dta` → `v656` | «ddépenses consultation/analyses/radio» |
-| `medicine_expenditure` | object | millimes per year | `Sante2021.dta` → `v657` | «dépenses médicaments» |
+| `consultation_expenditure` | object | dinars per year | `Sante2021.dta` → `v656` | «ddépenses consultation/analyses/radio» |
+| `medicine_expenditure` | object | dinars per year | `Sante2021.dta` → `v657` | «dépenses médicaments» |
 | `hospital_night_in_reference_year` | categorical | — | `Sante2021.dta` → `v658` | «passer nuit hopital annee refer» |
 | `n_hospital_nights` | object | — | `Sante2021.dta` → `v660` | «nb nuitees centre hospitalier» |
-| `hospital_stay_expenditure` | object | millimes per year | `Sante2021.dta` → `v661` | «dépenses nuitees passees centre hospitalier» |
-| `insurance_reimbursement` | float64 | millimes per year | `Sante2021.dta` → `v666` | «montant remboursé assurance» |
+| `hospital_stay_expenditure` | object | dinars per year | `Sante2021.dta` → `v661` | «dépenses nuitees passees centre hospitalier» |
+| `insurance_reimbursement` | float64 | dinars per year | `Sante2021.dta` → `v666` | «montant remboursé assurance» |
 
 ## Categorical codes
 
