@@ -1,6 +1,6 @@
 # The evolution of inequality in Tunisia, 1985–2021
 
-Six figures built from `data/processed`. Regenerate with `make figures`.
+Twelve figures built from `data/processed`. Regenerate with `make figures`.
 
 **No composite index appears in any of them.** No Gini, no Theil, no Atkinson, no
 polarisation index. Every figure shows either an observed quantity — a group's mean
@@ -96,6 +96,108 @@ monotonically.
 
 ---
 
+## Inequality within groups, not between them
+
+The first six figures are built on regional and quintile **means**, which by construction
+cannot show how much variation sits inside a group. These six look inside.
+
+### 7. Spread within each region
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="07-within-region-spread-dark.png">
+  <img alt="Spread of annual expenditure per person within each region, 2021" src="07-within-region-spread-light.png">
+</picture>
+
+The single most consequential figure here. Within every region the 90th percentile of
+per-capita expenditure is 3.8 to 4.2 times the 10th. Between regions, the highest median
+(Grand Tunis, 5,696 DT) is only 2.0 times the lowest (Centre West, 2,865 DT).
+
+Inequality inside a Tunisian region is about double the inequality between regions. That
+reframes figures 2 and 4: regional gaps are real and politically salient, but they are the
+smaller part of the dispersion. Percentiles only — no index.
+
+### 8. Dispersion inside governorates
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="08-delegation-dispersion-dark.png">
+  <img alt="Poverty rate of each of 253 delegations, grouped by governorate" src="08-delegation-dispersion-light.png">
+</picture>
+
+The same point one tier down, with one dot per delegation. Bizerte runs from 5.3% to 39.9%
+poverty across its delegations — a 34.6-point range inside a single governorate, wider
+than the gap between the richest and poorest *regions*. A governorate average describes
+almost nobody.
+
+These are modelled small-area estimates from the 2020 poverty map, not survey estimates:
+EBCNV is representative at region × milieu and no finer. Siliana is absent because its
+table in that report carries no poverty column.
+
+### 9. Who is poor against who the poor are
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="09-incidence-vs-share-of-poor-dark.png">
+  <img alt="Poverty rate within each group and each group's share of all poor people, 2021" src="09-incidence-vs-share-of-poor-light.png">
+</picture>
+
+Two different questions with two different answers. Households headed by an unemployed
+person have the highest poverty rate at 41.3% — but they are only 7.0% of all poor people.
+Households headed by a non-agricultural worker have a 24.4% rate and make up 32.7% of the
+poor.
+
+Target the highest-risk group and you reach a small slice of poverty; target the largest
+group and you spend most of it on the non-poor. This is precisely the distinction a single
+index erases, which is much of the argument for not using one.
+
+### 10. Deprivation in kind
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="10-deprivation-in-kind-dark.png">
+  <img alt="Household amenities, poor against non-poor, 2021" src="10-deprivation-in-kind-light.png">
+</picture>
+
+Inequality with no dinars in it. A refrigerator is nearly universal — 93.9% of the poor
+against 96.8% of the non-poor, a 3-point gap. Mains gas for cooking is not: 3.7% against
+24.7%. A computer, 8.2% against 31.6%. A flush toilet, 53.7% against 85.1%.
+
+Which amenities have converged and which have not is a different ranking from expenditure,
+and the first use in this repository of the living-conditions file.
+
+### 11. The social protection gap
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="11-social-protection-gap-dark.png">
+  <img alt="Affiliation to a contributory social-insurance fund by region, 2021" src="11-social-protection-gap-light.png">
+</picture>
+
+Contributory cover reaches 40.8% of the non-poor and 18.5% of the poor — the people with
+least capacity to absorb a shock are least likely to be insured against one, in every
+region without exception.
+
+INS's synthesis note reports 40.5% and 18.1% nationally. The sub-point difference is most
+likely the denominator, but INS does not state which base it used, so this is a close
+correspondence rather than a verified match.
+
+### 12. The literacy gap across cohorts
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="12-literacy-gap-dark.png">
+  <img alt="Literacy by poverty status and age band, 2021" src="12-literacy-gap-light.png">
+</picture>
+
+Among people aged 65 and over, 54.7% of the non-poor can read and write against 27.4% of
+the poor — a 27-point gap. Among 15-to-24-year-olds the same gap is 0.8 points, with both
+groups above 96%.
+
+The clearest evolution story in the whole directory, and it comes from a single
+cross-section: the cohorts are the time dimension. Whatever else has or has not improved,
+mass schooling closed this particular gap almost completely.
+
+The bands are cut from the raw age variable rather than the four-way `age_group`, which is
+too coarse to show a gradient. The literacy question was asked of those aged 10 and over,
+so the figure is restricted to 15 and over; every cell rests on at least 778 observations.
+
+---
+
 ## Colour
 
 The palette is the dataviz reference instance: blue `#2a78d6` and orange `#eb6834` on
@@ -108,7 +210,8 @@ once.
 
 ## Sources
 
-Figures 1–5 come from `tn_consumption_panel.csv`, on the `published` basis throughout —
-figures transcribed from INS documents, each row carrying its source table. Figure 6 is
-recomputed from the EBCNV 2021 microdata. Every claim above is reproducible from
+Figures 1–5 and 9 come from `tn_consumption_panel.csv`, on the `published` basis
+throughout — figures transcribed from INS documents, each row carrying its source table.
+Figure 8 comes from the 2020 poverty map. Figures 6, 7, 10, 11 and 12 are recomputed from
+the EBCNV 2021 microdata. Every claim above is reproducible from
 `scripts/make_figures.py`.

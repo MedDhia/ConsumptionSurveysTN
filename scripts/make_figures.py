@@ -17,6 +17,7 @@ Written light and dark; `figures/README.md` serves the right one per viewer them
 
 from __future__ import annotations
 
+import textwrap
 from pathlib import Path
 
 import matplotlib as mpl
@@ -102,7 +103,9 @@ def finish(fig, t: dict, title: str, subtitle: str, source: str) -> None:
     fig.text(0.012, 0.975, title, ha="left", va="top", fontsize=13,
              fontweight="bold", color=t["ink"])
     fig.text(0.012, 0.912, subtitle, ha="left", va="top", fontsize=9.5, color=t["ink2"])
-    fig.text(0.012, 0.018, source, ha="left", va="bottom", fontsize=8, color=t["muted"])
+    # Wrap to the figure's own width: unwrapped notes ran off the right edge at 9in.
+    wrapped = textwrap.fill(source, width=int(fig.get_figwidth() * 15.5))
+    fig.text(0.012, 0.018, wrapped, ha="left", va="bottom", fontsize=8, color=t["muted"])
 
 
 def panel(df: pd.DataFrame, indicator: str, basis: str = "published", **where) -> pd.DataFrame:
@@ -123,7 +126,43 @@ def panel(df: pd.DataFrame, indicator: str, basis: str = "published", **where) -
     return d.sort_values("wave")
 
 
-# ------------------------------------------------------------------ the six figures
+def weighted_quantile(values, weights, quantiles):
+    """Weighted quantiles by interpolation on cumulative-weight midpoints.
+
+    numpy has no weighted percentile. This is the same construction ``gini()`` uses in
+    ``build_panel.py`` -- each observation is placed at the midpoint of the weight it
+    occupies, then the quantile is read off by linear interpolation.
+    """
+    values = np.asarray(values, dtype=float)
+    weights = np.asarray(weights, dtype=float)
+    order = np.argsort(values)
+    values, weights = values[order], weights[order]
+    midpoints = np.cumsum(weights) - 0.5 * weights
+    return np.interp(np.asarray(quantiles) * weights.sum(), midpoints, values)
+
+
+def weighted_share(frame: pd.DataFrame, mask, weight: str = "weight_pop") -> float:
+    """Percentage of ``frame``'s weighted population satisfying ``mask``."""
+    if frame.empty:
+        raise ValueError("weighted_share got an empty frame -- check the filter")
+    return 100 * float(np.average(mask, weights=frame[weight]))
+
+
+def dumbbell(ax, t, left, right, labels, left_name, right_name):
+    """Paired dots joined by a rule -- the repo's house form for a two-point comparison."""
+    y = np.arange(len(labels))
+    ax.grid(axis="y", visible=False)
+    for yi, lo, hi in zip(y, left, right, strict=True):
+        ax.plot([lo, hi], [yi, yi], color=t["axis"], lw=2, zorder=1, solid_capstyle="round")
+    ax.scatter(left, y, s=95, color=t["surface"], zorder=2, edgecolor=t["s2"],
+               linewidth=2.2, label=left_name)
+    ax.scatter(right, y, s=95, color=t["s1"], zorder=3, edgecolor=t["surface"],
+               linewidth=1.2, label=right_name)
+    ax.set_yticks(y, labels, color=t["ink2"])
+    return y
+
+
+# --------------------------------------------------------------------- the figures
 
 def fig_quintiles(p: pd.DataFrame, t: dict):
     """Every quintile gained; the gap in dinars widened. Levels, not a ratio."""
@@ -354,6 +393,254 @@ def fig_distribution(t: dict):
     return fig
 
 
+# ------------------------------------------------- inequality within groups, not between
+
+def fig_within_region(t: dict):
+    """Spread inside each region against the spread between regions.
+
+    The regional figures above are built on means, which cannot show dispersion. This one
+    is percentiles only -- still no index.
+    """
+    hh = pd.read_csv(PROCESSED / "tn_hbs_2021_household.csv")
+    rows = []
+    for region, g in hh.groupby("region", observed=True):
+        p10, p50, p90 = weighted_quantile(g.expenditure_pc, g.weight_pop, [0.10, 0.50, 0.90])
+        rows.append({"name": str(region), "p10": p10, "p50": p50, "p90": p90})
+    national = weighted_quantile(hh.expenditure_pc, hh.weight_pop, [0.10, 0.50, 0.90])
+    rows.sort(key=lambda r: r["p50"])
+    rows.append({"name": "National", "p10": national[0], "p50": national[1], "p90": national[2]})
+    d = pd.DataFrame(rows)
+    y = np.arange(len(d))
+
+    fig, ax = plt.subplots(figsize=(9.0, 5.0))
+    ax.grid(axis="y", visible=False)
+    for yi, row in zip(y, d.itertuples(), strict=True):
+        national_row = row.name == "National"
+        colour = t["muted"] if national_row else t["s1"]
+        ax.plot([row.p10, row.p90], [yi, yi], color=t["axis"], lw=4, zorder=1,
+                solid_capstyle="round")
+        ax.scatter([row.p50], [yi], s=110, color=colour, zorder=3,
+                   edgecolor=t["surface"], linewidth=1.4)
+        ax.annotate(f"{row.p90 / row.p10:.1f}x", (row.p90, yi), xytext=(11, 0),
+                    textcoords="offset points", va="center", fontsize=9, color=t["ink2"])
+    ax.set_yticks(y, d["name"], color=t["ink2"])
+    ax.set_xlabel("Annual expenditure per person, current dinars")
+    ax.set_xlim(0, 14200)
+    fig.subplots_adjust(left=0.14, right=0.96, top=0.80, bottom=0.17)
+    # State the between-region comparator the title rests on, so a reader can check it.
+    regions = d[d["name"] != "National"]
+    between = regions["p50"].max() / regions["p50"].min()
+    within = regions["p90"] / regions["p10"]
+    finish(fig, t,
+           "Every region is more unequal inside itself than the regions are from each other",
+           f"Within a region the 90th percentile is {within.min():.1f} to {within.max():.1f} "
+           f"times the 10th. Between regions, the highest median is only "
+           f"{between:.1f} times the lowest.",
+           "Bar spans the 10th to 90th percentile, dot is the median, figure at right is "
+           "p90 divided by p10. Recomputed from EBCNV 2021 microdata, weighted by the "
+           "individual extrapolation factor. Percentiles only -- no inequality index.")
+    return fig
+
+
+def fig_delegations(t: dict):
+    """253 delegations inside 23 governorates. The average hides most of the variation."""
+    d = pd.read_csv(PROCESSED / "tn_poverty_delegations_2015.csv")
+    order = d.groupby("governorate").poverty_rate_pct.median().sort_values().index.tolist()
+    y = {name: i for i, name in enumerate(order)}
+
+    fig, ax = plt.subplots(figsize=(9.4, 6.4))
+    ax.grid(axis="y", visible=False)
+    for name in order:
+        g = d[d.governorate == name].poverty_rate_pct
+        ax.plot([g.min(), g.max()], [y[name], y[name]], color=t["axis"], lw=2, zorder=1,
+                solid_capstyle="round")
+        ax.scatter(g, np.full(len(g), y[name]), s=42, color=t["s1"], alpha=0.75, zorder=2,
+                   edgecolor=t["surface"], linewidth=0.8)
+    widest = (d.groupby("governorate").poverty_rate_pct.max()
+              - d.groupby("governorate").poverty_rate_pct.min()).idxmax()
+    span = d[d.governorate == widest].poverty_rate_pct
+    ax.annotate(f"{widest}: {span.min():.1f}% to {span.max():.1f}%",
+                (span.max(), y[widest]), xytext=(10, 0), textcoords="offset points",
+                va="center", fontsize=9, color=t["ink2"])
+    ax.set_yticks(list(y.values()), list(y.keys()), color=t["ink2"], fontsize=9)
+    ax.set_xlabel("Poverty rate, % of people below the poverty line")
+    ax.set_xlim(-2, 62)
+    fig.subplots_adjust(left=0.15, right=0.97, top=0.85, bottom=0.15)
+    finish(fig, t,
+           "One dot per delegation: a governorate average hides a 35-point range",
+           "Poverty rate of each of 253 delegations, grouped by governorate",
+           "Carte de la pauvrete en Tunisie (INS, 2020). Modelled small-area estimates, "
+           "not survey estimates: EBCNV is representative at region x milieu, not below. "
+           "Siliana's table in that report carries no poverty column, so it is absent.")
+    return fig
+
+
+def fig_incidence_vs_share(p: pd.DataFrame, t: dict):
+    """Who is most at risk is not who most of the poor are."""
+    inc = panel(p, "poverty_rate", subgroup_type="head socio-professional category")
+    con = panel(p, "poverty_contribution_relative",
+                subgroup_type="head socio-professional category")
+    d = (inc[["subgroup", "value"]].rename(columns={"value": "incidence"})
+         .merge(con[["subgroup", "value"]].rename(columns={"value": "share"}), on="subgroup")
+         .sort_values("incidence"))
+    short = {
+        "senior managers and professionals": "Senior managers, professions",
+        "mid-level managers and professionals": "Mid-level managers",
+        "other employees": "Other employees",
+        "employers in industry, trade and services": "Employers",
+        "own-account workers and artisans in industry, trade and services": "Own-account, artisans",
+        "non-agricultural workers": "Non-agricultural workers",
+        "farm operators": "Farm operators",
+        "agricultural workers": "Agricultural workers",
+        "unemployed": "Unemployed",
+        "retired": "Retired",
+        "other inactive": "Other inactive",
+    }
+    labels = [short.get(x, x) for x in d.subgroup]
+
+    fig, ax = plt.subplots(figsize=(9.4, 5.2))
+    dumbbell(ax, t, d["share"].to_numpy(), d["incidence"].to_numpy(), labels,
+             "share of all poor people", "poverty rate within the group")
+    # Label only the two groups that make the point: highest risk, and largest count.
+    for name in ("Unemployed", "Non-agricultural workers"):
+        idx = labels.index(name)
+        row = d.iloc[idx]
+        ax.annotate(f"{row.incidence:.0f}% poor, {row.share:.0f}% of the poor",
+                    (max(row.incidence, row["share"]), idx), xytext=(11, 0),
+                    textcoords="offset points", va="center", fontsize=8.5, color=t["ink2"])
+    ax.set_xlabel("Percent")
+    ax.set_xlim(0, 62)
+    ax.legend(frameon=False, loc="lower right", labelcolor=t["ink2"], fontsize=9)
+    fig.subplots_adjust(left=0.25, right=0.97, top=0.80, bottom=0.15)
+    finish(fig, t,
+           "The group most likely to be poor is not the group most of the poor belong to",
+           "Poverty rate within each group, and each group's share of all poor people, 2021",
+           "INS, EBCNV 2021 synthesis note, Tableau 9, by the household head's "
+           "socio-professional category. Both series are percentages, so they share one axis.")
+    return fig
+
+
+def fig_deprivation(t: dict):
+    """Inequality with no dinars in it: what a household actually has."""
+    d = pd.read_csv(PROCESSED / "tn_hbs_2021_dwelling.csv")
+    items = [
+        ("Mains water, billed", "water_source", "SONEDE mains, billed"),
+        ("Flush toilet", "toilet_type", "flush toilet"),
+        ("Connected to sewerage", "connected_to_sewerage", "yes"),
+        ("Bathroom with hot water", "bathroom_type", "bathroom with hot water"),
+        ("Cooks on mains gas", "cooking_energy", "natural gas (STEG)"),
+        ("Washing machine", "has_washing_machine", "yes"),
+        ("Computer", "has_computer", "yes"),
+        ("Refrigerator", "has_refrigerator", "yes"),
+    ]
+    poor, rich = d[d.poor == "poor"], d[d.poor == "not poor"]
+    rows = [{"label": label,
+             "poor": weighted_share(poor, poor[col].eq(target)),
+             "rich": weighted_share(rich, rich[col].eq(target))}
+            for label, col, target in items]
+    frame = pd.DataFrame(rows).assign(gap=lambda x: x.rich - x.poor).sort_values("gap")
+
+    fig, ax = plt.subplots(figsize=(9.0, 4.8))
+    dumbbell(ax, t, frame["poor"].to_numpy(), frame["rich"].to_numpy(),
+             frame["label"].tolist(), "poor", "not poor")
+    for yi, row in enumerate(frame.itertuples()):
+        ax.annotate(f"{row.gap:.0f} pts", (max(row.poor, row.rich), yi), xytext=(11, 0),
+                    textcoords="offset points", va="center", fontsize=8.5, color=t["ink2"])
+    ax.set_xlabel("% of people whose household has it")
+    ax.set_xlim(0, 122)
+    ax.legend(frameon=False, loc="upper right", labelcolor=t["ink2"], fontsize=9)
+    fig.subplots_adjust(left=0.24, right=0.97, top=0.80, bottom=0.16)
+    finish(fig, t,
+           "A fridge is nearly universal. Mains gas and a computer are not.",
+           "Household amenities, poor against non-poor, 2021",
+           "Recomputed from EBCNV 2021 living-conditions microdata, weighted by the "
+           "individual extrapolation factor.")
+    return fig
+
+
+def fig_protection(t: dict):
+    """Contributory social insurance reaches the non-poor about twice as often."""
+    i = pd.read_csv(PROCESSED / "tn_hbs_2021_individuals.csv")
+    covered = i.dropna(subset=["social_insurance"]).copy()
+    covered["affiliated"] = covered.social_insurance.isin(
+        ["CNRPS (public sector fund)", "CNSS (private sector fund)"])
+    rows = []
+    for region, g in covered.groupby("region", observed=True):
+        poor, rich = g[g.poor == "poor"], g[g.poor == "not poor"]
+        rows.append({"label": str(region),
+                     "poor": weighted_share(poor, poor.affiliated, weight="weight"),
+                     "rich": weighted_share(rich, rich.affiliated, weight="weight")})
+    frame = pd.DataFrame(rows).sort_values("rich")
+    national_poor = weighted_share(covered[covered.poor == "poor"],
+                                   covered[covered.poor == "poor"].affiliated, weight="weight")
+    national_rich = weighted_share(covered[covered.poor == "not poor"],
+                                   covered[covered.poor == "not poor"].affiliated, weight="weight")
+
+    fig, ax = plt.subplots(figsize=(9.0, 4.8))
+    dumbbell(ax, t, frame["poor"].to_numpy(), frame["rich"].to_numpy(),
+             frame["label"].tolist(), "poor", "not poor")
+    ax.set_xlabel("% affiliated to CNSS or CNRPS")
+    ax.set_xlim(0, 62)
+    ax.legend(frameon=False, loc="lower right", labelcolor=t["ink2"], fontsize=9)
+    fig.subplots_adjust(left=0.19, right=0.97, top=0.80, bottom=0.17)
+    finish(fig, t,
+           f"Contributory cover reaches {national_rich:.0f}% of the non-poor "
+           f"and {national_poor:.0f}% of the poor",
+           "Affiliation to a contributory social-insurance fund, by region, 2021",
+           "Recomputed from EBCNV 2021 health microdata, restricted to those the question "
+           "was put to. INS's synthesis note reports 40.5% and 18.1% nationally. The "
+           "sub-point difference is most likely the denominator, but INS does not state "
+           "which base it used, so this is not a verified match.")
+    return fig
+
+
+def fig_literacy(t: dict):
+    """The literacy gap by poverty status, across birth cohorts.
+
+    Bands are cut from the raw ``age`` column rather than the four-way ``age_group``,
+    which is too coarse to show a cohort gradient. The literacy question was put to
+    respondents aged 10 and over, so this is restricted to 15+; every cell rests on at
+    least 778 observations.
+    """
+    i = pd.read_csv(PROCESSED / "tn_hbs_2021_individuals.csv")
+    lit = i.dropna(subset=["literate", "age"])
+    lit = lit[lit.age >= 15]
+    bands = [(15, 24, "15-24"), (25, 34, "25-34"), (35, 49, "35-49"),
+             (50, 64, "50-64"), (65, 200, "65 and over")]
+    rows = []
+    for low, high, name in bands:
+        g = lit[lit.age.between(low, high)]
+        poor, rich = g[g.poor == "poor"], g[g.poor == "not poor"]
+        rows.append({"label": name,
+                     "poor": weighted_share(poor, poor.literate.eq("yes"), weight="weight"),
+                     "rich": weighted_share(rich, rich.literate.eq("yes"), weight="weight")})
+    frame = pd.DataFrame(rows).iloc[::-1].reset_index(drop=True)
+
+    fig, ax = plt.subplots(figsize=(9.0, 4.6))
+    dumbbell(ax, t, frame["poor"].to_numpy(), frame["rich"].to_numpy(),
+             frame["label"].tolist(), "poor", "not poor")
+    for yi, row in enumerate(frame.itertuples()):
+        gap = row.rich - row.poor
+        ax.annotate(f"{gap:.0f} pts" if gap >= 1 else f"{gap:.1f} pts",
+                    (row.rich, yi), xytext=(11, 0), textcoords="offset points",
+                    va="center", fontsize=9, color=t["ink2"])
+    ax.set_xlabel("% who can read and write")
+    ax.set_xlim(0, 122)
+    ax.legend(frameon=False, loc="upper left", labelcolor=t["ink2"], fontsize=9)
+    fig.subplots_adjust(left=0.18, right=0.97, top=0.80, bottom=0.18)
+    youngest = frame.iloc[-1]
+    oldest = frame.iloc[0]
+    finish(fig, t,
+           "Among the under-25s the literacy gap has all but closed",
+           f"Literacy by poverty status and age band, 2021. The gap runs from "
+           f"{oldest.rich - oldest.poor:.0f} points among the over-65s to "
+           f"{youngest.rich - youngest.poor:.1f} among the 15-24s.",
+           "Recomputed from EBCNV 2021 education microdata, weighted by the household "
+           "extrapolation factor. The literacy question was put to those aged 10 and over; "
+           "this is restricted to 15 and over, with at least 778 observations per cell.")
+    return fig
+
+
 BUILDERS = [
     ("01-expenditure-by-quintile", fig_quintiles, True),
     ("02-regional-gap", fig_regional_gap, True),
@@ -361,6 +648,12 @@ BUILDERS = [
     ("04-expenditure-vs-population-share", fig_share_gap, True),
     ("05-poverty-by-region", fig_poverty, True),
     ("06-distribution-2021", fig_distribution, False),
+    ("07-within-region-spread", fig_within_region, False),
+    ("08-delegation-dispersion", fig_delegations, False),
+    ("09-incidence-vs-share-of-poor", fig_incidence_vs_share, True),
+    ("10-deprivation-in-kind", fig_deprivation, False),
+    ("11-social-protection-gap", fig_protection, False),
+    ("12-literacy-gap", fig_literacy, False),
 ]
 
 

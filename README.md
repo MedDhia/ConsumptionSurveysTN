@@ -174,8 +174,9 @@ which is exactly the kind of error that survives casual checking.
 
 ## Figures
 
-[`figures/`](figures) holds six charts on the evolution of inequality, 1985–2021, with a
-light and a dark version of each. **None of them uses a composite index** — no Gini, no
+[`figures/`](figures) holds twelve charts on inequality, with a light and a dark version
+of each. Six trace its evolution from 1985 to 2021; six look inside the groups the first
+six average over — the spread within a region, within a governorate, and across cohorts. **None of them uses a composite index** — no Gini, no
 Theil, no Atkinson. Every figure shows an observed quantity or the relation between two
 observed quantities, so any number in them can be recovered from the datasets by hand.
 `make figures` redraws them.
