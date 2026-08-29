@@ -57,6 +57,44 @@ appears in two of them and 2019 in two, and the builder requires the shared year
 exactly. That is what verifies the right column was read from each volume. It does **not**
 reach before 2011 — the 2005, 2010 and 2012 editions carry no unemployment table at all.
 
+### Reading the whole corpus
+
+Beyond those hand-verified series, `build_yearbook.py` extracts every table in the corpus
+whose columns are years — 91,414 values from 634 tables across all 22 editions — into
+`tn_yearbook_series`.
+
+**Hand-verifying that many tables is not possible, so the checking is mechanical.** Each
+edition carries a five-year window, so 24 of the corpus's 26 years appear in two or more
+editions, most in five. Where two editions print the same cell they must agree:
+
+| `agreement` | Cells | What it means |
+| --- | --- | --- |
+| `confirmed` | 56,253 | Every edition that printed this cell printed the same value. |
+| `revised` | 5,233 | They differ slightly — INS revising itself. The newest edition wins. |
+| `single source` | 29,928 | Only one edition carries it. Nothing corroborates it. |
+
+Cells where editions disagreed by more than 10% are **not in the series at all** — that
+gap is the signature of a misparse rather than a revision. They are counted in
+`tn_yearbook_coverage`, which also records the 1,003 tables that yielded nothing.
+
+**The parser is deliberately strict**, because surveying real pages turned up a long list
+of ways a table parses cleanly and comes out wrong. `146 406.9134 862.0` is two values
+printed with no separator. `Taux d'endettement5 52.3 …` glues a footnote marker to the
+label and shifts every value by one. The 2010 edition prints whole columns with every
+glyph doubled and no decimal point, so `1111 335511` is 11 654 and 11 351 — and no local
+rule can repair that safely, because `5599` in the 2015 edition passes the same test and
+is a genuine weight. Table 13.8 in the 2023 edition covers 2018–2022, not the 2019–2023 on
+its own cover.
+
+So the year header is always read from the page and never inferred, a row is accepted only
+when it yields exactly as many numbers as there are year columns, and a label ending in a
+digit is refused. Strictness costs coverage; `tn_yearbook_coverage` records what it cost.
+Two independent code paths — the bespoke unemployment builder and the generic extractor —
+read the same printed table and are asserted to agree exactly.
+
+`row_kind` marks totals, subtotals and `dont` sub-rows as `aggregate`: summing a table
+without filtering them roughly double-counts.
+
 ## Datasets
 
 Built into `data/processed/` as CSV and Parquet, each with a codebook in
@@ -76,6 +114,9 @@ Built into `data/processed/` as CSV and Parquet, each with a codebook in
 | `tn_cpi_annual` | 200 | Consumer price index 1999–2023, on each of INS's eight base years. |
 | `tn_cpi_by_division` | 39 | Price index by COICOP function 2021–2023, base 2015 = 100, with INS weights. |
 | `tn_unemployment_annual` | 104 | Unemployment by education level and by sex, 2011–2023. |
+| `tn_yearbook_tables` | 8,391 | Every numbered table heading in all 22 yearbooks, with edition and page. |
+| `tn_yearbook_series` | 91,414 | Values from the yearbooks' year-column tables, reconciled across editions. |
+| `tn_yearbook_coverage` | 1,637 | What was extracted, what was refused, and why. |
 
 All labels are translated to English; every codebook keeps the original French and Arabic
 alongside, code by code.
@@ -84,7 +125,7 @@ alongside, code by code.
 
 ```bash
 make setup           # bsdtar, pdftotext, Python requirements
-make fetch           # 21 INS artefacts, ~86 MB, checksummed into data/raw/manifest.json
+make fetch           # 43 documents, ~290 MB, checksummed into data/raw/manifest.json
 make build           # datasets + codebooks, ~3 minutes
 make test            # reproduce INS's published figures from the microdata
 
@@ -236,7 +277,7 @@ value set is orphaned, that every source URL is HTTPS on ins.tn, that the commit
 manifest covers every registered source, that no dataset is missing a codebook title. It
 finishes in well under a minute, and a red result always means something about the diff.
 
-**`pipeline`** does the real work: installs bsdtar and pdftotext, fetches the 86 MB from
+**`pipeline`** does the real work: installs bsdtar and pdftotext, fetches the 290 MB from
 ins.tn, builds every dataset, and runs the full suite including the reproduction of INS's
 published figures. It also asserts that a fresh build reproduces the committed datasets
 and codebooks byte for byte, and uploads `data/processed` as an artifact so the built
@@ -250,7 +291,7 @@ republished a file under the same URL, which is worth knowing before it silently
 a number. It runs on the weekly schedule **and on demand**: Actions → `pipeline` → Run
 workflow, or just `make check-upstream` locally. You never have to wait for Monday.
 
-It is deliberately excluded from pull requests. Force-fetching 86 MB with the cache off
+It is deliberately excluded from pull requests. Force-fetching 290 MB with the cache off
 is not a cost a PR should pay, and INS changing a file unrelated to the diff is not a
 reason to block one.
 
@@ -260,7 +301,7 @@ reason to block one.
 .github/workflows/  checks (fast, gating) and pipeline (full, data-dependent)
 .claude/hooks/      SessionStart hook: installs dependencies in a fresh web session
 src/consumptiontn/
-  config.py          source registry: 21 INS artefacts, one place to fix a moved URL
+  config.py          source registry: 43 documents, one place to fix a moved URL
   download.py        fetch + SHA-256 + manifest
   extract.py         RAR -> Stata (bsdtar only), .dta reading
   extract_pdf.py     the poverty map's delegation tables

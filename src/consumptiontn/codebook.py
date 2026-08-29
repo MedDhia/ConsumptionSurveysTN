@@ -81,6 +81,25 @@ DERIVED: dict[str, str] = {
     "group": "Category within the breakdown. `all` is that table's own total row.",
     "source_key": "Key of the source document in `src/consumptiontn/config.py`.",
     "source_table": "Table number within that document, as INS numbers it.",
+    "edition": "Which yearbook edition the value was taken from.",
+    "chapter": "Yearbook chapter number.",
+    "table_number": "Table number as printed. NOT stable across editions -- match on title.",
+    "table_title": "Table title as printed, Latin characters only.",
+    "title_fr": "Normalised French title. The stable key across editions.",
+    "row_label": "The row's French label, as printed.",
+    "row_kind": "`data`, or `aggregate` for totals, subtotals and `dont` sub-rows.",
+    "provisional": "INS marked this figure provisional with an asterisk.",
+    "n_editions": "How many editions printed this cell. More than one means corroborated.",
+    "agreement": (
+        "`confirmed` (editions agree), `revised` (they differ slightly; newest used), "
+        "or `single source` (nothing corroborates it)."
+    ),
+    "page": "Page of the edition the value was read from.",
+    "editions": "How many editions this table appears in.",
+    "values_read": "Cells parsed from this table before reconciliation.",
+    "values_kept": "Cells that survived reconciliation and appear in the series.",
+    "values_in_conflict": "Cells dropped because editions disagreed by more than 10%.",
+    "status": "Whether this table was extracted, extracted with conflicts, or not at all.",
 }
 
 UNITS: dict[str, str] = {

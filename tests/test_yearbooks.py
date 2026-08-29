@@ -145,3 +145,96 @@ def test_unemployment_rises_with_education_in_every_year(labour):
 
 def test_rates_are_percentages(labour):
     assert labour.unemployment_rate.between(0, 100).all()
+
+
+# ------------------------------------------------------------------- the whole corpus
+
+@pytest.fixture(scope="module")
+def corpus():
+    from consumptiontn import build_yearbook
+
+    return build_yearbook.build()
+
+
+def test_catalogue_covers_every_edition(corpus):
+    tables, _, _ = corpus
+    from consumptiontn.config import YEARBOOK_FILE_IDS
+
+    assert set(tables.edition) == set(YEARBOOK_FILE_IDS)
+
+
+def test_catalogue_excludes_contents_page_entries(corpus):
+    """Index entries match the heading pattern too, and near-duplicate every title.
+
+    They are recognisable by their dotted leaders, and the catalogue is meant to hold
+    the tables rather than the list that points at them.
+    """
+    tables, _, _ = corpus
+    leaders = tables[tables.table_title.str.contains(r"\.{4,}", regex=True, na=False)]
+    assert leaders.empty, f"{len(leaders)} contents-page rows leaked into the catalogue"
+
+
+def test_no_conflicting_cell_reaches_the_series(corpus):
+    """The whole point of reconciliation: a cell two editions disagree about is dropped."""
+    _, series, _ = corpus
+    assert "conflict" not in set(series.agreement)
+
+
+def test_most_cells_are_corroborated_by_a_second_edition(corpus):
+    """Editions overlap by five years, so corroboration should be the common case.
+
+    A sharp fall here would mean the title normalisation stopped matching the same table
+    across editions -- which would silently disable the corpus's main check.
+    """
+    _, series, _ = corpus
+    confirmed = (series.agreement == "confirmed").mean()
+    assert confirmed > 0.5, f"only {confirmed:.1%} of cells are confirmed by two editions"
+
+
+def test_every_confirmed_cell_really_had_more_than_one_edition(corpus):
+    _, series, _ = corpus
+    confirmed = series[series.agreement == "confirmed"]
+    assert (confirmed.n_editions > 1).all()
+    single = series[series.agreement == "single source"]
+    assert (single.n_editions == 1).all()
+
+
+def test_generic_extractor_reproduces_the_bespoke_unemployment_series(corpus):
+    """Two independent code paths over the same printed table must agree exactly.
+
+    ``build_labour`` locates the table by title and reads named rows; the generic
+    extractor finds it by shape and knows nothing about unemployment. Where they
+    overlap they are reading the same ink, so any difference is a bug in one of them.
+    """
+    from consumptiontn import build_labour
+
+    _, series, _ = corpus
+    bespoke = build_labour.build()
+    bespoke = bespoke[bespoke.breakdown == "education"]
+    names = {"Sans niveau": "none", "Primaire": "primary", "Secondaire": "secondary",
+             "Supèrieur": "higher", "Total": "all"}
+    generic = series[series.title_fr.str.contains("chômage selon le niveau", na=False)]
+    generic = generic.assign(group=generic.row_label.map(names)).dropna(subset=["group"])
+    joined = bespoke.merge(generic, on=["year", "group"])
+    assert len(joined) > 50, f"only {len(joined)} overlapping cells -- the join broke"
+    assert (joined.unemployment_rate - joined.value).abs().max() == 0
+
+
+def test_aggregate_rows_are_marked(corpus):
+    """Totals and regional subtotals sit among the data rows; summing without filtering
+    them roughly double-counts."""
+    _, series, _ = corpus
+    kinds = set(series.row_kind)
+    assert kinds <= {"data", "aggregate"}
+    assert (series.row_kind == "aggregate").sum() > 100
+
+
+def test_coverage_accounts_for_every_catalogued_table(corpus):
+    tables, _, coverage = corpus
+    assert set(tables.table_title) <= set(coverage.title_fr)
+    assert (coverage.values_kept <= coverage.values_read).all()
+
+
+def test_years_are_plausible(corpus):
+    _, series, _ = corpus
+    assert series.year.between(1900, 2030).all()

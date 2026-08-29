@@ -16,9 +16,15 @@ from consumptiontn.download import load_manifest  # noqa: E402
 
 HEADER = """# Sources
 
-Every INS artefact this pipeline reads, with the URL it was fetched from, its SHA-256,
-and when it was retrieved. `data/raw/manifest.json` is the machine-readable version and
-is what `make verify` checks against.
+Every document this pipeline reads, with the URL it was fetched from, its SHA-256, and
+when it was retrieved. `data/raw/manifest.json` is the machine-readable version and is
+what `make verify` checks against.
+
+Two origins. Everything INS publishes directly comes from ins.tn. The statistical
+yearbooks come from a Drive folder mirroring documents INS also publishes — a mirror can
+be edited by whoever owns it, so the checksum matters more there, and a download that
+arrives as an error or interstitial page is rejected on its magic bytes before it can
+reach the manifest.
 
 INS reorganises ins.tn periodically — note the `files-ftp3` path segment, which replaced
 an earlier scheme. If a URL 404s, the fix belongs in `src/consumptiontn/config.py`, and
@@ -40,7 +46,7 @@ series from them is published online. See `data/processed/tn_wave_coverage.csv`.
 
 ## A note on what is committed
 
-Raw downloads (`data/raw`) are not committed — they are 86 MB and re-fetchable, and the
+Raw downloads (`data/raw`) are not committed — they are 290 MB and re-fetchable, and the
 manifest pins exactly which bytes the results came from. Derived microdata files are not
 committed either; `make build` rebuilds them in about three minutes. The small reference
 datasets — the indicator panel, the product nomenclature, the delegation poverty
@@ -54,12 +60,22 @@ Parquet.
 def main() -> None:
     manifest = load_manifest()["sources"]
     lines = [HEADER]
-    for kind, title in [
-        ("microdata", "Microdata archives"),
-        ("annex", "Aggregate tables"),
-        ("report", "Survey volumes and releases"),
-        ("reference", "Reference documents"),
-    ]:
+    titles = {
+        "microdata": "Microdata archives",
+        "annex": "Aggregate tables",
+        "report": "Survey volumes and releases",
+        "reference": "Reference documents",
+        "yearbook": "Statistical yearbooks",
+    }
+    # Derived from the registry rather than hardcoded: a hardcoded list is why the 22
+    # yearbooks were silently absent from this document after being added as a new kind.
+    kinds = sorted({s.kind for s in SOURCES}, key=lambda k: list(titles).index(k)
+                   if k in titles else 99)
+    unknown = [k for k in kinds if k not in titles]
+    if unknown:
+        raise SystemExit(f"no section title for source kind(s): {unknown}")
+    for kind in kinds:
+        title = titles[kind]
         lines.append(f"\n### {title}\n")
         lines.append("| Key | Wave | File | Size | SHA-256 (first 16) | Retrieved |")
         lines.append("| --- | --- | --- | --- | --- | --- |")

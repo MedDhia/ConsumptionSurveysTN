@@ -30,6 +30,7 @@ from . import (
     build_labour,
     build_panel,
     build_prices,
+    build_yearbook,
     codebook,
     download,
     extract_pdf,
@@ -143,6 +144,49 @@ INTROS = {
         "requires the overlapping years to agree exactly, which is what verifies that the "
         "right column was read from each volume."
     ),
+    "tn_yearbook_tables": (
+        "Every numbered table heading found in the 22 statistical yearbooks, with the "
+        "edition and the page it appears on \u2014 whether or not this pipeline extracts "
+        "its data.\n\n"
+        "Read from the body pages rather than from each edition's contents list, so the "
+        "page number is observed rather than transcribed, and a table missing from the "
+        "contents is still indexed.\n\n"
+        "**Table numbers are not stable across editions.** 2010's 6.1.1 is 2023's 6.1.5. "
+        "Match on the title, never on the number."
+    ),
+    "tn_yearbook_series": (
+        "Values extracted from the yearbooks' year-column tables: one row per table \u00d7 "
+        "row label \u00d7 year, across all 22 editions.\n\n"
+        "**Read `agreement` before using a number.** Each edition carries a five-year "
+        "window, so most cells are printed in two to five separate volumes. `confirmed` "
+        "means every edition that printed the cell printed the same value \u2014 an "
+        "independent corroboration, and the strongest guarantee here. `revised` means they "
+        "differ slightly and the most recent edition's value is used, which is INS "
+        "revising its own figure. `single source` means only one edition carries it "
+        "(1998 and 2023 by construction, and any table that appeared once), so nothing "
+        "corroborates it.\n\n"
+        "Cells where editions disagreed by more than 10% are **not here**: that is the "
+        "signature of a misparse rather than a revision, and they are listed in "
+        "`tn_yearbook_coverage` instead.\n\n"
+        "`row_kind` marks `aggregate` rows \u2014 totals, subtotals, regional groupings and "
+        "`dont` sub-rows. Summing a table without filtering them roughly double-counts.\n\n"
+        "`provisional` carries INS's own asterisk. Note that provisional figures are "
+        "sometimes last year's value carried forward, which would otherwise look like a "
+        "real flat segment in a series."
+    ),
+    "tn_yearbook_coverage": (
+        "What was attempted, what was extracted, and what was refused \u2014 the honest map "
+        "of how much of the corpus this pipeline actually reads.\n\n"
+        "The parser is deliberately strict, and this table is the record of what that "
+        "strictness cost. A row is only accepted when the page's year header parses and "
+        "the row yields exactly as many numbers as there are year columns. Ellipses for "
+        "missing years, footnote digits glued to a label, and two values printed with no "
+        "separator between them all fail that test \u2014 which is the intent, because each "
+        "one otherwise parses into a plausible wrong number.\n\n"
+        "`values_in_conflict` counts cells removed because editions disagreed by more "
+        "than 10%. A non-zero count is a signal to read that table by hand, not evidence "
+        "that INS is inconsistent."
+    ),
 }
 
 TITLES = {
@@ -158,6 +202,9 @@ TITLES = {
     "tn_cpi_annual": "Consumer price index, 1999–2023",
     "tn_cpi_by_division": "Consumer price index by COICOP function, 2021–2023",
     "tn_unemployment_annual": "Unemployment by education and sex, 2011–2023",
+    "tn_yearbook_tables": "Statistical yearbook table catalogue, 2001–2023",
+    "tn_yearbook_series": "Statistical yearbook series, cross-checked across editions",
+    "tn_yearbook_coverage": "Statistical yearbook extraction coverage",
 }
 
 # Datasets whose plain CSV would exceed GitHub's 100 MB per-file limit. Written as
@@ -197,6 +244,10 @@ def build_all() -> dict[str, pd.DataFrame]:
     datasets["tn_cpi_annual"] = cpi_annual
     datasets["tn_cpi_by_division"] = cpi_divisions
     datasets["tn_unemployment_annual"] = build_labour.build()
+    tables, series, coverage = build_yearbook.build()
+    datasets["tn_yearbook_tables"] = tables
+    datasets["tn_yearbook_series"] = series
+    datasets["tn_yearbook_coverage"] = coverage
     for name, df in datasets.items():
         _write(name, df)
     return datasets
