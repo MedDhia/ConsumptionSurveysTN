@@ -25,8 +25,8 @@ Waves 1968, 1975 and 1980 were conducted but nothing from them is published on i
 | `unit` | str | — | derived | — |
 | `basis` | str | — | derived | — |
 | `methodology` | str | — | derived | — |
-| `source_key` | str | — | derived | — |
-| `source_table` | str | — | derived | — |
+| `source_key` | str | — | derived | Key of the source document in `src/consumptiontn/config.py`. |
+| `source_table` | str | — | derived | Table number within that document, as INS numbers it. |
 
 ## Categorical codes
 

@@ -1,6 +1,6 @@
 # The evolution of inequality in Tunisia, 1985–2021
 
-Sixteen figures built from `data/processed`. Regenerate with `make figures`.
+Twenty-six figures built from `data/processed`. Regenerate with `make figures`.
 
 **No composite index appears in any of them.** No Gini, no Theil, no Atkinson, no
 polarisation index. Every figure shows either an observed quantity — a group's mean
@@ -290,6 +290,221 @@ one of them abnormal, not a trend.
 
 ---
 
+## What the surveys cannot show on their own
+
+EBCNV runs every five or six years and measures households. Three things that matter for
+reading it come from a different INS publication entirely — the *Annuaire Statistique de
+la Tunisie*, whose 2001–2023 editions carry annual series on prices and on work.
+
+Bringing in a second source has a cost worth stating: these are national aggregates, not
+survey microdata, and nothing here can be broken down by household. They are context for
+the survey figures, not extensions of them.
+
+### 17. Prices since 1999
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="17-prices-since-1999-dark.png">
+  <img alt="Consumer price index for Tunisia, 1999 to 2023, base 2015 equals 100, with the EBCNV survey waves marked" src="17-prices-since-1999-light.png">
+</picture>
+
+The index stands at 64.7 in 2005, 79.0 in 2010, 100.0 in 2015 and 139.6 in 2021. Between
+the last pre-revolution survey and the most recent one, prices rose 77%.
+
+This is the yardstick figures 1 to 3 are **not** divided by. Those show expenditure in
+nominal dinars, because that is what INS publishes and what the microdata contains. A
+reader who takes the rise in mean per-capita expenditure between two waves as a gain in
+living standards is reading this line into it without knowing.
+
+INS publishes the same series on eight base years side by side. They are rescalings of
+one series, not eight measurements, and this uses 2015 throughout.
+
+### 18. What rose in price against what rose in the budget
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="18-price-against-budget-dark.png">
+  <img alt="Change in price against change in budget share for nine consumption functions, 2015 to 2021" src="18-price-against-budget-light.png">
+</picture>
+
+Both endpoints are survey waves, so the two axes cover exactly the same span. Clothing
+rose 54.7% in price and took 4.0 more points of the budget — the largest share rise in
+figure 16, and mostly a price story rather than households buying more clothes.
+Communication is the opposite corner: prices essentially flat at +4.7%, share down 0.3
+points. Housing and energy rose 33.5%, below the 39.6% all-items rate, and still lost 2.7
+points of the budget.
+
+**A share can rise because quantity rose or because price did.** This figure separates
+the two questions; it does not answer the second. Nothing here identifies a demand
+response, and the same picture is consistent with several stories about what households
+did.
+
+Nine of the twelve functions are shown. EBCNV's function 6 is "hygiene and care" while
+the CPI's division 6 is health with personal care filed under division 12, and EBCNV
+folds holidays in with restaurants — so three of the twelve would compare different
+baskets, and are left out rather than quietly plotted.
+
+### 19. Unemployment by education since the revolution
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="19-unemployment-by-education-dark.png">
+  <img alt="Unemployment rate by education level, 2011 to 2023, against the national rate" src="19-unemployment-by-education-light.png">
+</picture>
+
+In every one of the thirteen years, unemployment rises with education. People with no
+schooling run between 4.3% and 10.9%; people with higher education between 20.2% and
+29.2%, above the national rate throughout. The gradient never once inverts, which a test
+asserts rather than leaving to the eye.
+
+Read this against figure 12, where mass schooling has almost closed the literacy gap
+between poor and non-poor among the young. Both can be true: education has been
+distributed far more widely, and it does not lead where it is supposed to.
+
+**This series does not span the revolution.** The 2005, 2010 and 2012 yearbooks carry no
+unemployment table — checked in the documents, not assumed — so 2011 is the earliest year
+available. It describes the period since, and cannot compare across.
+
+---
+
+## Inequality without dinars
+
+Seven figures from the parts of EBCNV 2021 no earlier figure touched: the health,
+education and labour modules, and the 3.26-million-row product file.
+
+### 20. What households pay out of pocket for care
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="20-out-of-pocket-health-dark.png">
+  <img alt="Median out-of-pocket health spending by item, poor against non-poor, 2021" src="20-out-of-pocket-health-light.png">
+</picture>
+
+Among people who report paying anything: 30 DT against 55 for doctor visits, tests and
+imaging; 30 against 47 for medicine; 260 against 422 for a chronic illness; 100 against
+280 for a hospital stay. Fewer of the poor pay at all — 69% report a consultation cost
+against 79%.
+
+Spending less on health is not the same as needing less of it, and the conditional
+medians make that visible: the gap is in both who pays and how much.
+
+The hospital row rests on 87 poor observations against 720 non-poor and is indicative;
+the other three rest on between 769 and 16,603. INS's non-declared sentinel codes are
+dropped throughout — they survive in the processed file as 999 and 999999 and would wreck
+any average that kept them.
+
+These amounts are in **dinars**. INS's own variable labels give no unit, and an earlier
+version of this repository's codebook guessed millimes — which would make a doctor's
+visit cost four santimes. Summed per household, the module comes to a median 172 against
+1,749 for COICOP function 6, about 8%, which is what out-of-pocket medical care should be
+inside a category that also holds hygiene and personal care. On the millimes reading it
+would be 0.01%.
+
+### 21. Chronic illness and who holds a card
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="21-chronic-illness-and-cover-dark.png">
+  <img alt="Reported chronic illness and care-card cover, poor against non-poor, 2021" src="21-chronic-illness-and-cover-light.png">
+</picture>
+
+10.8% of the poor report a chronic illness against 20.2% of the non-poor.
+
+The obvious reading — that the poor are healthier — is almost certainly wrong. A chronic
+illness has to be diagnosed before it can be reported, and figure 20 shows the poor
+consulting and paying less. The left panel most plausibly measures contact with a doctor.
+It is included **because** it is a trap: a naive reading of a real INS variable produces
+a conclusion that inverts the truth.
+
+The right panel is the firmer finding. Free and reduced-tariff cards do reach the poor
+more often, 34.1% against 20.0% — the targeting works in the direction intended — and
+still leave roughly two thirds of the chronically ill poor holding no card at all.
+
+### 22. Why people left school
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="22-why-people-left-school-dark.png">
+  <img alt="Reason given for leaving education, poor against non-poor, 2021" src="22-why-people-left-school-light.png">
+</picture>
+
+"School supplies too expensive" is given by 23.9% of the poor and 13.5% of the non-poor.
+The sharpest split is the answer that is not a reason for dropping out at all: 18.9% of
+the non-poor left because they had **completed** their studies, against 6.4% of the poor —
+three times.
+
+"Saw no point in studying" is the most common answer in both groups, 42.4% and 36.7%.
+Figure 19 is worth holding alongside it: for a Tunisian graduate, unemployment has run
+above 20% every year since 2011.
+
+### 23. How far school is
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="23-distance-to-school-dark.png">
+  <img alt="Distance and travel time to the education institution, urban against rural, 2021" src="23-distance-to-school-light.png">
+</picture>
+
+35% of rural pupils are more than 4 km from their institution against 12% of urban ones,
+close to three times. The median rural journey is 20 minutes against 15, and the upper
+quartile 30 against 20.
+
+Asked separately why they never attended school at all, 18.8% of the poor and 24.6% of
+the non-poor answer that it was too far — a different question from figure 22, which asks
+people who did attend why they stopped.
+
+### 24. Why people are not working
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="24-why-people-are-not-working-dark.png">
+  <img alt="Reason given for not working, men against women, 2021" src="24-why-people-are-not-working-light.png">
+</picture>
+
+Housework accounts for 54.8% of non-working women and 0.6% of non-working men. Nothing
+else in this directory separates two groups so completely.
+
+The mirror image is retirement: 31.2% of non-working men against 4.2% of women — itself a
+consequence of the first, since a lifetime of unpaid housework produces no pension. And
+"no work available" is given by 25.9% of men against 10.7% of women.
+
+Read with figure 19: the unemployment rate counts only people looking for work, so the
+women in the top row are not in it at all. A falling unemployment rate and a wall of
+women outside the labour force are perfectly compatible.
+
+### 25. Where working people work
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="25-where-the-poor-work-dark.png">
+  <img alt="Where working people work, poor against non-poor, 2021" src="25-where-the-poor-work-light.png">
+</picture>
+
+What does *not* separate the two groups: employment status. 82.4% of working poor people
+are employees, against 79.8% of the non-poor. The poor are not disproportionately
+self-employed or informal by that measure.
+
+What does: the sector. Farms take 21.6% of poor workers against 10.7%, building sites
+20.8% against 9.2%. Public administration and public enterprises together take 22.0% of
+non-poor workers and 9.6% of poor ones.
+
+A public-sector job is the clearest single marker of not being poor in this data, which is
+worth sitting with given how much of Tunisian politics since 2011 has turned on public
+employment.
+
+### 26. Where household money goes
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="26-where-household-money-goes-dark.png">
+  <img alt="Share of household spending by type of outlet, poor against non-poor, 2021" src="26-where-household-money-goes-light.png">
+</picture>
+
+The first use of the product-level file: 3.26 million acquisition lines, one per household
+per item. Shares of **dinars**, not of lines, so a supermarket trip is not counted equal
+to a loaf of bread.
+
+The weekly market takes 11.2% of poor spending against 5.3% of non-poor. Supermarkets
+take 0.6% against 3.0% — five times. The private shop dominates both at 82.6% and 87.1%,
+which is why the axis is logarithmic; on a linear scale every other outlet would be a
+sliver.
+
+Own production is 2.1% of poor spending against 0.9%, and 2.9% of rural against 0.4% of
+urban — small everywhere, and one of the few places where being rural shows up as
+something other than a disadvantage.
+
+---
+
 ## Colour
 
 The palette is the dataviz reference instance: blue `#2a78d6` and orange `#eb6834` on
@@ -304,6 +519,8 @@ once.
 
 Figures 1–5, 9 and 13–16 come from `tn_consumption_panel.csv`, on the `published` basis
 throughout — figures transcribed from INS documents, each row carrying its source table.
-Figure 8 comes from the 2020 poverty map. Figures 6, 7, 10, 11 and 12 are recomputed from
-the EBCNV 2021 microdata. Every claim above is reproducible from
-`scripts/make_figures.py`.
+Figure 8 comes from the 2020 poverty map. Figures 17 and 19 come from the INS statistical
+yearbooks, and figure 18 sets one of those against the panel. Figures 6, 7, 10, 11, 12 and
+20–26 are recomputed from the EBCNV 2021 microdata. Every claim above is reproducible from
+`scripts/make_figures.py`, and the numbers quoted here were recomputed from the data
+before being written rather than read off the charts.

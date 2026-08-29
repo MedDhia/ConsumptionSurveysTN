@@ -79,15 +79,24 @@ def test_source_keys_and_filenames_are_unique():
     assert len(filenames) == len(set(filenames)), "two sources would overwrite each other"
 
 
-def test_every_source_url_is_https_on_ins_tn():
+def test_every_source_url_is_https_from_an_expected_host():
+    """Two origins, and the distinction is deliberate rather than incidental.
+
+    Everything INS publishes directly is fetched from ins.tn. The statistical yearbooks
+    come from a Drive folder that mirrors them, which is why they are checksummed like
+    everything else -- a mirror can be edited by whoever owns it, so the manifest is the
+    only thing standing between a swapped file and a wrong figure.
+    """
     for source in config.SOURCES:
-        assert source.url.startswith("https://www.ins.tn/"), source.key
+        expected = config.DRIVE_DOWNLOAD if source.kind == "yearbook" else "https://www.ins.tn/"
+        assert source.url.startswith(expected), source.key
+        assert source.url.startswith("https://"), source.key
 
 
 def test_every_source_has_a_description_and_known_kind():
     for source in config.SOURCES:
         assert source.description.strip(), source.key
-        assert source.kind in {"microdata", "annex", "report", "reference"}, source.key
+        assert source.kind in {"microdata", "annex", "report", "reference", "yearbook"}, source.key
         assert source.wave is None or source.wave in config.WAVES, source.key
 
 
@@ -128,3 +137,42 @@ def test_units_and_derived_descriptions_are_non_empty():
     for mapping in (codebook.UNITS, codebook.DERIVED):
         for column, text in mapping.items():
             assert text.strip(), column
+
+
+# ------------------------------------------------------------------------- yearbooks
+
+def test_yearbook_editions_are_unique_and_plausible():
+    years = list(config.YEARBOOK_FILE_IDS)
+    assert len(years) == len(set(years))
+    assert min(years) == 2001 and max(years) == 2023
+    assert 2013 not in years, "2013 was never issued in this collection"
+
+
+def test_every_parsed_edition_is_actually_registered():
+    """`YEARBOOKS_PARSED` names the editions the builders open. A typo there would fail
+    at build time with a confusing missing-file error rather than here."""
+    registered = set(config.YEARBOOK_FILE_IDS)
+    missing = set(config.YEARBOOKS_PARSED) - registered
+    assert not missing, f"parsed editions that are not in the registry: {sorted(missing)}"
+
+
+def test_price_and_labour_builders_only_read_registered_editions():
+    from consumptiontn import build_labour, build_prices
+
+    registered = set(config.YEARBOOK_FILE_IDS)
+    assert build_prices.EDITION in registered
+    assert set(build_labour.EDITIONS) <= registered
+
+
+def test_labour_editions_overlap_so_the_splice_is_checkable():
+    """Each edition carries about five years. If the chosen editions were five or more
+    years apart there would be no shared year, and nothing would verify the splice."""
+    editions = sorted(build_labour_editions())
+    gaps = [b - a for a, b in zip(editions, editions[1:], strict=False)]
+    assert gaps and max(gaps) <= 4, f"editions {editions} leave an unverifiable gap"
+
+
+def build_labour_editions():
+    from consumptiontn import build_labour
+
+    return build_labour.EDITIONS

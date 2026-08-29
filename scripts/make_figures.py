@@ -206,6 +206,46 @@ def poverty_series(p: pd.DataFrame, *, modelled: bool = False, **where) -> pd.Se
     return d.sort_values("wave").set_index("wave")["value"]
 
 
+
+SENTINELS = {9, 99, 999, 9999, 99999, 999999}
+
+
+def clean_numeric(frame: pd.DataFrame, column: str) -> pd.DataFrame:
+    """Drop INS's "non declare" sentinels from a numeric column.
+
+    999 / 9999 / 999999 survive in the processed files as codes, not amounts. Averaging
+    a column that still holds them produces a number that is wrong by orders of
+    magnitude and looks plausible, so every figure that touches one filters here and
+    reports the denominator it kept.
+    """
+    keep = frame[frame[column].notna() & ~frame[column].isin(SENTINELS)]
+    if keep.empty:
+        raise ValueError(f"{column}: nothing left after dropping sentinels")
+    return keep
+
+
+def category_shares(frame: pd.DataFrame, column: str, group: str, weight: str) -> pd.DataFrame:
+    """Weighted percentage breakdown of ``column`` within each level of ``group``."""
+    present = frame[frame[column].notna() & frame[group].notna()]
+    if present.empty:
+        raise ValueError(f"{column} x {group}: no rows")
+    out = {}
+    for level, block in present.groupby(group, observed=True):
+        out[level] = {
+            value: weighted_share(block, block[column].eq(value), weight=weight)
+            for value in present[column].dropna().unique()
+        }
+    return pd.DataFrame(out)
+
+
+def read(name: str, columns: list[str] | None = None) -> pd.DataFrame:
+    """Load a processed dataset by name."""
+    return pd.read_parquet(PROCESSED / f"{name}.parquet", columns=columns)
+
+
+# --------------------------------------------------------------- prices and work
+
+
 # --------------------------------------------------------------------- the figures
 
 def fig_quintiles(p: pd.DataFrame, t: dict):
@@ -830,6 +870,385 @@ def fig_budget_shift(p: pd.DataFrame, t: dict):
     return fig
 
 
+def fig_prices(t: dict):
+    """What a fixed basket cost, 1999-2023, with the survey waves marked."""
+    cpi = read("tn_cpi_annual")
+    s = cpi[cpi.base_year == 2015].set_index("year")["index"].sort_index()
+
+    fig, ax = plt.subplots(figsize=(9.4, 5.0))
+    mark_revolution(ax, t)
+    ax.plot(s.index, s.to_numpy(), color=t["s1"], zorder=3)
+    waves = [2005, 2010, 2015, 2021]
+    ax.scatter(waves, [s[w] for w in waves], s=80, color=t["surface"], zorder=4,
+               edgecolor=t["s2"], linewidth=2.2)
+    for wave in waves:
+        ax.annotate(f"{wave}\n{s[wave]:.0f}", (wave, s[wave]), xytext=(0, -30),
+                    textcoords="offset points", ha="center", fontsize=8.5, color=t["ink2"])
+    ax.set_ylabel("index, 2015 = 100", color=t["ink2"], fontsize=9)
+    ax.set_ylim(40, 180)
+    ax.annotate("EBCNV survey waves", (2005, s[2005]), xytext=(14, 12),
+                textcoords="offset points", fontsize=8.5, color=t["s2"])
+    fig.subplots_adjust(left=0.09, right=0.97, top=0.79, bottom=0.19)
+    finish(fig, t,
+           "Prices rose 77% between the 2010 and 2021 surveys",
+           "Consumer price index, 1999-2023, base 2015 = 100",
+           "INS, Annuaire Statistique de la Tunisie 2023 edition, table 13.6. The eight "
+           "base years INS publishes are rescalings of one series; this uses 2015 "
+           "throughout. Orange markers are the EBCNV waves the rest of this directory "
+           "rests on -- the dinar figures in figures 1 to 3 are nominal, and this is the "
+           "yardstick they are not divided by.")
+    return fig
+
+
+# EBCNV consumption functions whose CPI division covers the same goods. Functions 6, 11
+# and 12 are excluded: EBCNV's function 6 is "Hygiene et soins" while the CPI's division
+# 6 is "Sante" with personal care filed under division 12, and EBCNV's function 11 folds
+# holidays in with restaurants. Plotting those three would compare different baskets.
+COMPARABLE_FUNCTIONS = (1, 2, 3, 4, 5, 7, 8, 9, 10)
+
+FUNCTION_NAMES = {1: "Food", 2: "Alcohol and tobacco", 3: "Clothing",
+                  4: "Housing and energy", 5: "Furniture", 6: "Health and hygiene",
+                  7: "Transport", 8: "Communication", 9: "Recreation", 10: "Education",
+                  11: "Restaurants and holidays", 12: "Other"}
+
+
+def fig_price_against_budget(p: pd.DataFrame, t: dict):
+    """Price change against budget-share change, 2015 to 2021. They are not the same thing."""
+    shares = panel(p, "budget_share", subgroup_type="COICOP function").copy()
+    shares["code"] = shares.subgroup.astype(int)
+    wide = shares.pivot_table(index="code", columns="wave", values="value")
+    prices = read("tn_cpi_by_division")
+    prices = prices[prices.year == 2021].set_index("function_code")["index"]
+
+    codes = list(COMPARABLE_FUNCTIONS)
+    x = [prices[c] - 100 for c in codes]
+    y = [wide.loc[c, 2021] - wide.loc[c, 2015] for c in codes]
+    all_items = float(prices[0]) - 100
+
+    fig, ax = plt.subplots(figsize=(9.4, 5.4))
+    ax.axhline(0, color=t["axis"], lw=1.4, zorder=1)
+    ax.axvline(all_items, color=t["muted"], lw=1.2, ls=(0, (5, 4)), zorder=1)
+    ax.annotate(f"all items  +{all_items:.0f}%", (all_items, 0.02),
+                xycoords=("data", "axes fraction"), xytext=(6, 0),
+                textcoords="offset points", fontsize=8.5, color=t["muted"])
+    ax.scatter(x, y, s=95, color=t["s1"], zorder=3,
+               edgecolor=t["surface"], linewidth=1.2)
+    # (offset, horizontal alignment) per point. Hand-placed: "above or below" alone
+    # collides with the zero rule, the all-items rule, and the Housing/Transport pair,
+    # and centred labels on the rightmost point run off the axis.
+    placement = {
+        1: ((-11, 4), "right"), 2: ((0, 13), "center"), 3: ((0, 13), "center"),
+        4: ((-11, 0), "right"), 5: ((0, -20), "center"), 7: ((11, 4), "left"),
+        8: ((0, -20), "center"), 9: ((0, -20), "center"), 10: ((0, -20), "center"),
+    }
+    for code, xi, yi in zip(codes, x, y, strict=True):
+        (dx, dy), ha = placement[code]
+        ax.annotate(FUNCTION_NAMES[code], (xi, yi), xytext=(dx, dy),
+                    textcoords="offset points", ha=ha, va="center",
+                    fontsize=8.5, color=t["ink2"])
+    ax.set_xlabel("Change in price, 2015 to 2021 (%)")
+    ax.set_ylabel("Change in share of the budget (pp)", color=t["ink2"], fontsize=9)
+    ax.set_xlim(-4, 74)
+    ax.set_ylim(-4.4, 5.6)
+    fig.subplots_adjust(left=0.09, right=0.97, top=0.80, bottom=0.20)
+    finish(fig, t,
+           "Clothing took a bigger share of the budget mostly because it cost more",
+           "Price change against budget-share change by consumption function, 2015 to 2021",
+           "Prices from INS, Annuaire Statistique 2023 edition, table 13.7 (base 2015 = "
+           "100); budget shares from the EBCNV synthesis note, Tableau 4. Nine of the "
+           "twelve functions are shown: EBCNV's function 6 is hygiene and care while the "
+           "CPI's division 6 is health with personal care filed elsewhere, and EBCNV "
+           "folds holidays into restaurants, so those three compare different baskets. A "
+           "share can rise because quantity rose or because price did; this figure "
+           "separates the two questions, it does not answer the second.")
+    return fig
+
+
+def fig_unemployment(t: dict):
+    """Unemployment by education since the revolution. The gradient runs the wrong way."""
+    u = read("tn_unemployment_annual")
+    u = u[u.breakdown == "education"]
+    wide = u.pivot_table(index="year", columns="group", values="unemployment_rate")
+    levels = [("none", "No schooling"), ("primary", "Primary"),
+              ("secondary", "Secondary"), ("higher", "Higher education")]
+
+    fig, axes = plt.subplots(2, 2, figsize=(9.4, 5.8), sharex=True, sharey=True)
+    for ax, (key, label) in zip(axes.ravel(), levels, strict=True):
+        ax.plot(wide.index, wide["all"], color=t["muted"], lw=1.4, zorder=2)
+        ax.plot(wide.index, wide[key], color=t["s1"], zorder=3)
+        ax.set_title(label, color=t["ink"], fontsize=10, loc="left")
+        ax.set_ylim(0, 34)
+        ax.set_xticks([2011, 2015, 2019, 2023])
+    axes[0][0].annotate("national", (2016, wide.loc[2016, "all"]), xytext=(0, -20),
+                        textcoords="offset points", fontsize=8.5, color=t["muted"],
+                        ha="center")
+    axes[0][0].set_ylabel("% of the labour force", color=t["ink2"], fontsize=9)
+    axes[1][0].set_ylabel("% of the labour force", color=t["ink2"], fontsize=9)
+    fig.subplots_adjust(left=0.08, right=0.97, top=0.76, bottom=0.20, hspace=0.32, wspace=0.10)
+    finish(fig, t,
+           "The more schooling, the higher the unemployment -- every year since 2011",
+           "Unemployment rate by education level, 2011-2023, against the national rate",
+           "INS, Annuaire Statistique de la Tunisie, 2015, 2019 and 2023 editions, table "
+           "6.1.3, surveyed each May. Where editions overlap they agree exactly, which is "
+           "what checks the splice. This series does not reach before 2011: the 2005, "
+           "2010 and 2012 yearbooks carry no unemployment table, so it describes the "
+           "period since the revolution and cannot compare across it.")
+    return fig
+
+
+# ------------------------------------------------------ health, school, work, buying
+
+def fig_out_of_pocket(t: dict):
+    """What households pay out of pocket for care, poor against non-poor."""
+    ind = read("tn_hbs_2021_individuals")
+    items = [("consultation_expenditure", "Doctor visits, tests, imaging"),
+             ("medicine_expenditure", "Medicine"),
+             ("chronic_disease_expenditure", "Chronic illness"),
+             ("hospital_stay_expenditure", "Hospital stay")]
+    poor, rich, labels_, counts = [], [], [], []
+    for column, label in items:
+        d = clean_numeric(ind, column)
+        d = d[d[column] > 0]
+        poor.append(d[d.poor == "poor"][column].median())
+        rich.append(d[d.poor == "not poor"][column].median())
+        counts.append(len(d))
+        labels_.append(label)
+
+    fig, ax = plt.subplots(figsize=(9.0, 4.6))
+    y = dumbbell(ax, t, poor, rich, labels_, "Poor", "Not poor")
+    for yi, lo, hi in zip(y, poor, rich, strict=True):
+        ax.annotate(f"{lo:.0f}", (lo, yi), xytext=(-9, 0), textcoords="offset points",
+                    ha="right", va="center", fontsize=8.5, color=t["ink2"])
+        ax.annotate(f"{hi:.0f}", (hi, yi), xytext=(9, 0), textcoords="offset points",
+                    ha="left", va="center", fontsize=8.5, color=t["ink2"])
+    ax.set_xlabel("Median annual out-of-pocket spending, dinars")
+    ax.set_xlim(0, 470)
+    ax.legend(loc="lower right", frameon=False, fontsize=9)
+    fig.subplots_adjust(left=0.27, right=0.97, top=0.78, bottom=0.24)
+    finish(fig, t,
+           "The poor pay less out of pocket at every step, and fewer of them pay at all",
+           "Median out-of-pocket health spending among those who report any, 2021",
+           "EBCNV 2021 health module, recomputed. Medians among people reporting a "
+           "positive amount, so the bars are conditional on using care at all: 69% of the "
+           "poor report paying for a consultation against 79% of the non-poor. INS's "
+           "non-declared sentinel codes are dropped. These amounts are in dinars -- INS's "
+           "own labels give no unit, and the household file settles it. The hospital row "
+           "rests on 87 poor and 720 non-poor observations and should be read as "
+           "indicative; the other three rest on 769 to 16,603.")
+    return fig
+
+
+def fig_chronic(t: dict):
+    """Reported chronic illness, and who holds a card, among those who report it."""
+    ind = read("tn_hbs_2021_individuals")
+    have = ind[ind.has_chronic_disease.notna()]
+    prevalence = [weighted_share(have[have.poor == g], have[have.poor == g]
+                                 .has_chronic_disease.eq("yes"), weight="weight")
+                  for g in ("poor", "not poor")]
+    ill = ind[ind.has_chronic_disease.eq("yes") & ind.care_card.notna()]
+    nocard = [weighted_share(ill[ill.poor == g], ill[ill.poor == g].care_card.eq("none"),
+                             weight="weight") for g in ("poor", "not poor")]
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.4, 4.4))
+    for ax, values, title, top in (
+        (axes[0], prevalence, "Report a chronic illness", 26),
+        (axes[1], nocard, "Of those, hold no care card", 92),
+    ):
+        ax.grid(axis="x", visible=False)
+        ax.bar(["Poor", "Not poor"], values, color=[t["s2"], t["s1"]], width=0.55, zorder=2)
+        for x, value in enumerate(values):
+            ax.annotate(f"{value:.1f}%", (x, value), xytext=(0, 5),
+                        textcoords="offset points", ha="center", fontsize=9.5,
+                        color=t["ink2"])
+        ax.set_title(title, color=t["ink"], fontsize=10, loc="left")
+        ax.set_ylim(0, top)
+    axes[0].set_ylabel("% of people", color=t["ink2"], fontsize=9)
+    fig.subplots_adjust(left=0.08, right=0.97, top=0.76, bottom=0.26, wspace=0.22)
+    finish(fig, t,
+           "The poor report half as much chronic illness, which is unlikely to mean they have less",
+           "Reported chronic illness and care-card cover, 2021",
+           "EBCNV 2021 health module, recomputed. A chronic illness has to be diagnosed "
+           "before it can be reported, so the left panel most plausibly measures contact "
+           "with a doctor rather than health -- read alongside figure 20, where the poor "
+           "spend and consult less. The right panel is the clearer finding on its own "
+           "terms: free and reduced-tariff cards do reach the poor more often (34.1% "
+           "against 20.0%), and still leave roughly two thirds of the chronically ill "
+           "poor holding no card at all.")
+    return fig
+
+
+def fig_leaving_school(t: dict):
+    """Why people left school, poor against non-poor."""
+    ind = read("tn_hbs_2021_individuals")
+    shares = category_shares(ind, "reason_left_school", "poor", "weight")
+    shares = shares.sort_values("poor")
+    fig, ax = plt.subplots(figsize=(9.2, 4.8))
+    dumbbell(ax, t, shares["poor"], shares["not poor"], list(shares.index),
+             "Poor", "Not poor")
+    ax.set_xlabel("% of people who left education, by reason given")
+    ax.set_xlim(0, 50)
+    ax.legend(loc="lower right", frameon=False, fontsize=9)
+    fig.subplots_adjust(left=0.30, right=0.97, top=0.78, bottom=0.22)
+    finish(fig, t,
+           "Cost drives the poor out of school; the non-poor are three times likelier to finish",
+           "Reason given for leaving education, by poverty status, 2021",
+           "EBCNV 2021 education module, recomputed, weighted by person. Asked of people "
+           "who had left education. \"Completed studies\" is the one answer that is not a "
+           "reason for dropping out, and it separates the two groups most sharply: 18.9% "
+           "against 6.4%.")
+    return fig
+
+
+def fig_school_distance(t: dict):
+    """How far school is, and how long it takes to reach, urban against rural."""
+    ind = read("tn_hbs_2021_individuals")
+    bands = ["under 2 km", "2-4 km", "over 4 km"]
+    shares = category_shares(ind, "school_distance", "milieu", "weight").loc[bands]
+    travel = clean_numeric(ind[ind.travel_time_to_school_min.notna()],
+                           "travel_time_to_school_min")
+
+    fig, axes = plt.subplots(1, 2, figsize=(9.6, 4.6), width_ratios=[1.35, 1])
+    ax = axes[0]
+    ax.grid(axis="x", visible=False)
+    x = np.arange(len(bands))
+    ax.bar(x - 0.19, shares["urban"], width=0.36, color=t["s1"], label="Urban", zorder=2)
+    ax.bar(x + 0.19, shares["rural"], width=0.36, color=t["s2"], label="Rural", zorder=2)
+    for xi, (urban, rural) in enumerate(zip(shares["urban"], shares["rural"], strict=True)):
+        ax.annotate(f"{urban:.0f}", (xi - 0.19, urban), xytext=(0, 4),
+                    textcoords="offset points", ha="center", fontsize=8.5, color=t["ink2"])
+        ax.annotate(f"{rural:.0f}", (xi + 0.19, rural), xytext=(0, 4),
+                    textcoords="offset points", ha="center", fontsize=8.5, color=t["ink2"])
+    ax.set_xticks(x, bands, color=t["ink2"])
+    ax.set_ylim(0, 82)
+    ax.set_ylabel("% of pupils and students", color=t["ink2"], fontsize=9)
+    ax.set_title("Distance to the institution", color=t["ink"], fontsize=10, loc="left")
+    ax.legend(loc="upper right", frameon=False, fontsize=9)
+
+    ax = axes[1]
+    ax.grid(axis="x", visible=False)
+    quantiles = [0.25, 0.5, 0.75]
+    for offset, milieu, colour in ((-0.16, "urban", t["s1"]), (0.16, "rural", t["s2"])):
+        block = travel[travel.milieu == milieu]
+        lo, mid, hi = weighted_quantile(block.travel_time_to_school_min,
+                                        block["weight"], quantiles)
+        ax.plot([offset, offset], [lo, hi], color=colour, lw=6, solid_capstyle="round",
+                alpha=0.35, zorder=2)
+        ax.scatter([offset], [mid], s=90, color=colour, zorder=3,
+                   edgecolor=t["surface"], linewidth=1.2)
+        ax.annotate(f"{mid:.0f} min", (offset, mid), xytext=(14, 0),
+                    textcoords="offset points", va="center", fontsize=9, color=t["ink2"])
+    ax.set_xticks([-0.16, 0.16], ["Urban", "Rural"], color=t["ink2"])
+    ax.set_xlim(-0.5, 0.6)
+    ax.set_ylim(0, 62)
+    ax.set_ylabel("minutes", color=t["ink2"], fontsize=9)
+    ax.set_title("Travel time, median and quartiles", color=t["ink"], fontsize=10, loc="left")
+
+    fig.subplots_adjust(left=0.08, right=0.97, top=0.76, bottom=0.22, wspace=0.30)
+    finish(fig, t,
+           "A rural pupil is three times as likely to be more than 4 km from school",
+           "Distance and travel time to the education institution, 2021",
+           "EBCNV 2021 education module, recomputed, weighted by person, among those "
+           "currently enrolled. Non-declared sentinel times are dropped. Distance is "
+           "not only an inconvenience: asked separately why they never attended at all, "
+           "18.8% of the poor and 24.6% of the non-poor answer that school was too far. "
+           "That is a different question from figure 22, which asks people who did "
+           "attend why they left.")
+    return fig
+
+
+def fig_not_working(t: dict):
+    """Why people are not working. The answer is almost entirely about sex."""
+    ind = read("tn_hbs_2021_individuals")
+    shares = category_shares(ind, "reason_not_working", "sex", "weight")
+    shares = shares[shares.max(axis=1) >= 2].sort_values("female")
+
+    fig, ax = plt.subplots(figsize=(9.2, 4.8))
+    dumbbell(ax, t, shares["male"], shares["female"], list(shares.index),
+             "Men", "Women")
+    ax.set_xlabel("% of people not in work, by reason given")
+    ax.set_xlim(0, 62)
+    ax.legend(loc="lower right", frameon=False, fontsize=9)
+    fig.subplots_adjust(left=0.26, right=0.97, top=0.78, bottom=0.22)
+    finish(fig, t,
+           "Housework keeps 55% of non-working women out of work, and 0.6% of men",
+           "Reason given for not working, by sex, 2021",
+           "EBCNV 2021 labour module, recomputed, weighted by person. Reasons given by "
+           "fewer than 2% of both sexes are omitted. Read with figure 19: the "
+           "unemployment rate counts only people looking for work, so the women in the "
+           "top row are not in it at all.")
+    return fig
+
+
+def fig_where_poor_work(t: dict):
+    """The poor are not less likely to be employees. They work somewhere else."""
+    ind = read("tn_hbs_2021_individuals")
+    shares = category_shares(ind, "workplace", "poor", "weight")
+    shares = shares[shares.max(axis=1) >= 4].sort_values("poor")
+
+    fig, ax = plt.subplots(figsize=(9.2, 5.0))
+    dumbbell(ax, t, shares["poor"], shares["not poor"], list(shares.index),
+             "Poor", "Not poor")
+    ax.set_xlabel("% of working people, by where they work")
+    ax.set_xlim(0, 26)
+    ax.legend(loc="lower right", frameon=False, fontsize=9)
+    fig.subplots_adjust(left=0.31, right=0.97, top=0.79, bottom=0.21)
+    finish(fig, t,
+           "Farms and building sites for the poor; the state and firms for everyone else",
+           "Where working people work, by poverty status, 2021",
+           "EBCNV 2021 labour module, recomputed, weighted by person. Workplaces below 4% "
+           "in both groups are omitted. Employment status barely separates the two -- 82% "
+           "of the working poor are employees against 80% of the non-poor -- so what "
+           "distinguishes them is not self-employment but the sector they are employed "
+           "in. Public administration and public enterprises together take 22.0% of "
+           "non-poor workers and 9.6% of poor ones.")
+    return fig
+
+
+def fig_where_bought(t: dict):
+    """Where the money is actually spent, poor against non-poor."""
+    household = read("tn_hbs_2021_household", ["hh_id", "poor", "weight_hh"])
+    lines = read("tn_hbs_2021_expenditure",
+                 ["hh_id", "expenditure_annual_dt", "purchase_place"])
+    lines = lines.merge(household, on="hh_id", how="left")
+    lines = lines[lines.purchase_place.notna()]
+    # Weight by dinars, not by lines: the question is where the money goes, and one
+    # supermarket trip is not one loaf of bread.
+    lines["spend"] = lines.expenditure_annual_dt * lines.weight_hh
+
+    table = {}
+    for group, block in lines.groupby("poor", observed=True):
+        table[group] = block.groupby("purchase_place", observed=True)["spend"].sum() \
+            / block["spend"].sum() * 100
+    shares = pd.DataFrame(table)
+    shares = shares[shares.max(axis=1) >= 1].sort_values("poor")
+
+    fig, ax = plt.subplots(figsize=(9.2, 4.4))
+    y = dumbbell(ax, t, shares["poor"], shares["not poor"], list(shares.index),
+                 "Poor", "Not poor")
+    # Label the outside of each pair, not "poor on the left": the two cross whenever
+    # the poor share is the larger one, which put both labels inside the rule.
+    for yi, lo, hi in zip(y, shares["poor"], shares["not poor"], strict=True):
+        for value, offset, align in ((min(lo, hi), -9, "right"), (max(lo, hi), 9, "left")):
+            ax.annotate(f"{value:.1f}", (value, yi), xytext=(offset, 0),
+                        textcoords="offset points", ha=align, va="center",
+                        fontsize=8.5, color=t["ink2"])
+    ax.set_xscale("log")
+    ax.set_xlim(0.4, 200)
+    ax.set_xticks([1, 3, 10, 30, 90], ["1%", "3%", "10%", "30%", "90%"])
+    ax.set_xlabel("Share of all household spending, log scale")
+    ax.legend(loc="lower right", frameon=False, fontsize=9)
+    fig.subplots_adjust(left=0.24, right=0.97, top=0.78, bottom=0.24)
+    finish(fig, t,
+           "The poor's money goes to the weekly market, not the supermarket",
+           "Where household spending goes, by type of outlet, 2021",
+           "EBCNV 2021 product-level file, 3.26M acquisition lines, recomputed. Shares of "
+           "dinars rather than of lines, so a supermarket trip is not counted equal to a "
+           "loaf of bread. The log scale is needed because the private shop takes more "
+           "than 80% of both groups' spending; without it every other outlet would be "
+           "invisible. Own production is 2.1% of poor spending against 0.9% of non-poor, "
+           "and 2.9% of rural against 0.4% of urban.")
+    return fig
+
 BUILDERS = [
     ("01-expenditure-by-quintile", fig_quintiles, True),
     ("02-regional-gap", fig_regional_gap, True),
@@ -847,6 +1266,16 @@ BUILDERS = [
     ("14-regional-gap-two-ways", fig_regional_gap_two_ways, True),
     ("15-urban-rural-poverty", fig_urban_rural_poverty, True),
     ("16-budget-shift-2010-2021", fig_budget_shift, True),
+    ("17-prices-since-1999", fig_prices, False),
+    ("18-price-against-budget", fig_price_against_budget, True),
+    ("19-unemployment-by-education", fig_unemployment, False),
+    ("20-out-of-pocket-health", fig_out_of_pocket, False),
+    ("21-chronic-illness-and-cover", fig_chronic, False),
+    ("22-why-people-left-school", fig_leaving_school, False),
+    ("23-distance-to-school", fig_school_distance, False),
+    ("24-why-people-are-not-working", fig_not_working, False),
+    ("25-where-the-poor-work", fig_where_poor_work, False),
+    ("26-where-household-money-goes", fig_where_bought, False),
 ]
 
 

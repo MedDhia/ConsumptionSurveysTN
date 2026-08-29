@@ -232,6 +232,76 @@ SOURCES: tuple[Source, ...] = (
     ),
 )
 
+# ------------------------------------------------------------- INS statistical yearbooks
+#
+# The *Annuaire Statistique de la Tunisie*, editions 2001-2023 (2013 was never issued in
+# this collection). These are general-statistics volumes rather than consumption surveys:
+# they carry the annual CPI and labour-force series that the four-yearly EBCNV cannot.
+#
+# They are fetched from a Google Drive folder supplied by the repository owner, which
+# mirrors documents INS also publishes. Drive is a mirror, not the authority -- so the
+# checksum in ``data/raw/manifest.json`` matters more here than for the ins.tn sources,
+# because a mirror can be edited by whoever owns it. If a checksum moves, treat the file
+# as untrusted until it is re-checked against the INS release.
+#
+# Two things about these PDFs that any parser must respect, both verified rather than
+# assumed:
+#   * Table numbers shift between editions. The CPI evolution table is 13.6 in the 2023
+#     edition and 13.7 in 2010. Locate tables by their French title, never by number.
+#   * The CPI base year changes between editions (2015=100, 2005=100, ...), so division
+#     weights are not comparable edition to edition without rebasing.
+
+DRIVE_DOWNLOAD = "https://drive.usercontent.google.com/download"
+
+# edition year -> Drive file id
+YEARBOOK_FILE_IDS: dict[int, str] = {
+    2001: "1SZJ-rQE-hjN-z-VbQTjxhJp_BdB0QN3K",
+    2002: "12Zpre3GQkBTzbTuWXoEBerJqbeJEpl6z",
+    2003: "1KziS2PobYx4PoUtDjoyn9fwDUgN0emNK",
+    2004: "1AyE-nzhDqFcZJ2kKtgm6ueTIM3dBgcHy",
+    2005: "1tOBUSnfLIKdtF3JAr6oLBcbgt3qMCsts",
+    2006: "1Dcb2UnB_BJhc0Lw16EAfs88ZN3uk6dp9",
+    2007: "1wm8-t3fw43vc4snMPZKhSI4svBU1Agjg",
+    2008: "1HI-CSrkWLkm_rWV3-7kXcWnbHGI2MqOu",
+    2009: "1CqTdgsC84jbznoWQwOcSBYt48RvTm2mg",
+    2010: "1TvRNXFOAC27VkBK8XUe6Ic2QEPXb3588",
+    2011: "1miEEzJlB355xcWvp_UuWPn2k9RG5d3a0",
+    2012: "1EpiqpiY4TPGqCpWE1XswYPOW3-7Sm7V5",
+    2014: "14Cvp4Br9vcsUjg7C-0G0zZLzz_AI-Tr1",
+    2015: "1q2eXwBcOtE5bMjx9CWMp3Q0ePJ_WXAj-",
+    2016: "1TY96qT7eJnwJCoEVzuTGraEI8u_xGSKp",
+    2017: "1fD8qpm6W8bbQaU55RDOpL6iJ3ItUZNdP",
+    2018: "1sQZP86YPUwvfQOo32kP4bB_-oStqpTFd",
+    2019: "1_Y2X9caVVJYM1bDUCIUsZbwO6ejcynJo",
+    2020: "1LrT9bSBYRjKVnMWK8Teq_ZJZuRK1ojhy",
+    2021: "1B4By95eopwmMeo86RxMBS5ZB_1lj9QFg",
+    2022: "1I9oJLCUq1bvgijiz_VAM_xmwUsouGwEI",
+    2023: "1MXVyGEVCrxJNrAcPfNdYm3srvszHHrS3",
+}
+
+YEARBOOKS: tuple[Source, ...] = tuple(
+    Source(
+        key=f"annuaire_{year}",
+        url=f"{DRIVE_DOWNLOAD}?id={file_id}&export=download&confirm=t",
+        filename=f"annuaire_{year}.pdf",
+        wave=None,
+        kind="yearbook",
+        description=(
+            f"Annuaire Statistique de la Tunisie, {year} edition. Each edition carries "
+            "roughly five years of annual series; the overlaps between editions are what "
+            "makes a spliced series checkable."
+        ),
+    )
+    for year, file_id in sorted(YEARBOOK_FILE_IDS.items())
+)
+
+SOURCES = SOURCES + YEARBOOKS
+
+# Editions the price and labour builders actually read. Every edition is fetched and
+# checksummed, but parsing all 22 buys nothing: each carries ~5 years, so this set spans
+# 2001-2023 with deliberate overlaps used as a cross-check.
+YEARBOOKS_PARSED = (2005, 2010, 2015, 2019, 2023)
+
 SOURCES_BY_KEY = {s.key: s for s in SOURCES}
 
 

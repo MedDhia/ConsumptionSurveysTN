@@ -20,6 +20,33 @@ CHUNK = 1 << 20
 TIMEOUT = 120
 RETRIES = 4  # INS occasionally 503s under load
 
+# First bytes a file of each type must start with. Checked after every download because
+# the failure this catches is silent: a host that answers a download with an HTML
+# interstitial or an error page still returns 200, and the bytes still hash cleanly. The
+# manifest would then record a checksum for a web page and report drift on every
+# subsequent run. Relevant for the yearbook mirror in particular, which serves through a
+# consent/scan interstitial when it decides to.
+MAGIC: dict[str, bytes] = {
+    ".pdf": b"%PDF",
+    ".xlsx": b"PK\x03\x04",
+    ".rar": b"Rar!",
+}
+
+
+def check_looks_right(path: Path) -> None:
+    """Fail loudly if a download is not the kind of file its extension claims."""
+    expected = MAGIC.get(path.suffix.lower())
+    if expected is None:
+        return
+    with path.open("rb") as fh:
+        head = fh.read(len(expected))
+    if head != expected:
+        raise RuntimeError(
+            f"{path.name} does not start with {expected!r} -- got {head!r}. "
+            "The server most likely returned an error or interstitial page rather than "
+            "the file. Nothing has been written to the manifest."
+        )
+
 
 def sha256(path: Path) -> str:
     h = hashlib.sha256()
@@ -70,6 +97,7 @@ def fetch(src: Source, *, force: bool = False) -> Path:
         return dest
     print(f"  fetching {src.key} -> {src.filename}")
     _get(src.url, dest)
+    check_looks_right(dest)
     return dest
 
 

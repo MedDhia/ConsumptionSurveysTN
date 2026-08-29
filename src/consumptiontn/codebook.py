@@ -56,6 +56,31 @@ DERIVED: dict[str, str] = {
         "Individual extrapolation factor (`v701`), equal to `weight_hh * hh_size`. "
         "Use for per-person statistics: mean per-capita expenditure, poverty headcount."
     ),
+    # Yearbook-derived series. These come from published tables in the Annuaire
+    # Statistique de la Tunisie rather than from microdata, so they have no .dta origin.
+    "year": "Calendar year the observation refers to.",
+    "base_year": (
+        "Year in which this index series equals 100. INS publishes the same price series "
+        "on eight bases side by side; they are rescalings of one series, not eight "
+        "measurements, so a chart must pick one and stay on it."
+    ),
+    "index": "Consumer price index. Reads 100.0 in its own base year.",
+    "weight_per_100000": (
+        "INS's expenditure weight for this COICOP function, in parts per 100,000. "
+        "Sums to exactly 100,000 across the twelve functions."
+    ),
+    "function_code": (
+        "COICOP function 1-12, matching `tn_consumption_panel`. Code 0 is INS's own "
+        "all-items total, kept because it cross-checks against `tn_cpi_annual`."
+    ),
+    "function": "English name of the COICOP function.",
+    "unemployment_rate": (
+        "Unemployed as a percentage of the labour force, surveyed in May of that year."
+    ),
+    "breakdown": "Which yearbook table the row came from: `education` or `sex`.",
+    "group": "Category within the breakdown. `all` is that table's own total row.",
+    "source_key": "Key of the source document in `src/consumptiontn/config.py`.",
+    "source_table": "Table number within that document, as INS numbers it.",
 }
 
 UNITS: dict[str, str] = {
@@ -70,16 +95,26 @@ UNITS: dict[str, str] = {
     "head_age": "years",
     "age": "years",
     "scholarship_amount": "dinars per year",
-    "chronic_disease_expenditure": "millimes per year",
-    "consultation_expenditure": "millimes per year",
-    "medicine_expenditure": "millimes per year",
-    "hospital_stay_expenditure": "millimes per year",
-    "insurance_reimbursement": "millimes per year",
+    # Dinars, not millimes. INS's own labels give no unit, and an earlier version of
+    # this file guessed millimes. That reading makes a doctor's visit cost 0.04 DT.
+    # Checked against the household file, which is definitely in dinars: summed per
+    # household, the health module is a median 172 against 1,749 for COICOP function 6
+    # -- about 8%, which is what out-of-pocket medical care should be inside a category
+    # that also holds hygiene and personal care. On the millimes reading it would be
+    # 0.01%.
+    "chronic_disease_expenditure": "dinars per year",
+    "consultation_expenditure": "dinars per year",
+    "medicine_expenditure": "dinars per year",
+    "hospital_stay_expenditure": "dinars per year",
+    "insurance_reimbursement": "dinars per year",
     "travel_time_to_school_min": "minutes",
     "travel_time_to_water_point_min": "minutes",
     "distance_to_water_point_m": "metres",
     "job_search_duration_months": "months",
     "food_share": "fraction of 1",
+    "index": "index, base year = 100",
+    "unemployment_rate": "percent",
+    "weight_per_100000": "parts per 100,000",
 }
 
 

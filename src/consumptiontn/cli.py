@@ -27,7 +27,9 @@ from . import (
     build_expenditure,
     build_household,
     build_individual,
+    build_labour,
     build_panel,
+    build_prices,
     codebook,
     download,
     extract_pdf,
@@ -110,6 +112,37 @@ INTROS = {
         "them for description and mapping, not as if they carried survey standard errors. "
         "Siliana is absent because its table in the source report has dropout rates only."
     ),
+    "tn_cpi_annual": (
+        "Consumer price index for Tunisia, 1999–2023, on each of the eight base years INS "
+        "publishes side by side, read from the 2023 statistical yearbook.\n\n"
+        "**Pick one base year and stay on it.** The eight columns are the same series "
+        "rescaled, not eight different measurements; mixing them produces nonsense. Each "
+        "base year reads exactly 100.0 in its own year, which the builder asserts.\n\n"
+        "This is a price level, not a quantity: it says what a fixed basket cost, not what "
+        "anyone bought. Pair it with the budget shares in `tn_consumption_panel`."
+    ),
+    "tn_cpi_by_division": (
+        "Price index for each of the twelve COICOP consumption functions, 2021–2023, on "
+        "base 2015 = 100, with the weights INS used to aggregate them.\n\n"
+        "The functions match `tn_consumption_panel`'s `COICOP function` subgroup exactly, "
+        "so price change and budget-share change can be set side by side. Because 2015 is "
+        "the base and 2021 an EBCNV wave, the 2021 column reads directly as the price "
+        "change between two survey waves.\n\n"
+        "`weight_per_100000` is INS's expenditure weight and sums to 100,000 across the "
+        "twelve. `function_code` 0 is INS's own all-items total, kept because it "
+        "cross-checks against `tn_cpi_annual`."
+    ),
+    "tn_unemployment_annual": (
+        "Unemployment rate by education level and by sex, 2011–2023, surveyed each May, "
+        "spliced from the 2015, 2019 and 2023 statistical yearbooks.\n\n"
+        "**This series does not reach back before the revolution.** The 2005, 2010 and "
+        "2012 editions carry no unemployment table — checked in the documents, not "
+        "assumed. 2011 is the earliest year available, so this describes the period since "
+        "the revolution and cannot be used to compare across it.\n\n"
+        "Editions overlap: 2015 appears in two of them and 2019 in two. The builder "
+        "requires the overlapping years to agree exactly, which is what verifies that the "
+        "right column was read from each volume."
+    ),
 }
 
 TITLES = {
@@ -122,6 +155,9 @@ TITLES = {
     "tn_consumption_panel": "Consumption and poverty indicator panel, 1985–2021",
     "tn_wave_coverage": "EBCNV wave coverage, 1968–2021",
     "tn_poverty_delegations_2015": "Delegation-level poverty, 2015 small-area estimates",
+    "tn_cpi_annual": "Consumer price index, 1999–2023",
+    "tn_cpi_by_division": "Consumer price index by COICOP function, 2021–2023",
+    "tn_unemployment_annual": "Unemployment by education and sex, 2011–2023",
 }
 
 # Datasets whose plain CSV would exceed GitHub's 100 MB per-file limit. Written as
@@ -157,6 +193,10 @@ def build_all() -> dict[str, pd.DataFrame]:
         "tn_wave_coverage": panel_sources.WAVE_COVERAGE,
         "tn_poverty_delegations_2015": extract_pdf.delegation_poverty(),
     }
+    cpi_annual, cpi_divisions = build_prices.build()
+    datasets["tn_cpi_annual"] = cpi_annual
+    datasets["tn_cpi_by_division"] = cpi_divisions
+    datasets["tn_unemployment_annual"] = build_labour.build()
     for name, df in datasets.items():
         _write(name, df)
     return datasets
