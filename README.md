@@ -174,11 +174,17 @@ which is exactly the kind of error that survives casual checking.
 
 ## Figures
 
-[`figures/`](figures) holds six charts on the evolution of inequality, 1985–2021, with a
-light and a dark version of each. **None of them uses a composite index** — no Gini, no
-Theil, no Atkinson. Every figure shows an observed quantity or the relation between two
-observed quantities, so any number in them can be recovered from the datasets by hand.
-`make figures` redraws them.
+[`figures/`](figures) holds sixteen charts on inequality, with a light and a dark version
+of each. Six trace its evolution from 1985 to 2021; six look inside the groups the first
+six average over — the spread within a region, within a governorate, and across cohorts;
+four compare the two waves before January 2011 with the two after. **None of them uses a
+composite index** — no Gini, no Theil, no Atkinson. Every figure shows an observed
+quantity or the relation between two observed quantities, so any number in them can be
+recovered from the datasets by hand. `make figures` redraws them.
+
+The last four are descriptive before-and-after comparisons, not causal estimates: the
+2010-2021 window contains the revolution alongside the 2015 attacks, the tourism collapse,
+dinar depreciation and COVID, and nothing here separates them.
 
 ## Continuous integration
 
