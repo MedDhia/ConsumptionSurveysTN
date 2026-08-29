@@ -5,7 +5,7 @@ export PYTHONPATH := src
 
 help:
 	@echo "setup           install bsdtar, pdftotext and the Python requirements"
-	@echo "fetch           download the 21 INS artefacts into data/raw (~86 MB)"
+	@echo "fetch           download the 43 source documents into data/raw (~290 MB)"
 	@echo "build           build every dataset into data/processed and write codebooks"
 	@echo "verify          re-check data/raw against data/raw/manifest.json"
 	@echo "check-upstream  force a re-download and report anything INS has republished"

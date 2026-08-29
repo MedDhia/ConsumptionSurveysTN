@@ -1,8 +1,14 @@
 # Sources
 
-Every INS artefact this pipeline reads, with the URL it was fetched from, its SHA-256,
-and when it was retrieved. `data/raw/manifest.json` is the machine-readable version and
-is what `make verify` checks against.
+Every document this pipeline reads, with the URL it was fetched from, its SHA-256, and
+when it was retrieved. `data/raw/manifest.json` is the machine-readable version and is
+what `make verify` checks against.
+
+Two origins. Everything INS publishes directly comes from ins.tn. The statistical
+yearbooks come from a Drive folder mirroring documents INS also publishes — a mirror can
+be edited by whoever owns it, so the checksum matters more there, and a download that
+arrives as an error or interstitial page is rejected on its magic bytes before it can
+reach the manifest.
 
 INS reorganises ins.tn periodically — note the `files-ftp3` path segment, which replaced
 an earlier scheme. If a URL 404s, the fix belongs in `src/consumptiontn/config.py`, and
@@ -24,7 +30,7 @@ series from them is published online. See `data/processed/tn_wave_coverage.csv`.
 
 ## A note on what is committed
 
-Raw downloads (`data/raw`) are not committed — they are 86 MB and re-fetchable, and the
+Raw downloads (`data/raw`) are not committed — they are 290 MB and re-fetchable, and the
 manifest pins exactly which bytes the results came from. Derived microdata files are not
 committed either; `make build` rebuilds them in about three minutes. The small reference
 datasets — the indicator panel, the product nomenclature, the delegation poverty
@@ -101,3 +107,52 @@ Parquet.
 | | | Poverty map (Sept 2020). Small-area *modelled* estimates below the region tier -- delegation-level figures here are not survey estimates. | | | |
 | `mesure_pauvrete_2000_2010` | — | [mesure_pauvrete_inegalites_2000_2010.pdf](https://www.ins.tn/sites/default/files-ftp3/files/publication/pdf/Mesure_de_la_pauvrete.pdf) | 0.9 MB | `e79f08785f95dd57` | 2026-08-28 |
 | | | Poverty, inequality and polarisation in Tunisia, 2000-2010. Retrospective series. | | | |
+
+### Statistical yearbooks
+
+| Key | Wave | File | Size | SHA-256 (first 16) | Retrieved |
+| --- | --- | --- | --- | --- | --- |
+| `annuaire_2001` | — | [annuaire_2001.pdf](https://drive.usercontent.google.com/download?id=1SZJ-rQE-hjN-z-VbQTjxhJp_BdB0QN3K&export=download&confirm=t) | 1.2 MB | `eac888e3caf5945b` | 2026-08-29 |
+| | | Annuaire Statistique de la Tunisie, 2001 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable. | | | |
+| `annuaire_2002` | — | [annuaire_2002.pdf](https://drive.usercontent.google.com/download?id=12Zpre3GQkBTzbTuWXoEBerJqbeJEpl6z&export=download&confirm=t) | 5.4 MB | `aac92939d8825e36` | 2026-08-29 |
+| | | Annuaire Statistique de la Tunisie, 2002 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable. | | | |
+| `annuaire_2003` | — | [annuaire_2003.pdf](https://drive.usercontent.google.com/download?id=1KziS2PobYx4PoUtDjoyn9fwDUgN0emNK&export=download&confirm=t) | 5.4 MB | `bc4a0e208f80ea1e` | 2026-08-29 |
+| | | Annuaire Statistique de la Tunisie, 2003 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable. | | | |
+| `annuaire_2004` | — | [annuaire_2004.pdf](https://drive.usercontent.google.com/download?id=1AyE-nzhDqFcZJ2kKtgm6ueTIM3dBgcHy&export=download&confirm=t) | 7.2 MB | `5ebc485dbac7666f` | 2026-08-29 |
+| | | Annuaire Statistique de la Tunisie, 2004 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable. | | | |
+| `annuaire_2005` | — | [annuaire_2005.pdf](https://drive.usercontent.google.com/download?id=1tOBUSnfLIKdtF3JAr6oLBcbgt3qMCsts&export=download&confirm=t) | 6.0 MB | `6e40d76892fccf3e` | 2026-08-29 |
+| | | Annuaire Statistique de la Tunisie, 2005 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable. | | | |
+| `annuaire_2006` | — | [annuaire_2006.pdf](https://drive.usercontent.google.com/download?id=1Dcb2UnB_BJhc0Lw16EAfs88ZN3uk6dp9&export=download&confirm=t) | 7.5 MB | `e52fa905eed23bae` | 2026-08-29 |
+| | | Annuaire Statistique de la Tunisie, 2006 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable. | | | |
+| `annuaire_2007` | — | [annuaire_2007.pdf](https://drive.usercontent.google.com/download?id=1wm8-t3fw43vc4snMPZKhSI4svBU1Agjg&export=download&confirm=t) | 5.8 MB | `a393b827e83fe920` | 2026-08-29 |
+| | | Annuaire Statistique de la Tunisie, 2007 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable. | | | |
+| `annuaire_2008` | — | [annuaire_2008.pdf](https://drive.usercontent.google.com/download?id=1HI-CSrkWLkm_rWV3-7kXcWnbHGI2MqOu&export=download&confirm=t) | 5.5 MB | `c89dfba64e56962a` | 2026-08-29 |
+| | | Annuaire Statistique de la Tunisie, 2008 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable. | | | |
+| `annuaire_2009` | — | [annuaire_2009.pdf](https://drive.usercontent.google.com/download?id=1CqTdgsC84jbznoWQwOcSBYt48RvTm2mg&export=download&confirm=t) | 4.4 MB | `daa4ca794de60f84` | 2026-08-29 |
+| | | Annuaire Statistique de la Tunisie, 2009 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable. | | | |
+| `annuaire_2010` | — | [annuaire_2010.pdf](https://drive.usercontent.google.com/download?id=1TvRNXFOAC27VkBK8XUe6Ic2QEPXb3588&export=download&confirm=t) | 3.5 MB | `b15d046a5aec7fb5` | 2026-08-29 |
+| | | Annuaire Statistique de la Tunisie, 2010 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable. | | | |
+| `annuaire_2011` | — | [annuaire_2011.pdf](https://drive.usercontent.google.com/download?id=1miEEzJlB355xcWvp_UuWPn2k9RG5d3a0&export=download&confirm=t) | 3.8 MB | `de500e9765951cd8` | 2026-08-29 |
+| | | Annuaire Statistique de la Tunisie, 2011 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable. | | | |
+| `annuaire_2012` | — | [annuaire_2012.pdf](https://drive.usercontent.google.com/download?id=1EpiqpiY4TPGqCpWE1XswYPOW3-7Sm7V5&export=download&confirm=t) | 3.6 MB | `d3caceb2d62c9cb4` | 2026-08-29 |
+| | | Annuaire Statistique de la Tunisie, 2012 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable. | | | |
+| `annuaire_2014` | — | [annuaire_2014.pdf](https://drive.usercontent.google.com/download?id=14Cvp4Br9vcsUjg7C-0G0zZLzz_AI-Tr1&export=download&confirm=t) | 20.0 MB | `efac7f5fb5d33940` | 2026-08-29 |
+| | | Annuaire Statistique de la Tunisie, 2014 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable. | | | |
+| `annuaire_2015` | — | [annuaire_2015.pdf](https://drive.usercontent.google.com/download?id=1q2eXwBcOtE5bMjx9CWMp3Q0ePJ_WXAj-&export=download&confirm=t) | 16.4 MB | `d8fea8cb507c2dc2` | 2026-08-29 |
+| | | Annuaire Statistique de la Tunisie, 2015 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable. | | | |
+| `annuaire_2016` | — | [annuaire_2016.pdf](https://drive.usercontent.google.com/download?id=1TY96qT7eJnwJCoEVzuTGraEI8u_xGSKp&export=download&confirm=t) | 20.6 MB | `85444af31e0145a5` | 2026-08-29 |
+| | | Annuaire Statistique de la Tunisie, 2016 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable. | | | |
+| `annuaire_2017` | — | [annuaire_2017.pdf](https://drive.usercontent.google.com/download?id=1fD8qpm6W8bbQaU55RDOpL6iJ3ItUZNdP&export=download&confirm=t) | 8.3 MB | `43c1aef356d7684b` | 2026-08-29 |
+| | | Annuaire Statistique de la Tunisie, 2017 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable. | | | |
+| `annuaire_2018` | — | [annuaire_2018.pdf](https://drive.usercontent.google.com/download?id=1sQZP86YPUwvfQOo32kP4bB_-oStqpTFd&export=download&confirm=t) | 8.5 MB | `69689afcc20cbedc` | 2026-08-29 |
+| | | Annuaire Statistique de la Tunisie, 2018 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable. | | | |
+| `annuaire_2019` | — | [annuaire_2019.pdf](https://drive.usercontent.google.com/download?id=1_Y2X9caVVJYM1bDUCIUsZbwO6ejcynJo&export=download&confirm=t) | 13.2 MB | `f3038fd63d998ac6` | 2026-08-29 |
+| | | Annuaire Statistique de la Tunisie, 2019 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable. | | | |
+| `annuaire_2020` | — | [annuaire_2020.pdf](https://drive.usercontent.google.com/download?id=1LrT9bSBYRjKVnMWK8Teq_ZJZuRK1ojhy&export=download&confirm=t) | 15.7 MB | `2298535903bdaf6a` | 2026-08-29 |
+| | | Annuaire Statistique de la Tunisie, 2020 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable. | | | |
+| `annuaire_2021` | — | [annuaire_2021.pdf](https://drive.usercontent.google.com/download?id=1B4By95eopwmMeo86RxMBS5ZB_1lj9QFg&export=download&confirm=t) | 6.9 MB | `e07019f232590f9f` | 2026-08-29 |
+| | | Annuaire Statistique de la Tunisie, 2021 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable. | | | |
+| `annuaire_2022` | — | [annuaire_2022.pdf](https://drive.usercontent.google.com/download?id=1I9oJLCUq1bvgijiz_VAM_xmwUsouGwEI&export=download&confirm=t) | 16.2 MB | `396abf395a1cde97` | 2026-08-29 |
+| | | Annuaire Statistique de la Tunisie, 2022 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable. | | | |
+| `annuaire_2023` | — | [annuaire_2023.pdf](https://drive.usercontent.google.com/download?id=1MXVyGEVCrxJNrAcPfNdYm3srvszHHrS3&export=download&confirm=t) | 16.2 MB | `45ee5d23797e9cae` | 2026-08-29 |
+| | | Annuaire Statistique de la Tunisie, 2023 edition. Each edition carries roughly five years of annual series; the overlaps between editions are what makes a spliced series checkable. | | | |
