@@ -64,7 +64,12 @@ YEAR = re.compile(r"^(?:19|20)\d\d\*?$")
 # 2023/24. Age bands are written the same way -- "04-00", "44-40" -- so the notation
 # alone cannot tell them apart. The span does: a school year spans one year, an age band
 # spans four. Getting this wrong would date a table of age groups as a time series.
-SCHOOL_YEAR = re.compile(r"^(\d{2})-(\d{2})$")
+# Older editions write the same thing with four digits -- "2000-99" for 1999/2000 --
+# so both forms have to be recognised, and both must resolve to the same start year.
+# They previously did not: the two-digit form was read correctly while the four-digit
+# form fell through to the layout reader, which took its leading "2000" as the year and
+# dated every such column one year late.
+SCHOOL_YEAR = re.compile(r"^(\d{2}|\d{4})-(\d{2})$")
 
 TABLE_NUMBER = re.compile(r"^(\d{1,2}(?:\.\d{1,2}){1,2})\s+(\S.*)$")
 
@@ -192,10 +197,18 @@ def _school_year_header(line: str) -> list[tuple[str, int]] | None:
         match = SCHOOL_YEAR.match(token)
         if match is None:
             return None
-        end, start = int(match.group(1)), int(match.group(2))
-        if (end - start) % 100 != 1:
+        end_text, start = match.group(1), int(match.group(2))
+        end = int(end_text)
+        if len(end_text) == 2:
+            end = 2000 + end if end <= 50 else 1900 + end
+        if (end - 1) % 100 != start:
             return None  # a span of four is an age band, not a year
-        out.append((token, 2000 + start if start <= 50 else 1900 + start))
+        # Canonical "1999/00" rather than whichever of "2000-99" or "00-99" this
+        # edition printed. Both denote one school year, and reconciliation keys on the
+        # column label -- so leaving them distinct would keep two printings of the same
+        # figure from ever checking each other.
+        start_year = end - 1
+        out.append((f"{start_year}/{end % 100:02d}", start_year))
     return out
 
 
@@ -712,8 +725,17 @@ def parse_page_layout(edition: int, page_index: int, text: str) -> list[dict]:
     # A nested header composes to "2023 Feminin": the year is the outer cell, and it
     # dates that column even though the label is no longer a bare year.
     year = _page_year(text)
-    leading = [re.match(r"^((?:19|20)\d\d)\b", label) for label in labels]
-    years = [int(m.group(1)) if m else None for m in leading]
+    # A school-year label reads its own start year; a nested header's outer cell is a
+    # bare leading year. Checking the school year first matters, because "2000-99" also
+    # begins with four digits and would otherwise be dated a year late.
+    years: list[int | None] = []
+    for label in labels:
+        school = _school_year_header(f"{label} {label}")
+        if school:
+            years.append(school[0][1])
+            continue
+        match = re.match(r"^((?:19|20)\d\d)\b(?!-)", label)
+        years.append(int(match.group(1)) if match else None)
     if year is None and not all(y is not None for y in years):
         return []
 

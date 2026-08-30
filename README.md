@@ -282,12 +282,13 @@ which is exactly the kind of error that survives casual checking.
 
 ## Figures
 
-[`figures/`](figures) holds twenty-six charts on inequality, with a light and a dark
+[`figures/`](figures) holds thirty charts on inequality, with a light and a dark
 version of each. Six trace its evolution from 1985 to 2021; six look inside the groups the
 first six average over; four compare the two waves before January 2011 with the two after;
 three come from the statistical yearbooks and cover prices and unemployment annually; and
-seven use the health, education and labour modules and the product-level file, none of
-which any earlier figure had touched. **None of them uses a composite index of
+seven use the health, education and labour modules and the product-level file; and four
+ask whether the revolution's effect can be identified at all from the yearbooks'
+governorate panel, and show that it cannot. **None of them uses a composite index of
 inequality** — no Gini, no Theil, no Atkinson. Every figure shows an observed quantity or
 the relation between two observed quantities, so any number in them can be recovered from
 the datasets by hand. `make figures` redraws them.
@@ -298,6 +299,14 @@ contains the revolution alongside the 2015 attacks, the tourism collapse, dinar
 depreciation and COVID, and nothing here separates them. And the consumer price index in
 figures 17 and 18 is a price level, not a summary of a distribution — it is not the kind
 of index the rule above is about.
+
+Figures 27–30 go further and test the identification directly. With every governorate
+treated at the same instant there is no control group, so the two candidate designs are an
+interrupted time series and a difference-in-differences on differential exposure. A
+placebo test moving the assumed break year shows 2011 is not distinguishable from 2010,
+2012, 2014 or 2015; and the interior–coastal gap was already widening by 0.21 a year for
+twelve years before 2011. Both requirements fail, which is a finding about the limits of
+the evidence rather than a claim that the revolution had no effect.
 
 ## Continuous integration
 

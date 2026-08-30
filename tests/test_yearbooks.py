@@ -195,7 +195,7 @@ def _classification(series):
     reprint.
     """
     is_year = series.column_label == series.year.astype(str)
-    is_school = series.column_label.str.match(r"^\d{2}-\d{2}$").fillna(False)
+    is_school = series.column_label.str.match(r"^\d{4}/\d{2}$").fillna(False)
     return series[~(is_year | is_school)]
 
 
@@ -382,13 +382,15 @@ def test_school_years_are_told_apart_from_age_bands():
     """
     from consumptiontn.build_yearbook import _school_year_header
 
+    # The label is canonicalised to the school year it names, so the two notations
+    # editions use for the same year reconcile against each other.
     assert _school_year_header("24-23 23-22 22-21") == [
-        ("24-23", 2023), ("23-22", 2022), ("22-21", 2021)
+        ("2023/24", 2023), ("2022/23", 2022), ("2021/22", 2021)
     ]
     assert _school_year_header("04-00 09-05 14-10") is None
     assert _school_year_header("44-40 39-35") is None
     # The century turn: "00-99" is the 1999/2000 school year.
-    assert _school_year_header("01-00 00-99") == [("01-00", 2000), ("00-99", 1999)]
+    assert _school_year_header("01-00 00-99") == [("2000/01", 2000), ("1999/00", 1999)]
 
 
 def test_a_school_year_table_is_dated_without_a_year_on_the_page(corpus):
@@ -439,3 +441,43 @@ def test_an_ambiguous_inferred_label_is_dropped_rather_than_guessed():
     assert any("not unique" in reason for reason in reasons), reasons
     inferred = {r["row_label"] for r in rows if r["label_inferred"]}
     assert len(inferred) == len({label for label in inferred})
+
+
+def test_four_digit_school_years_resolve_to_the_same_year_as_two_digit():
+    """Older editions write "2000-99" where newer ones write "00-99". Both are the
+    1999/2000 school year and must resolve to 1999.
+
+    They did not. The two-digit pattern missed the four-digit form, which fell through
+    to the layout reader; that took its leading "2000" as a calendar year and dated
+    every such column one year late. The two notations then disagreed by a year about
+    the same printed figure.
+    """
+    from consumptiontn.build_yearbook import _school_year_header
+
+    assert _school_year_header("2000-99 2001-00") == [("1999/00", 1999), ("2000/01", 2000)]
+    assert _school_year_header("00-99 01-00") == [("1999/00", 1999), ("2000/01", 2000)]
+    # Four-digit age-band-like spans are still refused.
+    assert _school_year_header("2004-00 2009-05") is None
+
+
+def test_the_two_school_year_notations_corroborate_each_other(corpus):
+    """Canonicalising the label is what lets them: keyed on the printed token, two
+    editions of the same figure would never have been compared."""
+    _, series, _ = corpus
+    enrolment = series[series.title_fr.eq("population scolaire totale du 1er cycle 8")
+                       & series.row_label.eq("Sidi Bouzid")]
+    by_year = enrolment.set_index("year")
+    assert by_year.loc[2000, "value"] == 64235.0
+    assert by_year.loc[2000, "n_editions"] >= 3
+    assert by_year.loc[2000, "agreement"] == "confirmed"
+    # One row per year: the notations merged rather than double-counting.
+    assert not enrolment.year.duplicated().any()
+
+
+def test_school_year_labels_are_canonical(corpus):
+    _, series, _ = corpus
+    school = series[series.column_label.str.match(r"^\d{4}/\d{2}$").fillna(False)]
+    assert not school.empty
+    # The canonical form always names the year it starts in.
+    starts = school.column_label.str.slice(0, 4).astype(int)
+    assert (starts == school.year).all()

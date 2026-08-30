@@ -1,6 +1,6 @@
 # The evolution of inequality in Tunisia, 1985–2021
 
-Twenty-six figures built from `data/processed`. Regenerate with `make figures`.
+Thirty figures built from `data/processed`. Regenerate with `make figures`.
 
 **No composite index appears in any of them.** No Gini, no Theil, no Atkinson, no
 polarisation index. Every figure shows either an observed quantity — a group's mean
@@ -505,6 +505,101 @@ something other than a disadvantage.
 
 ---
 
+## Can the revolution's effect be identified?
+
+The four figures above this line describe what happened across January 2011. These four
+ask the harder question — whether any of it can be *attributed* to the revolution — and
+answer no, by running the tests rather than asserting the conclusion.
+
+**Why the answer is structural.** The revolution treated all twenty-four governorates at
+the same instant. There is no untreated unit inside Tunisia, and no comparison country in
+this data to build a synthetic one from. That leaves two candidate designs: an interrupted
+time series, whose counterfactual is an extrapolated pre-trend, and a
+difference-in-differences on differential exposure, which requires the compared groups to
+have been on parallel paths beforehand. Figures 28 and 29 test exactly those two
+requirements. Both fail.
+
+The outcome throughout is **pupils per teacher in the first cycle of basic education**,
+across 23 governorates and 21 years (1998–2018), 481 of 483 cells present. It needs no
+population denominator — both halves come from the same chapter and the same years — and
+it measures something governments actually allocate.
+
+### 27. The counterfactual is an assumption
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="27-counterfactual-is-an-assumption-dark.png">
+  <img alt="Pupils per teacher 1998 to 2018 with three different pre-trend extrapolations after 2011" src="27-counterfactual-is-an-assumption-light.png">
+</picture>
+
+An interrupted time series compares what happened against the pre-trend carried forward,
+so the estimate is only ever as good as that extrapolation. Three defensible choices —
+linear on 1998–2010, quadratic on the same window, linear on 2006–2010 — give "effects"
+of **+6.9, +3.4 and +2.6** pupils per teacher. A factor of 2.7 between them, and nothing
+in the data adjudicates.
+
+The national series itself is not ambiguous: 23.8 pupils per teacher in 1998, falling to
+16.8 by 2008, then flat and rising to 18.0 by 2018. Something changed. What the design
+cannot say is *when*, or *because of what*.
+
+### 28. Every candidate break year gives the same answer
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="28-placebo-break-years-dark.png">
+  <img alt="Level shift estimated by segmented regression at each assumed break year from 2003 to 2015" src="28-placebo-break-years-light.png">
+</picture>
+
+The falsification test. The same segmented regression is run thirteen times, moving only
+the year the break is assumed to occur. If January 2011 caused a discrete change, the
+estimated step should peak there.
+
+It does not. 2010 gives **+1.05**, 2011 gives **+1.06**, 2012 gives **+1.08** — and 2014
+and 2015 give larger steps still, at +1.28 and +1.54. The estimates form a smooth ramp
+across candidate years, which is the signature of a gradual change in trend, not of an
+event. A single-break design cannot separate the two, and this figure is how you find
+that out rather than assuming it away.
+
+### 29. Parallel trends fail, and fail badly
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="29-parallel-trends-fail-dark.png">
+  <img alt="Gap in pupils per teacher between interior and coastal governorates, 1998 to 2018" src="29-parallel-trends-fail-light.png">
+</picture>
+
+The natural difference-in-differences here splits governorates by exposure: the interior —
+INS's Nord-Ouest, Centre-Ouest and Sud-Ouest, where the revolution began and where the
+grievance was concentrated — against the coastal and metropolitan governorates.
+
+That design needs the two groups to have been moving in parallel before 2011. They were
+not. The gap widened **every year from 1998**, at 0.21 pupils per teacher a year, going
+from −0.45 in 1998 to −3.17 by 2010 and on to −4.56 by 2018. A post-2011 difference is
+indistinguishable from a trend that had been running for twelve years.
+
+Note the sign, which is easy to misread: interior governorates have *fewer* pupils per
+teacher — small rural schools against crowded coastal ones. On this measure the interior
+looks better served, and still diverging.
+
+### 30. What the data does support
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="30-regional-dispersion-dark.png">
+  <img alt="Dispersion in pupils per teacher across 23 governorates, 1998 to 2018" src="30-regional-dispersion-light.png">
+</picture>
+
+Description, and it is worth having. The ratio between the highest and lowest governorate
+went from **1.21 in 1998 to 1.70 in 2010 to 1.93 in 2018**; the interquartile ratio from
+1.06 to 1.29. Both climb before, across and after the revolution, with no step at 2011.
+
+Two ratios between observed quantities, so the no-composite-index rule holds here as
+everywhere else in this directory.
+
+This is the honest summary the other three leave standing: regional provision diverged
+steadily over two decades, and nothing in the yearbook data can attribute any part of that
+divergence to the revolution. That is a finding about the limits of the evidence, not a
+claim that the revolution had no effect — those are different statements, and only the
+first is supported.
+
+---
+
 ## Colour
 
 The palette is the dataviz reference instance: blue `#2a78d6` and orange `#eb6834` on
@@ -521,6 +616,7 @@ Figures 1–5, 9 and 13–16 come from `tn_consumption_panel.csv`, on the `publi
 throughout — figures transcribed from INS documents, each row carrying its source table.
 Figure 8 comes from the 2020 poverty map. Figures 17 and 19 come from the INS statistical
 yearbooks, and figure 18 sets one of those against the panel. Figures 6, 7, 10, 11, 12 and
-20–26 are recomputed from the EBCNV 2021 microdata. Every claim above is reproducible from
-`scripts/make_figures.py`, and the numbers quoted here were recomputed from the data
-before being written rather than read off the charts.
+20–26 are recomputed from the EBCNV 2021 microdata. Figures 27–30 come from the statistical yearbooks'
+governorate panel. Every claim above is reproducible from `scripts/make_figures.py`, and
+the numbers quoted here were recomputed from the data before being written rather than
+read off the charts.
