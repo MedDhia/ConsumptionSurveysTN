@@ -56,6 +56,15 @@ YEAR = re.compile(r"^(?:19|20)\d\d\*?$")
 
 TABLE_NUMBER = re.compile(r"^(\d{1,2}(?:\.\d{1,2}){1,2})\s+(\S.*)$")
 
+# The reference year of a single-year table, printed either as its own header cell
+# ("Année 2023") or inside the title ("... au 1.7.2023"). A table with neither is
+# skipped rather than dated from the edition's cover, because the cover lies: table 13.8
+# in the 2023 edition covers 2018-2022.
+PAGE_YEAR = re.compile(
+    r"Ann[ée]e\s*:?\s*((?:19|20)\d\d)"
+    r"|\bau\s+\d{1,2}[./]\d{1,2}[./]((?:19|20)\d\d)"
+)
+
 # Contents-page rows look exactly like table headings but are dotted-leader index
 # entries ("... par gouvernorat....... 86 ....... 2.4"). Indexing them inflates the
 # catalogue with near-duplicate junk titles.
@@ -141,6 +150,35 @@ def _year_header(line: str) -> list[int] | None:
     return [int(t.rstrip("*")) for t in tokens]
 
 
+def _category_header(line: str) -> list[str] | None:
+    """A run of short column labels -- age bands, indicator codes -- rather than years.
+
+    Many tables put governorates down the side and a classification across the top for a
+    single year: "44-40 39-35 34-30 ..." or "I.S.F T.G.F 49-45 ...". Guessing which
+    lines are headers from their own appearance is unreliable, so this only proposes a
+    candidate; ``parse_page`` accepts it solely if enough following rows yield exactly
+    this many numbers, which is what rules out prose.
+    """
+    tokens = line.split()
+    if not 2 < len(tokens) <= 20:
+        return None
+    if any(len(token) > 9 for token in tokens):
+        return None
+    # At least half the tokens should look like codes rather than words: a header of
+    # ordinary French words is a wrapped sentence, not a column row.
+    coded = sum(bool(re.search(r"[\d.\-/]", token)) or token.isupper() for token in tokens)
+    if coded * 2 < len(tokens):
+        return None
+    return tokens
+
+
+def _page_year(text: str) -> int | None:
+    match = PAGE_YEAR.search(text)
+    if match is None:
+        return None
+    return int(match.group(1) or match.group(2))
+
+
 def _heading(line: str) -> tuple[str, str] | None:
     """Read a numbered-table heading, or None if the line is not one.
 
@@ -169,20 +207,33 @@ def _table_at(lines: list[str], upto: int) -> tuple[str, str] | None:
 
 
 def parse_page(edition: int, page_index: int, text: str) -> tuple[list[dict], list[dict]]:
-    """Rows accepted and rows refused, from one page."""
+    """Rows accepted and rows refused, from one page.
+
+    Two table shapes. Columns are years -- the common case, and the one that dates
+    itself. Or columns are a classification and the whole table describes one year,
+    which then has to be found on the page.
+    """
     lines = text.split("\n")
     rows: list[dict] = []
     refused: list[dict] = []
+    page_year = _page_year(text)
 
     for i, line in enumerate(lines):
         years = _year_header(line.strip())
-        if years is None:
+        categories = None if years else _category_header(line.strip())
+        if years is None and categories is None:
             continue
+        if years is None and page_year is None:
+            continue  # a classification table with no year on the page is undatable
         heading = _table_at(lines, i)
         if heading is None:
             continue
         number, title = heading
+        columns = [str(y) for y in years] if years else categories
+        width = len(columns)
 
+        block: list[dict] = []
+        block_refused: list[dict] = []
         for body in lines[i + 1:]:
             stripped = body.strip()
             if not stripped:
@@ -192,29 +243,26 @@ def parse_page(edition: int, page_index: int, text: str) -> tuple[list[dict], li
             parts = split_row(stripped)
             if parts is None:
                 if NUMBER.search(stripped):
-                    refused.append({"edition": edition, "table_number": number,
-                                    "row_label": stripped[:60],
-                                    "reason": "unparsed characters among the numbers"})
+                    block_refused.append({"edition": edition, "table_number": number,
+                                          "row_label": stripped[:60],
+                                          "reason": "unparsed characters among the numbers"})
                 continue
             label, values, provisional = parts
-            # A label needs to be a name, not a stray glyph: "P" is what is left of
-            # "Population" on the one page where Arabic-Indic digits are injected into
-            # the French word.
             if len(label) < 3 or not re.search(r"[A-Za-zÀ-ÿ]{3}", label):
                 continue
 
             reason = None
             if label[-1].isdigit():
                 reason = "label ends in a digit (footnote marker shifts the columns)"
-            elif len(values) != len(years):
-                reason = f"{len(values)} values for {len(years)} year columns"
+            elif len(values) != width:
+                reason = f"{len(values)} values for {width} columns"
             if reason:
-                refused.append({"edition": edition, "table_number": number,
-                                "row_label": label[:80], "reason": reason})
+                block_refused.append({"edition": edition, "table_number": number,
+                                      "row_label": label[:80], "reason": reason})
                 continue
 
             kind = "aggregate" if SUBTOTAL.match(label) else "data"
-            rows.extend(
+            block.extend(
                 {
                     "edition": edition,
                     "table_number": number,
@@ -222,12 +270,21 @@ def parse_page(edition: int, page_index: int, text: str) -> tuple[list[dict], li
                     "page": page_index + 1,
                     "row_label": label,
                     "row_kind": kind,
-                    "year": year,
+                    "column_label": column,
+                    "year": int(column) if years else page_year,
                     "value": value,
                     "provisional": provisional,
                 }
-                for year, value in zip(years, values, strict=True)
+                for column, value in zip(columns, values, strict=True)
             )
+
+        # A year header is self-evidently a header. A run of short tokens is not, so a
+        # classification table has to earn it: enough rows must fit the proposed width
+        # for the line to have been a header rather than a coincidence.
+        if categories is not None and len({r["row_label"] for r in block}) < 5:
+            continue
+        rows.extend(block)
+        refused.extend(block_refused)
     return rows, refused
 
 
@@ -243,7 +300,7 @@ def extract(editions: tuple[int, ...] = EDITIONS) -> tuple[pd.DataFrame, pd.Data
     series = pd.DataFrame(kept)
     if not series.empty:
         series = series.drop_duplicates(
-            ["edition", "table_number", "row_label", "year"]
+            ["edition", "table_number", "row_label", "column_label", "year"]
         ).sort_values(["edition", "table_number", "row_label", "year"]).reset_index(drop=True)
     return series, pd.DataFrame(refused)
 
@@ -306,7 +363,7 @@ def reconcile(series: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     frame = series.copy()
     frame["title_fr"] = frame.table_title.map(_latin)
     frame["row_label"] = frame.row_label.str.strip()
-    key = ["title_fr", "row_label", "year"]
+    key = ["title_fr", "row_label", "column_label", "year"]
 
     stats = frame.groupby(key)["value"].agg(
         n_editions="size", lo="min", hi="max", distinct="nunique"
@@ -327,8 +384,8 @@ def reconcile(series: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     clean = joined[joined.agreement != "conflict"].reset_index()
 
     columns = ["table_number", "table_title", "title_fr", "row_label", "row_kind",
-               "year", "value", "provisional", "n_editions", "agreement",
-               "edition", "page"]
+               "column_label", "year", "value", "provisional", "n_editions",
+               "agreement", "edition", "page"]
     clean = clean[columns].sort_values(["title_fr", "row_label", "year"])
     return clean.reset_index(drop=True), conflicts.reset_index(drop=True)
 

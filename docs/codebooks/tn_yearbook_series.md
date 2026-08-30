@@ -1,10 +1,14 @@
 # Statistical yearbook series, cross-checked across editions
 
-`data/processed/tn_yearbook_series.csv` — 91,414 rows × 12 columns
+`data/processed/tn_yearbook_series.csv` — 115,391 rows × 13 columns
 
-Values extracted from the yearbooks' year-column tables: one row per table × row label × year, across all 22 editions.
+Values extracted from the yearbooks' tables: one row per table × row label × column × year, across all 22 editions.
+
+**Two table shapes.** Where the columns are years, `column_label` is that year and the table carries several years at once. Where the columns are a classification — age bands, indicator codes — the table describes a single year, taken from the page rather than from the edition's cover, and `column_label` is the category.
 
 **Read `agreement` before using a number.** Each edition carries a five-year window, so most cells are printed in two to five separate volumes. `confirmed` means every edition that printed the cell printed the same value — an independent corroboration, and the strongest guarantee here. `revised` means they differ slightly and the most recent edition's value is used, which is INS revising its own figure. `single source` means only one edition carries it (1998 and 2023 by construction, and any table that appeared once), so nothing corroborates it.
+
+Almost every classification cell is `single source`, and correctly so: table 1.4 in the 2023 edition is the population at 1.7.2023 while the same table in the 2019 edition is the population at 1.7.2019. Those are different data, so the cell is never printed twice and nothing can cross-check it.
 
 Cells where editions disagreed by more than 10% are **not here**: that is the signature of a misparse rather than a revision, and they are listed in `tn_yearbook_coverage` instead.
 
@@ -21,6 +25,7 @@ Cells where editions disagreed by more than 10% are **not here**: that is the si
 | `title_fr` | str | — | derived | Normalised French title. The stable key across editions. |
 | `row_label` | str | — | derived | The row's French label, as printed. |
 | `row_kind` | str | — | derived | `data`, or `aggregate` for totals, subtotals and `dont` sub-rows. |
+| `column_label` | str | — | derived | The column this value sat under: the year itself where columns are years, otherwise the classification category (an age band, an indicator code). |
 | `year` | int64 | — | derived | Calendar year the observation refers to. |
 | `value` | float64 | — | derived | — |
 | `provisional` | bool | — | derived | INS marked this figure provisional with an asterisk. |
