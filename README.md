@@ -300,13 +300,24 @@ depreciation and COVID, and nothing here separates them. And the consumer price 
 figures 17 and 18 is a price level, not a summary of a distribution — it is not the kind
 of index the rule above is about.
 
-Figures 27–30 go further and test the identification directly. With every governorate
-treated at the same instant there is no control group, so the two candidate designs are an
-interrupted time series and a difference-in-differences on differential exposure. A
-placebo test moving the assumed break year shows 2011 is not distinguishable from 2010,
-2012, 2014 or 2015; and the interior–coastal gap was already widening by 0.21 a year for
-twelve years before 2011. Both requirements fail, which is a finding about the limits of
-the evidence rather than a claim that the revolution had no effect.
+Figures 27–34 go further and test the identification directly. With every governorate
+treated at the same instant there is no control group, which rules out an interrupted time
+series and a difference-in-differences on differential exposure: a placebo test moving the
+assumed break year shows 2011 is not distinguishable from 2010, 2012, 2014 or 2015, and the
+interior–coastal gap was already widening by 0.21 a year for twelve years before 2011.
+
+Regression discontinuity in time needs no control group, and figures 31–34 run it. The
+answer turns out to depend on how often a series is published rather than on the design.
+On **monthly** trade the design works: it picks out March 2020 and the late-2008 financial
+crisis as the largest breaks in seventeen years, and its bias-aware interval sits within 1%
+of the conventional one. Pointed at January 2011 it finds a contraction confined to the
+month of the uprising — dropping that one month reverses the sign — which is exceeded in
+size by 42% of arbitrary cutoffs. On the **annual** governorate panel the same design
+cannot be brought near the cutoff: its bias-aware interval runs from 7 to 23 times the
+conventional one and spans zero at every bandwidth, including those where the conventional
+interval excludes it. That is a limit of the evidence, and specifically of the frequency at
+which Tunisian regional statistics are published, rather than a claim that the revolution
+had no effect.
 
 ## Continuous integration
 

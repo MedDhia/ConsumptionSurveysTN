@@ -27,6 +27,16 @@ The check that scales is cross-edition agreement. Each edition carries a five-ye
 window, so 24 of the 26 years in the corpus appear in two or more editions -- most in
 five. Where two editions report the same table, row and year they must agree, which is
 what catches the doubled-integer columns that no local rule can.
+
+**Stacked panels.** Many tables put two or more panels under one number and repeat the
+same row labels down each: table 14.1 lists the twelve months once under "I -
+Importations" and again under "II - Exportations", and table 13.2 lists them once per
+industrial branch. Keying a row on its label alone silently collapsed those to whichever
+panel was printed first -- around 30,000 values across roughly a thousand tables, with the
+whole exports half of the monthly trade table among them, absent while the table looked
+complete. Panels are now named from the line that opens them, whether that is an
+enumerator carrying its own totals or a bare heading carrying no numbers at all, and a
+repeat with no heading above it is refused and recorded rather than half-kept.
 """
 
 from __future__ import annotations
@@ -98,6 +108,18 @@ SUBTOTAL = re.compile(
     r"|nord\s*-|centre\s*-|sud\s*-|grand\s+tunis|pib)\b",
     re.I,
 )
+
+# Many tables are two or more panels stacked under one number, each panel repeating the
+# same row labels: table 14.1 lists the twelve months once under "I - Importations" and
+# again under "II - Exportations". Keying a row by its label alone silently collapses
+# the panels into whichever came first, so the enumerator that opens a panel is kept and
+# used to qualify the labels beneath it.
+# The enumerator itself is not part of the panel's name, and editions do not agree on
+# it: the same import panel is "I - Importations", "I. Importations" and "A.
+# Importations" in different years. Qualifying with the enumerator attached would put
+# those in three separate series and lose the cross-edition check, so it is stripped and
+# only the text is kept.
+SECTION = re.compile(r"^(?:[IVX]{1,4}|[A-Z]|\d{1,2})\s*[–\-—.)]\s+(\S.*)$")
 
 
 @dataclass(frozen=True)
@@ -319,6 +341,51 @@ def _table_at(lines: list[str], upto: int) -> tuple[str, str] | None:
     return None
 
 
+def _qualify_panels(entries: list[dict]) -> tuple[list[dict], list[tuple[str, str]]]:
+    """Disambiguate row labels that repeat because the table is stacked panels.
+
+    A repeated label is qualified by the enumerator that opens its panel, so table
+    14.1's two "Janvier" rows become "I - Importations / Janvier" and
+    "II - Exportations / Janvier". Where a repeat has no enumerator above it there is
+    nothing to tell the copies apart, and every copy is refused rather than letting one
+    of them stand in for the row -- which is what keying on the bare label did.
+    """
+    data = [entry for entry in entries if entry["values"] is not None]
+    seen: collections.Counter[str] = collections.Counter(entry["label"] for entry in data)
+    repeated = {label for label, n in seen.items() if n > 1}
+    if not repeated:
+        return data, []
+
+    kept: list[dict] = []
+    refused: list[tuple[str, str]] = []
+    section: str | None = None
+    for entry in entries:
+        label = entry["label"]
+        if entry["values"] is None:
+            section = label  # a bare heading line opens a panel and is not itself data
+            continue
+        opener = SECTION.match(label)
+        if opener and label not in repeated:
+            section = opener.group(1).strip()
+            kept.append(entry)
+            continue
+        if label not in repeated:
+            kept.append(entry)
+            continue
+        if section is None:
+            refused.append((label, "row label repeats with no panel heading above it"))
+            continue
+        kept.append({**entry, "label": f"{section} / {label}"})
+
+    # Qualifying can itself collide if one panel repeats a label internally.
+    final: collections.Counter[str] = collections.Counter(entry["label"] for entry in kept)
+    collided = {label for label, n in final.items() if n > 1}
+    if collided:
+        refused.extend((label, "row label repeats within one panel") for label in collided)
+        kept = [entry for entry in kept if entry["label"] not in collided]
+    return kept, refused
+
+
 def parse_page(edition: int, page_index: int, text: str) -> tuple[list[dict], list[dict]]:
     """Rows accepted and rows refused, from one page.
 
@@ -351,7 +418,7 @@ def parse_page(edition: int, page_index: int, text: str) -> tuple[list[dict], li
             columns, column_years = categories, [page_year] * len(categories)
         width = len(columns)
 
-        block: list[dict] = []
+        entries: list[dict] = []
         block_refused: list[dict] = []
         inferred_labels: set[str] = set()
         for offset, body in enumerate(lines[i + 1:], i + 1):
@@ -366,6 +433,15 @@ def parse_page(edition: int, page_index: int, text: str) -> tuple[list[dict], li
                     block_refused.append({"edition": edition, "table_number": number,
                                           "row_label": stripped[:60],
                                           "reason": "unparsed characters among the numbers"})
+                    continue
+                # A line of text carrying no numbers at all, in the middle of a table,
+                # is the heading of the panel that follows -- "Industries
+                # agro-alimentaires" above table 13.2's first run of twelve months.
+                # Recorded in row order so that repeated labels below can be qualified.
+                heading_text = _latin_only(stripped)
+                if len(heading_text) >= 3 and re.search(r"[A-Za-zÀ-ÿ]{3}", heading_text):
+                    entries.append({"label": heading_text[:80], "values": None,
+                                    "provisional": False, "inferred": False})
                 continue
             label, values, provisional = parts
             inferred = False
@@ -402,24 +478,33 @@ def parse_page(edition: int, page_index: int, text: str) -> tuple[list[dict], li
                                       "row_label": label[:80], "reason": reason})
                 continue
 
-            kind = "aggregate" if SUBTOTAL.match(label) else "data"
-            block.extend(
-                {
-                    "edition": edition,
-                    "table_number": number,
-                    "table_title": title,
-                    "page": page_index + 1,
-                    "row_label": label,
-                    "row_kind": kind,
-                    "column_label": column,
-                    "year": column_year,
-                    "value": value,
-                    "provisional": provisional,
-                    "label_inferred": inferred,
-                }
-                for column, column_year, value in zip(columns, column_years, values,
-                                                      strict=True)
-            )
+            entries.append({"label": label, "values": values,
+                            "provisional": provisional, "inferred": inferred})
+
+        # Panels have to be resolved with the whole table in hand: a label is only
+        # ambiguous once it is known to repeat.
+        entries, repeats = _qualify_panels(entries)
+        block_refused.extend({"edition": edition, "table_number": number,
+                              "row_label": label[:80], "reason": reason}
+                             for label, reason in repeats)
+        block = [
+            {
+                "edition": edition,
+                "table_number": number,
+                "table_title": title,
+                "page": page_index + 1,
+                "row_label": entry["label"],
+                "row_kind": "aggregate" if SUBTOTAL.match(entry["label"]) else "data",
+                "column_label": column,
+                "year": column_year,
+                "value": value,
+                "provisional": entry["provisional"],
+                "label_inferred": entry["inferred"],
+            }
+            for entry in entries
+            for column, column_year, value in zip(columns, column_years, entry["values"],
+                                                  strict=True)
+        ]
 
         # A year header is self-evidently a header. A run of short tokens is not, so a
         # classification table has to earn it: enough rows must fit the proposed width

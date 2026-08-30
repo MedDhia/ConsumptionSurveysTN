@@ -24,6 +24,8 @@ import matplotlib as mpl
 import numpy as np
 import pandas as pd
 
+from consumptiontn import rdit
+
 mpl.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 
@@ -1447,6 +1449,340 @@ def fig_dispersion(t: dict):
     return fig
 
 
+# --- Regression discontinuity in time -------------------------------------------------
+#
+# Figures 27-30 ruled out the designs that need an untreated unit. RDiT needs none: the
+# running variable is the calendar and the cutoff is the event, so nobody can be on the
+# wrong side of it by choice. What it does need is to get close to the cutoff, and how
+# close depends on how often the series is published. The corpus holds both a monthly
+# series and an annual one, so these four figures ask the same question of each.
+
+MONTH_NAMES = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août",
+               "Septembre", "Octobre", "Novembre", "Décembre"]
+
+# Table 14.1 runs on this basis from 2003. Earlier editions print monthly trade under a
+# different table with a different coverage, and splicing them would put a seam eight
+# years before the cutoff.
+TRADE_FROM, TRADE_TO = 2003, 2023
+
+TRADE_BANDWIDTH = 12       # months either side, for the fitted lines in figure 31
+PLACEBO_BANDWIDTH = 12     # months, for the placebo sweep in figure 32
+
+
+def monthly_trade() -> pd.DataFrame:
+    """Monthly imports and exports, million dinars, 2003-2023.
+
+    Table 14.1 prints the twelve months twice, once under each of its two panels. Until
+    the panel heading was carried into the row label the second copy was dropped as a
+    duplicate row, so the whole exports half of this table was missing from the corpus.
+    """
+    series = read("tn_yearbook_series")
+    rows = series[series.title_fr.str.contains("mensuelle des échanges", na=False)].copy()
+    rows["panel"] = rows.row_label.str.rsplit(" / ", n=1).str[0]
+    rows["month"] = rows.row_label.str.rsplit(" / ", n=1).str[-1]
+    rows = rows[rows.month.isin(MONTH_NAMES)
+                & rows.panel.isin(["Importations", "Exportations"])]
+    rows["m"] = rows.month.map({name: i + 1 for i, name in enumerate(MONTH_NAMES)})
+    rows = rows[rows.year.between(TRADE_FROM, TRADE_TO)]
+    flat = rows.groupby(["panel", "year", "m"], as_index=False).value.mean()
+    flat["t"] = flat.year + (flat.m - 1) / 12
+    return flat.sort_values(["panel", "t"]).reset_index(drop=True)
+
+
+def trade_series(panel: str) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """Months from January 2011, deseasonalised log level, and the calendar date."""
+    g = monthly_trade()
+    g = g[g.panel == panel].sort_values("t")
+    running = (g.t.to_numpy() - rdit.CUTOFF) * 12
+    adjusted = rdit.deseasonalise(running, np.log(g.value.to_numpy()), g.m.to_numpy())
+    return running, adjusted, g.t.to_numpy()
+
+
+def regional_gap() -> tuple[np.ndarray, np.ndarray]:
+    """Interior minus coastal pupils per teacher by school year -- figure 29's outcome.
+
+    Dated on the school year's opening: 2011/12 began in September 2011 and is the first
+    intake organised after the uprising, so it is the first treated period.
+    """
+    p = pupils_per_teacher()
+    years = np.array(sorted(p.columns), dtype=float)
+    interior = p.loc[p.index.isin(INTERIOR)].mean()
+    coastal = p.loc[~p.index.isin(INTERIOR)].mean()
+    return years - 2011.0, (interior - coastal).reindex(years).to_numpy()
+
+
+def _side_fit(running, y, bandwidth, treated):
+    """Weighted local linear fit on one side; returns the grid, the curve, and the edge."""
+    keep = ((running >= 0) == treated) & (np.abs(running) <= bandwidth)
+    x, outcome = running[keep], y[keep]
+    weights = rdit.triangular(x / bandwidth)
+    design = np.column_stack([np.ones_like(x), x])
+    gram = design.T @ (design * weights[:, None])
+    beta = np.linalg.pinv(gram) @ (design.T @ (outcome * weights))
+    grid = np.linspace(x.min(), x.max(), 60)
+    return grid, beta[0] + beta[1] * grid, float(beta[0])
+
+
+def fig_rdit_monthly(t: dict):
+    """RDiT where the calendar is dense enough to use it."""
+    fig, axes = plt.subplots(1, 2, figsize=(10.4, 5.4))
+    fig.subplots_adjust(top=0.68, bottom=0.29, left=0.075, right=0.985, wspace=0.22)
+
+    jumps = {}
+    for ax, panel in zip(axes, ["Exportations", "Importations"], strict=True):
+        running, adjusted, when = trade_series(panel)
+        shown = np.abs(running) <= 40
+        ax.scatter(when[shown], np.exp(adjusted[shown]), s=17, color=t["muted"],
+                   alpha=0.8, zorder=2, linewidths=0)
+        # One colour for both sides: they are the same quantity either side of a break,
+        # not two series, and the dashed rule already says where the break is.
+        for treated in (False, True):
+            grid, curve, _ = _side_fit(running, adjusted, TRADE_BANDWIDTH, treated)
+            ax.plot(rdit.CUTOFF + grid / 12, np.exp(curve), color=t["s1"], lw=2.4, zorder=4)
+        estimate = rdit.fit(running, adjusted, TRADE_BANDWIDTH)
+        # Dropping the month of the uprising itself separates a one-month shock from a
+        # step to a new level; the note reports both so the reader can tell which it is.
+        without = rdit.fit(running, adjusted, TRADE_BANDWIDTH, donut=1)
+        jumps[panel] = (estimate.tau, without.tau)
+
+        ax.axvline(rdit.CUTOFF, color=t["ink2"], lw=1.2, ls=(0, (5, 4)), zorder=1)
+        ax.set_yscale("log")
+        # A log axis picks its own decade ticks, and this window spans well under one
+        # decade, so it leaves the axis unlabelled unless the ticks are set by hand.
+        level = np.exp(adjusted[shown])
+        ax.set_yticks(np.round(np.linspace(level.min(), level.max(), 4) / 100) * 100)
+        ax.get_yaxis().set_major_formatter(mpl.ticker.FuncFormatter(lambda v, _: f"{v:,.0f}"))
+        ax.get_yaxis().set_minor_locator(mpl.ticker.NullLocator())
+        ax.set_xlim(2007.5, 2014.5)
+        ax.set_xticks(range(2008, 2015, 2))
+        ax.get_xaxis().set_major_formatter(mpl.ticker.FuncFormatter(lambda v, _: f"{int(v)}"))
+        ax.set_title(f"{panel[:-1]}s", color=t["ink2"], loc="left", fontsize=10)
+        ax.set_ylabel("million dinars, seasonally adjusted", fontsize=9)
+
+    axes[0].annotate("January 2011", xy=(rdit.CUTOFF, 0.055), xycoords=("data", "axes fraction"),
+                     xytext=(6, 0), textcoords="offset points", fontsize=9, color=t["ink2"])
+    fig.text(0.075, 0.775,
+             f"Jump at the cutoff: exports {100 * jumps['Exportations'][0]:+.1f}%, "
+             f"imports {100 * jumps['Importations'][0]:+.1f}%   "
+             f"(local linear, {TRADE_BANDWIDTH}-month bandwidth)",
+             fontsize=9.5, color=t["ink2"])
+    finish(fig, t,
+           "At monthly frequency the design can stand right at the cutoff",
+           "Monthly trade, seasonally adjusted. Fitted separately on each side of January 2011.",
+           "Statistical yearbook table 14.1, editions 2007-2023, 252 months per series. "
+           "Seasonal factors estimated once over the whole series from a trend that is "
+           "itself allowed to jump at the cutoff, so the discontinuity cannot be absorbed "
+           "into a month effect. The estimate rests entirely on January 2011 itself: "
+           "dropping that one month reverses it, exports from "
+           f"{100 * jumps['Exportations'][0]:+.1f}% to "
+           f"{100 * jumps['Exportations'][1]:+.1f}% and imports from "
+           f"{100 * jumps['Importations'][0]:+.1f}% to "
+           f"{100 * jumps['Importations'][1]:+.1f}%, because the fit then has to "
+           "extrapolate the treated side back across a steep recovery. That is the "
+           "signature of a one-month disruption, not of a step to a new level. Figure 32 "
+           "asks whether even the one-month dip is larger than this series' ordinary "
+           "month-to-month movement.")
+    return fig
+
+
+def _placebo_sweep(running, y, bandwidth, dates):
+    """The same estimate at every candidate cutoff, so the real one has a yardstick."""
+    out = []
+    for date in dates:
+        shifted = running - (date - rdit.CUTOFF) * 12
+        try:
+            out.append(rdit.fit(shifted, y, bandwidth).tau)
+        except ValueError:
+            out.append(np.nan)
+    return np.array(out)
+
+
+def fig_rdit_placebo(t: dict):
+    """Point the design at every other month and see how 2011 ranks."""
+    fig, ax = plt.subplots(figsize=(10.0, 5.0))
+    fig.subplots_adjust(top=0.72, bottom=0.22, left=0.085, right=0.98)
+
+    candidates = np.arange(2004.5, 2021.5 + 1e-9, 1 / 12)
+    shares = {}
+    for panel, colour in (("Exportations", t["s1"]), ("Importations", t["s2"])):
+        running, adjusted, _ = trade_series(panel)
+        taus = _placebo_sweep(running, adjusted, PLACEBO_BANDWIDTH, candidates)
+        ax.plot(candidates, 100 * taus, color=colour, lw=1.6,
+                label=f"{panel[:-1]}s", zorder=3)
+        here = float(taus[np.argmin(np.abs(candidates - rdit.CUTOFF))])
+        good = np.isfinite(taus)
+        shares[panel] = (here, float((np.abs(taus[good]) >= abs(here)).mean()))
+
+    ax.axhline(0, color=t["axis"], lw=1.0, zorder=1)
+    ax.axvline(rdit.CUTOFF, color=t["ink2"], lw=1.2, ls=(0, (5, 4)), zorder=2)
+    # Every label was landing on the lines; each now sits in clear space with a leader
+    # to the feature it names.
+    arrow = {"arrowstyle": "-", "color": t["muted"], "lw": 1.0,
+             "shrinkA": 2, "shrinkB": 4}
+    for text, point, place in (
+        ("late 2008\nfinancial crisis", (2008.85, -31), (2006.4, -41)),
+        ("March 2020\nCOVID", (2020.15, -47), (2017.5, -44)),
+    ):
+        ax.annotate(text, xy=point, xytext=place, ha="center", va="center", fontsize=9,
+                    color=t["ink2"], linespacing=1.35, arrowprops=arrow, zorder=5)
+    ax.annotate("January 2011\nthe revolution", xy=(2011.0, 31), ha="center", va="bottom",
+                fontsize=9, color=t["ink2"], linespacing=1.35, zorder=5)
+    ax.set_ylim(-58, 46)
+    ax.set_xlabel("cutoff the design was pointed at")
+    ax.set_ylabel("estimated jump (%)")
+    ax.set_xlim(2004.2, 2021.8)
+    ax.get_xaxis().set_major_formatter(mpl.ticker.FuncFormatter(lambda v, _: f"{int(v)}"))
+    ax.legend(frameon=False, loc="upper left", fontsize=9)
+
+    finish(fig, t,
+           "The same design finds 2008 and 2020 loudly, and 2011 not at all",
+           "Local linear jump in monthly trade, estimated at every month from 2004 to 2021.",
+           "Statistical yearbook table 14.1. Each point re-runs the January 2011 estimator "
+           "with the cutoff moved to that month, 12-month bandwidth. "
+           f"At the true cutoff the jump is {100 * shares['Exportations'][0]:+.1f}% for "
+           f"exports and {100 * shares['Importations'][0]:+.1f}% for imports -- exceeded "
+           f"in size by {100 * shares['Exportations'][1]:.0f}% and "
+           f"{100 * shares['Importations'][1]:.0f}% of arbitrary cutoffs respectively. "
+           "A design that could not detect a shock would find nothing anywhere; this one "
+           "finds the two it should.")
+    return fig
+
+
+BANDWIDTH_GRID_MONTHS = np.array([6, 9, 12, 18, 24, 36, 48, 60])
+BANDWIDTH_GRID_YEARS = np.array([5, 6, 7, 8, 10, 13])
+
+
+def _interval_curves(running, y, grid, smoothness):
+    """Conventional and honest interval half-widths across a bandwidth grid."""
+    taus, conventional, honest = [], [], []
+    for bandwidth in grid:
+        estimate = rdit.fit(running, y, bandwidth)
+        low, high, _ = rdit.honest_interval(estimate, smoothness)
+        taus.append(estimate.tau)
+        conventional.append(1.96 * estimate.se)
+        honest.append((high - low) / 2)
+    return np.array(taus), np.array(conventional), np.array(honest)
+
+
+def fig_rdit_honest(t: dict):
+    """What the interval looks like once it has to pay for the curvature it assumed."""
+    fig, axes = plt.subplots(1, 2, figsize=(10.4, 5.3))
+    fig.subplots_adjust(top=0.68, bottom=0.28, left=0.08, right=0.985, wspace=0.26)
+
+    running, adjusted, _ = trade_series("Exportations")
+    monthly = _interval_curves(running, adjusted, BANDWIDTH_GRID_MONTHS,
+                               rdit.smoothness_bound(running, adjusted))
+    gap_running, gap = regional_gap()
+    annual = _interval_curves(gap_running, gap, BANDWIDTH_GRID_YEARS,
+                              rdit.smoothness_bound(gap_running, gap))
+
+    panels = (
+        (axes[0], BANDWIDTH_GRID_MONTHS, monthly, "Monthly: exports",
+         "bandwidth (months)", "jump (log points)"),
+        (axes[1], BANDWIDTH_GRID_YEARS, annual, "Annual: interior − coastal gap",
+         "bandwidth (years)", "jump (pupils per teacher)"),
+    )
+    for ax, grid, (taus, conventional, honest), title, xlabel, ylabel in panels:
+        ax.fill_between(grid, taus - honest, taus + honest, color=t["s2"], alpha=0.18,
+                        zorder=2, linewidth=0, label="honest (bias-aware)")
+        ax.fill_between(grid, taus - conventional, taus + conventional, color=t["s1"],
+                        alpha=0.42, zorder=3, linewidth=0, label="conventional")
+        ax.plot(grid, taus, color=t["ink"], lw=2.0, zorder=4)
+        ax.axhline(0, color=t["axis"], lw=1.0, zorder=1)
+        ax.set_title(title, color=t["ink2"], loc="left", fontsize=10)
+        ax.set_xlabel(xlabel)
+        ax.set_ylabel(ylabel, fontsize=9)
+        ax.set_xticks(grid)
+        reach = float(np.max(np.abs(taus) + honest))
+        ax.set_ylim(-1.08 * reach, 1.08 * reach)
+    axes[0].legend(frameon=False, loc="upper left", fontsize=9)
+
+    widest = annual[2][-1] / annual[1][-1]
+    finish(fig, t,
+           "The annual estimate is precise about a number it cannot pin down",
+           "Conventional and bias-aware 95% intervals, across bandwidths.",
+           "The conventional interval measures noise only. The honest interval also "
+           "covers the worst-case bias of fitting a straight line to a mean that curves, "
+           "bounded by the curvature each series actually displays (Kolesár and Rothe "
+           "2018; Armstrong and Kolesár 2018). The monthly series can shrink the "
+           "bandwidth until that bias is negligible, so the two intervals nearly "
+           "coincide. The annual series cannot: at its widest bandwidth the honest "
+           f"interval is {widest:.0f} times the conventional one and spans zero at every "
+           "bandwidth, including those where the conventional interval excludes it.")
+    return fig
+
+
+def fig_rdit_floor(t: dict):
+    """How much calendar time each frequency must spend to buy a usable p-value."""
+    from math import comb
+
+    fig, ax = plt.subplots(figsize=(9.8, 5.3))
+    fig.subplots_adjust(top=0.70, bottom=0.30, left=0.095, right=0.98)
+
+    # A window of half-width h holds 2h+1 periods, h+1 of them after the cutoff, and
+    # admits comb(2h+1, h+1) equally likely arrangements. Only the observed split
+    # attains the most extreme statistic -- its complement has a different number of
+    # treated periods and so is not in the enumeration -- so no outcome can push the
+    # two-sided p below one arrangement's share. That floor is set by the count of
+    # periods alone, and the same count costs a month of calendar time in one series
+    # and a year in the other, which is the entire difference between them.
+    def floor(half: int) -> float:
+        return 1.0 / comb(2 * half + 1, half + 1)
+
+    running_months, adjusted, _ = trade_series("Exportations")
+    gap_running, gap = regional_gap()
+    # Neither curve is drawn past the window its own series can actually fill: the
+    # annual panel has only eight school years after 2011, so a wider window would be a
+    # claim about data that does not exist.
+    reach = {
+        "monthly": min(12, int(min((running_months < 0).sum(), (running_months >= 0).sum()))),
+        "annual": min(12, int(min((gap_running < 0).sum(), (gap_running >= 0).sum()))),
+    }
+
+    needed = next(h for h in range(1, 40) if floor(h) <= 0.05)
+    for key, span, colour, marker, name in (
+        ("monthly", 1 / 12, t["s1"], "o", "monthly (trade, table 14.1)"),
+        ("annual", 1.0, t["s2"], "s", "annual (interior − coastal gap)"),
+    ):
+        halves = np.arange(1, reach[key] + 1)
+        ax.plot(2 * halves * span, [floor(int(h)) for h in halves], color=colour, lw=2.2,
+                marker=marker, markersize=6, zorder=3, label=name)
+
+    ax.axhline(0.05, color=t["ink2"], lw=1.2, ls=(0, (2, 3)), zorder=1)
+    ax.set_xscale("log")
+    ax.set_yscale("log")
+    ax.set_xlabel("calendar time the window spans")
+    ax.set_ylabel("smallest attainable two-sided p-value")
+    ax.set_xticks([1 / 6, 0.5, 1, 2, 4, 8, 16])
+    ax.get_xaxis().set_major_formatter(
+        mpl.ticker.FuncFormatter(lambda v, _: f"{v:g} yr" if v >= 1 else f"{v * 12:.0f} mo"))
+    ax.get_xaxis().set_minor_formatter(mpl.ticker.NullFormatter())
+    ax.legend(frameon=False, loc="lower left", fontsize=9)
+    ax.annotate("p = 0.05", xy=(1 / 6, 0.05), xytext=(0, 7), textcoords="offset points",
+                fontsize=9, color=t["ink2"])
+
+    # What a window of that width costs on the annual series, in its own units.
+    window = np.abs(gap_running) <= needed
+    moved = float(np.nanmax(gap[window]) - np.nanmin(gap[window]))
+
+    finish(fig, t,
+           "Both series need the same number of periods; only one can afford them",
+           "Local randomisation inference: the p-value floor a window sets before any "
+           "outcome is read.",
+           "Permuting which periods fall after the cutoff gives inference that is exact "
+           "in finite samples, but a window admits only as many arrangements as it holds "
+           "periods, and that caps how small a p-value it can return whatever the "
+           f"outcomes are. Reaching 0.05 takes {needed} periods either side of the "
+           f"cutoff. For the monthly series that is {needed} months around January 2011, "
+           "a neighbourhood over which little else changes. For the annual series it is "
+           f"{needed} years, a window across which the interior-coastal gap itself moves "
+           f"by {moved:.1f} pupils per teacher -- and local randomisation assumes the "
+           "running variable does not move the outcome inside the window, which is "
+           "exactly what that movement denies. Neither curve is drawn beyond the window "
+           "its own series can fill: the annual panel ends eight years after the cutoff.")
+    return fig
+
+
 BUILDERS = [
     ("01-expenditure-by-quintile", fig_quintiles, True),
     ("02-regional-gap", fig_regional_gap, True),
@@ -1478,6 +1814,10 @@ BUILDERS = [
     ("28-placebo-break-years", fig_placebo_breaks, False),
     ("29-parallel-trends-fail", fig_parallel_trends, False),
     ("30-regional-dispersion", fig_dispersion, False),
+    ("31-rdit-monthly-trade", fig_rdit_monthly, False),
+    ("32-rdit-placebo-cutoffs", fig_rdit_placebo, False),
+    ("33-honest-vs-conventional", fig_rdit_honest, False),
+    ("34-randomisation-floor", fig_rdit_floor, False),
 ]
 
 

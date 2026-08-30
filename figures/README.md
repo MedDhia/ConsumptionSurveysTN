@@ -513,11 +513,16 @@ answer no, by running the tests rather than asserting the conclusion.
 
 **Why the answer is structural.** The revolution treated all twenty-four governorates at
 the same instant. There is no untreated unit inside Tunisia, and no comparison country in
-this data to build a synthetic one from. That leaves two candidate designs: an interrupted
-time series, whose counterfactual is an extrapolated pre-trend, and a
+this data to build a synthetic one from. That rules out two candidate designs: an
+interrupted time series, whose counterfactual is an extrapolated pre-trend, and a
 difference-in-differences on differential exposure, which requires the compared groups to
 have been on parallel paths beforehand. Figures 28 and 29 test exactly those two
 requirements. Both fail.
+
+It does not rule out a third, which figures 31–34 take up: **regression discontinuity in
+time**, where the running variable is the calendar and no untreated unit is needed at all.
+The conclusion below is about these four figures' outcome at annual frequency, not about
+the revolution in general.
 
 The outcome throughout is **pupils per teacher in the first cycle of basic education**,
 across 23 governorates and 21 years (1998–2018), 481 of 483 cells present. It needs no
@@ -593,10 +598,120 @@ Two ratios between observed quantities, so the no-composite-index rule holds her
 everywhere else in this directory.
 
 This is the honest summary the other three leave standing: regional provision diverged
-steadily over two decades, and nothing in the yearbook data can attribute any part of that
-divergence to the revolution. That is a finding about the limits of the evidence, not a
-claim that the revolution had no effect — those are different statements, and only the
-first is supported.
+steadily over two decades, and nothing in *this* annual panel can attribute any part of
+that divergence to the revolution. That is a finding about the limits of the evidence, not
+a claim that the revolution had no effect — those are different statements, and only the
+first is supported. Figures 31–34 press the same question with the one design that does
+not need a control group.
+
+---
+
+## The design that needs no control group
+
+Figures 27–30 ruled out the designs that require an untreated unit. Regression
+discontinuity in time requires none (Hausman and Rapson 2018): the running variable is the
+calendar, the cutoff is the event, and nobody can be on the wrong side of January 2011 by
+choice. The revolution being unforeseen matters here, but it is worth being precise about
+what it buys. It buys **no anticipation** — untreated outcomes were not already bending
+before the cutoff in expectation of it. That is necessary and not sufficient. What
+identifies the design is **continuity in time**: absent the event, the outcome would have
+passed through the cutoff smoothly. Nothing about surprise establishes that; only getting
+close enough to the cutoff to see it does.
+
+Which is where the corpus splits in two. It holds a monthly series and an annual one, and
+these four figures ask the same question of each.
+
+### 31. At monthly frequency the design can stand right at the cutoff
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="31-rdit-monthly-trade-dark.png">
+  <img alt="Monthly imports and exports either side of January 2011, with local linear fits" src="31-rdit-monthly-trade-light.png">
+</picture>
+
+Monthly imports and exports, 252 months each, 2003–2023 — table 14.1 of the yearbooks. A
+twelve-month bandwidth puts twelve observations on each side of the cutoff, so the fit is
+genuinely local rather than an extrapolation dressed as one.
+
+The estimated jump is **−6.9% for exports and −4.5% for imports**. But it rests entirely on
+January 2011 itself: dropping that single month sends exports to **+9.6%** and imports to
+**+7.8%**, because the treated side must then be extrapolated back across a steep recovery.
+That is the signature of a one-month disruption — the general strike, the closed border
+crossings, the fortnight the ports barely ran — and not of a step to a new level.
+
+### 32. The same design finds 2008 and 2020 loudly, and 2011 not at all
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="32-rdit-placebo-cutoffs-dark.png">
+  <img alt="The estimated jump in monthly trade at every candidate cutoff from 2004 to 2021" src="32-rdit-placebo-cutoffs-light.png">
+</picture>
+
+The estimator re-run at every month from 2004 to 2021, with only the assumed cutoff moved.
+This is the check that tells a real discontinuity from a series that jumps about anyway,
+and it doubles as a test of the instrument: a design incapable of detecting a shock would
+find nothing anywhere.
+
+It finds plenty. The largest discontinuities in seventeen years of monthly trade are
+**March 2020** (−47% on imports) and **November–December 2008** (−30% to −38%) — COVID and
+the financial crisis, both unmistakable. Against that yardstick January 2011 is ordinary:
+its jump is exceeded in size by **42% of arbitrary cutoffs for exports and 44% for
+imports** at a twelve-month bandwidth. At the narrowest bandwidth, where the estimate is
+the one-month dip, exports reach a placebo p of **0.054** and imports **0.151**.
+
+So the monthly answer is not "no effect". It is: a sharp contraction in the month of the
+uprising, at the edge of what this series' ordinary month-to-month movement would produce
+anyway, and gone within a year.
+
+### 33. The annual estimate is precise about a number it cannot pin down
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="33-honest-vs-conventional-dark.png">
+  <img alt="Conventional and bias-aware confidence intervals across bandwidths, monthly and annual" src="33-honest-vs-conventional-light.png">
+</picture>
+
+A conventional standard error asks only how much an estimate would move under resampling.
+It is silent on the local polynomial being the wrong shape, which is the dominant error
+when the bandwidth is wide. Kolesár and Rothe (2018) and Armstrong and Kolesár (2018)
+close that gap: bound the curvature of the conditional mean, take the worst-case bias over
+that class, and widen the interval to cover it.
+
+Applied here the two frequencies come apart completely. The **monthly** series can shrink
+its bandwidth until the bias bound is negligible, and the honest interval is within **1%**
+of the conventional one at six and twelve months. The **annual** interior–coastal gap
+cannot: its honest interval runs from **6.9× the conventional one at a five-year bandwidth
+to 23× at ten years**, and it spans zero at every bandwidth — including the bandwidths
+where the conventional interval excludes zero and would have been reported as a finding.
+
+The annual panel's apparent effect of about **+0.1 pupils per teacher** is not a small
+effect precisely measured. It is a number the design cannot separate from the curvature of
+a trend.
+
+### 34. Both series need the same number of periods; only one can afford them
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="34-randomisation-floor-dark.png">
+  <img alt="Smallest attainable p-value against the calendar time a window spans, monthly and annual" src="34-randomisation-floor-light.png">
+</picture>
+
+Local randomisation replaces continuity with a stronger but exact assumption: inside a
+narrow enough window, treat the cutoff as if it had landed at random among the periods.
+The catch is arithmetic. A window admits only as many arrangements as it holds periods,
+and that caps the p-value it can return **before any outcome is read**.
+
+Reaching 0.05 takes three periods either side. For the monthly series that is three months
+around January 2011 — a neighbourhood over which little else changed. For the annual
+series it is three years, a window across which the interior–coastal gap moves by **1.3
+pupils per teacher** on its own, which is precisely the trend local randomisation assumes
+away. And the tell is that the annual randomisation p-value comes out **exactly at the
+floor** (0.0286 at ±3 years): the observed split is the single most extreme arrangement,
+which is what a monotone trend produces and what a discontinuity need not.
+
+**What the four of them establish.** RDiT is the right design for this question, and at
+monthly frequency it works: it identifies a jump, it detects the shocks it should, and its
+honest and conventional intervals agree. Pointed at January 2011 it finds a one-month
+contraction in trade that does not persist and barely clears the series' own noise. For
+regional inequality the outcome is published annually, and there the same design cannot be
+brought close enough to the cutoff to identify anything — which is a statement about the
+publication frequency of Tunisian regional statistics, not about the revolution.
 
 ---
 
@@ -617,6 +732,7 @@ throughout — figures transcribed from INS documents, each row carrying its sou
 Figure 8 comes from the 2020 poverty map. Figures 17 and 19 come from the INS statistical
 yearbooks, and figure 18 sets one of those against the panel. Figures 6, 7, 10, 11, 12 and
 20–26 are recomputed from the EBCNV 2021 microdata. Figures 27–30 come from the statistical yearbooks'
-governorate panel. Every claim above is reproducible from `scripts/make_figures.py`, and
+governorate panel, and figures 31–34 from the same corpus's monthly trade table (14.1)
+alongside that panel. Every claim above is reproducible from `scripts/make_figures.py`, and
 the numbers quoted here were recomputed from the data before being written rather than
 read off the charts.

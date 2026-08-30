@@ -481,3 +481,114 @@ def test_school_year_labels_are_canonical(corpus):
     # The canonical form always names the year it starts in.
     starts = school.column_label.str.slice(0, 4).astype(int)
     assert (starts == school.year).all()
+
+
+# ------------------------------------------------------------------- stacked panels
+
+def test_repeated_row_labels_are_split_by_their_panel_heading():
+    """Table 14.1 prints the twelve months twice, once per panel.
+
+    Keying a row on its bare label kept whichever panel came first and dropped the
+    other, so the whole exports half of the monthly trade table was missing from the
+    corpus while looking complete.
+    """
+    from consumptiontn.build_yearbook import _qualify_panels
+
+    entries = [
+        {"label": "I – Importations", "values": [10.0], "provisional": False, "inferred": False},
+        {"label": "Janvier", "values": [1.0], "provisional": False, "inferred": False},
+        {"label": "II – Exportations", "values": [20.0], "provisional": False, "inferred": False},
+        {"label": "Janvier", "values": [2.0], "provisional": False, "inferred": False},
+    ]
+    kept, refused = _qualify_panels(entries)
+    assert refused == []
+    by_label = {entry["label"]: entry["values"][0] for entry in kept}
+    assert by_label["Importations / Janvier"] == 1.0
+    assert by_label["Exportations / Janvier"] == 2.0
+
+
+def test_a_panel_heading_carrying_no_numbers_still_names_its_panel():
+    """Table 13.2 opens each branch with a line of text and no values at all."""
+    from consumptiontn.build_yearbook import _qualify_panels
+
+    entries = [
+        {"label": "Industries agro-alimentaires", "values": None,
+         "provisional": False, "inferred": False},
+        {"label": "Janvier", "values": [154.6], "provisional": False, "inferred": False},
+        {"label": "Mines", "values": None, "provisional": False, "inferred": False},
+        {"label": "Janvier", "values": [177.0], "provisional": False, "inferred": False},
+    ]
+    kept, refused = _qualify_panels(entries)
+    assert refused == []
+    assert {entry["label"] for entry in kept} == {
+        "Industries agro-alimentaires / Janvier", "Mines / Janvier"}
+    # The heading is scaffolding, not an observation.
+    assert all(entry["values"] is not None for entry in kept)
+
+
+def test_a_repeat_with_no_heading_is_refused_rather_than_silently_halved():
+    from consumptiontn.build_yearbook import _qualify_panels
+
+    entries = [
+        {"label": "Janvier", "values": [1.0], "provisional": False, "inferred": False},
+        {"label": "Janvier", "values": [2.0], "provisional": False, "inferred": False},
+    ]
+    kept, refused = _qualify_panels(entries)
+    # Both copies go, not one: keeping either would put an arbitrary half of the row
+    # under a label that names the whole of it.
+    assert kept == []
+    assert {reason for _, reason in refused} == {
+        "row label repeats with no panel heading above it"}
+    assert len(refused) == 2
+
+
+def test_panel_names_drop_the_enumerator_so_editions_agree():
+    """Editions write "I - Importations", "I. Importations" and "A. Importations".
+
+    Qualifying with the enumerator attached would put one printed series into three,
+    and each would then be single-sourced instead of corroborating the others.
+    """
+    from consumptiontn.build_yearbook import _qualify_panels
+
+    def january(opener):
+        entries = [
+            {"label": opener, "values": [10.0], "provisional": False, "inferred": False},
+            {"label": "Janvier", "values": [1.0], "provisional": False, "inferred": False},
+            {"label": "Mars", "values": [3.0], "provisional": False, "inferred": False},
+            {"label": "B. Exportations", "values": [20.0], "provisional": False, "inferred": False},
+            {"label": "Janvier", "values": [2.0], "provisional": False, "inferred": False},
+            {"label": "Mars", "values": [4.0], "provisional": False, "inferred": False},
+        ]
+        kept, _ = _qualify_panels(entries)
+        # The opener keeps the label it was printed with -- inventing a common one for
+        # it would merge rows on a guess. What has to agree is the labels it qualifies.
+        return {entry["label"] for entry in kept if " / " in entry["label"]}
+
+    assert (january("I – Importations") == january("I. Importations")
+            == january("A. Importations"))
+    assert "Importations / Janvier" in january("I. Importations")
+
+
+def test_both_trade_panels_survive_into_the_corpus(corpus):
+    _, series, _ = corpus
+    trade = series[series.title_fr.str.contains("mensuelle des échanges", na=False)]
+    months = trade[trade.row_label.str.endswith("Janvier")]
+    panels = set(months.row_label.str.rsplit(" / ", n=1).str[0])
+    assert {"Importations", "Exportations"} <= panels
+
+    # The printed page: table 14.1 of the 2015 edition, January 2011.
+    def value(panel):
+        row = months[months.row_label.eq(f"{panel} / Janvier") & months.year.eq(2011)]
+        return float(row.value.iloc[0])
+
+    assert value("Importations") == pytest.approx(2289.2)
+    assert value("Exportations") == pytest.approx(1731.2)
+
+
+def test_monthly_trade_is_corroborated_across_editions(corpus):
+    """Every edition reprints five years of this table, so most cells have witnesses."""
+    _, series, _ = corpus
+    trade = series[series.title_fr.str.contains("mensuelle des échanges", na=False)]
+    months = trade[trade.row_label.str.contains(" / ")]
+    confirmed = months.agreement.eq("confirmed").mean()
+    assert confirmed > 0.8, f"only {confirmed:.0%} of monthly trade cells are confirmed"
