@@ -12,7 +12,7 @@ activites des justices cantonales par matiere au cours de l annee judiciaire 200
 activites des tribunaux 4,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 activites des tribunaux de 1 ere,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 activites des tribunaux par degre au cours de l annee judiciaire 2000 - 2001,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-activites du planning familial 6,2,664,664,0,extracted
+activites du planning familial 6,2,652,652,0,extracted
 activites du planning familial selon les differentes methodes par gouvernorat,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 activité de la cour de cassation par 2,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 activité de la cour de cassation par matière au cours de,0,0,0,0,"not extracted (header unreadable, or rows refused)"
@@ -33,8 +33,8 @@ activités de la santé de la reproduction et de la planification 2023 5,0,0,0,0
 activités de la santé de la reproduction et de la planification 5,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 activités de la santé de la reproduction et de la planification familiale 5,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 activités des centres du planning familial selon l objet,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-activités des cours d appel 3,5,50,26,0,extracted
-activités des cours d appel par matière et par année judiciaire 3,5,50,20,0,extracted
+activités des cours d appel 3,5,300,156,0,extracted
+activités des cours d appel par matière et par année judiciaire 3,5,300,120,0,extracted
 activités des justices cantonales 5,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 activités des justices cantonales par matière au cours de 5,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 activités des tribunaux 4,0,0,0,0,"not extracted (header unreadable, or rows refused)"
@@ -80,7 +80,7 @@ capacite de traitement des stations 16,5,25,17,0,extracted
 capacite de traitement des stations d epuration en termes d equivalents,1,6,6,0,extracted
 capacite de traitement des stations d epuration en termes de d bo,1,6,6,0,extracted
 capacite de traitement des stations d epuration en termes de volume,1,12,12,0,extracted
-capacite de traitement des stations d épuration en termes de volume 14,1,10,10,0,extracted
+capacite de traitement des stations d épuration en termes de volume 14,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 capacité d hébergement 14,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 capacité d hébergement 14.10,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 capacité d hébergement par région touristique 14.10,0,0,0,0,"not extracted (header unreadable, or rows refused)"
@@ -100,20 +100,20 @@ classes - élèves par année d études 6.1.2,0,0,0,0,"not extracted (header unr
 classes - élèves par année d études du 1 cycle de 6.1.2,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 classes élèves par année d études 48 6,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 classes-eleves par annee d etudes du 1 cycle de l enseignement de base,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-colis postaux 2,16,375,100,0,extracted
+colis postaux 2,16,375,108,0,extracted
 colis postaux 201 2,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-compte des operations avec 16,5,245,89,8,extracted with conflicts
-compte des operations avec l exterieur,1,119,119,0,extracted
-compte des operations avec l exterieur (suite et fin),1,49,49,0,extracted
+compte des operations avec 16,5,270,102,8,extracted with conflicts
+compte des operations avec l exterieur,1,126,126,0,extracted
+compte des operations avec l exterieur (suite et fin),1,70,70,0,extracted
 compte des operations avec l exterieur 16,5,545,190,12,extracted with conflicts
-compte des opérations avec 16,11,550,170,16,extracted with conflicts
+compte des opérations avec 16,11,580,182,16,extracted with conflicts
 compte des opérations avec l extérieur (suite et fin) ) ( 16,5,220,99,1,extracted with conflicts
 compte des opérations avec l extérieur 16,16,1820,508,45,extracted with conflicts
 compte des opérations avec l extérieur 285 16,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 compte des opérations avec l extérieur 287 16,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 comptes d epargne en dinars convertibles 203 6,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-comptes d épargne en dinars 6,11,265,69,17,extracted with conflicts
-comptes d épargne en dinars convertibles 6,5,105,45,0,extracted
+comptes d épargne en dinars 6,11,370,142,4,extracted with conflicts
+comptes d épargne en dinars convertibles 6,5,120,52,4,extracted with conflicts
 consommation de tabac et d allumettes,1,35,35,0,extracted
 consommation de tabac et d allumettes 4,6,150,73,1,extracted with conflicts
 consommation et epargne,1,63,63,0,extracted
@@ -176,18 +176,18 @@ divorces prononcés par les tribunaux 22,0,0,0,0,"not extracted (header unreadab
 divorces prononcés par les tribunaux 23,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 divorces prononcés par les tribunaux 25,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 divorces prononcés par les tribunaux de 1ère instance 18,5,650,260,0,extracted
-domaine de l informatique 4,1,35,35,0,extracted
-domaine de l informatique 5,13,420,152,14,extracted with conflicts
+domaine de l informatique 4,1,40,40,0,extracted
+domaine de l informatique 5,13,425,157,14,extracted with conflicts
 domaine de l informatique et de l internet 198 4,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 domaine de l informatique et de l internet 4,5,140,58,0,extracted
 domaine de la poste 2,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 domaine de la poste : balance : 10,3,45,21,0,extracted
-domaine de la poste: :,3,75,35,0,extracted
+domaine de la poste: :,3,30,14,0,extracted
 domaine de la poste: : 11,3,160,160,0,extracted
 domaine de la poste: : 7,3,135,63,0,extracted
 domaine de la poste: : 8,3,75,35,0,extracted
-domaine de la poste: comptes : 12,1,30,30,0,extracted
-domaine de la poste: mandats : 9,3,30,14,0,extracted
+domaine de la poste: comptes : 12,1,50,50,0,extracted
+domaine de la poste: mandats : 9,3,60,28,0,extracted
 domaine de la poste: montant des mandats : 13,3,630,294,0,extracted
 domaine de la poste: montant des mandats émis par l étranger : 13,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 domaine de la postes 2,0,0,0,0,"not extracted (header unreadable, or rows refused)"
@@ -201,17 +201,17 @@ domaine des telecommunications 1,0,0,0,0,"not extracted (header unreadable, or r
 domaine des telecommunications: : 1,3,60,28,0,extracted
 domaine des telecommunications: : 2,3,75,35,0,extracted
 domaine des telecommunications: : 3,3,375,175,0,extracted
-domaine des telecommunications: : 4,3,55,31,0,extracted
+domaine des telecommunications: : 4,3,190,94,0,extracted
 domaine des télécommunications 1,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 domaine des télécommunications: evolution du nombre d abonnés : 3,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 donnees generales 1,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-donnees globales 6,5,125,45,0,extracted
-donnees globales du marche de l emploi,1,35,35,0,extracted
-données globales 10,5,125,45,0,extracted
-données globales 6,6,150,50,0,extracted
-données globales du marché de l emploi 10,5,125,45,0,extracted
+donnees globales 6,5,175,71,0,extracted
+donnees globales du marche de l emploi,1,49,49,0,extracted
+données globales 10,5,175,63,0,extracted
+données globales 6,6,210,70,0,extracted
+données globales du marché de l emploi 10,5,165,69,0,extracted
 données globales du marché de l emploi 113 10,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-données générales 1,5,325,117,0,extracted
+données générales 1,5,375,135,0,extracted
 duree moyenne de sejour 17,4,340,153,0,extracted
 duree moyenne de sejour par nationalite,1,119,119,0,extracted
 durée moyenne de séjour par nationalité,5,425,139,14,extracted with conflicts
@@ -237,7 +237,7 @@ dépenses de l état 268 7,0,0,0,0,"not extracted (header unreadable, or rows re
 dépenses de l état 7,14,535,192,5,extracted with conflicts
 dépenses de l état 7.16,2,80,56,0,extracted
 dépenses des fonds 12,3,168,105,3,extracted with conflicts
-dépenses des fonds de concours 12,9,472,174,10,extracted with conflicts
+dépenses des fonds de concours 12,9,468,178,6,extracted with conflicts
 dépenses des fonds de concours 271 12,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 dépenses des fonds de concours 273 12,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 dépenses du titre i,5,536,536,0,extracted
@@ -275,35 +275,35 @@ en matière correctionnelle par année judiciaire 105 9,0,0,0,0,"not extracted (
 en matière criminelle au cours de l année judiciaire 106 10,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 enseignement 1,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 ensemble 24 4,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-ensemble des immatriculations 3,16,2000,384,99,extracted with conflicts
+ensemble des immatriculations 3,16,2080,399,103,extracted with conflicts
 ensemble des immatriculations des vehicules par categorie et marque,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 ensemble des immatriculations des véhicules par,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-ensemble des immatriculations des véhicules par catégorie et marque 3,5,615,298,0,extracted
-entrees des tunisiens 12,4,420,189,0,extracted
-entrees des tunisiens par voie de transport et poste frontiere,1,154,154,0,extracted
-entrees des voyageurs non residents 2,4,40,21,0,extracted
-entrees des voyageurs non residents 3,4,560,252,0,extracted
-entrees des voyageurs non residents 4,4,35,20,0,extracted
-entrees des voyageurs non residents 5,4,545,246,4,extracted with conflicts
+ensemble des immatriculations des véhicules par catégorie et marque 3,5,640,310,0,extracted
+entrees des tunisiens 12,4,460,210,0,extracted
+entrees des tunisiens par voie de transport et poste frontiere,1,168,168,0,extracted
+entrees des voyageurs non residents 2,4,60,30,0,extracted
+entrees des voyageurs non residents 3,4,580,261,0,extracted
+entrees des voyageurs non residents 4,4,55,38,0,extracted
+entrees des voyageurs non residents 5,4,565,255,4,extracted with conflicts
 entrees des voyageurs non residents par nationalite et par mois,1,14,0,7,extracted with conflicts
 entrees des voyageurs non residents par nationalite et par mois ( voie aerienne),1,196,196,0,extracted
 entrees des voyageurs non residents par nationalite et par mois ( voie maritime),1,182,182,0,extracted
 entreprises privées selon le gouvernorat et la 3,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 entreprises privées selon le gouvernorat et la tranche,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 entreprises privées selon le gouvernorat et la tranche de salariés 3,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-entrées des tunisiens par voie 12,10,1050,337,0,extracted
+entrées des tunisiens par voie 12,10,1125,368,0,extracted
 entrées des tunisiens par voie de transport et poste,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-entrées des tunisiens par voie de transport et poste frontière 12,5,495,194,0,extracted
-entrées des voyageurs non résidents 2,11,2465,804,5,extracted with conflicts
-entrées des voyageurs non résidents 3,10,2575,827,4,extracted with conflicts
-entrées des voyageurs non résidents 4,10,1745,647,4,extracted with conflicts
-entrées des voyageurs non résidents 5,10,2190,749,4,extracted with conflicts
+entrées des tunisiens par voie de transport et poste frontière 12,5,525,212,0,extracted
+entrées des voyageurs non résidents 2,11,2510,826,1,extracted with conflicts
+entrées des voyageurs non résidents 3,10,2625,842,4,extracted with conflicts
+entrées des voyageurs non résidents 4,10,1795,666,4,extracted with conflicts
+entrées des voyageurs non résidents 5,10,2240,771,4,extracted with conflicts
 entrées des voyageurs non résidents par nationalité et,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 entrées des voyageurs non résidents par nationalité et par mois 2,5,575,207,0,extracted
 entrées des voyageurs non résidents par nationalité et par mois 2.10,5,775,279,0,extracted
-entrées des voyageurs non résidents par nationalité et par mois 3,5,1320,481,5,extracted with conflicts
-entrées des voyageurs non résidents par nationalité et par mois 4,5,932,402,38,extracted with conflicts
-entrées des voyageurs non résidents par nationalité et par mois 5,5,500,176,28,extracted with conflicts
+entrées des voyageurs non résidents par nationalité et par mois 3,5,1320,491,0,extracted
+entrées des voyageurs non résidents par nationalité et par mois 4,5,952,421,33,extracted with conflicts
+entrées des voyageurs non résidents par nationalité et par mois 5,5,500,186,23,extracted with conflicts
 entrées des voyageurs non résidents par nationalité et par mois 5.10,5,665,254,5,extracted with conflicts
 epargne postale 203 5,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 epargne postale 5,16,585,162,0,extracted
@@ -326,7 +326,7 @@ estimation de la population par groupe d age genre et 4,5,2880,2880,0,extracted
 estimation de la population par groupe d age genre et gouvernorat 3.1,5,1440,1440,0,extracted
 "estimation de la population par groupe d age, genre et gouvernorat au 1.7.2001",0,0,0,0,"not extracted (header unreadable, or rows refused)"
 "estimation de la population par groupe d âge, genre et gouvernorat 2",0,0,0,0,"not extracted (header unreadable, or rows refused)"
-evolu tion mensuelle de l indice des prix de vente industriels ( suite et fin ),0,0,0,0,"not extracted (header unreadable, or rows refused)"
+evolu tion mensuelle de l indice des prix de vente industriels ( suite et fin ),1,84,84,0,extracted
 evolution annuelle de l indice des prix 1,5,908,426,0,extracted
 evolution annuelle de l indice des prix 2,8,90,66,0,extracted
 evolution annuelle de l indice des prix de vente 1,5,912,366,0,extracted
@@ -355,16 +355,16 @@ evolution de l indice général des prix à la consommation 6.13,0,0,0,0,"not ex
 evolution de l indice général des prix à la consommation 7,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution de la capacite 24,5,690,250,0,extracted
 evolution de la capacite des bibliotheques publiques par categorie et par,1,182,182,0,extracted
-evolution de la capacité 2,9,1215,378,0,extracted
-evolution de la capacité des bibliothèques 2,2,270,162,0,extracted
-evolution de la capacité des bibliothèques par 2,5,675,243,0,extracted
+evolution de la capacité 2,9,1260,392,0,extracted
+evolution de la capacité des bibliothèques 2,2,280,168,0,extracted
+evolution de la capacité des bibliothèques par 2,5,700,252,0,extracted
 evolution de la consommation 12.18,11,275,70,5,extracted with conflicts
 evolution de la consommation 12.19,5,125,42,3,extracted with conflicts
 evolution de la consommation 13.18,11,320,96,0,extracted
 evolution de la consommation 13.19,5,125,43,2,extracted with conflicts
 evolution de la consommation 2,13,250,91,2,extracted with conflicts
 evolution de la consommation 2.8,2,40,24,0,extracted
-evolution de la consommation d eau 12,3,120,60,0,extracted
+evolution de la consommation d eau 12,3,45,25,0,extracted
 evolution de la consommation d electricite 6,5,175,63,0,extracted
 evolution de la consommation d electricite 7,5,125,45,0,extracted
 evolution de la consommation d electricite 8,5,375,135,0,extracted
@@ -424,13 +424,13 @@ evolution de la production de vins mouts et mistelles par gouvernorat,1,35,35,0,
 evolution de la production de vins mouts et mistelles par gouvernorat 11,5,125,42,3,extracted with conflicts
 evolution de la production de vins moûts et,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution de la production de vins moûts et mistelles par 121 11,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-evolution de la production des 13,5,150,76,2,extracted with conflicts
-evolution de la production des 13.7,10,300,138,0,extracted
+evolution de la production des 13,5,250,128,2,extracted with conflicts
+evolution de la production des 13.7,10,500,230,0,extracted
 evolution de la production des cereales,1,35,35,0,extracted
 evolution de la production des cultures,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-evolution de la production des cultures industrielles,1,35,35,0,extracted
+evolution de la production des cultures industrielles,1,50,50,0,extracted
 evolution de la production des cultures industrielles 122 13,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-evolution de la production des cultures industrielles 13.7,5,180,75,9,extracted with conflicts
+evolution de la production des cultures industrielles 13.7,5,250,125,5,extracted with conflicts
 evolution de la production des céréales 1,16,400,98,2,extracted with conflicts
 evolution de la production des céréales 117,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution de la production des fruits ( sauf agrumes ),1,98,98,0,extracted
@@ -468,11 +468,11 @@ evolution de la situation de la banque 5,16,870,243,3,extracted with conflicts
 evolution de la situation de la banque centrale de tunisie par secteur,1,133,133,0,extracted
 evolution de la situation de la banque centrale par,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution de la situation de la banque centrale par secteur 5,4,200,80,0,extracted
-evolution de la situation des banques de depots 6,5,340,124,0,extracted
-evolution de la situation des banques de depots par secteur,1,147,147,0,extracted
-evolution de la situation des banques de dépots 6,10,650,198,0,extracted
+evolution de la situation des banques de depots 6,5,315,115,0,extracted
+evolution de la situation des banques de depots par secteur,1,154,154,0,extracted
+evolution de la situation des banques de dépots 6,10,625,192,0,extracted
 evolution de la situation des banques de dépots par secteur 6,4,260,104,0,extracted
-evolution de la situation des banques de dépôts 6,1,65,65,0,extracted
+evolution de la situation des banques de dépôts 6,1,60,60,0,extracted
 evolution de la situation des banques de dépôts par,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution de la structure 1,16,575,155,5,extracted with conflicts
 evolution de la structure du systeme financier,1,56,56,0,extracted
@@ -489,9 +489,9 @@ evolution de la valeur des ventes 10,1,25,25,0,extracted
 evolution de la valeur des ventes de la production miniere,1,42,42,0,extracted
 evolution des abonnes 27,5,715,259,0,extracted
 evolution des abonnes par categorie de bibliotheques et par gouvernorat,1,196,196,0,extracted
-evolution des abonnés 5,5,700,252,0,extracted
-evolution des abonnés par catégorie 5,6,840,308,0,extracted
-evolution des abonnés par catégorie de 5,5,700,252,0,extracted
+evolution des abonnés 5,5,725,261,0,extracted
+evolution des abonnés par catégorie 5,6,870,319,0,extracted
+evolution des abonnés par catégorie de 5,5,725,261,0,extracted
 evolution des actifs et des occupés 1,10,100,28,0,extracted
 evolution des actifs et des occupés 109 1,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution des credits a court terme 7,5,355,151,0,extracted
@@ -524,20 +524,20 @@ evolution des dépenses des fonds spéciaux du trésor ventilés,3,288,150,0,ext
 evolution des dépenses des fonds spéciaux du trésor ventilés 11,1,80,80,0,extracted
 evolution des dépenses des fonds spéciaux du trésor ventilés par fonds 11,1,100,100,0,extracted
 evolution des echanges 10,5,700,244,8,extracted with conflicts
-evolution des echanges 2,5,210,95,3,extracted with conflicts
-evolution des echanges 3,5,111,47,8,extracted with conflicts
-evolution des echanges 4,5,50,18,0,extracted
-evolution des echanges avec 9,5,200,72,0,extracted
+evolution des echanges 2,5,180,82,2,extracted with conflicts
+evolution des echanges 3,5,117,53,8,extracted with conflicts
+evolution des echanges 4,5,25,9,0,extracted
+evolution des echanges avec 9,5,100,36,0,extracted
 evolution des echanges avec les principaux ensembles economiques,1,42,42,0,extracted
-evolution des echanges avec les principaux pays,1,119,119,0,extracted
-evolution des echanges par groupement d utilisation des marchandises,1,28,28,0,extracted
-evolution des echanges par groupement sectoriel d activite,1,8,8,0,extracted
+evolution des echanges avec les principaux pays,1,7,7,0,extracted
+evolution des echanges par groupement d utilisation des marchandises,1,14,14,0,extracted
+evolution des echanges par groupement sectoriel d activite,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution des echanges par type d utilisation,1,8,8,0,extracted
-evolution des entrees des voyageurs,4,440,198,0,extracted
-evolution des entrees des voyageurs non residents par voie de transport,1,154,154,0,extracted
+evolution des entrees des voyageurs,4,480,216,0,extracted
+evolution des entrees des voyageurs non residents par voie de transport,1,168,168,0,extracted
 evolution des entreprises privées 1,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution des entreprises privées 2,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-evolution des entreprises privées selon l activité 1,5,495,231,0,extracted
+evolution des entreprises privées selon l activité 1,5,510,238,0,extracted
 evolution des entreprises privées selon la tranche,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution des entreprises privées selon la tranche 2,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution des entreprises privées selon la tranche de salariés 2,5,25,9,0,extracted
@@ -551,9 +551,9 @@ evolution des entrées d entreprises privées selon 6,0,0,0,0,"not extracted (he
 evolution des entrées d entreprises privées selon la,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution des entrées d entreprises privées selon la tranche de 5,5,25,9,0,extracted
 evolution des entrées d entreprises privées selon le gouvernorat 6,5,775,279,0,extracted
-evolution des entrées des voyageurs,2,220,132,0,extracted
-evolution des entrées des voyageurs 6,8,920,303,0,extracted
-evolution des entrées des voyageurs non résidents par voie de 6,5,565,212,0,extracted
+evolution des entrées des voyageurs,2,240,144,0,extracted
+evolution des entrées des voyageurs 6,8,1000,329,0,extracted
+evolution des entrées des voyageurs non résidents par voie de 6,5,615,230,0,extracted
 evolution des exportations des principaux 5,16,2335,635,0,extracted
 evolution des exportations des principaux 6,16,1145,311,1,extracted with conflicts
 evolution des exportations des principaux produits,0,0,0,0,"not extracted (header unreadable, or rows refused)"
@@ -566,10 +566,10 @@ evolution des exportations des principaux produits par,0,0,0,0,"not extracted (h
 evolution des exportations des principaux produits par 5,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution des exportations des principaux produits par groupement,1,315,107,103,extracted with conflicts
 evolution des fonds de livres 25,5,715,259,0,extracted
-evolution des fonds de livres 3,5,700,252,0,extracted
+evolution des fonds de livres 3,5,725,265,0,extracted
 evolution des fonds de livres par categorie de bibliotheques et par gouvernorat,1,196,196,0,extracted
-evolution des fonds de livres par catégorie 3,6,840,308,0,extracted
-evolution des fonds de livres par catégorie de 3,5,700,252,0,extracted
+evolution des fonds de livres par catégorie 3,6,870,319,0,extracted
+evolution des fonds de livres par catégorie de 3,5,725,261,0,extracted
 evolution des importations des principaux,1,140,140,0,extracted
 evolution des importations des principaux 7,16,4800,1283,1,extracted with conflicts
 evolution des importations des principaux produits 7,5,750,270,0,extracted
@@ -584,15 +584,15 @@ evolution des institutions de dépots (suite) ) ( 5,1,63,63,0,extracted
 evolution des institutions de dépots 249,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution des institutions de dépots 5.15,1,60,60,0,extracted
 evolution des lecteurs 26,5,690,250,0,extracted
-evolution des lecteurs 4,5,675,243,0,extracted
+evolution des lecteurs 4,5,700,252,0,extracted
 evolution des lecteurs par categorie de bibliotheques et par gouvernorat,1,189,189,0,extracted
-evolution des lecteurs par catégorie 4,6,810,297,0,extracted
-evolution des lecteurs par catégorie de 4,5,675,243,0,extracted
+evolution des lecteurs par catégorie 4,6,840,308,0,extracted
+evolution des lecteurs par catégorie de 4,5,700,252,0,extracted
 evolution des livres pretes 28,5,705,257,0,extracted
 evolution des livres pretes par categorie de bibliotheques et par gouvernorat,1,196,196,0,extracted
-evolution des livres prêtés 6,5,700,252,0,extracted
-evolution des livres prêtés par catégorie 6,6,845,313,0,extracted
-evolution des livres prêtés par catégorie de 6,5,700,252,0,extracted
+evolution des livres prêtés 6,5,725,261,0,extracted
+evolution des livres prêtés par catégorie 6,6,870,329,0,extracted
+evolution des livres prêtés par catégorie de 6,5,725,261,0,extracted
 evolution des longueurs des lignes par tension,1,28,28,0,extracted
 evolution des mort-nes declares 15.2,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution des mort-nes par gouvernorat de declaration,1,225,225,0,extracted
@@ -671,12 +671,12 @@ evolution des sorties d entreprises privées 7,0,0,0,0,"not extracted (header un
 evolution des sorties d entreprises privées 8,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution des sorties d entreprises privées 9,5,744,270,17,extracted with conflicts
 evolution des sorties d entreprises privées selon,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-evolution des sorties d entreprises privées selon 7,5,492,230,0,extracted
+evolution des sorties d entreprises privées selon 7,5,507,237,0,extracted
 evolution des sorties d entreprises privées selon la,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution des sorties d entreprises privées selon la 8,5,25,9,0,extracted
 evolution des sorties d entreprises privées selon le gouvernorat 9,5,775,279,0,extracted
 evolution des super cies 2,3,75,35,0,extracted
-evolution des super cies reboisées 20,3,60,28,0,extracted
+evolution des super cies reboisées 20,3,90,42,0,extracted
 evolution des super cies reboisées et des plantations,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution des superficies 2,13,325,107,0,extracted
 evolution des superficies ensemencees en cereales,1,35,35,0,extracted
@@ -684,7 +684,7 @@ evolution des superficies ensemencées en céréales 117,0,0,0,0,"not extracted 
 evolution des superficies ensemencées en céréales 2,5,125,45,0,extracted
 evolution des superficies reboisees 20,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution des superficies reboisees et des plantations pastorales,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-evolution des superficies reboisées 20,6,120,44,4,extracted with conflicts
+evolution des superficies reboisées 20,6,180,66,4,extracted with conflicts
 evolution des superficies reboisées et des,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution des superficies reboisées et des plantations,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution des superficies reboisées et des plantations pastorales 20,0,0,0,0,"not extracted (header unreadable, or rows refused)"
@@ -695,23 +695,23 @@ evolution des ventes d électricité par tension 7,5,125,45,0,extracted
 evolution des ventes d élèctricité 6,5,185,69,0,extracted
 evolution des ventes d élèctricité par centre de distribution 6,5,200,72,0,extracted
 evolution des échanges 10,11,1525,443,2,extracted with conflicts
-evolution des échanges 2,7,294,146,0,extracted
-evolution des échanges 3,11,297,122,4,extracted with conflicts
-evolution des échanges avec 9,4,160,64,0,extracted
-evolution des échanges avec 9.14,3,120,64,0,extracted
-evolution des échanges avec les 9.14,4,160,64,0,extracted
+evolution des échanges 2,7,252,126,0,extracted
+evolution des échanges 3,11,297,128,0,extracted
+evolution des échanges avec 9,4,80,32,0,extracted
+evolution des échanges avec 9.14,3,60,32,0,extracted
+evolution des échanges avec les 9.14,4,80,32,0,extracted
 evolution des échanges avec les principaux 9,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution des échanges avec les principaux ensembles,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-evolution des échanges avec les principaux ensembles 9.14,5,200,72,0,extracted
+evolution des échanges avec les principaux ensembles 9.14,5,100,36,0,extracted
 evolution des échanges avec les principaux ensembles éco,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution des échanges avec les principaux pays 10,5,600,216,0,extracted
 evolution des échanges avec les principaux pays 239 10,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-evolution des échanges par 2,4,168,84,0,extracted
-evolution des échanges par groupement 4,11,110,36,0,extracted
-evolution des échanges par groupement des produits 4,5,135,53,2,extracted with conflicts
-evolution des échanges par groupement sectoriel d activité 2,5,201,93,2,extracted with conflicts
+evolution des échanges par 2,4,144,72,0,extracted
+evolution des échanges par groupement 4,11,55,16,0,extracted
+evolution des échanges par groupement des produits 4,5,110,45,1,extracted with conflicts
+evolution des échanges par groupement sectoriel d activité 2,5,171,79,2,extracted with conflicts
 evolution des échanges par type d utilisation 231 3,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-evolution des échanges par type d utilisation 3,5,135,62,1,extracted with conflicts
+evolution des échanges par type d utilisation 3,5,105,48,1,extracted with conflicts
 evolution des échanges. par groupement sectoriel,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution des échangespar groupement d utilisation 4,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution des échangespar groupement d utilisation des,0,0,0,0,"not extracted (header unreadable, or rows refused)"
@@ -737,10 +737,10 @@ evolution du nombre d accidents par gouvernorat et par mois 6,5,925,333,0,extrac
 evolution du nombre d entrées,2,10,6,0,extracted
 evolution du nombre d entrées 8,7,35,12,0,extracted
 evolution du nombre d entrées dans les salles de cinéma 8,1,5,5,0,extracted
-evolution du nombre de clients 9,5,185,69,0,extracted
-evolution du nombre de clients d électricité par centre de 9,5,200,72,0,extracted
-evolution du nombre de consommateurs 9,9,315,105,0,extracted
-evolution du nombre de consommateurs d electricite par centre,1,56,56,0,extracted
+evolution du nombre de clients 9,5,555,207,0,extracted
+evolution du nombre de clients d électricité par centre de 9,5,600,216,0,extracted
+evolution du nombre de consommateurs 9,9,945,315,0,extracted
+evolution du nombre de consommateurs d electricite par centre,1,77,77,0,extracted
 evolution du nombre de consommateurs par centre 9,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution du nombre de consommateurs par centre de,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution du nombre des abonnes 11,5,160,52,9,extracted with conflicts
@@ -776,8 +776,8 @@ evolution du reseau des bibliotheques par categorie et par gouvernorat,1,189,189
 evolution du réseau bancaire 2,7,865,369,0,extracted
 evolution du réseau bancaire par gouvernorat 2.15,1,125,125,0,extracted
 evolution du réseau bancaire par gouvernorat 244 2,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-evolution du réseau des bibliothèques 1,11,1485,436,0,extracted
-evolution du réseau des bibliothèques par catégorie 1,5,675,243,0,extracted
+evolution du réseau des bibliothèques 1,11,1540,452,0,extracted
+evolution du réseau des bibliothèques par catégorie 1,5,700,252,0,extracted
 evolution du salaire 2,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution du salaire 8,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution du salaire minimum 1,0,0,0,0,"not extracted (header unreadable, or rows refused)"
@@ -797,21 +797,21 @@ evolution du total des crédits par,0,0,0,0,"not extracted (header unreadable, o
 evolution du total des crédits par 8,1,63,63,0,extracted
 evolution du total des crédits par branche d activité 9,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution du total des crédits par branche d activité économique 9,4,80,32,0,extracted
-evolution mensuelle 2,5,300,108,0,extracted
-evolution mensuelle 3,11,660,132,48,extracted with conflicts
-evolution mensuelle de l indice des prix de vente 2,5,300,108,0,extracted
+evolution mensuelle 2,5,2400,864,0,extracted
+evolution mensuelle 3,11,4140,1308,192,extracted with conflicts
+evolution mensuelle de l indice des prix de vente 2,5,900,324,0,extracted
 evolution mensuelle de l indice des prix de vente 212 2,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-evolution mensuelle de l indice des prix de vente industriels,1,84,84,0,extracted
-evolution mensuelle de l indice des prix de vente industriels 2,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-evolution mensuelle de l indice des prix de vente industriels 2.13,0,0,0,0,"not extracted (header unreadable, or rows refused)"
+evolution mensuelle de l indice des prix de vente industriels,1,21,21,0,extracted
+evolution mensuelle de l indice des prix de vente industriels 2,5,864,264,24,extracted with conflicts
+evolution mensuelle de l indice des prix de vente industriels 2.13,5,600,216,0,extracted
 evolution mensuelle de l indice des prix de vente industriels 203 ... 3,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution mensuelle de l indice des prix de vente industriels 205 ... 3,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution mensuelle de l indice des prix de vente industriels 208 2,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution mensuelle de l indice des prix de vente industriels 210 2,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution mensuelle de l indice des prix de vente industriels 212 2,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-evolution mensuelle des echanges,1,91,91,0,extracted
-evolution mensuelle des echanges 1,5,400,144,0,extracted
-evolution mensuelle des échanges 1,16,1280,336,0,extracted
+evolution mensuelle des echanges,1,7,7,0,extracted
+evolution mensuelle des echanges 1,5,725,261,0,extracted
+evolution mensuelle des échanges 1,16,2320,609,0,extracted
 evolution mensuelle des échanges 229 1,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolutions des importations des principaux produits 7,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolutions des importations des principaux produits par,0,0,0,0,"not extracted (header unreadable, or rows refused)"
@@ -833,16 +833,16 @@ formation brute de capital fixe par secteur d activite,1,175,175,0,extracted
 formation brute de capital fixe par secteur d activité 14,5,595,294,21,extracted with conflicts
 formation brute de capital fixe par secteur d activité 283,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 formation brute de capital fixe par secteur d activité 285,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-immatriculation des vehicules 1,5,625,225,0,extracted
+immatriculation des vehicules 1,5,650,234,0,extracted
 immatriculation des vehicules neufs par categorie et marque,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-immatriculation des vehicules occasions,5,565,210,0,extracted
-immatriculation des vehicules occasions par categorie et marque,1,114,114,0,extracted
-immatriculation des véhicules 1,11,1375,350,0,extracted
+immatriculation des vehicules occasions,5,590,219,0,extracted
+immatriculation des vehicules occasions par categorie et marque,1,126,126,0,extracted
+immatriculation des véhicules 1,11,1430,364,0,extracted
 immatriculation des véhicules neufs par catégorie et,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-immatriculation des véhicules neufs par catégorie et marque 1,5,530,281,0,extracted
-immatriculation des véhicules occasions,11,1335,345,0,extracted
+immatriculation des véhicules neufs par catégorie et marque 1,5,550,296,0,extracted
+immatriculation des véhicules occasions,11,1390,363,0,extracted
 immatriculation des véhicules occasions par catégorie,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-immatriculation des véhicules occasions par catégorie et marque 2,5,505,269,0,extracted
+immatriculation des véhicules occasions par catégorie et marque 2,5,525,284,0,extracted
 indice de la production industrielle,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 indice de la production industrielle ( suite et fin ),0,0,0,0,"not extracted (header unreadable, or rows refused)"
 indice de la production industrielle (suite et fin) ) ( 1,5,440,176,0,extracted
@@ -887,11 +887,11 @@ infrastructure sanitaire du secteur privé par gouvernorat 90 2,0,0,0,0,"not ext
 infrastructure sanitaire du secteur public par gouvernorat,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 infrastructure sanitaire du secteur public par gouvernorat 1,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 infrastructure sanitaire du secteur public par gouvernorat 89 1,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-investissement et financement,1,63,63,0,extracted
+investissement et financement,1,49,49,0,extracted
 investissement et financement 279 9,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 investissement et financement 281 9,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-investissement et financement 9,18,810,211,30,extracted with conflicts
-investissement et nancement 9,3,135,61,6,extracted with conflicts
+investissement et financement 9,18,470,129,18,extracted with conflicts
+investissement et nancement 9,3,75,36,3,extracted with conflicts
 le réseau commercial 1,16,695,200,0,extracted
 le réseau commercial 201 1,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 les eaux conventionnelles,0,0,0,0,"not extracted (header unreadable, or rows refused)"
@@ -920,8 +920,8 @@ les réseaux téléphoniques,16,285,99,0,extracted
 les réseaux téléphoniques 195 1,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 loi relative au systeme statistique tunisien,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 loi relative au sysyteme statistique tunisien,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-mandats (régime général) ) ( 3,5,50,18,0,extracted
-mandats 3,11,110,32,0,extracted
+mandats (régime général) ) ( 3,5,100,36,0,extracted
+mandats 3,11,220,64,0,extracted
 mandats régime général 202 3,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 mariage pour la 1ère fois selon le groupe 22,2,2,2,0,extracted
 mariage pour la 1ère fois selon le groupe 23.1,2,550,550,0,extracted
@@ -944,18 +944,18 @@ mariages contractés 19,4,620,248,0,extracted
 mariages contractés par gouvernorat de déclaration 14,5,775,279,0,extracted
 mariages contractés par mois et par année 17,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 mariages contractés par mois et par année 18,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-mariages selon le groupe d age 21,3,60,28,0,extracted
-mariages selon le groupe d age 21.2,2,20,12,0,extracted
-mariages selon le groupe d age des epoux,1,14,14,0,extracted
-mariages selon le groupe d âge 17.1,5,40,16,0,extracted
-mariages selon le groupe d âge 21,2,40,24,0,extracted
-mariages selon le groupe d âge 22,2,35,23,0,extracted
-mariages selon le groupe d âge 24,2,40,24,0,extracted
+mariages selon le groupe d age 21,3,90,42,0,extracted
+mariages selon le groupe d age 21.2,2,40,24,0,extracted
+mariages selon le groupe d age des epoux,1,28,28,0,extracted
+mariages selon le groupe d âge 17.1,5,80,32,0,extracted
+mariages selon le groupe d âge 21,2,60,36,0,extracted
+mariages selon le groupe d âge 22,2,55,35,0,extracted
+mariages selon le groupe d âge 24,2,60,36,0,extracted
 mariages selon le groupe d âge des époux 17.1,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-materiaux de construction,5,245,128,1,extracted with conflicts
+materiaux de construction,5,145,77,0,extracted
 "materiaux de construction, ceramique et verre",1,98,98,0,extracted
-matériaux de construction,11,385,222,2,extracted with conflicts
-matériaux de construction céramique et verre 4,5,85,33,0,extracted
+matériaux de construction,11,385,227,2,extracted with conflicts
+matériaux de construction céramique et verre 4,5,140,60,0,extracted
 matériaux de construction. céramique et verre 140,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 montant des mandats 7,11,1430,413,3,extracted with conflicts
 montant des mandats 8,11,715,208,0,extracted
@@ -970,14 +970,14 @@ montant des mandats émis par l étranger et payés en 9,0,0,0,0,"not extracted 
 montant des mandats émis par l étranger et payés en tunisie par 7,5,650,234,0,extracted
 montant des mandats émis par l étranger et payés en tunisie par 9,5,175,63,0,extracted
 mort-nés par gouvernorat de déclaration 34 13,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-mouvement des croisieres maritimes 20,4,320,151,2,extracted with conflicts
+mouvement des croisieres maritimes 20,4,340,164,2,extracted with conflicts
 mouvement des croisieres maritimes par nationalite et par port d entree,1,91,91,0,extracted
-mouvement des croisières maritimes 20,9,540,198,0,extracted
+mouvement des croisières maritimes 20,9,585,219,0,extracted
 mouvement des croisières maritimes par nationalité et,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 mouvement des croisières maritimes par nationalité et par port d entrée 20,3,140,90,0,extracted
 mouvements de fonds des c.c.p 206,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-mouvements de fonds des c.c.p. 10,3,70,50,0,extracted
-mouvements de fonds des c.c.p. 10.2.12,13,295,127,4,extracted with conflicts
+mouvements de fonds des c.c.p. 10,3,25,17,0,extracted
+mouvements de fonds des c.c.p. 10.2.12,10,105,49,0,extracted
 naissances et taux bruts de natalité 6,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 naissances et taux bruts de natalité 7,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 naissances et taux bruts de natalité 8,0,0,0,0,"not extracted (header unreadable, or rows refused)"
@@ -1018,18 +1018,18 @@ nombre d établissements du 2ème cycle 15,5,1250,750,0,extracted
 nombre d établissements du 2ème cycle de l enseignement de 14,5,1250,450,0,extracted
 nombre d établissements et classes-élèves par,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 nombre d établissements et classes-élèves par gouvernorat 57 14,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-nombre de films longs et courts 29,5,240,94,8,extracted with conflicts
-nombre de films longs et courts 7,8,320,126,0,extracted
-nombre de films longs et courts metrages vises par nationalite,1,84,84,0,extracted
+nombre de films longs et courts 29,5,230,139,3,extracted with conflicts
+nombre de films longs et courts 7,8,275,128,0,extracted
+nombre de films longs et courts metrages vises par nationalite,1,63,63,0,extracted
 nombre de films longs et courts métrages visés par,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 nombre de films longs et courts métrages visés par nationalité 69 7,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-nombre de films longs et courts métrages visés par nationalité 7,5,195,72,0,extracted
+nombre de films longs et courts métrages visés par nationalité 7,5,195,70,2,extracted with conflicts
 nombre de jours de pluie 4,5,640,197,43,extracted with conflicts
 nombre de jours de pluie 6,2,260,130,0,extracted
 nombre de jours de pluie par station (année agricole ) (1),0,0,0,0,"not extracted (header unreadable, or rows refused)"
 nombre de jours de pluie par station (année agricole) 294 ),0,0,0,0,"not extracted (header unreadable, or rows refused)"
 nombre de jours de pluie par station (année agricole) 296 ),0,0,0,0,"not extracted (header unreadable, or rows refused)"
-nombre de lms longs et courts 7,3,130,62,4,extracted with conflicts
+nombre de lms longs et courts 7,3,120,64,0,extracted
 nombre de lms longs et courts métrages visés par,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 nombre de lms longs et courts métrages visés par n,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 nombre de locaux - classes par gouvernorat 4,16,1990,623,0,extracted
@@ -1104,11 +1104,11 @@ nuitées des non-résidents par région touristique 170,0,0,0,0,"not extracted (
 nuitées touristiques globales 15,11,2425,733,17,extracted with conflicts
 nuitées touristiques globales par nationalité 15,5,750,270,0,extracted
 nuitées touristiques globales par nationalité 167 15,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-paiements exterieurs de la tunisie : : 11,16,1400,421,14,extracted with conflicts
+paiements exterieurs de la tunisie : : 11,16,1445,453,12,extracted with conflicts
 paiements exterieurs de la tunisie : evolution des depenses,1,186,186,0,extracted
 paiements exterieurs de la tunisie : evolution des dépenses (suite ( : 11,4,115,47,0,extracted
-paiements exterieurs de la tunisie : evolution des recettes,1,224,224,0,extracted
-paiements exterieurs de la tunisie: : 10,16,1300,424,5,extracted with conflicts
+paiements exterieurs de la tunisie : evolution des recettes,1,210,210,0,extracted
+paiements exterieurs de la tunisie: : 10,16,1435,482,5,extracted with conflicts
 paiements exterieurs de la tunisie: evolution des ( : 10,4,150,46,20,extracted with conflicts
 paiements extérieurs de la tunisie : : 11,11,985,291,1,extracted with conflicts
 paiements extérieurs de la tunisie : evolution des dépenses : 11,4,325,137,1,extracted with conflicts
@@ -1122,9 +1122,9 @@ par genre suivant le gouvernorat de déclaration 39 10,0,0,0,0,"not extracted (h
 personnel enseignant a plein temps 22,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 personnel enseignant a plein temps en 2001,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 personnel enseignant du 2 cycle de l enseignement de base et de l enseignement,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-personnel enseignant du 2ème cycle 15,5,125,45,0,extracted
-personnel enseignant du 2ème cycle 16,11,275,75,0,extracted
-personnel enseignant du 2ème cycle de l enseignement 15,5,125,45,0,extracted
+personnel enseignant du 2ème cycle 15,5,75,27,0,extracted
+personnel enseignant du 2ème cycle 16,11,165,45,0,extracted
+personnel enseignant du 2ème cycle de l enseignement 15,5,75,27,0,extracted
 personnel enseignant par gouvernorat,14,1740,525,0,extracted
 personnel enseignant par gouvernorat 47 5,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 personnel enseignant par gouvernorat 5,2,250,150,0,extracted
@@ -1169,8 +1169,8 @@ population scolaire du 2eme cycle 12,0,0,0,0,"not extracted (header unreadable, 
 population scolaire du 2er cycle 12,2,245,149,0,extracted
 population scolaire du 2ème cycle 11,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 population scolaire du 2ème cycle 12,3,375,175,0,extracted
-population scolaire du 2ème cycle 14,11,125,37,0,extracted
-population scolaire du 2ème cycle de l enseignement de base 11,5,75,23,4,extracted with conflicts
+population scolaire du 2ème cycle 14,11,55,15,0,extracted
+population scolaire du 2ème cycle de l enseignement de base 11,5,50,18,0,extracted
 population scolaire par année d études 52 9,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 population scolaire par année d études 53 11,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 population scolaire par genre et par gouvernorat 49 7,0,0,0,0,"not extracted (header unreadable, or rows refused)"
@@ -1192,20 +1192,20 @@ population scolaire totale par gouvernorat 51 8,0,0,0,0,"not extracted (header u
 population scolaire totale par gouvernorat 56 13,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 poste : balance du trafic des mandats ( regime international ),1,21,21,0,extracted
 poste : balance du trafic des mandats : 7,2,30,18,0,extracted
-poste: articles d argent (tout regime ) c.c.a.a,1,14,14,0,extracted
-poste: articles d argent : 6,2,20,12,0,extracted
+poste: articles d argent (tout regime ) c.c.a.a,1,28,28,0,extracted
+poste: articles d argent : 6,2,40,24,0,extracted
 poste: caisse d epargne nationale,1,56,56,0,extracted
 poste: caisse d epargne nationale : 8,1,40,40,0,extracted
-poste: colis postaux*,1,35,35,0,extracted
-poste: colis postaux* * : 5,2,60,36,0,extracted
-poste: comptes en dinars convertibles,1,35,35,0,extracted
-poste: comptes en dinars convertibles : 9,2,55,35,0,extracted
+poste: colis postaux*,1,21,21,0,extracted
+poste: colis postaux* * : 5,2,50,30,0,extracted
+poste: comptes en dinars convertibles,1,63,63,0,extracted
+poste: comptes en dinars convertibles : 9,2,95,59,0,extracted
 poste: evolution des recettes : 12,2,85,85,0,extracted
 poste: evolution des recettes budgetaires realisees,1,91,91,0,extracted
 poste: montant des mandats emis : 10,2,410,246,0,extracted
 poste: montant des mandats emis a l etranger et payes en tunisie par,1,273,273,0,extracted
-poste: mouvements de fond de c.c.p,1,35,35,0,extracted
-poste: mouvements de fond de c.c.p. : 11,2,40,24,0,extracted
+poste: mouvements de fond de c.c.p,1,21,21,0,extracted
+poste: mouvements de fond de c.c.p. : 11,2,10,6,0,extracted
 poste: situation : 4,2,70,61,1,extracted with conflicts
 poste: situation des etablissements postaux,1,35,35,0,extracted
 pour la 1ère fois selon le groupe d âge de l épouse par 23,0,0,0,0,"not extracted (header unreadable, or rows refused)"
@@ -1217,7 +1217,7 @@ prelevement brut des eaux non renouvelables ( aquiferes ) par secteur,1,30,30,0,
 principales caracteristiques 1,5,325,125,0,extracted
 principales caracteristiques demographiques,1,70,70,0,extracted
 principales caracteristiques démographiques 1,5,375,155,0,extracted
-principales caractéristiques démographiques 1,11,815,264,9,extracted with conflicts
+principales caractéristiques démographiques 1,11,815,275,12,extracted with conflicts
 principales caractéristiques démographiques 19 1,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 principales donnees 2,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 principales donnees du 1 cycle,0,0,0,0,"not extracted (header unreadable, or rows refused)"
@@ -1226,7 +1226,7 @@ principales donnees du 2ème cycle 10,0,0,0,0,"not extracted (header unreadable,
 principales données 44 2,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 principales données du 1 cycle,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 principales données du 2ème cycle 10,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-principales données du 2ème cycle de l enseignement 10,5,200,68,4,extracted with conflicts
+principales données du 2ème cycle de l enseignement 10,5,175,63,0,extracted
 principales données statistiques 53 10,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 principaux indicateurs boursiers,1,21,21,0,extracted
 principaux indicateurs boursiers 13.15,1,15,15,0,extracted
@@ -1289,7 +1289,7 @@ quantités des légumes commercialisés aux marchés 8,0,0,0,0,"not extracted (h
 quantités des légumes commercialisés aux marchés de 8,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 quantités des légumes commercialisés aux marchés de 9,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 quantités des légumes commercialisés aux marchés de gros des 8,5,590,196,17,extracted with conflicts
-recettes de l etat,1,25,25,0,extracted
+recettes de l etat,1,30,30,0,extracted
 recettes de l etat 1,5,150,57,1,extracted with conflicts
 recettes de l état 1,16,660,189,21,extracted with conflicts
 recettes de l état 259 1,0,0,0,0,"not extracted (header unreadable, or rows refused)"
@@ -1353,7 +1353,7 @@ repartition des admis au baccalaureat 18,0,0,0,0,"not extracted (header unreadab
 repartition des admis au baccalaureat par gouvernorat juin 2001,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 repartition des beneficiaires de l information 6,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 repartition des etudiants ( ) 19,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-repartition des etudiants 19,2,120,120,0,extracted
+repartition des etudiants 19,2,128,128,0,extracted
 repartition des etudiants par secteur et par genre,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 repartition des eudiants par ministere 20,2,56,56,0,extracted
 repartition des eudiants par ministere 21,3,96,96,0,extracted
@@ -1468,35 +1468,35 @@ selon le groupe d âge de l époux par gouvernorat 36 15,0,0,0,0,"not extracted 
 selon le groupe d âge des époux 38 17,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 sexe féminin 22 3,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 sexe masculin 20 2,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-sorties des tunisiens 13,4,370,168,0,extracted
-sorties des tunisiens par pays ... 13,2,190,114,0,extracted
-sorties des tunisiens par pays 13,8,760,245,2,extracted with conflicts
+sorties des tunisiens 13,4,390,177,0,extracted
+sorties des tunisiens par pays ... 13,2,200,120,0,extracted
+sorties des tunisiens par pays 13,8,800,258,2,extracted with conflicts
 sorties des tunisiens par pays de destination et par 13,5,475,171,0,extracted
 sorties des tunisiens par pays de destination et par voie,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 sorties des tunisiens par pays de destination et par voie 13,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 sorties des tunisiens par pays de destination et par voie de transport,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-sorties des voyageurs non residents,4,560,252,0,extracted
-sorties des voyageurs non residents 10,4,555,252,0,extracted
-sorties des voyageurs non residents 11,4,415,189,0,extracted
-sorties des voyageurs non residents 8,4,580,261,0,extracted
-sorties des voyageurs non residents 9,4,530,242,0,extracted
+sorties des voyageurs non residents,4,580,261,0,extracted
+sorties des voyageurs non residents 10,4,575,261,0,extracted
+sorties des voyageurs non residents 11,4,455,207,0,extracted
+sorties des voyageurs non residents 8,4,600,270,0,extracted
+sorties des voyageurs non residents 9,4,550,255,0,extracted
 sorties des voyageurs non residents par nationalite et par mois,1,392,0,196,extracted with conflicts
 sorties des voyageurs non residents par nationalite et par mois ( voie aerienne),1,196,196,0,extracted
-sorties des voyageurs non residents par nationalite et par mois ( voie terrestre),1,182,182,0,extracted
-sorties des voyageurs non residents par voie de transport et poste frontiere,1,154,154,0,extracted
-sorties des voyageurs non résidents,10,2575,827,4,extracted with conflicts
-sorties des voyageurs non résidents 10,10,2175,740,5,extracted with conflicts
-sorties des voyageurs non résidents 11,10,1110,337,0,extracted
-sorties des voyageurs non résidents 8,10,2575,827,4,extracted with conflicts
-sorties des voyageurs non résidents 9,10,1875,656,4,extracted with conflicts
-sorties des voyageurs non résidents par nationalité (suite) ( voie 8.10,5,565,202,5,extracted with conflicts
+sorties des voyageurs non residents par nationalite et par mois ( voie terrestre),1,189,189,0,extracted
+sorties des voyageurs non residents par voie de transport et poste frontiere,1,168,168,0,extracted
+sorties des voyageurs non résidents,10,2625,842,4,extracted with conflicts
+sorties des voyageurs non résidents 10,10,2225,759,5,extracted with conflicts
+sorties des voyageurs non résidents 11,10,1210,367,0,extracted
+sorties des voyageurs non résidents 8,10,2625,842,4,extracted with conflicts
+sorties des voyageurs non résidents 9,10,1925,679,4,extracted with conflicts
+sorties des voyageurs non résidents par nationalité (suite) ( voie 8.10,5,565,212,0,extracted
 sorties des voyageurs non résidents par nationalité 9,5,295,134,0,extracted
-sorties des voyageurs non résidents par nationalité et par mois 10,5,1005,385,5,extracted with conflicts
+sorties des voyageurs non résidents par nationalité et par mois 10,5,1025,404,0,extracted
 sorties des voyageurs non résidents par nationalité et par mois 7,5,775,279,0,extracted
 sorties des voyageurs non résidents par nationalité et par mois 7.10,5,575,207,0,extracted
 sorties des voyageurs non résidents par nationalité et par mois 8,5,765,279,0,extracted
-sorties des voyageurs non résidents par nationalité et par mois 9,5,410,159,5,extracted with conflicts
-sorties des voyageurs non résidents par voie de transport et poste 11,5,540,203,0,extracted
+sorties des voyageurs non résidents par nationalité et par mois 9,5,430,178,0,extracted
+sorties des voyageurs non résidents par voie de transport et poste 11,5,590,221,0,extracted
 suivant le lieu d accouchement et le gouvernorat de,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 suivant le lieu d accouchement et le gouvernorat de 31 10,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 suivant le lieu d accouchement et le gouvernorat de déc,0,0,0,0,"not extracted (header unreadable, or rows refused)"
@@ -1545,16 +1545,16 @@ taux de variation aux prix courants,1,49,49,0,extracted
 taux de variation aux prix courants 2,7,255,75,13,extracted with conflicts
 taux de variation des prix,1,63,63,0,extracted
 taux de variation des prix 5,7,280,72,20,extracted with conflicts
-taux et ratios par habitant,1,126,126,0,extracted
-taux et ratios par habitant 11,7,625,195,3,extracted with conflicts
-taux et ratios par habitant 11.17,14,1285,360,9,extracted with conflicts
+taux et ratios par habitant,1,140,140,0,extracted
+taux et ratios par habitant 11,7,695,217,3,extracted with conflicts
+taux et ratios par habitant 11.17,14,1355,379,9,extracted with conflicts
 taux et ratios par habitant 280 11,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 taux et ratios par habitant 282 11,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 telecommunications: indicateurs : 1,2,40,24,0,extracted
 telecommunications: indicateurs des telecommunications,1,14,14,0,extracted
 telecommunications: situation du reseau telephonique par gouvernorat,1,168,168,0,extracted
-telecommunications: trafic : 3,2,50,30,0,extracted
-telecommunications: trafic telephonique,1,21,21,0,extracted
+telecommunications: trafic : 3,2,105,65,0,extracted
+telecommunications: trafic telephonique,1,63,63,0,extracted
 telecommunications:situation : 2,2,240,144,0,extracted
 temperature maximum absolu par principale station 290,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 temperature maximum absolu par principale station 292,0,0,0,0,"not extracted (header unreadable, or rows refused)"
@@ -1576,44 +1576,44 @@ température minimum absolu par principale station 1,5,620,225,0,extracted
 température moyenne 3,1,130,130,0,extracted
 température moyenne par 3,5,625,225,0,extracted
 température moyenne par principale station 3,5,625,225,0,extracted
-tra c téléphonique 4,3,55,26,1,extracted with conflicts
+tra c téléphonique 4,3,170,85,1,extracted with conflicts
 trafic téléphonique 197 : 3,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-trafic téléphonique tunisie telecom 3,6,90,30,0,extracted
-trafic téléphonique tunisie telecom 4,7,105,36,0,extracted
+trafic téléphonique tunisie telecom 3,6,360,144,0,extracted
+trafic téléphonique tunisie telecom 4,7,420,141,3,extracted with conflicts
 traitement et rejet d eaux usées,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 traitement et rejet d eaux usées : 2,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-transport aerien,1,42,42,0,extracted
+transport aerien,1,84,84,0,extracted
 transport aerien ( suite ),1,42,42,0,extracted
-transport aerien ( suite et fin ),0,0,0,0,"not extracted (header unreadable, or rows refused)"
-transport aerien (suite et n) ( ) 10,2,13,13,0,extracted
-transport aerien (suite) ( ) 10,2,90,58,0,extracted
-transport aerien 10,5,380,172,4,extracted with conflicts
-transport aérien (suite ) ) ( 10,5,340,126,0,extracted
-transport aérien (suite et fin) ) ( 10,4,20,9,0,extracted
-transport aérien 10,11,1145,369,12,extracted with conflicts
-transport aérien 10.11,12,1140,323,0,extracted
+transport aerien ( suite et fin ),1,7,7,0,extracted
+transport aerien (suite et n) ( ) 10,5,102,72,1,extracted with conflicts
+transport aerien (suite) ( ) 10,5,205,117,0,extracted
+transport aerien 10,5,565,241,4,extracted with conflicts
+transport aérien (suite ) ) ( 10,5,365,143,2,extracted with conflicts
+transport aérien (suite et fin) ) ( 10,4,45,33,0,extracted
+transport aérien 10,11,1795,648,18,extracted with conflicts
+transport aérien 10.11,12,1560,442,0,extracted
 transport aérien 186 10,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-transport ferroviaire,1,63,63,0,extracted
+transport ferroviaire,1,70,70,0,extracted
 transport ferroviaire ( suite ),1,114,114,0,extracted
-transport ferroviaire ( suite et fin ),1,63,63,0,extracted
-transport ferroviaire (suite et fin) ) ( 9,5,125,44,1,extracted with conflicts
-transport ferroviaire (suite et n) ( ) 9,3,105,61,0,extracted
+transport ferroviaire ( suite et fin ),1,105,105,0,extracted
+transport ferroviaire (suite et fin) ) ( 9,5,110,46,0,extracted
+transport ferroviaire (suite et n) ( ) 9,3,225,129,0,extracted
 transport ferroviaire (suite) ( ) 9,5,150,77,1,extracted with conflicts
 transport ferroviaire (suite) ) ( 9,5,135,51,0,extracted
 transport ferroviaire 182 9,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-transport ferroviaire 9,21,1545,516,24,extracted with conflicts
-transport maritime,1,161,161,0,extracted
+transport ferroviaire 9,21,1790,627,24,extracted with conflicts
+transport maritime,1,203,203,0,extracted
 transport maritime (suite ) ( ) 11,5,189,189,0,extracted
 transport maritime (suite ) ) ( 11,5,168,168,0,extracted
 transport maritime (suite et fin),1,28,28,0,extracted
 transport maritime (suite et fin) ) ( 11,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 transport maritime (suite et n) ( ) 11,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-transport maritime 11,20,2642,626,94,extracted with conflicts
+transport maritime 11,20,3289,850,102,extracted with conflicts
 transport maritime 190 11,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 valeurs ajoutees aux couts,1,135,135,0,extracted
 valeurs ajoutees aux couts (1),4,555,225,2,extracted with conflicts
 valeurs ajoutees aux couts 13,5,690,260,2,extracted with conflicts
-valeurs ajoutees aux couts des facteurs ( prix constants ),1,182,182,0,extracted
+valeurs ajoutees aux couts des facteurs ( prix constants ),1,175,175,0,extracted
 valeurs ajoutees aux couts des facteurs ( prix courants ),1,189,189,0,extracted
 valeurs ajoutées aux couts 12,1,150,150,0,extracted
 valeurs ajoutées aux coûts (1),2,280,168,0,extracted

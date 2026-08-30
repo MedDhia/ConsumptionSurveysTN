@@ -149,8 +149,11 @@ Built into `data/processed/` as CSV and Parquet, each with a codebook in
 | `tn_cpi_by_division` | 39 | Price index by COICOP function 2021–2023, base 2015 = 100, with INS weights. |
 | `tn_unemployment_annual` | 104 | Unemployment by education level and by sex, 2011–2023. |
 | `tn_yearbook_tables` | 8,391 | Every numbered table heading in all 22 yearbooks, with edition and page. |
-| `tn_yearbook_series` | 178,021 | Values from the yearbooks' tables, reconciled across editions. |
+| `tn_yearbook_series` | 185,502 | Values from the yearbooks' tables, reconciled across editions. |
 | `tn_yearbook_coverage` | 1,637 | What was extracted, what was refused, and why. |
+| `tn_expenditure_by_product_region` | 12,832 | Expenditure per person by product and region, four survey waves. |
+| `tn_spatial_gini_by_product` | 1,604 | Gini across regions of spending on each good, by wave. |
+| `tn_regional_products_refused` | 2 | Product rows whose printed national value contradicts their own regions. |
 
 All labels are translated to English; every codebook keeps the original French and Arabic
 alongside, code by code.
@@ -286,12 +289,14 @@ which is exactly the kind of error that survives casual checking.
 version of each. Six trace its evolution from 1985 to 2021; six look inside the groups the
 first six average over; four compare the two waves before January 2011 with the two after;
 three come from the statistical yearbooks and cover prices and unemployment annually; and
-seven use the health, education and labour modules and the product-level file; and four
-ask whether the revolution's effect can be identified at all from the yearbooks'
-governorate panel, and show that it cannot. **None of them uses a composite index of
-inequality** — no Gini, no Theil, no Atkinson. Every figure shows an observed quantity or
-the relation between two observed quantities, so any number in them can be recovered from
-the datasets by hand. `make figures` redraws them.
+seven use the health, education and labour modules and the product-level file; eight ask
+whether the revolution's effect can be identified at all, four from the yearbooks'
+governorate panel and four by regression discontinuity in time; and three measure how
+unevenly each consumption good is spread across the regions. **Only those last three use a
+composite index of inequality** — elsewhere there is no Gini, no Theil, no Atkinson, and
+every figure shows an observed quantity or the relation between two observed quantities,
+so any number in them can be recovered from the datasets by hand. `make figures` redraws
+them.
 
 Two caveats the figures carry in their own text rather than in a footnote. Figures 13–16
 are descriptive before-and-after comparisons, not causal estimates: the 2010–2021 window
@@ -300,13 +305,24 @@ depreciation and COVID, and nothing here separates them. And the consumer price 
 figures 17 and 18 is a price level, not a summary of a distribution — it is not the kind
 of index the rule above is about.
 
-Figures 27–30 go further and test the identification directly. With every governorate
-treated at the same instant there is no control group, so the two candidate designs are an
-interrupted time series and a difference-in-differences on differential exposure. A
-placebo test moving the assumed break year shows 2011 is not distinguishable from 2010,
-2012, 2014 or 2015; and the interior–coastal gap was already widening by 0.21 a year for
-twelve years before 2011. Both requirements fail, which is a finding about the limits of
-the evidence rather than a claim that the revolution had no effect.
+Figures 27–34 go further and test the identification directly. With every governorate
+treated at the same instant there is no control group, which rules out an interrupted time
+series and a difference-in-differences on differential exposure: a placebo test moving the
+assumed break year shows 2011 is not distinguishable from 2010, 2012, 2014 or 2015, and the
+interior–coastal gap was already widening by 0.21 a year for twelve years before 2011.
+
+Regression discontinuity in time needs no control group, and figures 31–34 run it. The
+answer turns out to depend on how often a series is published rather than on the design.
+On **monthly** trade the design works: it picks out March 2020 and the late-2008 financial
+crisis as the largest breaks in seventeen years, and its bias-aware interval sits within 1%
+of the conventional one. Pointed at January 2011 it finds a contraction confined to the
+month of the uprising — dropping that one month reverses the sign — which is exceeded in
+size by 42% of arbitrary cutoffs. On the **annual** governorate panel the same design
+cannot be brought near the cutoff: its bias-aware interval runs from 7 to 23 times the
+conventional one and spans zero at every bandwidth, including those where the conventional
+interval excludes it. That is a limit of the evidence, and specifically of the frequency at
+which Tunisian regional statistics are published, rather than a claim that the revolution
+had no effect.
 
 ## Continuous integration
 
