@@ -180,15 +180,37 @@ def test_no_conflicting_cell_reaches_the_series(corpus):
     assert "conflict" not in set(series.agreement)
 
 
-def test_most_cells_are_corroborated_by_a_second_edition(corpus):
+def _year_column(series):
+    """Cells from tables whose columns are years, as opposed to a classification."""
+    return series[series.column_label == series.year.astype(str)]
+
+
+def test_most_year_column_cells_are_corroborated_by_a_second_edition(corpus):
     """Editions overlap by five years, so corroboration should be the common case.
 
-    A sharp fall here would mean the title normalisation stopped matching the same table
-    across editions -- which would silently disable the corpus's main check.
+    Scoped to year-column tables on purpose. Those are the ones a later edition reprints,
+    so a fall here would mean the title normalisation stopped matching the same table
+    across editions -- silently disabling the corpus's main check. Measuring over every
+    cell instead would let a flood of uncorroborable classification rows mask that.
     """
     _, series, _ = corpus
-    confirmed = (series.agreement == "confirmed").mean()
-    assert confirmed > 0.5, f"only {confirmed:.1%} of cells are confirmed by two editions"
+    confirmed = (_year_column(series).agreement == "confirmed").mean()
+    assert confirmed > 0.5, f"only {confirmed:.1%} of year-column cells are confirmed"
+
+
+def test_classification_tables_are_honestly_marked_uncorroborated(corpus):
+    """A single-year table cannot be cross-checked, and must not look as if it were.
+
+    Table 1.4 in the 2023 edition is the population at 1.7.2023; the same table in the
+    2019 edition is the population at 1.7.2019. Different data, so the cell is never
+    printed twice and nothing corroborates it. `single source` is the correct label, and
+    a reader filtering on `agreement` depends on it being applied.
+    """
+    _, series, _ = corpus
+    classification = series[series.column_label != series.year.astype(str)]
+    assert not classification.empty
+    single = (classification.agreement == "single source").mean()
+    assert single > 0.8, f"only {single:.1%} of classification cells are marked single source"
 
 
 def test_every_confirmed_cell_really_had_more_than_one_edition(corpus):
@@ -238,3 +260,28 @@ def test_coverage_accounts_for_every_catalogued_table(corpus):
 def test_years_are_plausible(corpus):
     _, series, _ = corpus
     assert series.year.between(1900, 2030).all()
+
+
+def test_classification_tables_carry_a_year_from_the_page(corpus):
+    """Never dated from the edition's cover: table 13.8 in the 2023 edition covers
+    2018-2022, so the cover year would be wrong by a year for every value in it."""
+    _, series, _ = corpus
+    assert series.year.notna().all()
+
+
+def test_column_labels_are_populated(corpus):
+    _, series, _ = corpus
+    assert series.column_label.notna().all()
+    assert (series.column_label.str.len() > 0).all()
+
+
+def test_a_known_classification_table_matches_the_printed_page(corpus):
+    """Table 1.8, fertility by governorate, 2023 edition: Tunis reads I.S.F 1.40 and
+    T.G.F 41.6 on the page. Classification tables have no cross-edition check, so at
+    least one is pinned against the paper."""
+    _, series, _ = corpus
+    tunis = series[series.title_fr.str.contains("fécondite", na=False)
+                   & series.row_label.eq("Tunis") & series.year.eq(2023)]
+    values = dict(zip(tunis.column_label, tunis.value, strict=True))
+    assert round(values["I.S.F"], 2) == 1.40
+    assert round(values["T.G.F"], 1) == 41.6

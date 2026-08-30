@@ -1,6 +1,6 @@
 # Statistical yearbook series, cross-checked across editions
 
-`data/processed/tn_yearbook_series.csv` — 91,414 rows × 12 columns
+`data/processed/tn_yearbook_series.csv` — 115,391 rows × 13 columns
 
 Values extracted from the yearbooks' year-column tables: one row per table × row label × year, across all 22 editions.
 
@@ -21,6 +21,7 @@ Cells where editions disagreed by more than 10% are **not here**: that is the si
 | `title_fr` | str | — | derived | Normalised French title. The stable key across editions. |
 | `row_label` | str | — | derived | The row's French label, as printed. |
 | `row_kind` | str | — | derived | `data`, or `aggregate` for totals, subtotals and `dont` sub-rows. |
+| `column_label` | str | — | derived | — |
 | `year` | int64 | — | derived | Calendar year the observation refers to. |
 | `value` | float64 | — | derived | — |
 | `provisional` | bool | — | derived | INS marked this figure provisional with an asterisk. |

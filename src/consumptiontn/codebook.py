@@ -88,6 +88,10 @@ DERIVED: dict[str, str] = {
     "title_fr": "Normalised French title. The stable key across editions.",
     "row_label": "The row's French label, as printed.",
     "row_kind": "`data`, or `aggregate` for totals, subtotals and `dont` sub-rows.",
+    "column_label": (
+        "The column this value sat under: the year itself where columns are years, "
+        "otherwise the classification category (an age band, an indicator code)."
+    ),
     "provisional": "INS marked this figure provisional with an asterisk.",
     "n_editions": "How many editions printed this cell. More than one means corroborated.",
     "agreement": (

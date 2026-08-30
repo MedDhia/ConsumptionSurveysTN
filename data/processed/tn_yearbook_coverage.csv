@@ -12,7 +12,7 @@ activites des justices cantonales par matiere au cours de l annee judiciaire 200
 activites des tribunaux 4,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 activites des tribunaux de 1 ere,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 activites des tribunaux par degre au cours de l annee judiciaire 2000 - 2001,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
-activites du planning familial 6,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
+activites du planning familial 6,2,288,288,0,extracted
 activites du planning familial selon les differentes methodes par gouvernorat,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 activité de la cour de cassation par 2,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 activité de la cour de cassation par matière au cours de,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
@@ -256,7 +256,7 @@ dépenses du titre ii par chapitre 271 ( ) 10,0,0,0,0,"not extracted (shape not 
 effectif des etudiants 20,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 effectif des of cines et des médecins 3,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 effectif des officines et des medecins 3,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
-effectif des officines et des medecins par gouvernorat,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
+effectif des officines et des medecins par gouvernorat,1,78,78,0,extracted
 effectif des officines et des médecins 3,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 effectif des officines et des médecins par gouvernorat 3,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 effectif des officines et des médecins par gouvernorat 91 3,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
@@ -314,16 +314,16 @@ equilibre ressources et emplois des biens et services : :,0,0,0,0,"not extracted
 equilibre ressources et emplois des biens et services : valeurs aux prix,1,70,70,0,extracted
 equilibre ressources et emplois des biens et services valeurs aux prix,1,70,70,0,extracted
 estimation de la population,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
-estimation de la population 4,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
-estimation de la population par,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
+estimation de la population 4,11,3159,3159,0,extracted
+estimation de la population par,11,6336,2331,837,extracted with conflicts
 estimation de la population par 2,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 estimation de la population par 4,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 estimation de la population par gouvernorat 26 5,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 estimation de la population par gouvernorat au 1er juillet 5.1,5,800,288,0,extracted
-estimation de la population par groupe d age genre et 2,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
+estimation de la population par groupe d age genre et 2,5,1440,1440,0,extracted
 estimation de la population par groupe d age genre et 3,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
-estimation de la population par groupe d age genre et 4,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
-estimation de la population par groupe d age genre et gouvernorat 3.1,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
+estimation de la population par groupe d age genre et 4,5,1440,1440,0,extracted
+estimation de la population par groupe d age genre et gouvernorat 3.1,5,1440,1440,0,extracted
 "estimation de la population par groupe d age, genre et gouvernorat au 1.7.2001",0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 "estimation de la population par groupe d âge, genre et gouvernorat 2",0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 evolu tion mensuelle de l indice des prix de vente industriels ( suite et fin ),0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
@@ -849,7 +849,7 @@ indice de la production industrielle (suite et fin) ) ( 1,5,420,168,0,extracted
 indice de la production industrielle 1,5,416,167,0,extracted
 indice de la production industrielle 137,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 indice general des prix 6,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
-indice general des prix a la consommation familiale par mois et par groupe,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
+indice general des prix a la consommation familiale par mois et par groupe,1,104,104,0,extracted
 indice général des prix à la consommation 5,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 indice général des prix à la consommation 6,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 indice général des prix à la consommation familiale 5,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
@@ -925,8 +925,8 @@ mandats 3,11,110,32,0,extracted
 mandats régime général 202 3,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 mariage pour la 1ère fois selon le groupe 22,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 mariage pour la 1ère fois selon le groupe 23.1,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
-mariage selon le groupe d age de l epouse 20,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
-mariage selon le groupe d age de l epoux 19,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
+mariage selon le groupe d age de l epouse 20,5,1600,1600,0,extracted
+mariage selon le groupe d age de l epoux 19,3,1056,1056,0,extracted
 mariage selon le groupe d âge de l épouse 16,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 mariage selon le groupe d âge de l épouse 20,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 mariage selon le groupe d âge de l épouse 21,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
@@ -993,11 +993,11 @@ naissances par mois et par annee,0,0,0,0,"not extracted (shape not year-columns,
 naissances par mois et par annee ( mois de naissance ),0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 naissances par mois et par année 5,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 naissances par mois et par année 6,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
-naissances selon le groupe d âge 7,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
-naissances selon le groupe d âge 8,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
-naissances selon le groupe d âge 9,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
-naissances selon le groupe d âge de la mère 7.1,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
-naissances selon le groupe d âge de la mère et le gouver- 7.1,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
+naissances selon le groupe d âge 7,5,1431,1431,0,extracted
+naissances selon le groupe d âge 8,2,576,576,0,extracted
+naissances selon le groupe d âge 9,4,1152,1152,0,extracted
+naissances selon le groupe d âge de la mère 7.1,1,279,279,0,extracted
+naissances selon le groupe d âge de la mère et le gouver- 7.1,4,1116,1116,0,extracted
 naissances selon le lieu d accouchement 10,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 naissances selon le lieu d accouchement 11,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 naissances selon le lieu d accouchement 12,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
@@ -1341,8 +1341,8 @@ rejets d eaux usées en termes de volume 17,11,210,68,10,extracted with conflict
 rejets d eaux usées en termes de volume 304 17,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 rejets d eaux usées en termes de volume 306 17,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 renseignements generaux du 1er cycle de l enseignement de base,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
-repartition de la flotille active 15,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
-repartition de la flotille active 15.7,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
+repartition de la flotille active 15,3,45,45,0,extracted
+repartition de la flotille active 15.7,2,30,30,0,extracted
 repartition de la flotille active par type d embarcation et delegation,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 repartition de la superficie 19,2,20,12,0,extracted
 repartition de la superficie par categories d utilisation des sols,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
@@ -1353,10 +1353,10 @@ repartition des admis au baccalaureat 18,0,0,0,0,"not extracted (shape not year-
 repartition des admis au baccalaureat par gouvernorat juin 2001,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 repartition des beneficiaires de l information 6,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 repartition des etudiants ( ) 19,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
-repartition des etudiants 19,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
+repartition des etudiants 19,2,120,120,0,extracted
 repartition des etudiants par secteur et par genre,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
-repartition des eudiants par ministere 20,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
-repartition des eudiants par ministere 21,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
+repartition des eudiants par ministere 20,2,56,56,0,extracted
+repartition des eudiants par ministere 21,3,92,92,0,extracted
 repartition du cheptel,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 repartition du cheptel 4,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 repartition du nombre,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
@@ -1383,11 +1383,11 @@ ressources et emplois des biens et services aux prix courants 1,5,250,83,7,extra
 resultats des examens du 1er et du 2ème cycle 17,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 resultats des examens du 2 cycle de l enseignement de base et de l enseignement,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 revenu national 7,10,480,137,7,extracted with conflicts
-répartition de la flotille active 15,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
-répartition de la flotille active par type d embarcation et gouver- 15,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
+répartition de la flotille active 15,5,84,84,0,extracted
+répartition de la flotille active par type d embarcation et gouver- 15,3,63,39,0,extracted
 répartition de la flottille active par type 15,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 répartition de la flottille active par type d embarcation et 123 15,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
-répartition de la otille active 15,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
+répartition de la otille active 15,3,54,54,0,extracted
 répartition de la ottille active par type 15,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 répartition de la super cie 19,2,20,12,0,extracted
 répartition de la super cie par catégories d utilisation,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
@@ -1523,13 +1523,13 @@ taux de chômage selon le niveau éducatif (%) 109 )%( 3,0,0,0,0,"not extracted 
 taux de chômage selon le sexe (%) (mois de mai) )) ( %( 2,5,75,27,0,extracted
 taux de chômage selon le sexe (%) )%( 2,5,75,27,0,extracted
 taux de chômage selon le sexe (%) 109 )%( 2,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
-taux de fecondite1 selon le groupe d age ( 1) 9,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
-taux de fécondite1 selon le groupe d âge ( 1) 10,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
-taux de fécondite1 selon le groupe d âge ( 1) 9,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
-taux de fécondite1 selon le groupe d âge ) 1( 10,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
-taux de fécondite1 selon le groupe d âge ) 1( 8,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
-taux de fécondite1 selon le groupe d âge de la mère isf2 )3(,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
-taux de fécondite1 selon le groupe d âge de la mère isf2 . . ) 2( . . ) 1( 8,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
+taux de fecondite1 selon le groupe d age ( 1) 9,5,1404,1404,0,extracted
+taux de fécondite1 selon le groupe d âge ( 1) 10,1,288,288,0,extracted
+taux de fécondite1 selon le groupe d âge ( 1) 9,2,576,576,0,extracted
+taux de fécondite1 selon le groupe d âge ) 1( 10,3,864,864,0,extracted
+taux de fécondite1 selon le groupe d âge ) 1( 8,5,1440,1440,0,extracted
+taux de fécondite1 selon le groupe d âge de la mère isf2 )3(,1,279,279,0,extracted
+taux de fécondite1 selon le groupe d âge de la mère isf2 . . ) 2( . . ) 1( 8,4,1116,1116,0,extracted
 taux de fécondité selon groupe d âge de la mère isf et tgf 29 . . . . 8,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 taux de fécondité selon groupe d âge de la mère isf et tgf 31 . . . . 10,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
 taux de fécondité selon groupe d âge de la mère isf et tgf 38 . . . . 9,0,0,0,0,"not extracted (shape not year-columns, or rows refused)"
