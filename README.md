@@ -149,8 +149,11 @@ Built into `data/processed/` as CSV and Parquet, each with a codebook in
 | `tn_cpi_by_division` | 39 | Price index by COICOP function 2021–2023, base 2015 = 100, with INS weights. |
 | `tn_unemployment_annual` | 104 | Unemployment by education level and by sex, 2011–2023. |
 | `tn_yearbook_tables` | 8,391 | Every numbered table heading in all 22 yearbooks, with edition and page. |
-| `tn_yearbook_series` | 178,021 | Values from the yearbooks' tables, reconciled across editions. |
+| `tn_yearbook_series` | 185,502 | Values from the yearbooks' tables, reconciled across editions. |
 | `tn_yearbook_coverage` | 1,637 | What was extracted, what was refused, and why. |
+| `tn_expenditure_by_product_region` | 12,832 | Expenditure per person by product and region, four survey waves. |
+| `tn_spatial_gini_by_product` | 1,604 | Gini across regions of spending on each good, by wave. |
+| `tn_regional_products_refused` | 2 | Product rows whose printed national value contradicts their own regions. |
 
 All labels are translated to English; every codebook keeps the original French and Arabic
 alongside, code by code.
@@ -286,12 +289,14 @@ which is exactly the kind of error that survives casual checking.
 version of each. Six trace its evolution from 1985 to 2021; six look inside the groups the
 first six average over; four compare the two waves before January 2011 with the two after;
 three come from the statistical yearbooks and cover prices and unemployment annually; and
-seven use the health, education and labour modules and the product-level file; and four
-ask whether the revolution's effect can be identified at all from the yearbooks'
-governorate panel, and show that it cannot. **None of them uses a composite index of
-inequality** — no Gini, no Theil, no Atkinson. Every figure shows an observed quantity or
-the relation between two observed quantities, so any number in them can be recovered from
-the datasets by hand. `make figures` redraws them.
+seven use the health, education and labour modules and the product-level file; eight ask
+whether the revolution's effect can be identified at all, four from the yearbooks'
+governorate panel and four by regression discontinuity in time; and three measure how
+unevenly each consumption good is spread across the regions. **Only those last three use a
+composite index of inequality** — elsewhere there is no Gini, no Theil, no Atkinson, and
+every figure shows an observed quantity or the relation between two observed quantities,
+so any number in them can be recovered from the datasets by hand. `make figures` redraws
+them.
 
 Two caveats the figures carry in their own text rather than in a footnote. Figures 13–16
 are descriptive before-and-after comparisons, not causal estimates: the 2010–2021 window

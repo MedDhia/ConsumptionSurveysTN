@@ -30,6 +30,7 @@ from . import (
     build_labour,
     build_panel,
     build_prices,
+    build_regional_products,
     build_yearbook,
     codebook,
     download,
@@ -154,6 +155,48 @@ INTROS = {
         "**Table numbers are not stable across editions.** 2010's 6.1.1 is 2023's 6.1.5. "
         "Match on the title, never on the number."
     ),
+    "tn_expenditure_by_product_region": (
+        "Mean annual expenditure per person on each product, by grande region, for the "
+        "2005, 2010, 2015 and 2021 waves. Values are millimes per person per year, as "
+        "printed.\n\n"
+        "**Read from four different documents.** 2021 comes from the spreadsheet annex, "
+        "which names its columns in French. The other three exist only as "
+        "Arabic-language PDFs whose tables run right to left, and `pdftotext` reorders "
+        "the header words badly enough that they cannot be used to say which column is "
+        "which region.\n\n"
+        "**So the columns are identified, not assumed.** Each table ends with a "
+        "grand-total row, and each wave's regional means are published elsewhere; "
+        "matching the two names every column. This is done per wave because the printed "
+        "order is not stable \u2014 2005 puts Centre East before Centre West and the later "
+        "waves reverse them.\n\n"
+        "**Every row is checked against itself.** The national column must equal the "
+        "population-weighted mean of the seven regional columns. The weights are "
+        "recovered by least squares from the table, and land on the true regional "
+        "population shares to three decimals, which is a check on the column mapping as "
+        "much as on the arithmetic. Rows that fail are in "
+        "`tn_regional_products_refused`, not here."
+    ),
+    "tn_spatial_gini_by_product": (
+        "The Gini coefficient across the seven regions of per-capita spending on each "
+        "product, one row per product per wave.\n\n"
+        "**This is a between-region measure, not a between-household one.** It is zero "
+        "when every region spends the same per head on a good and rises as spending "
+        "concentrates in some regions. It says nothing about inequality between "
+        "households inside a region, which is a different and larger quantity.\n\n"
+        "**Regions are weighted by population**, using shares recovered from the source "
+        "table itself, so a small region cannot move the measure as much as a large one."
+        "\n\n"
+        "111 products appear in all four waves; use `wave` counts before treating any "
+        "product as a series. Product names are matched across waves on the Arabic "
+        "label, which is the only one all four documents print; `product_fr` is filled "
+        "from the 2021 annex where the same Arabic label appears there."
+    ),
+    "tn_regional_products_refused": (
+        "Rows read out of the product-by-region tables whose printed national value "
+        "contradicts their own regional columns, with the value those columns imply.\n\n"
+        "Published so that the coverage claim can be audited rather than taken on "
+        "trust. Two rows out of 1,606 fail."
+    ),
     "tn_yearbook_series": (
         "Values extracted from the yearbooks' tables: one row per table \u00d7 row label "
         "\u00d7 column \u00d7 year, across all 22 editions.\n\n"
@@ -219,6 +262,12 @@ TITLES = {
     "tn_cpi_by_division": "Consumer price index by COICOP function, 2021–2023",
     "tn_unemployment_annual": "Unemployment by education and sex, 2011–2023",
     "tn_yearbook_tables": "Statistical yearbook table catalogue, 2001–2023",
+    "tn_expenditure_by_product_region":
+        "Expenditure per person by product and region, four survey waves",
+    "tn_spatial_gini_by_product":
+        "Spatial Gini across regions, by consumption good and wave",
+    "tn_regional_products_refused":
+        "Product rows refused by the national-versus-regions check",
     "tn_yearbook_series": "Statistical yearbook series, cross-checked across editions",
     "tn_yearbook_coverage": "Statistical yearbook extraction coverage",
 }
@@ -264,6 +313,10 @@ def build_all() -> dict[str, pd.DataFrame]:
     datasets["tn_yearbook_tables"] = tables
     datasets["tn_yearbook_series"] = series
     datasets["tn_yearbook_coverage"] = coverage
+    regional, spatial_gini, refused = build_regional_products.build()
+    datasets["tn_expenditure_by_product_region"] = regional
+    datasets["tn_spatial_gini_by_product"] = spatial_gini
+    datasets["tn_regional_products_refused"] = refused
     for name, df in datasets.items():
         _write(name, df)
     return datasets

@@ -1,11 +1,19 @@
 """Figures on the evolution of inequality in Tunisia, 1985-2021.
 
-**No composite index appears anywhere in this directory.** No Gini, no Theil, no
-Atkinson, no polarisation index. Every figure shows either an observed quantity (a
-group's mean expenditure, a poverty rate, a budget share) or the relation between two
-observed quantities (one region's mean against the national mean, a region's share of
-spending against its share of people). A reader can recover any number here from the
-underlying dataset with arithmetic they can do in their head.
+**Composite indices appear in exactly one place, figures 35 to 37.** Everywhere else
+there is no Gini, no Theil, no Atkinson and no polarisation index: every figure shows
+either an observed quantity (a group's mean expenditure, a poverty rate, a budget share)
+or the relation between two observed quantities (one region's mean against the national
+mean, a region's share of spending against its share of people). A reader can recover
+any number in those figures from the underlying dataset with arithmetic they can do in
+their head.
+
+The exception is deliberate and narrow. Figures 35 to 37 ask which *goods* are consumed
+unequally across regions, and that question needs the seven regional means for a good
+reduced to one number before goods can be ranked against each other. What is compressed
+there is seven observed values, all of them published in
+`tn_expenditure_by_product_region`, and the measure compares regions rather than
+households.
 
 That is a deliberate constraint, and it costs something: a single index compresses a
 distribution into one comparable number, which these figures cannot do. What they give
@@ -1783,6 +1791,207 @@ def fig_rdit_floor(t: dict):
     return fig
 
 
+# --- Spatial inequality by consumption good -------------------------------------------
+#
+# These three are the exception to the rule stated at the top of this file, and the
+# exception was asked for. A spatial Gini is a composite index; what it compresses is
+# the seven regional means for one good into one number, which is what makes goods
+# comparable to each other at all. Every input is still an observed quantity, and
+# `tn_expenditure_by_product_region` publishes all of them.
+
+WAVES = [2005, 2010, 2015, 2021]
+REVOLUTION_INTERVAL = (2010, 2015)
+
+
+def spatial_gini_table() -> pd.DataFrame:
+    return read("tn_spatial_gini_by_product")
+
+
+def balanced_goods() -> pd.DataFrame:
+    """Goods priced in all four waves, wide on wave. The only ones that form a series."""
+    table = spatial_gini_table()
+    counts = table.groupby("product_ar").wave.nunique()
+    full = counts[counts == len(WAVES)].index
+    wide = (table[table.product_ar.isin(full)]
+            .pivot_table(index="product_ar", columns="wave", values="spatial_gini"))
+    spend = (table[(table.wave == 2021) & table.product_ar.isin(full)]
+             .set_index("product_ar").expenditure_pc_national)
+    names = (table.dropna(subset=["product_fr"]).drop_duplicates("product_ar")
+             .set_index("product_ar").product_fr)
+    wide["spend_2021"] = spend
+    wide["label"] = names.reindex(wide.index)
+    return wide.dropna(subset=[*WAVES])
+
+
+def _tidy(label: str) -> str:
+    """Source names are shouted; sentence case reads better under a chart."""
+    text = str(label).strip()
+    # Some names shout only up to a parenthesis: "FRAIS DE CONSULTATION (servicex...)".
+    head, sep, tail = text.partition("(")
+    letters = [c for c in head if c.isalpha()]
+    if letters and all(c.isupper() for c in letters):
+        head = head[:1].upper() + head[1:].lower()
+    return (head + sep + tail).strip()
+
+
+def fig_gini_by_good(t: dict):
+    """Which goods are consumed unequally across regions, and which are not."""
+    table = spatial_gini_table()
+    latest = table[(table.wave == 2021) & table.product_fr.notna()].copy()
+    latest = latest[latest.expenditure_pc_national >= 20]
+    ranked = latest.sort_values("spatial_gini")
+    picks = pd.concat([ranked.head(9), ranked.tail(9)])
+    labels = [textwrap.shorten(_tidy(n), 44, placeholder="…") for n in picks.product_fr]
+
+    fig, ax = plt.subplots(figsize=(9.6, 7.0))
+    fig.subplots_adjust(top=0.80, bottom=0.25, left=0.40, right=0.97)
+    y = np.arange(len(picks))
+    colours = [t["s1"]] * 9 + [t["s2"]] * 9
+    ax.grid(axis="y", visible=False)
+    ax.hlines(y, 0, picks.spatial_gini, color=t["axis"], lw=1.4, zorder=1)
+    ax.scatter(picks.spatial_gini, y, s=64, color=colours, zorder=3, linewidths=0)
+    ax.set_yticks(y, labels, color=t["ink2"], fontsize=8.5)
+    ax.set_xlabel("spatial Gini across the seven regions, 2021")
+    ax.set_xlim(0, max(picks.spatial_gini) * 1.12)
+    ax.axhline(8.5, color=t["muted"], lw=0.9, ls=(0, (3, 3)), zorder=0)
+
+    finish(fig, t,
+           "Medicine is bought everywhere; building a house is not",
+           "Of 133 goods in 2021: the nine most regionally concentrated (top) and the "
+           "nine most evenly spread (bottom).",
+           "Gini across the seven grandes regions of mean spending per person on each "
+           "good, regions weighted by population, from the 2021 survey's product-by-"
+           "region annex. Restricted to goods above 20 dinars per person per year. A "
+           "value of zero would mean every region spends the same per head. The goods at "
+           "the bottom are the ones a household buys wherever it lives — medicines, "
+           "consultations, milk, bus fares; those at the top are either regionally "
+           "produced, urban, or bought only by people with money to spare. This measure "
+           "compares regions, not households, and says nothing about inequality within a "
+           "region.")
+    return fig
+
+
+def fig_gini_series(t: dict):
+    """The series the four waves support, and the interval that contains the revolution."""
+    wide = balanced_goods()
+    fig, axes = plt.subplots(1, 2, figsize=(10.6, 5.2),
+                             gridspec_kw={"width_ratios": [1.15, 1]})
+    fig.subplots_adjust(top=0.70, bottom=0.24, left=0.075, right=0.98, wspace=0.26)
+
+    # Left: every good's trajectory, with the median drawn over them.
+    ax = axes[0]
+    for _, row in wide.iterrows():
+        ax.plot(WAVES, [row[w] for w in WAVES], color=t["muted"], lw=0.7, alpha=0.28,
+                zorder=1)
+    median = [wide[w].median() for w in WAVES]
+    ax.plot(WAVES, median, color=t["s1"], lw=2.8, zorder=3, marker="o", markersize=6)
+    ax.axvspan(*REVOLUTION_INTERVAL, color=t["s2"], alpha=0.13, zorder=0, linewidth=0)
+    ax.text(np.mean(REVOLUTION_INTERVAL), 0.965, "interval containing\nthe revolution",
+            transform=ax.get_xaxis_transform(), ha="center", va="top", fontsize=8.5,
+            color=t["ink2"], linespacing=1.3)
+    ax.set_xticks(WAVES)
+    ax.set_ylim(0, 0.72)
+    ax.set_ylabel("spatial Gini")
+    ax.set_title(f"{len(wide)} goods priced in all four waves",
+                 color=t["ink2"], loc="left", fontsize=10)
+
+    # Right: the change over each five-year interval, as a distribution across goods.
+    ax = axes[1]
+    intervals = [(2005, 2010), (2010, 2015), (2015, 2021)]
+    changes = [wide[b] - wide[a] for a, b in intervals]
+    positions = np.arange(len(intervals))
+    parts = ax.violinplot(changes, positions=positions, widths=0.75, showextrema=False)
+    for i, body in enumerate(parts["bodies"]):
+        body.set_facecolor(t["s2"] if intervals[i] == REVOLUTION_INTERVAL else t["s1"])
+        body.set_alpha(0.5 if intervals[i] == REVOLUTION_INTERVAL else 0.28)
+        body.set_linewidth(0)
+    for i, change in enumerate(changes):
+        ax.scatter([i], [change.median()], s=52, color=t["ink"], zorder=4)
+    ax.axhline(0, color=t["axis"], lw=1.1, zorder=1)
+    ax.set_xticks(positions, [f"{a}–{b}" for a, b in intervals], color=t["ink2"])
+    ax.set_ylabel("change in spatial Gini")
+    ax.grid(axis="x", visible=False)
+    ax.set_title("change over each five-year interval", color=t["ink2"], loc="left",
+                 fontsize=10)
+
+    fell = (wide[2015] - wide[2010] < 0).mean()
+    finish(fig, t,
+           "The only interval in which regional gaps closed contains the revolution",
+           "Spatial Gini per good, four survey waves. Dots mark the median across goods.",
+           f"{len(wide)} goods appear in all four waves. Over 2010–2015 the spatial "
+           f"Gini fell for {fell:.0%} of them, median change "
+           f"{(wide[2015] - wide[2010]).median():+.3f}, against "
+           f"{(wide[2010] - wide[2005]).median():+.3f} over 2005–2010 and "
+           f"{(wide[2021] - wide[2015]).median():+.3f} over 2015–2021. It is the only "
+           "one of the three intervals in which regional gaps closed — but with three "
+           "intervals, one of them is the odd one out by construction, and this one also "
+           "contains the 2011 wage settlements, the public-hiring expansion and the "
+           "collapse in tourism. Figure 37 is about why none of that can be attributed.")
+    return fig
+
+
+def fig_gini_rdd(t: dict):
+    """Why a quinquennial survey cannot support a discontinuity design."""
+    from math import comb
+
+    wide = balanced_goods()
+    fig, axes = plt.subplots(1, 2, figsize=(10.6, 5.2))
+    fig.subplots_adjust(top=0.70, bottom=0.26, left=0.075, right=0.98, wspace=0.26)
+
+    # Left: where the observations sit relative to the cutoff.
+    ax = axes[0]
+    median = np.array([wide[w].median() for w in WAVES])
+    ax.axvspan(2010, 2015, color=t["muted"], alpha=0.16, zorder=0, linewidth=0)
+    ax.scatter(WAVES, median, s=90, color=t["s1"], zorder=3)
+    ax.axvline(2011, color=t["ink2"], lw=1.3, ls=(0, (5, 4)), zorder=2)
+    for wave, value in zip(WAVES, median, strict=True):
+        ax.annotate(str(wave), xy=(wave, value), xytext=(0, 12),
+                    textcoords="offset points", ha="center", fontsize=9, color=t["ink2"])
+    ax.annotate("one year before, four years after:\nno neighbourhood to take a limit over",
+                xy=(2012.5, median.min()), xytext=(2012.5, median.min() - 0.017),
+                ha="center", va="top", fontsize=9, color=t["ink2"], linespacing=1.35)
+    ax.set_xlim(2002, 2024)
+    ax.set_xticks([2005, 2010, 2015, 2021])
+    ax.set_ylim(median.min() - 0.034, median.max() + 0.022)
+    ax.set_ylabel("median spatial Gini across goods")
+    ax.set_title("Four observations, and the cutoff between two of them",
+                 color=t["ink2"], loc="left", fontsize=9.5)
+
+    # Right: the p-value floor, against the same measure for the monthly series.
+    ax = axes[1]
+    labels = ["annual\nregional panel\n(21 periods)", "EBCNV waves\n(4 periods)",
+              "monthly trade\n(±6 months)"]
+    floors = [1 / comb(7, 4), 1 / comb(4, 2), 1 / comb(13, 7)]
+    colours = [t["s1"], t["s2"], t["s1"]]
+    bars = ax.bar(np.arange(3), floors, color=colours, width=0.6, zorder=3)
+    bars[1].set_alpha(1.0)
+    ax.axhline(0.05, color=t["ink2"], lw=1.2, ls=(0, (2, 3)), zorder=4)
+    ax.annotate("p = 0.05", xy=(2.42, 0.05), xytext=(0, 6), textcoords="offset points",
+                ha="right", fontsize=9, color=t["ink2"])
+    ax.set_yscale("log")
+    ax.get_yaxis().set_minor_locator(mpl.ticker.NullLocator())
+    ax.set_xticks(np.arange(3), labels, color=t["ink2"], fontsize=8.5)
+    ax.set_ylabel("smallest attainable p-value")
+    ax.grid(axis="x", visible=False)
+    ax.set_title("What each design could return at best", color=t["ink2"], loc="left",
+                 fontsize=9.5)
+
+    finish(fig, t,
+           "Four five-yearly observations cannot locate a discontinuity in 2011",
+           "The same estimator that works on monthly trade refuses this series at every bandwidth.",
+           "Regression discontinuity estimates a limit as the running variable "
+           "approaches the cutoff. The surveys ran in 2005, 2010, 2015 and 2021, so the "
+           "nearest observation before January 2011 is a year before it and the nearest "
+           "after is four years after, with nothing in between: there is no neighbourhood "
+           "to take a limit over, and the local linear estimator refuses every bandwidth "
+           f"for want of degrees of freedom. Permutation inference gives the same verdict "
+           f"in advance — four periods split two and two admit {comb(4, 2)} arrangements, "
+           f"so the smallest two-sided p-value obtainable is {1 / comb(4, 2):.2f}, whatever "
+           "any good's series turns out to look like. This is a limit of how often "
+           "Tunisia fields the survey, not of the estimator.")
+    return fig
+
+
 BUILDERS = [
     ("01-expenditure-by-quintile", fig_quintiles, True),
     ("02-regional-gap", fig_regional_gap, True),
@@ -1818,6 +2027,9 @@ BUILDERS = [
     ("32-rdit-placebo-cutoffs", fig_rdit_placebo, False),
     ("33-honest-vs-conventional", fig_rdit_honest, False),
     ("34-randomisation-floor", fig_rdit_floor, False),
+    ("35-spatial-gini-by-good", fig_gini_by_good, False),
+    ("36-spatial-gini-series", fig_gini_series, False),
+    ("37-why-rdd-fails-on-waves", fig_gini_rdd, False),
 ]
 
 

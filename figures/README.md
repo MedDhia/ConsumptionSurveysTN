@@ -1,13 +1,19 @@
 # The evolution of inequality in Tunisia, 1985–2021
 
-Thirty figures built from `data/processed`. Regenerate with `make figures`.
+Thirty-seven figures built from `data/processed`. Regenerate with `make figures`.
 
-**No composite index appears in any of them.** No Gini, no Theil, no Atkinson, no
-polarisation index. Every figure shows either an observed quantity — a group's mean
-expenditure, a poverty rate, a budget share — or the relation between two observed
-quantities, such as one region's mean against the national mean, or a region's share of
-spending against its share of people. Any number here can be recovered from the datasets
-with arithmetic you can do in your head.
+**No composite index appears in any of them except figures 35–37.** No Gini, no Theil, no
+Atkinson, no polarisation index. Every other figure shows either an observed quantity — a
+group's mean expenditure, a poverty rate, a budget share — or the relation between two
+observed quantities, such as one region's mean against the national mean, or a region's
+share of spending against its share of people. Any number in them can be recovered from
+the datasets with arithmetic you can do in your head.
+
+The exception is narrow and was asked for. Figures 35–37 rank *goods* by how unevenly each
+is spread across the seven regions, which cannot be done without reducing seven regional
+means to one number per good. The seven values behind every one of them are published in
+`tn_expenditure_by_product_region`, and the measure compares regions rather than
+households.
 
 That constraint costs something. A single index compresses a whole distribution into one
 comparable number, and these figures cannot do that. What you get back is that nothing is
@@ -715,6 +721,82 @@ publication frequency of Tunisian regional statistics, not about the revolution.
 
 ---
 
+## Which goods are consumed unequally, and can 2011 be blamed?
+
+These three are the one place in this directory where a composite index appears. The
+question they ask — which *goods* are spread unevenly across the country — cannot be put
+without reducing seven regional means to a single number per good, because otherwise
+goods cannot be ranked against one another. What is compressed is seven observed values,
+every one of them published in `tn_expenditure_by_product_region`, and the measure
+compares regions rather than households. Everywhere else in this directory the rule
+still holds.
+
+The underlying table had never been read. Each survey volume prints mean expenditure per
+person on every product broken down by the seven grandes regions; 2021 as a spreadsheet
+annex, and 2005, 2010 and 2015 only as Arabic-language PDFs. Reading them yields 12,832
+product-region-wave observations and 1,604 spatial Ginis across four waves, of which 111
+goods appear in all four.
+
+### 35. Medicine is bought everywhere; building a house is not
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="35-spatial-gini-by-good-dark.png">
+  <img alt="The nine most and nine least regionally concentrated consumption goods, 2021" src="35-spatial-gini-by-good-light.png">
+</picture>
+
+Across 133 goods above 20 dinars per person per year, the spatial Gini runs from **0.034
+to 0.487** — a fourteen-fold spread. What sits at each end is not random. The most evenly
+spread are the things a household buys wherever it lives: bottled drinks, industrial milk,
+pharmaceuticals, medical consultations, bus fares. The most concentrated are land for
+building, construction spending, actual paid rent, mineral water and bananas — goods that
+are either urban, regionally produced, or bought only where there is money to spare.
+
+The correlation between a good's spatial Gini and its national spend is **−0.34**: bigger
+budget items are more evenly spread, which is Engel's law showing up geographically.
+
+### 36. The only interval in which regional gaps closed contains the revolution
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="36-spatial-gini-series-dark.png">
+  <img alt="Spatial Gini per good across four survey waves, and the change over each interval" src="36-spatial-gini-series-light.png">
+</picture>
+
+For the 111 goods priced in all four waves, the spatial Gini fell over 2010–2015 for
+**62% of them**, median change **−0.016**. Over the two intervals either side it rose:
+**+0.005** for 2005–2010 and **+0.013** for 2015–2021.
+
+That is a real pattern and it is worth stating plainly, but it is not evidence about the
+revolution. There are three intervals, so one of them is the extreme by construction; the
+2010–2015 window also contains the 2011 wage settlements, the public-hiring expansion and
+the collapse in tourism; and the surveys bracket a five-year window rather than measuring
+anything at the cutoff.
+
+### 37. Four five-yearly observations cannot locate a discontinuity in 2011
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="37-why-rdd-fails-on-waves-dark.png">
+  <img alt="Why regression discontinuity cannot be applied to four quinquennial survey waves" src="37-why-rdd-fails-on-waves-light.png">
+</picture>
+
+Regression discontinuity estimates a limit as the running variable approaches the cutoff.
+The surveys ran in 2005, 2010, 2015 and 2021: the nearest observation before January 2011
+is **one year** before it and the nearest after is **four years** after, with nothing
+between. There is no neighbourhood to take a limit over, and the same local linear
+estimator that works on monthly trade in figure 31 **refuses every bandwidth here** for
+want of degrees of freedom.
+
+Permutation inference reaches the same verdict before any outcome is read. Four periods
+split two and two admit six arrangements, so the smallest attainable two-sided p-value is
+**0.17** — no good's series, however it moves, can be significant at five percent.
+
+This is the third time the same constraint has bound in this directory, and it is always
+the same constraint: not the estimator, but how often the statistic is published.
+Monthly trade identifies a discontinuity; the annual governorate panel cannot get close
+enough to the cutoff for an honest interval to exclude zero; and four quinquennial survey
+waves cannot support the design at all.
+
+---
+
 ## Colour
 
 The palette is the dataviz reference instance: blue `#2a78d6` and orange `#eb6834` on
@@ -733,6 +815,7 @@ Figure 8 comes from the 2020 poverty map. Figures 17 and 19 come from the INS st
 yearbooks, and figure 18 sets one of those against the panel. Figures 6, 7, 10, 11, 12 and
 20–26 are recomputed from the EBCNV 2021 microdata. Figures 27–30 come from the statistical yearbooks'
 governorate panel, and figures 31–34 from the same corpus's monthly trade table (14.1)
-alongside that panel. Every claim above is reproducible from `scripts/make_figures.py`, and
+alongside that panel. Figures 35–37 come from `tn_spatial_gini_by_product`, built by
+reading the product-by-region tables out of all four survey volumes. Every claim above is reproducible from `scripts/make_figures.py`, and
 the numbers quoted here were recomputed from the data before being written rather than
 read off the charts.
