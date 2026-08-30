@@ -60,6 +60,12 @@ NUMBER_OR_NIL = re.compile(NUMBER.pattern + r"|(?<=\s)-(?=\s|$)")
 # printed as "20186") deliberately does not match, so such headers are skipped.
 YEAR = re.compile(r"^(?:19|20)\d\d\*?$")
 
+# A school or judicial year, written by INS as a reversed two-digit range: "24-23" is
+# 2023/24. Age bands are written the same way -- "04-00", "44-40" -- so the notation
+# alone cannot tell them apart. The span does: a school year spans one year, an age band
+# spans four. Getting this wrong would date a table of age groups as a time series.
+SCHOOL_YEAR = re.compile(r"^(\d{2})-(\d{2})$")
+
 TABLE_NUMBER = re.compile(r"^(\d{1,2}(?:\.\d{1,2}){1,2})\s+(\S.*)$")
 
 # The reference year of a single-year table, printed either as its own header cell
@@ -168,6 +174,31 @@ def _year_header(line: str) -> list[int] | None:
     return [int(t.rstrip("*")) for t in tokens]
 
 
+def _school_year_header(line: str) -> list[tuple[str, int]] | None:
+    """Columns that are school or judicial years, with the calendar year each starts in.
+
+    These date themselves, so a table headed this way needs no year printed on the page
+    -- which is why so many of them were previously skipped.
+    """
+    tokens = line.split()
+    if tokens and not SCHOOL_YEAR.match(tokens[0]):
+        tokens = tokens[1:]
+    if tokens and not SCHOOL_YEAR.match(tokens[-1]):
+        tokens = tokens[:-1]
+    if len(tokens) < 2:
+        return None
+    out = []
+    for token in tokens:
+        match = SCHOOL_YEAR.match(token)
+        if match is None:
+            return None
+        end, start = int(match.group(1)), int(match.group(2))
+        if (end - start) % 100 != 1:
+            return None  # a span of four is an age band, not a year
+        out.append((token, 2000 + start if start <= 50 else 1900 + start))
+    return out
+
+
 def _category_header(line: str) -> list[str] | None:
     """A run of short column labels -- age bands, indicator codes -- rather than years.
 
@@ -188,6 +219,57 @@ def _category_header(line: str) -> list[str] | None:
     if coded * 2 < len(tokens):
         return None
     return tokens
+
+
+def _latin_only(text: str) -> str:
+    """Drop the Arabic rendering printed beside every French label.
+
+    Removing the Arabic strands its punctuation -- "Total abonnes aux reseaux ( (
+    telephoniques" -- so tokens left holding nothing but brackets go too.
+    """
+    stripped = re.sub(r"[\u0600-\u06ff]+", " ", text)
+    kept = [token for token in stripped.split() if re.search(r"[A-Za-zÀ-ÿ0-9]", token)]
+    return " ".join(kept).strip()
+
+
+def _inferred_label(lines: list[str], at: int) -> str | None:
+    """The label for a row printed as numbers alone, taken from the lines around it.
+
+    Two layouts, both common in chapters 2 and 12. The label sits on the line above its
+    numbers; or it wraps *around* them, with the remainder printed on the line below --
+    "Nombre d'abonnes au reseau de", the numbers, then "telephone fixe (en milliers)".
+
+    A continuation is recognised by starting lower-case, which is what distinguishes it
+    from the next row's own label. Nothing here is printed alongside its numbers, so the
+    rows it produces are marked `label_inferred` and a reader can leave them out.
+    """
+    above = None
+    for line in reversed(lines[max(0, at - 2):at]):
+        stripped = line.strip()
+        if not stripped:
+            continue
+        if NUMBER.search(stripped):
+            return None  # another row's numbers sit between: the pairing is ambiguous
+        above = stripped
+        break
+    if above is None:
+        return None
+    above = _latin_only(above)
+    if len(above) < 4 or not re.search(r"[A-Za-zÀ-ÿ]{3}", above):
+        return None
+
+    parts = [above]
+    for line in lines[at + 1:at + 4]:
+        stripped = line.strip()
+        if not stripped:
+            continue  # a blank line between the numbers and the rest of the label
+        if NUMBER.search(stripped):
+            break
+        if not _latin_only(stripped)[:1].islower():
+            break  # a new label, not the rest of this one
+        parts.append(stripped)
+    label = _latin_only(" ".join(parts)).strip(" .:-")
+    return label or None
 
 
 def _page_year(text: str) -> int | None:
@@ -238,21 +320,28 @@ def parse_page(edition: int, page_index: int, text: str) -> tuple[list[dict], li
 
     for i, line in enumerate(lines):
         years = _year_header(line.strip())
-        categories = None if years else _category_header(line.strip())
-        if years is None and categories is None:
+        school = None if years else _school_year_header(line.strip())
+        categories = None if (years or school) else _category_header(line.strip())
+        if years is None and school is None and categories is None:
             continue
-        if years is None and page_year is None:
+        if years is None and school is None and page_year is None:
             continue  # a classification table with no year on the page is undatable
         heading = _table_at(lines, i)
         if heading is None:
             continue
         number, title = heading
-        columns = [str(y) for y in years] if years else categories
+        if years:
+            columns, column_years = [str(y) for y in years], list(years)
+        elif school:
+            columns, column_years = [c for c, _ in school], [y for _, y in school]
+        else:
+            columns, column_years = categories, [page_year] * len(categories)
         width = len(columns)
 
         block: list[dict] = []
         block_refused: list[dict] = []
-        for body in lines[i + 1:]:
+        inferred_labels: set[str] = set()
+        for offset, body in enumerate(lines[i + 1:], i + 1):
             stripped = body.strip()
             if not stripped:
                 continue
@@ -266,8 +355,29 @@ def parse_page(edition: int, page_index: int, text: str) -> tuple[list[dict], li
                                           "reason": "unparsed characters among the numbers"})
                 continue
             label, values, provisional = parts
+            inferred = False
             if len(label) < 3 or not re.search(r"[A-Za-zÀ-ÿ]{3}", label):
-                continue
+                # No label beside the numbers. It may be printed above them, or wrapped
+                # around them -- recoverable, but weaker than a label read off the same
+                # line, so the rows it yields say so.
+                if label or len(values) != width:
+                    continue
+                candidate = _inferred_label(lines, offset)
+                if candidate is None:
+                    continue
+                # The same inferred label twice in one table means two different series
+                # were reduced to one name -- on page 43 the teacher counts of the first
+                # and second cycle, on page 195 fixed-line and mobile subscribers. There
+                # is no way to tell them apart afterwards, so both are dropped.
+                if candidate in inferred_labels:
+                    block_refused.append({
+                        "edition": edition, "table_number": number,
+                        "row_label": candidate[:80],
+                        "reason": "inferred label is not unique within the table",
+                    })
+                    continue
+                inferred_labels.add(candidate)
+                label, inferred = candidate, True
 
             reason = None
             if label[-1].isdigit():
@@ -289,11 +399,13 @@ def parse_page(edition: int, page_index: int, text: str) -> tuple[list[dict], li
                     "row_label": label,
                     "row_kind": kind,
                     "column_label": column,
-                    "year": int(column) if years else page_year,
+                    "year": column_year,
                     "value": value,
                     "provisional": provisional,
+                    "label_inferred": inferred,
                 }
-                for column, value in zip(columns, values, strict=True)
+                for column, column_year, value in zip(columns, column_years, values,
+                                                      strict=True)
             )
 
         # A year header is self-evidently a header. A run of short tokens is not, so a
@@ -406,8 +518,8 @@ def reconcile(series: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     clean = joined[joined.agreement != "conflict"].reset_index()
 
     columns = ["table_number", "table_title", "title_fr", "row_label", "row_kind",
-               "column_label", "year", "value", "provisional", "n_editions",
-               "agreement", "edition", "page"]
+               "column_label", "year", "value", "provisional", "label_inferred",
+               "n_editions", "agreement", "edition", "page"]
     clean = clean[columns].sort_values(["title_fr", "row_label", "year"])
     return clean.reset_index(drop=True), conflicts.reset_index(drop=True)
 
@@ -620,6 +732,7 @@ def parse_page_layout(edition: int, page_index: int, text: str) -> list[dict]:
                 "year": column_year if column_year is not None else year,
                 "value": value,
                 "provisional": False,
+                "label_inferred": False,
             }
             for column, column_year, value in zip(labels, years, values, strict=True)
         )

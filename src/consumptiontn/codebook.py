@@ -93,6 +93,10 @@ DERIVED: dict[str, str] = {
         "otherwise the classification category (an age band, an indicator code)."
     ),
     "provisional": "INS marked this figure provisional with an asterisk.",
+    "label_inferred": (
+        "The row label was read from a neighbouring line rather than printed beside the "
+        "numbers. Weaker evidence than the rest; filter these out if that matters."
+    ),
     "n_editions": "How many editions printed this cell. More than one means corroborated.",
     "agreement": (
         "`confirmed` (editions agree), `revised` (they differ slightly; newest used), "
