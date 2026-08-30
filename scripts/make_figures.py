@@ -1249,6 +1249,204 @@ def fig_where_bought(t: dict):
            "and 2.9% of rural against 0.4% of urban.")
     return fig
 
+# ------------------------------------------- can the revolution's effect be identified?
+#
+# These four ask whether the yearbook panel can support a causal claim about January
+# 2011, and answer no -- by running the tests rather than asserting the conclusion.
+#
+# The obstacle is structural. The revolution treated all 24 governorates at the same
+# instant, so there is no untreated unit inside Tunisia and no donor pool here to build
+# a synthetic one from. That leaves an interrupted time series, whose counterfactual is
+# an extrapolated pre-trend, or a difference-in-differences on differential exposure,
+# which needs parallel pre-trends. Figures 28 and 29 test exactly those two things.
+
+GOVERNORATES = [
+    "Tunis", "Ariana", "Ben Arous", "Manouba", "Nabeul", "Zaghouan", "Bizerte", "Béja",
+    "Jendouba", "Le Kef", "Siliana", "Sousse", "Monastir", "Mahdia", "Sfax", "Kairouan",
+    "Kasserine", "Sidi Bouzid", "Gabès", "Medenine", "Tataouine", "Gafsa", "Tozeur",
+    "Kébili",
+]
+
+# INS's own western regions: Nord-Ouest, Centre-Ouest, Sud-Ouest. Used as the
+# differential-exposure split in figure 29 -- the interior is where the revolution began
+# and where the grievance was concentrated.
+INTERIOR = {"Béja", "Jendouba", "Le Kef", "Siliana", "Kairouan", "Kasserine",
+            "Sidi Bouzid", "Gafsa", "Tozeur", "Kébili"}
+
+
+def pupils_per_teacher() -> pd.DataFrame:
+    """Governorate x year panel, 1998-2018. Rows are governorates, columns years.
+
+    Pupils per teacher in the first cycle of basic education: a provision ratio that
+    needs no population denominator, since both halves come from the same chapter and
+    the same years. 23 governorates (Medenine is absent from the staff table) over 21
+    years, 481 of 483 cells present.
+    """
+    series = read("tn_yearbook_series")
+
+    def block(title: str) -> pd.DataFrame:
+        rows = series[series.title_fr.eq(title) & series.row_label.isin(GOVERNORATES)]
+        return rows.groupby(["row_label", "year"]).value.first().unstack()
+
+    return (block("population scolaire totale du 1er cycle 8")
+            / block("personnel enseignant par gouvernorat")).dropna(how="all")
+
+
+def _segmented(years, values, break_year):
+    """Level shift at ``break_year`` from a segmented regression -- the ITS estimate."""
+    post = (years >= break_year).astype(float)
+    design = np.column_stack([np.ones_like(years, dtype=float), years - break_year,
+                              post, (years - break_year) * post])
+    return np.linalg.lstsq(design, values, rcond=None)[0][2]
+
+
+def fig_counterfactual(t: dict):
+    """The ITS answer depends entirely on which pre-trend you extrapolate."""
+    panel = pupils_per_teacher()
+    national = panel.mean()
+    years = np.array(sorted(national.index))
+    pre = years[years <= 2010]
+
+    # The last two land within 0.8 of each other at 2018, so the label offsets are
+    # explicit rather than uniform.
+    models = [("Linear, 1998-2010", pre, 1, 0), ("Quadratic, 1998-2010", pre, 2, -16),
+              ("Linear, 2006-2010", pre[pre >= 2006], 1, 14)]
+    future = years[years >= 2010].astype(float)
+
+    fig, ax = plt.subplots(figsize=(9.4, 5.2))
+    mark_revolution(ax, t)
+    for label, window, degree, lift in models:
+        fitted = np.polyval(np.polyfit(window.astype(float), national[window].to_numpy(),
+                                       degree), future)
+        ax.plot(future, fitted, color=t["muted"], lw=1.4, ls=(0, (5, 4)), zorder=2)
+        ax.annotate(f"{label}\n\"effect\" {national[2018] - fitted[-1]:+.1f}",
+                    (2018, fitted[-1]), xytext=(6, lift), textcoords="offset points",
+                    va="center", fontsize=8, color=t["muted"])
+    ax.plot(years, national.to_numpy(), color=t["s1"], zorder=3)
+    ax.annotate("observed", (2016, national[2016]), xytext=(-4, 12),
+                textcoords="offset points", ha="right", fontsize=9, color=t["s1"])
+    ax.set_ylabel("pupils per teacher", color=t["ink2"], fontsize=9)
+    ax.set_xlim(1997, 2026)
+    ax.set_ylim(9, 26)
+    fig.subplots_adjust(left=0.08, right=0.78, top=0.79, bottom=0.17)
+    finish(fig, t,
+           "The counterfactual is an assumption, and it decides the answer",
+           "Pupils per teacher, first cycle, 23 governorates averaged, 1998-2018",
+           "INS yearbooks, tables 2.1.5 and 2.1.8. An interrupted time series compares "
+           "what happened against a pre-trend carried forward, so the estimate is only "
+           "as good as that extrapolation. Three defensible choices give effects from "
+           "+2.6 to +6.9 pupils per teacher -- a factor of 2.7 -- and nothing in the "
+           "data adjudicates between them. Read this as a demonstration that the design "
+           "is unidentified, not as an estimate.")
+    return fig
+
+
+def fig_placebo_breaks(t: dict):
+    """If 2011 is not special, the break cannot be attributed to it."""
+    panel = pupils_per_teacher()
+    national = panel.mean()
+    years = np.array(sorted(national.index))
+    values = national[years].to_numpy()
+    candidates = np.arange(2003, 2016)
+    steps = [_segmented(years, values, int(b)) for b in candidates]
+
+    fig, ax = plt.subplots(figsize=(9.4, 5.0))
+    ax.axhline(0, color=t["axis"], lw=1.4, zorder=1)
+    colours = [t["s2"] if b == REVOLUTION else t["s1"] for b in candidates]
+    ax.bar(candidates, steps, color=colours, width=0.62, zorder=2)
+    revolution = steps[list(candidates).index(REVOLUTION)]
+    ax.annotate(f"2011\n{revolution:+.2f}", (REVOLUTION, revolution), xytext=(0, 8),
+                textcoords="offset points", ha="center", fontsize=9, color=t["s2"])
+    peak = int(candidates[int(np.argmax(steps))])
+    ax.annotate(f"largest step is {peak}", (peak, max(steps)), xytext=(0, 26),
+                textcoords="offset points", ha="center", fontsize=8.5, color=t["ink2"])
+    ax.set_ylabel("estimated level shift (pupils per teacher)", color=t["ink2"], fontsize=9)
+    ax.set_xlabel("break year assumed")
+    ax.set_xticks(candidates[::2])
+    ax.set_ylim(-2.4, 2.4)
+    fig.subplots_adjust(left=0.10, right=0.97, top=0.79, bottom=0.19)
+    finish(fig, t,
+           "Every year from 2009 on gives about the same break. 2011 is not special.",
+           "Level shift estimated by segmented regression at each assumed break year",
+           "The same interrupted-time-series specification run thirteen times, moving "
+           "only the assumed break. If January 2011 caused a discrete change, the "
+           "estimate should peak there. It does not: 2010 gives an identical +1.06, and "
+           "2014 and 2015 give larger steps. A smooth ramp of estimates across candidate "
+           "years is the signature of a gradual trend change, which a single-break "
+           "design cannot separate from an event.")
+    return fig
+
+
+def fig_parallel_trends(t: dict):
+    """Differential exposure needs parallel pre-trends. They are not parallel."""
+    panel = pupils_per_teacher()
+    interior = panel[panel.index.isin(INTERIOR)].mean()
+    coastal = panel[~panel.index.isin(INTERIOR)].mean()
+    gap = (interior - coastal).sort_index()
+    years = np.array(gap.index)
+    pre = years[years <= 2010]
+    slope = np.polyfit(pre.astype(float), gap[pre].to_numpy(), 1)[0]
+
+    fig, ax = plt.subplots(figsize=(9.4, 5.2))
+    mark_revolution(ax, t)
+    ax.axhline(0, color=t["axis"], lw=1.4, zorder=1)
+    ax.plot(years[years <= 2010], gap[years <= 2010].to_numpy(), color=t["s2"], zorder=3)
+    ax.plot(years[years >= 2010], gap[years >= 2010].to_numpy(), color=t["s1"], zorder=3)
+    # Placed in the empty lower-left rather than offset from the line: any offset small
+    # enough to read as attached put the text across the line itself.
+    ax.text(1998.4, -4.3, f"already diverging\n{slope:+.2f} per year before 2011",
+            fontsize=8.5, color=t["s2"])
+    ax.set_ylabel("interior minus coastal (pupils per teacher)", color=t["ink2"], fontsize=9)
+    ax.set_ylim(-5.4, 0.8)
+    ax.set_xticks(range(1998, 2019, 4))
+    fig.subplots_adjust(left=0.10, right=0.97, top=0.79, bottom=0.17)
+    finish(fig, t,
+           "The two groups were diverging for twelve years before the revolution",
+           "Gap in pupils per teacher, interior governorates against the rest, 1998-2018",
+           "The interior -- INS's Nord-Ouest, Centre-Ouest and Sud-Ouest, where the "
+           "revolution began -- against the coastal and metropolitan governorates. A "
+           "difference-in-differences on this split needs the two groups to have been on "
+           "parallel paths beforehand. They were not: the gap widened every year from "
+           "1998, by 0.21 a year, so any post-2011 difference is indistinguishable from "
+           "a trend that was already running. Note the sign: interior governorates have "
+           "*fewer* pupils per teacher, small rural schools against crowded coastal ones.")
+    return fig
+
+
+def fig_dispersion(t: dict):
+    """What the data does support: description, with no break at 2011."""
+    panel = pupils_per_teacher()
+    years = np.array(sorted(panel.columns))
+    widest = (panel.max() / panel.min())[years]
+    middle = (panel.quantile(0.75) / panel.quantile(0.25))[years]
+
+    fig, ax = plt.subplots(figsize=(9.4, 5.0))
+    mark_revolution(ax, t)
+    ax.plot(years, widest.to_numpy(), color=t["s1"], zorder=3)
+    ax.plot(years, middle.to_numpy(), color=t["s2"], zorder=3)
+    ax.annotate("highest governorate / lowest", (2015, widest[2015]), xytext=(0, 10),
+                textcoords="offset points", ha="center", fontsize=8.5, color=t["s1"])
+    ax.annotate("upper quartile / lower quartile", (2015, middle[2015]), xytext=(0, -20),
+                textcoords="offset points", ha="center", fontsize=8.5, color=t["s2"])
+    for year in (1998, 2010, 2018):
+        ax.annotate(f"{widest[year]:.2f}", (year, widest[year]), xytext=(0, 10),
+                    textcoords="offset points", ha="center", fontsize=9, color=t["ink2"])
+    ax.set_ylabel("ratio between governorates", color=t["ink2"], fontsize=9)
+    ax.set_ylim(0.95, 2.15)
+    ax.set_xticks(range(1998, 2019, 4))
+    fig.subplots_adjust(left=0.09, right=0.97, top=0.79, bottom=0.17)
+    finish(fig, t,
+           "Regional spread widened steadily from 1998, straight through 2011",
+           "Dispersion in pupils per teacher across 23 governorates, 1998-2018",
+           "Two ratios between observed quantities, so no composite index is involved. "
+           "The widest gap grew from 1.21 to 1.93 and the interquartile ratio from 1.06 "
+           "to 1.29, both climbing before, across and after the revolution with no step "
+           "at 2011. This is the honest summary the other three figures leave standing: "
+           "regional provision diverged over two decades, and the yearbook data cannot "
+           "attribute any part of that to the revolution.")
+    return fig
+
+
 BUILDERS = [
     ("01-expenditure-by-quintile", fig_quintiles, True),
     ("02-regional-gap", fig_regional_gap, True),
@@ -1276,6 +1474,10 @@ BUILDERS = [
     ("24-why-people-are-not-working", fig_not_working, False),
     ("25-where-the-poor-work", fig_where_poor_work, False),
     ("26-where-household-money-goes", fig_where_bought, False),
+    ("27-counterfactual-is-an-assumption", fig_counterfactual, False),
+    ("28-placebo-break-years", fig_placebo_breaks, False),
+    ("29-parallel-trends-fail", fig_parallel_trends, False),
+    ("30-regional-dispersion", fig_dispersion, False),
 ]
 
 
