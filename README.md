@@ -60,10 +60,23 @@ reach before 2011 — the 2005, 2010 and 2012 editions carry no unemployment tab
 ### Reading the whole corpus
 
 Beyond those hand-verified series, `build_yearbook.py` extracts the corpus's tabular
-content — 115,391 values from 664 tables across all 22 editions — into
-`tn_yearbook_series`. Two shapes are read: tables whose columns are years, and tables
-whose columns are a classification (age bands, indicator codes) describing a single year
-taken from the page, never from the edition's cover.
+content — 171,290 values from 895 tables across all 22 editions — into
+`tn_yearbook_series`.
+
+Column headers come in three arrangements, and each needs its own reading:
+
+- **A row of years.** The common case, and it dates itself.
+- **A classification** — age bands, indicator codes — for a single year taken from the
+  page, never from the edition's cover.
+- **Neither on one line.** Nested headers put 2023 and 2022 across the top with
+  Masculin / Feminin beneath each, so six columns hang off two year cells; continuation
+  pages split the labels over three lines in an order that is not the reading order.
+  These are resolved from the column geometry `pdftotext -layout` preserves: a header
+  cell governs the columns beneath it. That reader runs only where the first two found
+  nothing, so it can add tables but never alter one already read.
+
+A lone `-` is read as zero, which is what INS's own conventions table defines it as
+(*résultat rigoureusement nul*), distinct from `>>` and `...` which mean unavailable.
 
 **Hand-verifying that many tables is not possible, so the checking is mechanical.** Each
 edition carries a five-year window, so 24 of the corpus's 26 years appear in two or more
@@ -71,9 +84,9 @@ editions, most in five. Where two editions print the same cell they must agree:
 
 | `agreement` | Cells | What it means |
 | --- | --- | --- |
-| `confirmed` | 56,330 | Every edition that printed this cell printed the same value. |
-| `revised` | 7,223 | They differ slightly — INS revising itself. The newest edition wins. |
-| `single source` | 51,838 | Only one edition carries it. Nothing corroborates it. |
+| `confirmed` | 73,606 | Every edition that printed this cell printed the same value. |
+| `revised` | 9,723 | They differ slightly — INS revising itself. The newest edition wins. |
+| `single source` | 87,961 | Only one edition carries it. Nothing corroborates it. |
 
 Among **year-column** cells — the ones a later edition reprints — 61.5% are confirmed.
 Classification cells are 91% `single source`, and correctly so: table 1.4 in the 2023
@@ -83,7 +96,9 @@ the `agreement` column says so rather than implying a corroboration that does no
 
 Cells where editions disagreed by more than 10% are **not in the series at all** — that
 gap is the signature of a misparse rather than a revision. They are counted in
-`tn_yearbook_coverage`, which also records the 973 tables that yielded nothing.
+`tn_yearbook_coverage`, which also records the 742 tables that yielded nothing — mostly
+tables whose row labels sit on one line and their numbers on the next, which no header
+rule can rescue.
 
 **The parser is deliberately strict**, because surveying real pages turned up a long list
 of ways a table parses cleanly and comes out wrong. `146 406.9134 862.0` is two values
@@ -123,7 +138,7 @@ Built into `data/processed/` as CSV and Parquet, each with a codebook in
 | `tn_cpi_by_division` | 39 | Price index by COICOP function 2021–2023, base 2015 = 100, with INS weights. |
 | `tn_unemployment_annual` | 104 | Unemployment by education level and by sex, 2011–2023. |
 | `tn_yearbook_tables` | 8,391 | Every numbered table heading in all 22 yearbooks, with edition and page. |
-| `tn_yearbook_series` | 115,391 | Values from the yearbooks' tables, reconciled across editions. |
+| `tn_yearbook_series` | 171,290 | Values from the yearbooks' tables, reconciled across editions. |
 | `tn_yearbook_coverage` | 1,637 | What was extracted, what was refused, and why. |
 
 All labels are translated to English; every codebook keeps the original French and Arabic
