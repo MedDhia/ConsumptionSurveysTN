@@ -29,6 +29,7 @@ from . import (
     build_individual,
     build_labour,
     build_panel,
+    build_poverty_report,
     build_prices,
     build_regional_products,
     build_yearbook,
@@ -124,15 +125,22 @@ INTROS = {
         "anyone bought. Pair it with the budget shares in `tn_consumption_panel`."
     ),
     "tn_cpi_by_division": (
-        "Price index for each of the twelve COICOP consumption functions, 2021–2023, on "
-        "base 2015 = 100, with the weights INS used to aggregate them.\n\n"
+        "Price index for each of the twelve COICOP consumption functions, 2012–2023, with "
+        "the weights INS used to aggregate them. Read from the ten yearbook editions that "
+        "print the table, each carrying three years.\n\n"
+        "**Two bases, and they must not be mixed.** INS rebased in 2016: 2012–2017 is "
+        "published on base 2010 = 100 and 2016–2023 on base 2015 = 100. `base_year` says "
+        "which, and the two years printed on both bases are what a chained series would "
+        "have to be spliced on.\n\n"
         "The functions match `tn_consumption_panel`'s `COICOP function` subgroup exactly, "
         "so price change and budget-share change can be set side by side. Because 2015 is "
-        "the base and 2021 an EBCNV wave, the 2021 column reads directly as the price "
-        "change between two survey waves.\n\n"
+        "a base and 2021 an EBCNV wave, the 2021 column reads directly as the price change "
+        "between two survey waves.\n\n"
         "`weight_per_100000` is INS's expenditure weight and sums to 100,000 across the "
         "twelve. `function_code` 0 is INS's own all-items total, kept because it "
-        "cross-checks against `tn_cpi_annual`."
+        "cross-checks against `tn_cpi_annual` — which it now does for fourteen "
+        "year-and-base combinations rather than three. `n_editions` counts the editions "
+        "printing a cell; where more than one does, they were required to agree."
     ),
     "tn_unemployment_annual": (
         "Unemployment rate by education level and by sex, 2011–2023, surveyed each May, "
@@ -154,6 +162,27 @@ INTROS = {
         "contents is still indexed.\n\n"
         "**Table numbers are not stable across editions.** 2010's 6.1.1 is 2023's 6.1.5. "
         "Match on the title, never on the number."
+    ),
+    "tn_poverty_inequality_2000_2010": (
+        "Consumption per head, poverty lines and Gini coefficients by region and by "
+        "stratum for 2000, 2005 and 2010, from INS's report on the 2010 revision of the "
+        "poverty line.\n\n"
+        "**Everything here is on the revised basis.** The 2010 revision changed how the "
+        "poverty line is built, and the report recomputes 2000 and 2005 to match, so "
+        "these figures differ from what those waves published at the time on purpose \u2014 "
+        "Grand Tunis in 2005 is 14.6% poor on this basis against 12.3% as published. The "
+        "`basis` column says so on every row; do not splice them into "
+        "`tn_consumption_panel` without deciding which basis you want.\n\n"
+        "**Why it is worth having.** It is the only source in the corpus giving mean "
+        "consumption per head by region for 2010, the one wave the panel lacks, and the "
+        "only one giving Gini coefficients by region at all. The Gini figures agree to "
+        "the last digit with table 11 of the 2010 survey volume, which is an independent "
+        "printing of the same numbers.\n\n"
+        "**What is not here.** Tables 7 and 8 (poverty incidence) wrap too irregularly "
+        "for the layout to say which value belongs to which wave, and are left out "
+        "rather than guessed at. Where a table sets a second measure beside the first "
+        "\u2014 constant-price aggregates, the Gini of consumption rather than expenditure "
+        "\u2014 only the headline measure is carried."
     ),
     "tn_expenditure_by_product_region": (
         "Mean annual expenditure per person on each product, by grande region, for the "
@@ -259,9 +288,11 @@ TITLES = {
     "tn_wave_coverage": "EBCNV wave coverage, 1968–2021",
     "tn_poverty_delegations_2015": "Delegation-level poverty, 2015 small-area estimates",
     "tn_cpi_annual": "Consumer price index, 1999–2023",
-    "tn_cpi_by_division": "Consumer price index by COICOP function, 2021–2023",
+    "tn_cpi_by_division": "Consumer price index by COICOP function, 2012–2023",
     "tn_unemployment_annual": "Unemployment by education and sex, 2011–2023",
     "tn_yearbook_tables": "Statistical yearbook table catalogue, 2001–2023",
+    "tn_poverty_inequality_2000_2010":
+        "Poverty and inequality by region 2000-2010, on the revised 2010 basis",
     "tn_expenditure_by_product_region":
         "Expenditure per person by product and region, four survey waves",
     "tn_spatial_gini_by_product":
@@ -317,6 +348,7 @@ def build_all() -> dict[str, pd.DataFrame]:
     datasets["tn_expenditure_by_product_region"] = regional
     datasets["tn_spatial_gini_by_product"] = spatial_gini
     datasets["tn_regional_products_refused"] = refused
+    datasets["tn_poverty_inequality_2000_2010"] = build_poverty_report.build()
     for name, df in datasets.items():
         _write(name, df)
     return datasets
