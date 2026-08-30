@@ -149,11 +149,12 @@ Built into `data/processed/` as CSV and Parquet, each with a codebook in
 | `tn_cpi_by_division` | 39 | Price index by COICOP function 2021–2023, base 2015 = 100, with INS weights. |
 | `tn_unemployment_annual` | 104 | Unemployment by education level and by sex, 2011–2023. |
 | `tn_yearbook_tables` | 8,391 | Every numbered table heading in all 22 yearbooks, with edition and page. |
-| `tn_yearbook_series` | 185,502 | Values from the yearbooks' tables, reconciled across editions. |
+| `tn_yearbook_series` | 196,262 | Values from the yearbooks' tables, reconciled across editions. |
 | `tn_yearbook_coverage` | 1,637 | What was extracted, what was refused, and why. |
 | `tn_expenditure_by_product_region` | 12,832 | Expenditure per person by product and region, four survey waves. |
 | `tn_spatial_gini_by_product` | 1,604 | Gini across regions of spending on each good, by wave. |
 | `tn_regional_products_refused` | 2 | Product rows whose printed national value contradicts their own regions. |
+| `tn_poverty_inequality_2000_2010` | 66 | Consumption, poverty lines and Gini by region 2000–2010, on the revised basis. |
 
 All labels are translated to English; every codebook keeps the original French and Arabic
 alongside, code by code.

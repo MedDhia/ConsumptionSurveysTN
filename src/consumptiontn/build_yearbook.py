@@ -23,6 +23,16 @@ the page and never inferred, a row is accepted only when it yields *exactly* as 
 numbers as there are year columns, and a label ending in a digit is rejected outright.
 Strictness costs coverage, and the coverage table records exactly what it cost.
 
+**Where a row's values begin.** The numeric region is not assumed to start at the first
+number on the line, because plenty of labels contain one: "20 a 24 ans", "1.Production",
+and "Nord - Ouest", whose hyphen reads as a nil. Each number is tried in turn as the
+start and the first whose region is clean wins, which recovered 16,040 rows that were
+being refused for their own labels appearing among the numbers. The split must fall on a
+token boundary, so a footnote marker glued to a label ("Taux d'endettement5 52.3") cannot
+become a value -- and because the region is chosen before the column count is known, a
+row can still come out the wrong width and be refused for it. Choosing the start this way
+also *corrected* rows that used to be kept with every value shifted one column left.
+
 The check that scales is cross-edition agreement. Each edition carries a five-year
 window, so 24 of the 26 years in the corpus appear in two or more editions -- most in
 five. Where two editions report the same table, row and year they must agree, which is
@@ -171,16 +181,39 @@ def split_row(line: str) -> tuple[str, list[float], bool] | None:
     matches = list(NUMBER_OR_NIL.finditer(line))
     if not matches:
         return None
-    start, end = matches[0].start(), matches[-1].end()
-    interior = line[start:end]
-    residue = NUMBER_OR_NIL.sub("", interior).strip()
-    provisional = "*" in residue
-    if residue.replace("*", "").strip():
-        return None
-    label = line[:start].strip(" .:-\t")
-    values = [0.0 if m.group().strip() == "-" else float(m.group().replace(" ", ""))
-              for m in matches]
-    return label, values, provisional
+
+    # Where the values begin is not always the first number on the line: plenty of
+    # labels contain one. "20 a 24 ans", "1.Production", "Nord - Ouest" (the dash reads
+    # as a nil) all start the region inside the label, and the row is then refused for
+    # the label's own words being left over among the numbers -- 16,040 rows across the
+    # corpus, most of them real data.
+    #
+    # So each number is tried in turn as the start, left to right, and the first one
+    # whose region is clean wins. Trying left to right rather than searching for a start
+    # that fits the column count is what keeps this conservative: the region is chosen
+    # before the width is known, so a row can still come out with the wrong number of
+    # values and be refused for it, exactly as before.
+    for index, first in enumerate(matches):
+        start, end = first.start(), matches[-1].end()
+        # The split has to fall on a token boundary, or "Taux d'endettement5 52.3"
+        # reads as the label "Taux d'endettement" and a value of 5. One space is enough
+        # of a boundary: plenty of rows set the label off from the first value with a
+        # single space, and demanding a wide gutter refused them outright.
+        if start > 0 and not line[start - 1].isspace():
+            continue
+        # Slice with the preceding character kept, so the nil pattern's lookbehind for
+        # a space still has one to find; without it a row whose first value is a lone
+        # dash leaves that dash as residue and is refused for carrying its own zero.
+        region = line[max(start - 1, 0):end]
+        residue = NUMBER_OR_NIL.sub("", region).strip()
+        provisional = "*" in residue
+        if residue.replace("*", "").strip():
+            continue
+        label = line[:start].strip(" .:-\t")
+        values = [0.0 if m.group().strip() == "-" else float(m.group().replace(" ", ""))
+                  for m in matches[index:]]
+        return label, values, provisional
+    return None
 
 
 def _year_header(line: str) -> list[int] | None:
@@ -386,6 +419,29 @@ def _qualify_panels(entries: list[dict]) -> tuple[list[dict], list[tuple[str, st
     return kept, refused
 
 
+def _trailing_column(lines: list[str], at: int, header: str) -> int:
+    """One extra non-year column, labelled on the line under the years and to their right.
+
+    Returns 1 when such a column is there and 0 otherwise. It is deliberately narrow: the
+    label must be plain text carrying no digits of its own, and must begin further right
+    than the last year does, so a stray word wrapped from the title cannot be mistaken
+    for a column.
+    """
+    last_year = max((m.start() for m in re.finditer(r"(?:19|20)\d\d", header)), default=None)
+    if last_year is None:
+        return 0
+    for line in lines[at + 1:at + 3]:
+        # Position has to come from the raw line; stripping the Arabic side also strips
+        # the indentation that says which column the label belongs to.
+        if re.search(r"\d", line) or not re.search(r"[A-Za-zÀ-ÿ]{4}", _latin_only(line)):
+            continue
+        latin = re.sub(r"[؀-ۿ]", " ", line)
+        start = len(latin) - len(latin.lstrip())
+        if start > last_year:
+            return 1
+    return 0
+
+
 def parse_page(edition: int, page_index: int, text: str) -> tuple[list[dict], list[dict]]:
     """Rows accepted and rows refused, from one page.
 
@@ -417,6 +473,14 @@ def parse_page(edition: int, page_index: int, text: str) -> tuple[list[dict], li
         else:
             columns, column_years = categories, [page_year] * len(categories)
         width = len(columns)
+        # Some year tables carry one more column that is not a year, with its label on
+        # the line below the years rather than beside them: table 13.7 prints the
+        # consumer price index for three years and then each group's expenditure weight.
+        # Every row then yields one value too many and the whole table is refused --
+        # 612 rows across ten editions, which is the price index by product group for
+        # 2012 to 2023. The weight is a constant, not a point in a time series, so it is
+        # counted here and dropped rather than dated.
+        trailing = _trailing_column(lines, i, line) if years else 0
 
         entries: list[dict] = []
         block_refused: list[dict] = []
@@ -468,6 +532,8 @@ def parse_page(edition: int, page_index: int, text: str) -> tuple[list[dict], li
                 inferred_labels.add(candidate)
                 label, inferred = candidate, True
 
+            if trailing and len(values) == width + trailing:
+                values = values[:width]   # the undated trailing column is not a series
             reason = None
             if label[-1].isdigit():
                 reason = "label ends in a digit (footnote marker shifts the columns)"

@@ -1,0 +1,67 @@
+indicator,geography,year,value,standard_error,unit,basis,source_table
+consumption_pc_mean,Centre East,2000,1483.0,,dinars per person per year,2010 methodology,Tableau 3
+consumption_pc_mean,Centre East,2005,1902.0,,dinars per person per year,2010 methodology,Tableau 3
+consumption_pc_mean,Centre East,2010,2693.0,,dinars per person per year,2010 methodology,Tableau 3
+consumption_pc_mean,Centre West,2000,841.0,,dinars per person per year,2010 methodology,Tableau 3
+consumption_pc_mean,Centre West,2005,1034.0,,dinars per person per year,2010 methodology,Tableau 3
+consumption_pc_mean,Centre West,2010,1491.0,,dinars per person per year,2010 methodology,Tableau 3
+consumption_pc_mean,Grand Tunis,2000,1738.0,,dinars per person per year,2010 methodology,Tableau 3
+consumption_pc_mean,Grand Tunis,2005,2331.0,,dinars per person per year,2010 methodology,Tableau 3
+consumption_pc_mean,Grand Tunis,2010,3228.0,,dinars per person per year,2010 methodology,Tableau 3
+consumption_pc_mean,North East,2000,1147.0,,dinars per person per year,2010 methodology,Tableau 3
+consumption_pc_mean,North East,2005,1547.0,,dinars per person per year,2010 methodology,Tableau 3
+consumption_pc_mean,North East,2010,2113.0,,dinars per person per year,2010 methodology,Tableau 3
+consumption_pc_mean,North West,2000,979.0,,dinars per person per year,2010 methodology,Tableau 3
+consumption_pc_mean,North West,2005,1292.0,,dinars per person per year,2010 methodology,Tableau 3
+consumption_pc_mean,North West,2010,1613.0,,dinars per person per year,2010 methodology,Tableau 3
+consumption_pc_mean,South East,2000,978.0,,dinars per person per year,2010 methodology,Tableau 3
+consumption_pc_mean,South East,2005,1574.0,,dinars per person per year,2010 methodology,Tableau 3
+consumption_pc_mean,South East,2010,2198.0,,dinars per person per year,2010 methodology,Tableau 3
+consumption_pc_mean,South West,2000,928.0,,dinars per person per year,2010 methodology,Tableau 3
+consumption_pc_mean,South West,2005,1338.0,,dinars per person per year,2010 methodology,Tableau 3
+consumption_pc_mean,South West,2010,1853.0,,dinars per person per year,2010 methodology,Tableau 3
+consumption_pc_mean,Tunisia,2000,1252.0,,dinars per person per year,2010 methodology,Tableau 3
+consumption_pc_mean,Tunisia,2005,1696.0,,dinars per person per year,2010 methodology,Tableau 3
+consumption_pc_mean,Tunisia,2010,2360.0,,dinars per person per year,2010 methodology,Tableau 3
+consumption_pc_mean,communal,2000,1726.0,,dinars per person per year,2010 methodology,Tableau 4
+consumption_pc_mean,communal,2005,2326.0,,dinars per person per year,2010 methodology,Tableau 4
+consumption_pc_mean,communal,2010,3095.0,,dinars per person per year,2010 methodology,Tableau 4
+consumption_pc_mean,large cities,2000,1992.0,,dinars per person per year,2010 methodology,Tableau 4
+consumption_pc_mean,large cities,2005,2640.0,,dinars per person per year,2010 methodology,Tableau 4
+consumption_pc_mean,large cities,2010,3696.0,,dinars per person per year,2010 methodology,Tableau 4
+consumption_pc_mean,medium communes,2000,1518.0,,dinars per person per year,2010 methodology,Tableau 4
+consumption_pc_mean,medium communes,2005,2045.0,,dinars per person per year,2010 methodology,Tableau 4
+consumption_pc_mean,medium communes,2010,2612.0,,dinars per person per year,2010 methodology,Tableau 4
+consumption_pc_mean,non communal,2000,911.0,,dinars per person per year,2010 methodology,Tableau 4
+consumption_pc_mean,non communal,2005,1213.0,,dinars per person per year,2010 methodology,Tableau 4
+consumption_pc_mean,non communal,2010,1644.0,,dinars per person per year,2010 methodology,Tableau 4
+gini,Centre East,2000,0.382,0.013,index 0-1,2010 methodology,Tableau 17
+gini,Centre East,2005,0.372,0.014,index 0-1,2010 methodology,Tableau 17
+gini,Centre East,2010,0.36,0.009,index 0-1,2010 methodology,Tableau 17
+gini,Centre West,2000,0.388,0.009,index 0-1,2010 methodology,Tableau 17
+gini,Centre West,2005,0.419,0.012,index 0-1,2010 methodology,Tableau 17
+gini,Centre West,2010,0.374,0.01,index 0-1,2010 methodology,Tableau 17
+gini,Grand Tunis,2000,0.377,0.011,index 0-1,2010 methodology,Tableau 17
+gini,Grand Tunis,2005,0.399,0.015,index 0-1,2010 methodology,Tableau 17
+gini,Grand Tunis,2010,0.376,0.012,index 0-1,2010 methodology,Tableau 17
+gini,North East,2000,0.371,0.014,index 0-1,2010 methodology,Tableau 17
+gini,North East,2005,0.365,0.011,index 0-1,2010 methodology,Tableau 17
+gini,North East,2010,0.293,0.008,index 0-1,2010 methodology,Tableau 17
+gini,North West,2000,0.386,0.027,index 0-1,2010 methodology,Tableau 17
+gini,North West,2005,0.357,0.013,index 0-1,2010 methodology,Tableau 17
+gini,North West,2010,0.358,0.011,index 0-1,2010 methodology,Tableau 17
+gini,South East,2000,0.378,0.013,index 0-1,2010 methodology,Tableau 17
+gini,South East,2005,0.402,0.012,index 0-1,2010 methodology,Tableau 17
+gini,South East,2010,0.36,0.012,index 0-1,2010 methodology,Tableau 17
+gini,South West,2000,0.373,0.018,index 0-1,2010 methodology,Tableau 17
+gini,South West,2005,0.382,0.013,index 0-1,2010 methodology,Tableau 17
+gini,South West,2010,0.36,0.016,index 0-1,2010 methodology,Tableau 17
+poverty_line,large cities,2000,902.0,,dinars per person per year,2010 methodology,Tableau 6
+poverty_line,large cities,2005,1038.0,,dinars per person per year,2010 methodology,Tableau 6
+poverty_line,large cities,2010,1277.0,,dinars per person per year,2010 methodology,Tableau 6
+poverty_line,medium communes,2000,818.0,,dinars per person per year,2010 methodology,Tableau 6
+poverty_line,medium communes,2005,941.0,,dinars per person per year,2010 methodology,Tableau 6
+poverty_line,medium communes,2010,1158.0,,dinars per person per year,2010 methodology,Tableau 6
+poverty_line,non-communal areas,2000,581.0,,dinars per person per year,2010 methodology,Tableau 6
+poverty_line,non-communal areas,2005,669.0,,dinars per person per year,2010 methodology,Tableau 6
+poverty_line,non-communal areas,2010,820.0,,dinars per person per year,2010 methodology,Tableau 6

@@ -592,3 +592,106 @@ def test_monthly_trade_is_corroborated_across_editions(corpus):
     months = trade[trade.row_label.str.contains(" / ")]
     confirmed = months.agreement.eq("confirmed").mean()
     assert confirmed > 0.8, f"only {confirmed:.0%} of monthly trade cells are confirmed"
+
+
+# ------------------------------------------------- where the values begin on a row
+
+def test_a_label_carrying_digits_does_not_swallow_them():
+    """The commonest reason a row was refused: the label has a number in it.
+
+    "20 a 24 ans" starts the numeric region inside the label, and the label's own words
+    are then left over among the numbers. 16,040 rows across the corpus were refused for
+    this, most of them real data.
+    """
+    from consumptiontn.build_yearbook import split_row
+
+    label, values, _ = split_row("  20 à 24 ans          6 429       6 658  ")
+    assert label == "20 à 24 ans"
+    assert values == [6429.0, 6658.0]
+
+
+def test_a_hyphen_in_a_region_name_is_not_read_as_a_nil():
+    from consumptiontn.build_yearbook import split_row
+
+    label, values, _ = split_row("Nord - Ouest      3 508     2 298    5 806 ")
+    assert label == "Nord - Ouest"
+    assert values == [3508.0, 2298.0, 5806.0]
+
+
+def test_one_space_is_enough_of_a_gutter():
+    """Demanding a wide gutter refused rows that set the label off with a single space."""
+    from consumptiontn.build_yearbook import split_row
+
+    label, values, _ = split_row("Bibliothèques pub pour enfant 1 542 877 1 443 367")
+    assert label == "Bibliothèques pub pour enfant"
+    assert values == [1542877.0, 1443367.0]
+
+
+def test_the_split_never_falls_inside_a_token():
+    """A footnote marker glued to the label must not become a value.
+
+    Reading "Taux d'endettement5 52.3 48.1" as the label "Taux d'endettement" and a
+    first value of 5 shifts every column by one, which is the failure this parser was
+    written to refuse.
+    """
+    from consumptiontn.build_yearbook import split_row
+
+    label, values, _ = split_row("Taux d'endettement5 52.3   48.1   44.0 ")
+    assert label == "Taux d'endettement5"
+    assert values == [52.3, 48.1, 44.0]
+    # parse_page then refuses it outright for the label ending in a digit.
+
+
+def test_a_row_whose_only_value_is_a_nil_still_reads():
+    """A lone dash is an observed zero, and used to be refused when it came first."""
+    from consumptiontn.build_yearbook import split_row
+
+    label, values, _ = split_row("  Le Kef                       -   ")
+    assert label == "Le Kef"
+    assert values == [0.0]
+
+
+def test_residue_among_the_numbers_still_refuses_the_row():
+    """The strictness the boundary rule had to preserve."""
+    from consumptiontn.build_yearbook import split_row
+
+    # A decimal broken by a space is damage, and the row goes.
+    assert split_row("  Sexe masculin      4 526 .2   4 431 .3 ") is None
+    # A page footer carrying the edition year survives this far -- the region checked
+    # ends at the last number, so the rule underlining it is not residue -- but it
+    # yields a single value and so cannot fill a table of several year columns.
+    footer = split_row("INS - Annuaire Statistique de la Tunisie 2001______")
+    assert footer is not None and len(footer[1]) == 1
+
+
+# --------------------------------------------- a year header with one extra column
+
+def test_a_trailing_weight_column_does_not_refuse_the_table(corpus):
+    """Table 13.7 prints three years of the price index and then a weight.
+
+    Every row yielded one value too many and the whole table was refused -- 612 rows
+    across ten editions, which is the consumer price index by product group for 2012 to
+    2023. The weight is a constant, not a point in a series, so it is dropped.
+    """
+    _, series, _ = corpus
+    rows = series[series.table_number.eq("13.7")]
+    assert not rows.empty, "table 13.7 is being refused again"
+    assert rows.year.between(2012, 2023).all()
+
+    # Read off the printed page: 2014 edition, food and non-alcoholic drinks.
+    food = rows[rows.row_label.str.startswith("Produits alimentaires")
+                & rows.year.eq(2014)]
+    assert float(food.value.iloc[0]) == pytest.approx(128.9)
+
+
+def test_the_trailing_column_rule_needs_a_label_to_the_right():
+    """It must not fire on a word wrapped down from the title."""
+    from consumptiontn.build_yearbook import _trailing_column
+
+    header = "                    2014    2013      2012"
+    beyond = " " * 46 + "Pondération"       # starts past where 2012 does, at column 38
+    assert _trailing_column([header, beyond], 0, header) == 1
+    # A line starting to the left of the years is a wrapped title, not a column.
+    assert _trailing_column([header, "  à la consommation familiale"], 0, header) == 0
+    # Nor is anything carrying digits of its own.
+    assert _trailing_column([header, " " * 46 + "Base 100"], 0, header) == 0
