@@ -38,6 +38,20 @@ window, so 24 of the 26 years in the corpus appear in two or more editions -- mo
 five. Where two editions report the same table, row and year they must agree, which is
 what catches the doubled-integer columns that no local rule can.
 
+**One table, several printed titles.** INS re-words a title between editions, usually by
+saying more: "evolution des offres d emploi" becomes "... reçues par gouvernorat". Keyed
+on the title as printed, one 29-year governorate panel was stored as three fragments and
+the years two editions shared stopped confirming each other. Titles are merged where one
+is a prefix of another *and the numbers bear it out* -- wording alone cannot settle it,
+since "nombre de salles de sports" is a prefix of "nombre de salles de sports privées"
+and those are two different tables over the same 24 governorates. They agree on 2 of 384
+shared cells and are left apart.
+
+**Values split across their decimal point.** ``4 526 .2`` is 4526.2, printed with a space
+that pdftotext leaves in. This used to be treated as damage and refused, which cost 779
+rows; the corpus itself settles it, since the repaired figures are confirmed by editions
+that print the same numbers cleanly.
+
 **Stacked panels.** Many tables put two or more panels under one number and repeat the
 same row labels down each: table 14.1 lists the twelve months once under "I -
 Importations" and again under "II - Exportations", and table 13.2 lists them once per
@@ -54,6 +68,7 @@ from __future__ import annotations
 import collections
 import re
 import subprocess
+import unicodedata
 from dataclasses import dataclass
 
 import pandas as pd
@@ -75,6 +90,15 @@ NUMBER = re.compile(r"-?\d{1,3}(?: \d{3})+(?:\.\d+)?|-?\d+(?:\.\d+)?")
 # observed zero, not a missing value (which it writes as ">>" or "..."). Read as a value
 # so that a row carrying one is not refused for having too few numbers.
 NUMBER_OR_NIL = re.compile(NUMBER.pattern + r"|(?<=\s)-(?=\s|$)")
+
+# pdftotext sometimes sets a space between a value's integer part and its decimal point:
+# "4 526 .2" for 4526.2, "2 495 .0" for 2495.0. Left alone the row yields two values where
+# one was printed, plus a stray dot among the numbers, and is refused -- 779 rows across
+# the corpus, population by sex among them. INS never prints a bare ".2"; it writes 0.2.
+# The gap is held to two spaces so a column gutter is not closed up, and because any line
+# matching this already fails on the dot, the repair can only reach rows that are being
+# refused today.
+SPLIT_DECIMAL = re.compile(r"(?<=\d)\s{1,2}\.(?=\d)")
 
 # A bare run of years, optionally footnote-marked. Five digits (2018 with footnote 6
 # printed as "20186") deliberately does not match, so such headers are skipped.
@@ -129,7 +153,9 @@ SUBTOTAL = re.compile(
 # Importations" in different years. Qualifying with the enumerator attached would put
 # those in three separate series and lose the cross-edition check, so it is stripped and
 # only the text is kept.
-SECTION = re.compile(r"^(?:[IVX]{1,4}|[A-Z]|\d{1,2})\s*[–\-—.)]\s+(\S.*)$")
+# The space after the enumerator is optional: table 13.3 opens its panels with
+# "5.Textiles, habillement et cuirs", set tight.
+SECTION = re.compile(r"^(?:[IVX]{1,4}|[A-Z]|\d{1,2})\s*[–\-—.)]\s*(\S.*)$")
 
 
 @dataclass(frozen=True)
@@ -178,6 +204,7 @@ def split_row(line: str) -> tuple[str, list[float], bool] | None:
     the row. Asterisks are the one exception: INS uses them to mark a provisional figure,
     so they are recorded rather than treated as damage.
     """
+    line = SPLIT_DECIMAL.sub(".", line)
     matches = list(NUMBER_OR_NIL.finditer(line))
     if not matches:
         return None
@@ -419,17 +446,32 @@ def _qualify_panels(entries: list[dict]) -> tuple[list[dict], list[tuple[str, st
     return kept, refused
 
 
-def _trailing_column(lines: list[str], at: int, header: str) -> int:
-    """One extra non-year column, labelled on the line under the years and to their right.
+# A trailing column's label is plain words: letters, and the punctuation that binds
+# them. Anything carrying a digit is a year or a footnote marker, not a column name.
+TRAILING_LABEL = re.compile(r"[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ\'\u2019.\- ]{3,}$")
 
-    Returns 1 when such a column is there and 0 otherwise. It is deliberately narrow: the
-    label must be plain text carrying no digits of its own, and must begin further right
-    than the last year does, so a stray word wrapped from the title cannot be mistaken
-    for a column.
+
+def _trailing_column(lines: list[str], at: int, header: str) -> int:
+    """One extra non-year column, labelled to the right of the years.
+
+    Returns 1 when such a column is there and 0 otherwise. The label may sit on the
+    header line itself -- table 13.4 heads its columns ``2023 2022 2021 Pondération`` --
+    or on the line beneath the years, which is how table 13.7 sets the same weight.
+
+    Either way it is deliberately narrow: the label must be plain text carrying no digits
+    of its own, and must begin further right than the last year does, so a stray word
+    wrapped from the title cannot be mistaken for a column.
     """
-    last_year = max((m.start() for m in re.finditer(r"(?:19|20)\d\d", header)), default=None)
-    if last_year is None:
+    years = list(re.finditer(r"(?:19|20)\d\d", header))
+    if not years:
         return 0
+    last_year = years[-1].start()
+    # Beside the years. ``_year_header`` already drops this token when it reads the
+    # header, so without this the column is invisible and every row comes out one value
+    # too wide.
+    tail = _latin_only(header[years[-1].end():]).strip()
+    if TRAILING_LABEL.fullmatch(tail):
+        return 1
     for line in lines[at + 1:at + 3]:
         # Position has to come from the raw line; stripping the Arabic side also strips
         # the indentation that says which column the label belongs to.
@@ -503,21 +545,57 @@ def parse_page(edition: int, page_index: int, text: str) -> tuple[list[dict], li
                 # agro-alimentaires" above table 13.2's first run of twelve months.
                 # Recorded in row order so that repeated labels below can be qualified.
                 heading_text = _latin_only(stripped)
+                # A line starting lower-case is the tail of a label wrapped around its
+                # own numbers -- "Produits d'origine animale ou", the values, then
+                # "vegetale" -- which ``_inferred_label`` has already folded into the row
+                # above. Registering it as a panel as well made it the qualifier for
+                # every repeat that followed, so table 14.4's exports came out under
+                # "vegetale" rather than "2. Exportations".
+                if heading_text[:1].islower():
+                    continue
                 if len(heading_text) >= 3 and re.search(r"[A-Za-zÀ-ÿ]{3}", heading_text):
                     entries.append({"label": heading_text[:80], "values": None,
                                     "provisional": False, "inferred": False})
                 continue
             label, values, provisional = parts
+            # Drop the undated trailing column before the width is used for anything.
+            # It has to go first: a row whose label is wrapped around its numbers is
+            # recovered only when the values already match the column count, so trimming
+            # afterwards would leave those rows one wide and silently discard them.
+            if trailing and len(values) == width + trailing:
+                values = values[:width]
             inferred = False
             if len(label) < 3 or not re.search(r"[A-Za-zÀ-ÿ]{3}", label):
                 # No label beside the numbers. It may be printed above them, or wrapped
                 # around them -- recoverable, but weaker than a label read off the same
                 # line, so the rows it yields say so.
                 if label or len(values) != width:
+                    # A panel heading whose enumerator is a bare number reads as a row
+                    # with no label and one value -- "5.Textiles, habillement et cuirs"
+                    # yields 5. It opens a panel rather than carrying data, and without
+                    # it table 13.3's twelve months repeat once per industrial branch
+                    # with nothing to tell the branches apart.
+                    opener = SECTION.match(stripped) if not label else None
+                    if opener and len(values) < width:
+                        heading = _latin_only(opener.group(1)).strip(" .:-")
+                        if len(heading) >= 3 and re.search(r"[A-Za-zÀ-ÿ]{3}", heading):
+                            entries.append({"label": heading[:80], "values": None,
+                                            "provisional": False, "inferred": False})
                     continue
                 candidate = _inferred_label(lines, offset)
                 if candidate is None:
                     continue
+                # The line this label was built from may already have been recorded as a
+                # panel heading -- from above the numbers there is no telling the two
+                # apart. Now there is: it belongs to this row, so it is retracted rather
+                # than left to qualify every repeat below it, which is how table 14.4's
+                # exports came out under "Produits d'origine animale ou". This has to
+                # happen before the uniqueness test below, or the second copy of a
+                # repeated layout keeps the heading the first copy retracted.
+                if entries and entries[-1]["values"] is None:
+                    opening = entries[-1]["label"].strip(" .:-")
+                    if opening and candidate.startswith(opening):
+                        entries.pop()
                 # The same inferred label twice in one table means two different series
                 # were reduced to one name -- on page 43 the teacher counts of the first
                 # and second cycle, on page 195 fixed-line and mobile subscribers. There
@@ -532,8 +610,6 @@ def parse_page(edition: int, page_index: int, text: str) -> tuple[list[dict], li
                 inferred_labels.add(candidate)
                 label, inferred = candidate, True
 
-            if trailing and len(values) == width + trailing:
-                values = values[:width]   # the undated trailing column is not a series
             reason = None
             if label[-1].isdigit():
                 reason = "label ends in a digit (footnote marker shifts the columns)"
@@ -622,6 +698,99 @@ def _latin(text: str) -> str:
     return re.sub(r"\s+", " ", stripped).strip().lower()
 
 
+# The table number is printed a second time on the Arabic side, and dropping the Arabic
+# strands it at the end of the Latin text: the same table is "evolution des offres d
+# emploi 3" in one edition and "... 7" in the next. It is removed to compare two titles,
+# never to key on them -- two different tables in a chapter can differ by nothing else,
+# so a stem that matches is a candidate for merging and not a merge.
+STEM = re.compile(r"\s+[\d.]+$")
+
+
+def _stem(title: str) -> str:
+    """A title reduced to what two editions can be expected to have in common.
+
+    Accents come and go between editions -- "variations annuelles de l indice general"
+    and "... de l indice général" are the same table, set once without accents and once
+    with -- so they are folded away for the comparison. Like the table number, this is
+    only ever used to *propose* a merge; the numbers still have to confirm it.
+    """
+    bare = unicodedata.normalize("NFKD", STEM.sub("", title).strip())
+    return "".join(ch for ch in bare if not unicodedata.combining(ch))
+
+
+# INS re-words a table's title between editions, usually by saying more: "evolution des
+# offres d emploi" becomes "evolution des offres d emploi reçues par gouvernorat". Keyed
+# on the title as printed, one 21-year governorate panel is stored as three short ones,
+# and the years the two editions share stop confirming each other.
+#
+# Wording alone cannot settle it -- "nombre de salles de sports" is a prefix of "nombre de
+# salles de sports privées", and those are two different tables listing the same 24
+# governorates. So a merge is a *hypothesis*, tested against the numbers: the two must
+# report enough of the same cells, and agree on nearly all of them. The sports halls
+# agree on 2 of 384 shared cells and are left apart.
+CANONICAL_MIN_SHARED = 5
+CANONICAL_MIN_AGREEMENT = 0.95
+
+
+def canonical_titles(frame: pd.DataFrame) -> dict[str, str]:
+    """Map each title to the one it should be reconciled under.
+
+    Candidates are titles in the same chapter where one is a prefix of the other. Each
+    candidate pair is confirmed against the cells the two have in common, and the group's
+    longest title -- the most explicit one INS settled on -- becomes the name for all of
+    it. Merging is transitive, so a title that overlaps the next one in the chain joins
+    the group even where it shares no year with the far end of it.
+    """
+    cells = {
+        key: dict(zip(zip(group.row_label, group.column_label, group.year, strict=True),
+                      group.value, strict=True))
+        for key, group in frame.groupby(["chapter", "title_fr"])
+    }
+    parent = {title: title for _, title in cells}
+    stems = {title: _stem(title) for _, title in cells}
+
+    def find(title: str) -> str:
+        while parent[title] != title:
+            parent[title] = parent[parent[title]]
+            title = parent[title]
+        return title
+
+    for chapter, group in frame.groupby("chapter"):
+        titles = sorted(set(group.title_fr))
+        for position, first in enumerate(titles):
+            for second in titles[position + 1:]:
+                left_stem, right_stem = stems[first], stems[second]
+                if not (left_stem.startswith(right_stem)
+                        or right_stem.startswith(left_stem)):
+                    continue
+                left, right = cells[(chapter, first)], cells[(chapter, second)]
+                shared = set(left) & set(right)
+                if len(shared) < CANONICAL_MIN_SHARED:
+                    continue
+                agreed = sum(
+                    1 for cell in shared
+                    if max(abs(left[cell]), abs(right[cell]))
+                    / max(min(abs(left[cell]), abs(right[cell])), 1e-9) <= CONFLICT_RATIO
+                )
+                if agreed / len(shared) < CANONICAL_MIN_AGREEMENT:
+                    continue
+                root_first, root_second = find(first), find(second)
+                if root_first != root_second:
+                    parent[root_second] = root_first
+
+    groups: dict[str, list[str]] = collections.defaultdict(list)
+    for title in parent:
+        groups[find(title)].append(title)
+    # The name to keep is the most explicit wording, and among spellings of it the one
+    # INS typeset properly. Length alone would name the merged table after whichever
+    # edition happened to set it without accents, which is the older and worse rendering.
+    def best(members: list[str]) -> str:
+        return max(members, key=lambda title: (len(_stem(title)),
+                                               sum(ord(ch) > 127 for ch in title)))
+
+    return {title: best(members) for members in groups.values() for title in members}
+
+
 def catalogue(editions: tuple[int, ...] = EDITIONS) -> pd.DataFrame:
     """Every numbered table heading in the corpus, extracted or not.
 
@@ -661,6 +830,8 @@ def reconcile(series: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     frame = series.copy()
     frame["title_fr"] = frame.table_title.map(_latin)
     frame["row_label"] = frame.row_label.str.strip()
+    frame["chapter"] = frame.table_number.astype(str).str.split(".").str[0]
+    frame["title_fr"] = frame.title_fr.map(canonical_titles(frame))
     key = ["title_fr", "row_label", "column_label", "year"]
 
     stats = frame.groupby(key)["value"].agg(
@@ -694,9 +865,14 @@ def build() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     series, conflicts = reconcile(raw)
     index = catalogue()
 
-    per_table = raw.assign(title_fr=raw.table_title.map(_latin)).groupby("title_fr").agg(
-        editions=("edition", "nunique"), values_read=("value", "size")
-    )
+    # All three datasets have to speak the same table names, or a title the series merged
+    # is reported twice by the coverage table -- once as extracted, once as read but never
+    # kept -- and the catalogue cites a name nothing else uses.
+    canonical = dict(zip(series.table_title.map(_latin), series.title_fr, strict=True))
+    index["table_title"] = index.table_title.map(lambda t: canonical.get(t, t))
+    titles = raw.table_title.map(_latin).map(lambda t: canonical.get(t, t))
+    per_table = raw.assign(title_fr=titles).groupby("title_fr").agg(
+        editions=("edition", "nunique"), values_read=("value", "size"))
     kept = series.groupby("title_fr").size().rename("values_kept")
     bad = conflicts.groupby("title_fr").size().rename("values_in_conflict")
     coverage = per_table.join(kept).join(bad).fillna({"values_kept": 0,
@@ -706,8 +882,7 @@ def build() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     coverage.loc[coverage.values_in_conflict > 0, "status"] = "extracted with conflicts"
 
     # Tables present in the corpus that yielded nothing at all.
-    seen = set(index.table_title)
-    missing = sorted(seen - set(coverage.index))
+    missing = sorted(set(index.table_title) - set(coverage.index))
     if missing:
         extra = pd.DataFrame(
             {"editions": 0, "values_read": 0, "values_kept": 0, "values_in_conflict": 0,

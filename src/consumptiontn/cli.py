@@ -125,15 +125,22 @@ INTROS = {
         "anyone bought. Pair it with the budget shares in `tn_consumption_panel`."
     ),
     "tn_cpi_by_division": (
-        "Price index for each of the twelve COICOP consumption functions, 2021–2023, on "
-        "base 2015 = 100, with the weights INS used to aggregate them.\n\n"
+        "Price index for each of the twelve COICOP consumption functions, 2012–2023, with "
+        "the weights INS used to aggregate them. Read from the ten yearbook editions that "
+        "print the table, each carrying three years.\n\n"
+        "**Two bases, and they must not be mixed.** INS rebased in 2016: 2012–2017 is "
+        "published on base 2010 = 100 and 2016–2023 on base 2015 = 100. `base_year` says "
+        "which, and the two years printed on both bases are what a chained series would "
+        "have to be spliced on.\n\n"
         "The functions match `tn_consumption_panel`'s `COICOP function` subgroup exactly, "
         "so price change and budget-share change can be set side by side. Because 2015 is "
-        "the base and 2021 an EBCNV wave, the 2021 column reads directly as the price "
-        "change between two survey waves.\n\n"
+        "a base and 2021 an EBCNV wave, the 2021 column reads directly as the price change "
+        "between two survey waves.\n\n"
         "`weight_per_100000` is INS's expenditure weight and sums to 100,000 across the "
         "twelve. `function_code` 0 is INS's own all-items total, kept because it "
-        "cross-checks against `tn_cpi_annual`."
+        "cross-checks against `tn_cpi_annual` — which it now does for fourteen "
+        "year-and-base combinations rather than three. `n_editions` counts the editions "
+        "printing a cell; where more than one does, they were required to agree."
     ),
     "tn_unemployment_annual": (
         "Unemployment rate by education level and by sex, 2011–2023, surveyed each May, "
@@ -281,7 +288,7 @@ TITLES = {
     "tn_wave_coverage": "EBCNV wave coverage, 1968–2021",
     "tn_poverty_delegations_2015": "Delegation-level poverty, 2015 small-area estimates",
     "tn_cpi_annual": "Consumer price index, 1999–2023",
-    "tn_cpi_by_division": "Consumer price index by COICOP function, 2021–2023",
+    "tn_cpi_by_division": "Consumer price index by COICOP function, 2012–2023",
     "tn_unemployment_annual": "Unemployment by education and sex, 2011–2023",
     "tn_yearbook_tables": "Statistical yearbook table catalogue, 2001–2023",
     "tn_poverty_inequality_2000_2010":

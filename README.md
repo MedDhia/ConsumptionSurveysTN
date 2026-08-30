@@ -46,11 +46,22 @@ if one moves, treat the file as untrusted until re-checked against the INS relea
 **Table numbers move between editions.** The CPI evolution table is 13.6 in the 2023
 edition and 13.7 in 2010. Every table is located by its French title, never by number.
 
-**Two rendering faults will corrupt a naive parse.** Bold columns emit every glyph twice,
-so 70.0 arrives as `7700..00`; and thousands are separated by a space, so `1 013.5` is one
-number. Both are repaired explicitly, and both are asserted in `tests/test_yearbooks.py` —
+**And so do titles.** INS re-words them too, usually by saying more: "évolution des offres
+d'emploi" becomes "… reçues par gouvernorat". Titles are merged where one is a prefix of
+another, but only where the numbers bear it out — "nombre de salles de sports" is a prefix
+of "nombre de salles de sports privées" and those are two different tables over the same 24
+governorates. They agree on 2 of 384 shared cells and are kept apart. Where the merge does
+hold, it turns three six-to-ten-year fragments of the job-offers panel into one 29-year
+series, 1995–2023, with 26 of those years printed by two or more editions.
+
+**Three rendering faults will corrupt a naive parse.** Bold columns emit every glyph twice,
+so 70.0 arrives as `7700..00`; thousands are separated by a space, so `1 013.5` is one
+number; and a value is sometimes broken at its decimal point, so 4526.2 arrives as
+`4 526 .2`. All three are repaired explicitly and asserted in `tests/test_yearbooks.py` —
 because each one fails silently, producing a number of the right shape and the wrong
-magnitude.
+magnitude. The last of these used to be treated as damage and refused, at a cost of 779
+rows; the corpus itself settles it, since the repaired figures are confirmed by editions
+that print the same numbers cleanly.
 
 The unemployment series is spliced from three editions that overlap by design: 2015
 appears in two of them and 2019 in two, and the builder requires the shared years to agree
@@ -60,8 +71,10 @@ reach before 2011 — the 2005, 2010 and 2012 editions carry no unemployment tab
 ### Reading the whole corpus
 
 Beyond those hand-verified series, `build_yearbook.py` extracts the corpus's tabular
-content — 178,021 values from 915 tables across all 22 editions — into
-`tn_yearbook_series`.
+content — 174,473 values from 552 tables across all 22 editions — into
+`tn_yearbook_series`. 83,424 of those values are confirmed by two or more editions
+printing the same figure, and 4,670 of the series it yields run ten years or longer, 1,564
+of them twenty or longer. The longest run 29 years, 1995–2023.
 
 Column headers come in four arrangements, and each needs its own reading:
 
@@ -101,11 +114,11 @@ the `agreement` column says so rather than implying a corroboration that does no
 
 Cells where editions disagreed by more than 10% are **not in the series at all** — that
 gap is the signature of a misparse rather than a revision. They are counted in
-`tn_yearbook_coverage`, which also records the 722 tables that yielded nothing.
+`tn_yearbook_coverage`, which also records the 699 tables that yielded nothing.
 
 Some tables print a row's label above its numbers, or wrapped around them, instead of
 beside them. Those labels are reassembled from the neighbouring lines and the rows are
-marked `label_inferred` — 2,078 cells — because that is weaker evidence than a label read
+marked `label_inferred` — 2,314 cells — because that is weaker evidence than a label read
 off the same line. Where two rows in one table would end up with the same reassembled
 label, both are dropped rather than guessed at: on page 43 of the 2023 edition the
 first-cycle and second-cycle teacher counts are named identically once the Arabic is
@@ -146,11 +159,11 @@ Built into `data/processed/` as CSV and Parquet, each with a codebook in
 | `tn_poverty_delegations_2015` | 253 | Delegation-level poverty and school-dropout rates from the 2020 poverty map. |
 | `tn_wave_coverage` | 12 | What is available for each wave since 1968. |
 | `tn_cpi_annual` | 200 | Consumer price index 1999–2023, on each of INS's eight base years. |
-| `tn_cpi_by_division` | 39 | Price index by COICOP function 2021–2023, base 2015 = 100, with INS weights. |
+| `tn_cpi_by_division` | 182 | Price index by COICOP function 2012–2023, on bases 2010 and 2015, with INS weights. |
 | `tn_unemployment_annual` | 104 | Unemployment by education level and by sex, 2011–2023. |
 | `tn_yearbook_tables` | 8,391 | Every numbered table heading in all 22 yearbooks, with edition and page. |
-| `tn_yearbook_series` | 196,262 | Values from the yearbooks' tables, reconciled across editions. |
-| `tn_yearbook_coverage` | 1,637 | What was extracted, what was refused, and why. |
+| `tn_yearbook_series` | 174,473 | Values from the yearbooks' tables, reconciled across editions. |
+| `tn_yearbook_coverage` | 1,254 | What was extracted, what was refused, and why. |
 | `tn_expenditure_by_product_region` | 12,832 | Expenditure per person by product and region, four survey waves. |
 | `tn_spatial_gini_by_product` | 1,604 | Gini across regions of spending on each good, by wave. |
 | `tn_regional_products_refused` | 2 | Product rows whose printed national value contradicts their own regions. |

@@ -34,17 +34,28 @@ import pdfplumber
 from .config import raw_path
 
 CPI_ANNUAL_TITLE = "selon les différentes années de base"
-CPI_DIVISION_TITLE = "Evolution de l’indice général des prix à la consommation"
+# The title wraps after "prix" on most editions' pages, so only the first line of it can
+# be matched. That alone would also catch table 13.4, "Variations annuelles de l'indice
+# général des prix", which is why the page must carry "Evolution" and the weight column.
+CPI_DIVISION_TITLE = "Evolution de l’indice général des prix"
 
-EDITION = 2023  # the edition these two tables are read from
+EDITION = 2023  # the edition the annual table is read from
+
+# Every edition printing the division table in its three-years-plus-weight form. The
+# 2012 edition and earlier print a single year in a different shape and are left out.
+CPI_DIVISION_EDITIONS: tuple[int, ...] = (2014, 2015, 2016, 2017, 2018,
+                                          2019, 2020, 2021, 2022, 2023)
 
 # Line-start anchors for the twelve COICOP divisions, in INS's own wording and order.
 # Anchored at line start so a division is never confused with one of its sub-rows
 # ("Transports" against "Services de transport").
 DIVISIONS: tuple[tuple[int, str, str], ...] = (
-    (1, r"Produits alimentaires et boissons non", "Food and non-alcoholic beverages"),
+    # Anchors stop where the label wraps. Older editions break "Produits alimentaires et
+    # boissons / non alcoolisees" and "Articles d'habillement et / chaussures" across two
+    # lines with the numbers in between, so matching the full name finds nothing there.
+    (1, r"Produits alimentaires et boissons", "Food and non-alcoholic beverages"),
     (2, r"Boissons alcoolisées et tabac", "Alcoholic beverages and tobacco"),
-    (3, r"Articles d'habillement et chaussures", "Clothing and footwear"),
+    (3, r"Articles d'habillement et", "Clothing and footwear"),
     (4, r"Logement\. eau\. gaz\. électricité et", "Housing, water, gas and electricity"),
     (5, r"Meubles\. articles de ménage et", "Furnishings and household maintenance"),
     (6, r"Santé", "Health"),
@@ -134,23 +145,51 @@ def cpi_annual() -> pd.DataFrame:
     return frame
 
 
-def cpi_by_division() -> pd.DataFrame:
-    """COICOP-division price index for 2021-2023, base 2015 = 100, with INS weights."""
-    with pdfplumber.open(raw_path(f"annuaire_{EDITION}")) as pdf:
+def _division_page(edition: int) -> str:
+    """The page of one edition carrying the division table, as text."""
+    with pdfplumber.open(raw_path(f"annuaire_{edition}")) as pdf:
         pages = _page_text(pdf, CPI_DIVISION_TITLE)
-    text = "\n".join(p for p in pages if "années de base" not in p)
+    text = "\n".join(p for p in pages
+                     if "années de base" not in p and "Pondération" in p)
     if not text:
-        raise ValueError("could not find the division price table")
+        raise ValueError(f"could not find the division price table in {edition}")
+    return text
 
-    years = (2023, 2022, 2021)  # column order, left to right
+
+def _division_header(text: str, edition: int) -> tuple[tuple[int, ...], int]:
+    """The three years the columns stand for, and the base year they are indexed on.
+
+    Both are read from the page rather than assumed. The base moves -- the 2014 edition
+    prints base 2010 and the 2018 edition base 2015 -- and a series spliced across that
+    change without noticing would be a different number every few years.
+    """
+    # "Base )2010 = 100(" -- the brackets come out reversed on these bilingual pages.
+    base = re.search(r"Base\s*[()]?\s*((?:19|20)\d\d)\s*=\s*100", text)
+    if base is None:
+        raise ValueError(f"no base year printed on the division page of {edition}")
+    for line in text.split("\n"):
+        tokens = line.split()
+        if len(tokens) == 3 and all(re.fullmatch(r"(19|20)\d\d", t) for t in tokens):
+            years = tuple(int(t) for t in tokens)
+            if years != tuple(sorted(years, reverse=True)):
+                raise ValueError(f"{edition}: year columns {years} are not descending")
+            return years, int(base.group(1))
+    raise ValueError(f"no run of three year columns on the division page of {edition}")
+
+
+def cpi_by_division_edition(edition: int) -> pd.DataFrame:
+    """COICOP-division price index from one edition: three years and INS's weights."""
+    text = _division_page(edition)
+    years, base_year = _division_header(text, edition)
+
     rows = []
     for code, anchor, label_en in (*DIVISIONS, (0, TOTAL_ANCHOR, "All items")):
         match = re.search(rf"^{anchor}", text, re.MULTILINE)
         if match is None:
-            raise ValueError(f"division {code} ({label_en}) not found")
+            raise ValueError(f"{edition}: division {code} ({label_en}) not found")
         found = _TRIPLE.search(text, match.end())
         if found is None:
-            raise ValueError(f"division {code} ({label_en}) has no numbers after its label")
+            raise ValueError(f"{edition}: division {code} ({label_en}) has no numbers")
         weight = int(found.group(4))
         for year, token in zip(years, found.groups()[:3], strict=True):
             rows.append(
@@ -160,20 +199,48 @@ def cpi_by_division() -> pd.DataFrame:
                     "function": label_en,
                     "index": _number(token),
                     "weight_per_100000": weight,
-                    "base_year": 2015,
+                    "base_year": base_year,
+                    "source_key": f"annuaire_{edition}",
                 }
             )
 
     frame = pd.DataFrame(rows)
-
     weights = frame[frame.function_code != 0].drop_duplicates("function_code")
     total = int(weights["weight_per_100000"].sum())
     if total != 100_000:
-        raise ValueError(f"division weights sum to {total}, expected 100000")
+        raise ValueError(f"{edition}: division weights sum to {total}, expected 100000")
+    return frame
 
-    frame["source_key"] = f"annuaire_{EDITION}"
+
+def cpi_by_division() -> pd.DataFrame:
+    """COICOP-division price index for 2012-2023, from every edition that prints it.
+
+    Each edition carries three years, so ten editions overlap two years deep and every
+    cell but the outermost is printed two or three times. They have to agree: where two
+    editions report the same division, year and base differently, one of them was misread
+    and the build stops rather than picking a winner.
+    """
+    frames = [cpi_by_division_edition(edition) for edition in CPI_DIVISION_EDITIONS]
+    frame = pd.concat(frames, ignore_index=True)
+
+    key = ["year", "function_code", "base_year"]
+    spread = frame.groupby(key)["index"].nunique()
+    disputed = spread[spread > 1]
+    if not disputed.empty:
+        first = frame.set_index(key).loc[disputed.index[0]]
+        raise ValueError(
+            f"editions disagree on {disputed.index[0]}: "
+            f"{sorted(first['index'].unique())}"
+        )
+
+    frame["n_editions"] = frame.groupby(key)["index"].transform("size")
+    # The newest edition printing a cell is the authority for its weight, which INS
+    # restates when it rebases.
+    frame = (frame.sort_values("source_key")
+             .drop_duplicates(key, keep="last")
+             .sort_values(["base_year", "year", "function_code"]))
     frame["source_table"] = "13.7"
-    return frame.sort_values(["year", "function_code"]).reset_index(drop=True)
+    return frame.reset_index(drop=True)
 
 
 def build() -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -184,12 +251,21 @@ def build() -> tuple[pd.DataFrame, pd.DataFrame]:
     rather than quietly producing two versions of the same series.
     """
     annual, divisions = cpi_annual(), cpi_by_division()
-    for year in (2021, 2022, 2023):
-        left = annual[(annual.year == year) & (annual.base_year == 2015)]["index"]
-        right = divisions[(divisions.year == year) & (divisions.function_code == 0)]["index"]
-        if round(float(left.iloc[0]), 1) != round(float(right.iloc[0]), 1):
+    ensemble = divisions[divisions.function_code == 0]
+    checked = 0
+    # Plain dicts rather than itertuples: the column is called "index", which collides
+    # with the namedtuple's own field and gets silently renamed.
+    for row in ensemble.to_dict("records"):
+        left = annual[(annual.year == row["year"]) & (annual.base_year == row["base_year"])]
+        if left.empty:
+            continue  # the annual table carries eight bases, not every one of them
+        printed = float(left["index"].iloc[0])
+        if round(printed, 1) != round(float(row["index"]), 1):
             raise ValueError(
-                f"{year}: general index {left.iloc[0]} disagrees with the "
-                f"division table's Ensemble row {right.iloc[0]}"
+                f"{row['year']} (base {row['base_year']}): general index {printed} "
+                f"disagrees with the division table's Ensemble row {row['index']}"
             )
+        checked += 1
+    if checked < 10:
+        raise ValueError(f"only {checked} years could be cross-checked, expected 10 or more")
     return annual, divisions

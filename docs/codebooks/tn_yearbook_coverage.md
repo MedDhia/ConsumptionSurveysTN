@@ -1,6 +1,6 @@
 # Statistical yearbook extraction coverage
 
-`data/processed/tn_yearbook_coverage.csv` — 1,637 rows × 6 columns
+`data/processed/tn_yearbook_coverage.csv` — 1,254 rows × 6 columns
 
 What was attempted, what was extracted, and what was refused — the honest map of how much of the corpus this pipeline actually reads.
 

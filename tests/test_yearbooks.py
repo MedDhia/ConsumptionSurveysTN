@@ -464,7 +464,7 @@ def test_the_two_school_year_notations_corroborate_each_other(corpus):
     """Canonicalising the label is what lets them: keyed on the printed token, two
     editions of the same figure would never have been compared."""
     _, series, _ = corpus
-    enrolment = series[series.title_fr.eq("population scolaire totale du 1er cycle 8")
+    enrolment = series[series.title_fr.eq("population scolaire totale du 1er cycle de 8")
                        & series.row_label.eq("Sidi Bouzid")]
     by_year = enrolment.set_index("year")
     assert by_year.loc[2000, "value"] == 64235.0
@@ -586,12 +586,26 @@ def test_both_trade_panels_survive_into_the_corpus(corpus):
 
 
 def test_monthly_trade_is_corroborated_across_editions(corpus):
-    """Every edition reprints five years of this table, so most cells have witnesses."""
+    """Every edition reprints five years of this table, so most cells have witnesses.
+
+    Measured over the cells that *have* a second witness, not over all of them. Merging
+    the title variants pushed this series back to 1995 and out to 2023, and the years at
+    either end are printed by one edition only -- no corroboration is possible there, and
+    counting those against the parser would penalise the series for being longer.
+    """
     _, series, _ = corpus
     trade = series[series.title_fr.str.contains("mensuelle des échanges", na=False)]
     months = trade[trade.row_label.str.contains(" / ")]
-    confirmed = months.agreement.eq("confirmed").mean()
-    assert confirmed > 0.8, f"only {confirmed:.0%} of monthly trade cells are confirmed"
+    assert months.year.min() <= 1995 and months.year.max() >= 2023
+
+    witnessed = months[months.n_editions > 1]
+    confirmed = witnessed.agreement.eq("confirmed").mean()
+    assert confirmed > 0.85, f"only {confirmed:.0%} of witnessed cells are confirmed"
+
+    # The uncorroborated cells are the ends of the series and nothing else: a single
+    # source in the middle would mean an edition had been missed.
+    alone = set(months[months.n_editions == 1].year)
+    assert alone <= {1995, 1996, 1997, 2023}, f"single-source years inside the run: {alone}"
 
 
 # ------------------------------------------------- where the values begin on a row
@@ -655,8 +669,12 @@ def test_residue_among_the_numbers_still_refuses_the_row():
     """The strictness the boundary rule had to preserve."""
     from consumptiontn.build_yearbook import split_row
 
-    # A decimal broken by a space is damage, and the row goes.
-    assert split_row("  Sexe masculin      4 526 .2   4 431 .3 ") is None
+    # An ellipsis standing in for a missing year cannot be read as a value, so no start
+    # position spans the whole run and the row comes out too short to fill its columns.
+    assert split_row("  Céréales      1 013.5   ...   1 204.7 ")[1] == [1204.7]
+    # A footnote digit glued to the label leaves the label ending in a digit, which is
+    # refused outright rather than allowed to shift every column left.
+    assert split_row("  Taux d'endettement5 52.3   54.1 ")[0].endswith("5")
     # A page footer carrying the edition year survives this far -- the region checked
     # ends at the last number, so the rule underlining it is not residue -- but it
     # yields a single value and so cannot fill a table of several year columns.
@@ -695,3 +713,154 @@ def test_the_trailing_column_rule_needs_a_label_to_the_right():
     assert _trailing_column([header, "  à la consommation familiale"], 0, header) == 0
     # Nor is anything carrying digits of its own.
     assert _trailing_column([header, " " * 46 + "Base 100"], 0, header) == 0
+
+
+def test_a_weight_column_beside_the_years_is_read_too(corpus):
+    """Table 13.4 sets its weight column on the header line: "2023 2022 2021 Pondération".
+
+    ``_year_header`` allows one caption word at each end, so it drops that token and the
+    column becomes invisible; every row then came out one value too wide and the table
+    was refused whole -- 515 rows across fifteen editions, which is annual consumer price
+    *inflation* by product group, the series the price index alone does not give.
+    """
+    _, series, _ = corpus
+    rows = series[series.table_number.eq("13.4")]
+    assert not rows.empty, "table 13.4 is being refused again"
+
+    # Read off the printed page: 2023 edition, bread and cereals, base 2015 = 100.
+    bread = rows[rows.row_label.eq("Pain et céréales")]
+    printed = {2023: 6.8, 2022: 7.3, 2021: 2.7}
+    for year, expected in printed.items():
+        got = bread[bread.year.eq(year)].value
+        assert float(got.iloc[0]) == pytest.approx(expected), year
+
+
+def test_the_header_side_rule_will_not_fire_on_a_footnote_or_a_base(corpus):
+    """The label beside the years has to be a word, and has to come after them."""
+    from consumptiontn.build_yearbook import _trailing_column
+
+    header = "                 2023      2022       2021     Pondération"
+    assert _trailing_column([header], 0, header) == 1
+    # A base statement carries digits, so it is not a column name.
+    assert _trailing_column(["   2023   2022   2021   Base 100"], 0,
+                            "   2023   2022   2021   Base 100") == 0
+    # A caption to the *left* of the years is the row-label heading, not a column.
+    assert _trailing_column(["   Gouvernorat  2023   2022   2021"], 0,
+                            "   Gouvernorat  2023   2022   2021") == 0
+    # A footnote marker is a single character, well short of a word.
+    assert _trailing_column(["   2023   2022   2021  a"], 0, "   2023   2022   2021  a") == 0
+
+
+def test_the_trailing_column_goes_before_a_wrapped_label_is_recovered(corpus):
+    """Order matters: the trim has to come first or the widest rows are lost silently.
+
+    A row whose label is printed above and below its numbers is recovered only when the
+    values already match the column count. Trimming the weight afterwards left those rows
+    one value wide, so the headline row of every one of these tables -- "Produits
+    alimentaires et boissons non alcoolisées" -- was dropped without being refused.
+    """
+    _, series, _ = corpus
+    rows = series[series.table_number.eq("13.4")]
+    headline = rows[rows.row_label.eq(
+        "Produits alimentaires et boissons non alcoolisées") & rows.year.eq(2023)]
+    assert not headline.empty, "the wrapped headline row is being dropped again"
+    assert float(headline.value.iloc[0]) == pytest.approx(12.3)
+
+
+def test_a_decimal_broken_by_a_space_is_repaired_not_refused(corpus):
+    """``4 526 .2`` is 4526.2, and refusing it cost 779 rows across the corpus.
+
+    This was previously read as damage and thrown away, on the reasoning that a broken
+    number could not be told from two numbers. The corpus settles it: the repaired values
+    are corroborated by editions that print the same figures cleanly. Male population in
+    1999 comes to 4 768.7 thousand here and three separate editions agree, and none of
+    the repaired cells lands in conflict. A wrong reading could not do that.
+    """
+    from consumptiontn.build_yearbook import split_row
+
+    label, values, _ = split_row("  Sexe masculin      4 526 .2   4 590 .3   4 647 .0 ")
+    assert label == "Sexe masculin"
+    assert values == [4526.2, 4590.3, 4647.0]
+
+    # A gap wide enough to be a column gutter is not closed up, so the row stays short
+    # and is refused on its width rather than silently glued together.
+    assert split_row("  Ventes      4 526     .2   4 590 ")[1] == [4590.0]
+
+    _, series, _ = corpus
+    men = series[series.row_label.eq("Sexe masculin")
+                 & series.title_fr.str.startswith("principales caract")]
+    corroborated = men[men.year.eq(1999)]
+    assert float(corroborated.value.iloc[0]) == pytest.approx(4768.7)
+    assert int(corroborated.n_editions.iloc[0]) >= 3
+    assert "conflict" not in set(men.agreement)
+
+
+# --------------------------------------------- one table under several printed titles
+
+def test_a_title_that_gained_words_is_still_the_same_table(corpus):
+    """INS re-worded "evolution des offres d emploi" twice between 2001 and 2023.
+
+    Keyed on the title as printed, one 29-year governorate panel was stored as three
+    fragments of six to ten years, and the years two editions shared stopped confirming
+    each other. Merged, Tunis runs 1995 to 2023 with 26 of those years printed by two or
+    more editions.
+    """
+    _, series, _ = corpus
+    tunis = series[series.title_fr.str.contains("offres d emploi", na=False)
+                   & series.row_label.eq("Tunis")]
+    years = sorted(tunis.year)
+    assert years == list(range(1995, 2024)), "the fragments are not being joined"
+    assert len(years) == len(set(years)), "a year is counted twice"
+    assert (tunis.n_editions > 1).sum() >= 25
+    # Read off the 2022 edition's page 111.
+    printed = {2022: 3497, 2021: 3815, 2020: 2730, 2019: 9987, 2018: 10110}
+    for year, expected in printed.items():
+        assert float(tunis[tunis.year.eq(year)].value.iloc[0]) == expected, year
+
+
+def test_two_tables_that_merely_share_a_stem_are_left_apart():
+    """The check that stops the merge being a guess.
+
+    "nombre de salles de sports" is a prefix of "nombre de salles de sports privées" and
+    the two list the same 24 governorates, so nothing about the wording or the row labels
+    separates them. The numbers do: they agree on 2 of 384 shared cells.
+    """
+    import pandas as pd
+
+    from consumptiontn.build_yearbook import canonical_titles
+
+    frame = pd.DataFrame({
+        "chapter": "2",
+        "title_fr": (["nombre de salles de sports"] * 6
+                     + ["nombre de salles de sports privées"] * 6),
+        "row_label": ["Tunis", "Ariana", "Sfax"] * 4,
+        "column_label": ["2019", "2019", "2019", "2020", "2020", "2020"] * 2,
+        "year": [2019, 2019, 2019, 2020, 2020, 2020] * 2,
+        "value": [140.0, 96, 122, 145, 99, 126,     # public halls
+                  12.0, 8, 11, 13, 9, 12],          # private ones, nothing like them
+    })
+    canonical = canonical_titles(frame)
+    assert canonical["nombre de salles de sports"] != canonical[
+        "nombre de salles de sports privées"]
+
+
+def test_a_title_variant_that_agrees_is_merged():
+    """The same table, re-worded, reporting the same numbers for the years it shares."""
+    import pandas as pd
+
+    from consumptiontn.build_yearbook import canonical_titles
+
+    shared = {"row_label": ["Tunis", "Ariana", "Sfax"] * 2,
+              "column_label": ["2019"] * 3 + ["2020"] * 3,
+              "year": [2019] * 3 + [2020] * 3,
+              "value": [140.0, 96, 122, 145, 99, 126]}
+    frame = pd.DataFrame({"chapter": "6",
+                          "title_fr": ["evolution des placements"] * 6
+                                      + ["evolution des placements par gouvernorat"] * 6,
+                          **{k: v * 2 for k, v in shared.items()}})
+    canonical = canonical_titles(frame)
+    assert canonical["evolution des placements"] == canonical[
+        "evolution des placements par gouvernorat"]
+    # The longer, more explicit wording is the one kept.
+    assert canonical["evolution des placements"] == (
+        "evolution des placements par gouvernorat")

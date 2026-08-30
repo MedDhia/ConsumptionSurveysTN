@@ -1,40 +1,183 @@
-year,function_code,function,index,weight_per_100000,base_year,source_key,source_table
-2021,0,All items,139.6,100000,2015,annuaire_2023,13.7
-2021,1,Food and non-alcoholic beverages,138.4,26216,2015,annuaire_2023,13.7
-2021,2,Alcoholic beverages and tobacco,163.9,2779,2015,annuaire_2023,13.7
-2021,3,Clothing and footwear,154.7,7408,2015,annuaire_2023,13.7
-2021,4,"Housing, water, gas and electricity",133.5,19021,2015,annuaire_2023,13.7
-2021,5,Furnishings and household maintenance,143.7,5949,2015,annuaire_2023,13.7
-2021,6,Health,136.5,5764,2015,annuaire_2023,13.7
-2021,7,Transport,134.8,12729,2015,annuaire_2023,13.7
-2021,8,Communication,104.7,4629,2015,annuaire_2023,13.7
-2021,9,Recreation and culture,127.9,2068,2015,annuaire_2023,13.7
-2021,10,Education,150.3,3228,2015,annuaire_2023,13.7
-2021,11,Restaurants and hotels,158.9,4603,2015,annuaire_2023,13.7
-2021,12,Miscellaneous goods and services,153.9,5606,2015,annuaire_2023,13.7
-2022,0,All items,151.1,100000,2015,annuaire_2023,13.7
-2022,1,Food and non-alcoholic beverages,153.5,26216,2015,annuaire_2023,13.7
-2022,2,Alcoholic beverages and tobacco,185.6,2779,2015,annuaire_2023,13.7
-2022,3,Clothing and footwear,169.6,7408,2015,annuaire_2023,13.7
-2022,4,"Housing, water, gas and electricity",141.6,19021,2015,annuaire_2023,13.7
-2022,5,Furnishings and household maintenance,157.1,5949,2015,annuaire_2023,13.7
-2022,6,Health,142.0,5764,2015,annuaire_2023,13.7
-2022,7,Transport,145.0,12729,2015,annuaire_2023,13.7
-2022,8,Communication,107.0,4629,2015,annuaire_2023,13.7
-2022,9,Recreation and culture,136.5,2068,2015,annuaire_2023,13.7
-2022,10,Education,164.0,3228,2015,annuaire_2023,13.7
-2022,11,Restaurants and hotels,171.9,4603,2015,annuaire_2023,13.7
-2022,12,Miscellaneous goods and services,165.7,5606,2015,annuaire_2023,13.7
-2023,0,All items,165.2,100000,2015,annuaire_2023,13.7
-2023,1,Food and non-alcoholic beverages,175.5,26216,2015,annuaire_2023,13.7
-2023,2,Alcoholic beverages and tobacco,195.3,2779,2015,annuaire_2023,13.7
-2023,3,Clothing and footwear,185.7,7408,2015,annuaire_2023,13.7
-2023,4,"Housing, water, gas and electricity",149.7,19021,2015,annuaire_2023,13.7
-2023,5,Furnishings and household maintenance,172.8,5949,2015,annuaire_2023,13.7
-2023,6,Health,147.8,5764,2015,annuaire_2023,13.7
-2023,7,Transport,157.9,12729,2015,annuaire_2023,13.7
-2023,8,Communication,109.3,4629,2015,annuaire_2023,13.7
-2023,9,Recreation and culture,145.2,2068,2015,annuaire_2023,13.7
-2023,10,Education,175.3,3228,2015,annuaire_2023,13.7
-2023,11,Restaurants and hotels,189.8,4603,2015,annuaire_2023,13.7
-2023,12,Miscellaneous goods and services,182.3,5606,2015,annuaire_2023,13.7
+year,function_code,function,index,weight_per_100000,base_year,source_key,n_editions,source_table
+2012,0,All items,108.8,100000,2010,annuaire_2014,1,13.7
+2012,1,Food and non-alcoholic beverages,112.7,28063,2010,annuaire_2014,1,13.7
+2012,2,Alcoholic beverages and tobacco,112.6,2917,2010,annuaire_2014,1,13.7
+2012,3,Clothing and footwear,111.8,8390,2010,annuaire_2014,1,13.7
+2012,4,"Housing, water, gas and electricity",106.3,17010,2010,annuaire_2014,1,13.7
+2012,5,Furnishings and household maintenance,109.3,6802,2010,annuaire_2014,1,13.7
+2012,6,Health,104.1,5599,2010,annuaire_2014,1,13.7
+2012,7,Transport,105.5,12053,2010,annuaire_2014,1,13.7
+2012,8,Communication,101.8,5630,2010,annuaire_2014,1,13.7
+2012,9,Recreation and culture,101.6,2011,2010,annuaire_2014,1,13.7
+2012,10,Education,108.0,2404,2010,annuaire_2014,1,13.7
+2012,11,Restaurants and hotels,113.0,4271,2010,annuaire_2014,1,13.7
+2012,12,Miscellaneous goods and services,108.2,4850,2010,annuaire_2014,1,13.7
+2013,0,All items,115.1,100000,2010,annuaire_2015,2,13.7
+2013,1,Food and non-alcoholic beverages,121.7,28063,2010,annuaire_2015,2,13.7
+2013,2,Alcoholic beverages and tobacco,118.2,2917,2010,annuaire_2015,2,13.7
+2013,3,Clothing and footwear,119.9,8390,2010,annuaire_2015,2,13.7
+2013,4,"Housing, water, gas and electricity",110.5,17010,2010,annuaire_2015,2,13.7
+2013,5,Furnishings and household maintenance,116.1,6802,2010,annuaire_2015,2,13.7
+2013,6,Health,106.3,5599,2010,annuaire_2015,2,13.7
+2013,7,Transport,112.2,12053,2010,annuaire_2015,2,13.7
+2013,8,Communication,102.8,5630,2010,annuaire_2015,2,13.7
+2013,9,Recreation and culture,104.9,2011,2010,annuaire_2015,2,13.7
+2013,10,Education,111.4,2404,2010,annuaire_2015,2,13.7
+2013,11,Restaurants and hotels,121.3,4271,2010,annuaire_2015,2,13.7
+2013,12,Miscellaneous goods and services,113.8,4850,2010,annuaire_2015,2,13.7
+2014,0,All items,120.8,100000,2010,annuaire_2016,3,13.7
+2014,1,Food and non-alcoholic beverages,128.3,28063,2010,annuaire_2016,3,13.7
+2014,2,Alcoholic beverages and tobacco,124.6,2917,2010,annuaire_2016,3,13.7
+2014,3,Clothing and footwear,128.9,8390,2010,annuaire_2016,3,13.7
+2014,4,"Housing, water, gas and electricity",116.4,17010,2010,annuaire_2016,3,13.7
+2014,5,Furnishings and household maintenance,122.4,6802,2010,annuaire_2016,3,13.7
+2014,6,Health,109.1,5599,2010,annuaire_2016,3,13.7
+2014,7,Transport,116.2,12053,2010,annuaire_2016,3,13.7
+2014,8,Communication,102.5,5630,2010,annuaire_2016,3,13.7
+2014,9,Recreation and culture,108.5,2011,2010,annuaire_2016,3,13.7
+2014,10,Education,114.5,2404,2010,annuaire_2016,3,13.7
+2014,11,Restaurants and hotels,129.4,4271,2010,annuaire_2016,3,13.7
+2014,12,Miscellaneous goods and services,120.5,4850,2010,annuaire_2016,3,13.7
+2015,0,All items,126.6,100000,2010,annuaire_2017,3,13.7
+2015,1,Food and non-alcoholic beverages,135.0,28063,2010,annuaire_2017,3,13.7
+2015,2,Alcoholic beverages and tobacco,132.7,2917,2010,annuaire_2017,3,13.7
+2015,3,Clothing and footwear,137.6,8390,2010,annuaire_2017,3,13.7
+2015,4,"Housing, water, gas and electricity",122.5,17010,2010,annuaire_2017,3,13.7
+2015,5,Furnishings and household maintenance,129.2,6802,2010,annuaire_2017,3,13.7
+2015,6,Health,112.8,5599,2010,annuaire_2017,3,13.7
+2015,7,Transport,119.0,12053,2010,annuaire_2017,3,13.7
+2015,8,Communication,99.7,5630,2010,annuaire_2017,3,13.7
+2015,9,Recreation and culture,111.9,2011,2010,annuaire_2017,3,13.7
+2015,10,Education,121.0,2404,2010,annuaire_2017,3,13.7
+2015,11,Restaurants and hotels,142.1,4271,2010,annuaire_2017,3,13.7
+2015,12,Miscellaneous goods and services,128.3,4850,2010,annuaire_2017,3,13.7
+2016,0,All items,131.4,100000,2010,annuaire_2017,2,13.7
+2016,1,Food and non-alcoholic beverages,138.5,28063,2010,annuaire_2017,2,13.7
+2016,2,Alcoholic beverages and tobacco,131.8,2917,2010,annuaire_2017,2,13.7
+2016,3,Clothing and footwear,147.4,8390,2010,annuaire_2017,2,13.7
+2016,4,"Housing, water, gas and electricity",129.1,17010,2010,annuaire_2017,2,13.7
+2016,5,Furnishings and household maintenance,135.2,6802,2010,annuaire_2017,2,13.7
+2016,6,Health,115.8,5599,2010,annuaire_2017,2,13.7
+2016,7,Transport,121.6,12053,2010,annuaire_2017,2,13.7
+2016,8,Communication,98.9,5630,2010,annuaire_2017,2,13.7
+2016,9,Recreation and culture,114.0,2011,2010,annuaire_2017,2,13.7
+2016,10,Education,132.3,2404,2010,annuaire_2017,2,13.7
+2016,11,Restaurants and hotels,148.5,4271,2010,annuaire_2017,2,13.7
+2016,12,Miscellaneous goods and services,136.1,4850,2010,annuaire_2017,2,13.7
+2017,0,All items,138.3,100000,2010,annuaire_2017,1,13.7
+2017,1,Food and non-alcoholic beverages,146.2,28063,2010,annuaire_2017,1,13.7
+2017,2,Alcoholic beverages and tobacco,138.1,2917,2010,annuaire_2017,1,13.7
+2017,3,Clothing and footwear,159.1,8390,2010,annuaire_2017,1,13.7
+2017,4,"Housing, water, gas and electricity",135.6,17010,2010,annuaire_2017,1,13.7
+2017,5,Furnishings and household maintenance,141.6,6802,2010,annuaire_2017,1,13.7
+2017,6,Health,120.0,5599,2010,annuaire_2017,1,13.7
+2017,7,Transport,128.8,12053,2010,annuaire_2017,1,13.7
+2017,8,Communication,100.5,5630,2010,annuaire_2017,1,13.7
+2017,9,Recreation and culture,116.9,2011,2010,annuaire_2017,1,13.7
+2017,10,Education,139.3,2404,2010,annuaire_2017,1,13.7
+2017,11,Restaurants and hotels,157.7,4271,2010,annuaire_2017,1,13.7
+2017,12,Miscellaneous goods and services,142.5,4850,2010,annuaire_2017,1,13.7
+2016,0,All items,103.6,100000,2015,annuaire_2018,1,13.7
+2016,1,Food and non-alcoholic beverages,102.7,28063,2015,annuaire_2018,1,13.7
+2016,2,Alcoholic beverages and tobacco,99.3,2917,2015,annuaire_2018,1,13.7
+2016,3,Clothing and footwear,107.0,8390,2015,annuaire_2018,1,13.7
+2016,4,"Housing, water, gas and electricity",104.9,17010,2015,annuaire_2018,1,13.7
+2016,5,Furnishings and household maintenance,104.4,6802,2015,annuaire_2018,1,13.7
+2016,6,Health,102.8,5599,2015,annuaire_2018,1,13.7
+2016,7,Transport,102.1,12053,2015,annuaire_2018,1,13.7
+2016,8,Communication,99.2,5630,2015,annuaire_2018,1,13.7
+2016,9,Recreation and culture,101.3,2011,2015,annuaire_2018,1,13.7
+2016,10,Education,108.8,2404,2015,annuaire_2018,1,13.7
+2016,11,Restaurants and hotels,104.4,4271,2015,annuaire_2018,1,13.7
+2016,12,Miscellaneous goods and services,105.6,4850,2015,annuaire_2018,1,13.7
+2017,0,All items,109.1,100000,2015,annuaire_2019,2,13.7
+2017,1,Food and non-alcoholic beverages,108.5,26216,2015,annuaire_2019,2,13.7
+2017,2,Alcoholic beverages and tobacco,104.1,2779,2015,annuaire_2019,2,13.7
+2017,3,Clothing and footwear,115.5,7408,2015,annuaire_2019,2,13.7
+2017,4,"Housing, water, gas and electricity",110.5,19021,2015,annuaire_2019,2,13.7
+2017,5,Furnishings and household maintenance,109.3,5949,2015,annuaire_2019,2,13.7
+2017,6,Health,106.2,5764,2015,annuaire_2019,2,13.7
+2017,7,Transport,108.3,12729,2015,annuaire_2019,2,13.7
+2017,8,Communication,100.6,4629,2015,annuaire_2019,2,13.7
+2017,9,Recreation and culture,103.6,2068,2015,annuaire_2019,2,13.7
+2017,10,Education,115.1,3228,2015,annuaire_2019,2,13.7
+2017,11,Restaurants and hotels,110.9,4603,2015,annuaire_2019,2,13.7
+2017,12,Miscellaneous goods and services,110.4,5606,2015,annuaire_2019,2,13.7
+2018,0,All items,117.1,100000,2015,annuaire_2020,3,13.7
+2018,1,Food and non-alcoholic beverages,116.4,26216,2015,annuaire_2020,3,13.7
+2018,2,Alcoholic beverages and tobacco,110.6,2779,2015,annuaire_2020,3,13.7
+2018,3,Clothing and footwear,124.0,7408,2015,annuaire_2020,3,13.7
+2018,4,"Housing, water, gas and electricity",115.8,19021,2015,annuaire_2020,3,13.7
+2018,5,Furnishings and household maintenance,118.4,5949,2015,annuaire_2020,3,13.7
+2018,6,Health,111.7,5764,2015,annuaire_2020,3,13.7
+2018,7,Transport,120.4,12729,2015,annuaire_2020,3,13.7
+2018,8,Communication,102.3,4629,2015,annuaire_2020,3,13.7
+2018,9,Recreation and culture,112.3,2068,2015,annuaire_2020,3,13.7
+2018,10,Education,124.3,3228,2015,annuaire_2020,3,13.7
+2018,11,Restaurants and hotels,120.8,4603,2015,annuaire_2020,3,13.7
+2018,12,Miscellaneous goods and services,122.4,5606,2015,annuaire_2020,3,13.7
+2019,0,All items,125.0,100000,2015,annuaire_2021,3,13.7
+2019,1,Food and non-alcoholic beverages,124.4,26216,2015,annuaire_2021,3,13.7
+2019,2,Alcoholic beverages and tobacco,120.4,2779,2015,annuaire_2021,3,13.7
+2019,3,Clothing and footwear,134.1,7408,2015,annuaire_2021,3,13.7
+2019,4,"Housing, water, gas and electricity",121.4,19021,2015,annuaire_2021,3,13.7
+2019,5,Furnishings and household maintenance,128.9,5949,2015,annuaire_2021,3,13.7
+2019,6,Health,118.1,5764,2015,annuaire_2021,3,13.7
+2019,7,Transport,128.5,12729,2015,annuaire_2021,3,13.7
+2019,8,Communication,102.2,4629,2015,annuaire_2021,3,13.7
+2019,9,Recreation and culture,118.3,2068,2015,annuaire_2021,3,13.7
+2019,10,Education,132.4,3228,2015,annuaire_2021,3,13.7
+2019,11,Restaurants and hotels,133.3,4603,2015,annuaire_2021,3,13.7
+2019,12,Miscellaneous goods and services,135.3,5606,2015,annuaire_2021,3,13.7
+2020,0,All items,132.0,100000,2015,annuaire_2022,3,13.7
+2020,1,Food and non-alcoholic beverages,130.2,26216,2015,annuaire_2022,3,13.7
+2020,2,Alcoholic beverages and tobacco,144.0,2779,2015,annuaire_2022,3,13.7
+2020,3,Clothing and footwear,143.9,7408,2015,annuaire_2022,3,13.7
+2020,4,"Housing, water, gas and electricity",127.1,19021,2015,annuaire_2022,3,13.7
+2020,5,Furnishings and household maintenance,137.7,5949,2015,annuaire_2022,3,13.7
+2020,6,Health,127.6,5764,2015,annuaire_2022,3,13.7
+2020,7,Transport,130.7,12729,2015,annuaire_2022,3,13.7
+2020,8,Communication,103.4,4629,2015,annuaire_2022,3,13.7
+2020,9,Recreation and culture,122.6,2068,2015,annuaire_2022,3,13.7
+2020,10,Education,140.6,3228,2015,annuaire_2022,3,13.7
+2020,11,Restaurants and hotels,147.8,4603,2015,annuaire_2022,3,13.7
+2020,12,Miscellaneous goods and services,146.4,5606,2015,annuaire_2022,3,13.7
+2021,0,All items,139.6,100000,2015,annuaire_2023,3,13.7
+2021,1,Food and non-alcoholic beverages,138.4,26216,2015,annuaire_2023,3,13.7
+2021,2,Alcoholic beverages and tobacco,163.9,2779,2015,annuaire_2023,3,13.7
+2021,3,Clothing and footwear,154.7,7408,2015,annuaire_2023,3,13.7
+2021,4,"Housing, water, gas and electricity",133.5,19021,2015,annuaire_2023,3,13.7
+2021,5,Furnishings and household maintenance,143.7,5949,2015,annuaire_2023,3,13.7
+2021,6,Health,136.5,5764,2015,annuaire_2023,3,13.7
+2021,7,Transport,134.8,12729,2015,annuaire_2023,3,13.7
+2021,8,Communication,104.7,4629,2015,annuaire_2023,3,13.7
+2021,9,Recreation and culture,127.9,2068,2015,annuaire_2023,3,13.7
+2021,10,Education,150.3,3228,2015,annuaire_2023,3,13.7
+2021,11,Restaurants and hotels,158.9,4603,2015,annuaire_2023,3,13.7
+2021,12,Miscellaneous goods and services,153.9,5606,2015,annuaire_2023,3,13.7
+2022,0,All items,151.1,100000,2015,annuaire_2023,2,13.7
+2022,1,Food and non-alcoholic beverages,153.5,26216,2015,annuaire_2023,2,13.7
+2022,2,Alcoholic beverages and tobacco,185.6,2779,2015,annuaire_2023,2,13.7
+2022,3,Clothing and footwear,169.6,7408,2015,annuaire_2023,2,13.7
+2022,4,"Housing, water, gas and electricity",141.6,19021,2015,annuaire_2023,2,13.7
+2022,5,Furnishings and household maintenance,157.1,5949,2015,annuaire_2023,2,13.7
+2022,6,Health,142.0,5764,2015,annuaire_2023,2,13.7
+2022,7,Transport,145.0,12729,2015,annuaire_2023,2,13.7
+2022,8,Communication,107.0,4629,2015,annuaire_2023,2,13.7
+2022,9,Recreation and culture,136.5,2068,2015,annuaire_2023,2,13.7
+2022,10,Education,164.0,3228,2015,annuaire_2023,2,13.7
+2022,11,Restaurants and hotels,171.9,4603,2015,annuaire_2023,2,13.7
+2022,12,Miscellaneous goods and services,165.7,5606,2015,annuaire_2023,2,13.7
+2023,0,All items,165.2,100000,2015,annuaire_2023,1,13.7
+2023,1,Food and non-alcoholic beverages,175.5,26216,2015,annuaire_2023,1,13.7
+2023,2,Alcoholic beverages and tobacco,195.3,2779,2015,annuaire_2023,1,13.7
+2023,3,Clothing and footwear,185.7,7408,2015,annuaire_2023,1,13.7
+2023,4,"Housing, water, gas and electricity",149.7,19021,2015,annuaire_2023,1,13.7
+2023,5,Furnishings and household maintenance,172.8,5949,2015,annuaire_2023,1,13.7
+2023,6,Health,147.8,5764,2015,annuaire_2023,1,13.7
+2023,7,Transport,157.9,12729,2015,annuaire_2023,1,13.7
+2023,8,Communication,109.3,4629,2015,annuaire_2023,1,13.7
+2023,9,Recreation and culture,145.2,2068,2015,annuaire_2023,1,13.7
+2023,10,Education,175.3,3228,2015,annuaire_2023,1,13.7
+2023,11,Restaurants and hotels,189.8,4603,2015,annuaire_2023,1,13.7
+2023,12,Miscellaneous goods and services,182.3,5606,2015,annuaire_2023,1,13.7
