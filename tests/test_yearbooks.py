@@ -285,3 +285,74 @@ def test_a_known_classification_table_matches_the_printed_page(corpus):
     values = dict(zip(tunis.column_label, tunis.value, strict=True))
     assert round(values["I.S.F"], 2) == 1.40
     assert round(values["T.G.F"], 1) == 41.6
+
+
+# ------------------------------------------------- headers that need the page geometry
+
+def test_nested_year_header_dates_each_column(corpus):
+    """Table 1.9 puts 2023 and 2022 across the top with Masculin / Feminin / Mas-Fem
+    under each. Six columns hang off two year cells, and each must inherit its own year
+    -- a single page-level year would date half the table wrongly."""
+    _, series, _ = corpus
+    births = series[series.title_fr.str.contains("naissances par genre", na=False)
+                    & series.row_label.eq("Tunis") & series.edition.eq(2023)]
+    by_column = dict(zip(births.column_label, zip(births.year, births.value, strict=True),
+                         strict=True))
+    assert by_column["2023 Feminin"] == (2023, 5429.0)
+    assert by_column["2022 Feminin"] == (2022, 5958.0)
+    assert by_column["2023 Masculin"] == (2023, 5765.0)
+
+
+def test_header_split_over_lines_is_reassembled(corpus):
+    """On the continuation page of table 1.2 the cells read TOTAL, "80 ans &+" and the
+    age bands across three lines, and TOTAL is printed last though it belongs first.
+    Only the column geometry gets the order right."""
+    _, series, _ = corpus
+    page = series[series.title_fr.str.contains("groupe d age genre", na=False)
+                  & series.row_label.eq("Tunis") & series.column_label.eq("TOTAL")]
+    assert not page.empty
+    assert 535.4 in set(page.value)
+
+
+def test_a_lone_dash_reads_as_zero(corpus):
+    """INS's conventions table defines "-" as resultat rigoureusement nul: an observed
+    zero, distinct from ">>" and "..." which mean unavailable. Table 1.13 records no
+    still-births in Manouba for 2020 and 2021, printed as dashes."""
+    _, series, _ = corpus
+    manouba = series[series.title_fr.str.contains("morts-n", na=False)
+                     & series.row_label.eq("Manouba")]
+    values = dict(zip(manouba.year, manouba.value, strict=True))
+    assert values[2021] == 0.0
+    assert values[2020] == 0.0
+    assert values[2023] == 3.0
+
+
+def test_year_header_may_be_flanked_by_its_caption():
+    """"Gouvernorat 2023 2022 2021 2020 2019 الولاية" is a header, not prose."""
+    from consumptiontn.build_yearbook import _year_header
+
+    assert _year_header("Gouvernorat 2023 2022 2021 2020 2019 الولاية") == [
+        2023, 2022, 2021, 2020, 2019
+    ]
+    assert _year_header("2015 2016") == [2015, 2016]
+    # Two caption words at one end is prose, and must not be read as a header.
+    assert _year_header("Evolution des prix entre 2015 2016") is None
+
+
+def test_layout_reader_never_overrides_the_single_line_paths():
+    """It runs only as a fallback, so it can add tables but not change one already read.
+
+    Checked on a page the single-line path handles: both readers see it, and the
+    fallback's output is discarded because the first one produced rows.
+    """
+    from consumptiontn.build_yearbook import edition_pages, parse_page, parse_page_layout
+
+    text = edition_pages(2023)[23]  # table 1.4, read by the category-header path
+    direct, _ = parse_page(2023, 23, text)
+    assert direct, "expected the single-line path to handle this page"
+    assert parse_page_layout(2023, 23, text), "expected the fallback to also parse it"
+    # extract() prefers `direct`; this asserts the two agree on the values, so the
+    # preference is not hiding a discrepancy.
+    assert {(r["row_label"], r["value"]) for r in direct} == {
+        (r["row_label"], r["value"]) for r in parse_page_layout(2023, 23, text)
+    }

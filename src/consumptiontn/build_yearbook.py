@@ -31,6 +31,7 @@ what catches the doubled-integer columns that no local rule can.
 
 from __future__ import annotations
 
+import collections
 import re
 import subprocess
 from dataclasses import dataclass
@@ -49,6 +50,11 @@ BIDI = dict.fromkeys(map(ord, "‎‏‪‫‬‭‮⁦⁧⁨⁩"))
 # exactly three digits, so "99 553300" reads as two numbers rather than one -- which is
 # what makes the doubled-integer rows fail the column count instead of parsing wrongly.
 NUMBER = re.compile(r"-?\d{1,3}(?: \d{3})+(?:\.\d+)?|-?\d+(?:\.\d+)?")
+
+# INS's conventions table defines a lone dash as "resultat rigoureusement nul" -- an
+# observed zero, not a missing value (which it writes as ">>" or "..."). Read as a value
+# so that a row carrying one is not refused for having too few numbers.
+NUMBER_OR_NIL = re.compile(NUMBER.pattern + r"|(?<=\s)-(?=\s|$)")
 
 # A bare run of years, optionally footnote-marked. Five digits (2018 with footnote 6
 # printed as "20186") deliberately does not match, so such headers are skipped.
@@ -129,22 +135,34 @@ def split_row(line: str) -> tuple[str, list[float], bool] | None:
     the row. Asterisks are the one exception: INS uses them to mark a provisional figure,
     so they are recorded rather than treated as damage.
     """
-    matches = list(NUMBER.finditer(line))
+    matches = list(NUMBER_OR_NIL.finditer(line))
     if not matches:
         return None
     start, end = matches[0].start(), matches[-1].end()
     interior = line[start:end]
-    residue = NUMBER.sub("", interior).strip()
+    residue = NUMBER_OR_NIL.sub("", interior).strip()
     provisional = "*" in residue
     if residue.replace("*", "").strip():
         return None
     label = line[:start].strip(" .:-\t")
-    values = [float(m.group().replace(" ", "")) for m in matches]
+    values = [0.0 if m.group().strip() == "-" else float(m.group().replace(" ", ""))
+              for m in matches]
     return label, values, provisional
 
 
 def _year_header(line: str) -> list[int] | None:
+    """The years a table's columns stand for.
+
+    Some tables print the row-label caption on the same line as the years, in both
+    languages: "Gouvernorat 2023 2022 2021 2020 2019 الولاية". One caption word is
+    allowed at each end for that; everything between them still has to be years, so
+    prose that happens to contain dates is not mistaken for a header.
+    """
     tokens = line.split()
+    if tokens and not YEAR.match(tokens[0]):
+        tokens = tokens[1:]
+    if tokens and not YEAR.match(tokens[-1]):
+        tokens = tokens[:-1]
     if len(tokens) < 2 or not all(YEAR.match(t) for t in tokens):
         return None
     return [int(t.rstrip("*")) for t in tokens]
@@ -295,6 +313,10 @@ def extract(editions: tuple[int, ...] = EDITIONS) -> tuple[pd.DataFrame, pd.Data
     for edition in editions:
         for index, text in enumerate(edition_pages(edition)):
             page_rows, page_refused = parse_page(edition, index, text)
+            if not page_rows:
+                # Only where the single-line header paths found nothing, so the
+                # layout reader can add tables but never alter one already read.
+                page_rows = parse_page_layout(edition, index, text)
             kept.extend(page_rows)
             refused.extend(page_refused)
     series = pd.DataFrame(kept)
@@ -413,7 +435,7 @@ def build() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     if missing:
         extra = pd.DataFrame(
             {"editions": 0, "values_read": 0, "values_kept": 0, "values_in_conflict": 0,
-             "status": "not extracted (shape not year-columns, or rows refused)"},
+             "status": "not extracted (header unreadable, or rows refused)"},
             index=pd.Index(missing, name="title_fr"),
         )
         coverage = pd.concat([coverage, extra])
@@ -422,3 +444,183 @@ def build() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
                        if not refused.empty else pd.Series(dtype=int))
     coverage.attrs["refused"] = refused_reasons.to_dict()
     return index, series, coverage.reset_index().sort_values("title_fr")
+
+
+# ------------------------------------------------------- layout-driven column headers
+#
+# The two shapes above assume the column labels sit on one line. Much of the corpus does
+# not oblige:
+#
+#   * **Nested headers.** Table 1.9 puts 2023 and 2022 across the top and Masculin /
+#     Feminin / Mas-Fem under each, so six columns hang off two year cells.
+#   * **Headers split over lines.** On the continuation page of table 1.2 the cells read
+#     "TOTAL", "80 ans &+" and "79-75 74-70 ..." across three separate lines, and the
+#     text order is not the reading order -- TOTAL is printed last and belongs first.
+#
+# Neither can be solved by reading a single line. Both fall out of the geometry, which
+# `pdftotext -layout` preserves: a header cell governs the columns that sit beneath it.
+# So the columns are located from the data rows, and each header line is cut into cells
+# that claim the span from their own start to the next cell's start.
+#
+# This runs only where the single-line paths found nothing, so it cannot change what
+# they already extract.
+
+CELL_GAP = re.compile(r"\s{3,}")
+
+# How many lines above the first data row can hold column labels. Everything further up
+# is the title block, and sweeping it in produces labels like
+# "gouvernorat au 1.7.2023 Unite : Le millier Masculin 59-55".
+HEADER_WINDOW = 9
+
+# Cells that are page furniture rather than column labels.
+NOT_A_COLUMN = re.compile(
+    r"^(unit[ée]|source|gouvernorat|r[ée]gion|d[ée]signation|libell[ée])\b", re.I
+)
+
+
+def _cells(line: str) -> list[tuple[int, str]]:
+    """Header cells with their start column. Split on wide gaps, so "80 ans &+" is one.
+
+    Arabic duplicates of each label, unit notes and the row-label heading are dropped:
+    they sit in the same band as the columns but name the table, not a column.
+    """
+    out = []
+    for match in re.finditer(r"\S(?:.*?\S)?(?=\s{3,}|$)", line):
+        text = match.group().strip()
+        if not text or len(text) > 24:
+            continue
+        if re.search(r"[\u0600-\u06ff]", text):
+            continue  # the Arabic rendering of the same label, printed alongside it
+        if not re.search(r"[A-Za-z0-9]", text):
+            continue
+        if NOT_A_COLUMN.match(text) or ":" in text:
+            continue
+        out.append((match.start(), text))
+    return out
+
+
+def _data_columns(rows: list[tuple[str, list, list]]) -> list[float] | None:
+    """Centre x of each numeric column, from rows that all have the same width."""
+    widths = collections.Counter(len(spans) for _, _, spans in rows)
+    if not widths:
+        return None
+    width, count = widths.most_common(1)[0]
+    if width < 2 or count < 4:
+        return None
+    centres = []
+    for i in range(width):
+        positions = [(s[i][0] + s[i][1]) / 2 for _, _, s in rows if len(s) == width]
+        centres.append(sum(positions) / len(positions))
+    return centres
+
+
+def _label_columns(header_lines: list[str], centres: list[float]) -> list[str]:
+    """Compose a label per column by stacking the header cells above it.
+
+    How a line's cells map onto the columns depends on how many there are, and guessing
+    one rule for all of them gets it wrong in both directions -- a spanning year that
+    claims only one of its sub-columns, or a single-column label smeared across every
+    column to its right.
+
+    * As many cells as columns: one to one, in order.
+    * A whole-number multiple: a nested header, so each cell takes an equal contiguous
+      group. Two years above six columns means three each.
+    * Anything else: the cells are walked left to right and each takes the next column
+      that starts at or after it. Nearest-neighbour fails here -- labels are printed
+      left-aligned at their column while the numbers under them are right-aligned, so a
+      cell often sits closer to the previous column's digits than to its own.
+    """
+    parts: list[list[str]] = [[] for _ in centres]
+    count = len(centres)
+    for line in header_lines:
+        cells = _cells(line)
+        if not cells or len(cells) > count:
+            continue
+        if len(cells) == count:
+            for index, (_, text) in enumerate(cells):
+                parts[index].append(text)
+        elif len(cells) > 1 and count % len(cells) == 0:
+            span = count // len(cells)
+            for position, (_, text) in enumerate(cells):
+                for index in range(position * span, (position + 1) * span):
+                    parts[index].append(text)
+        else:
+            index = 0
+            for start, text in cells:
+                while index < count and centres[index] < start - 3:
+                    index += 1
+                if index >= count:
+                    break
+                parts[index].append(text)
+                index += 1
+    return [" ".join(dict.fromkeys(p)) for p in parts]
+
+
+def parse_page_layout(edition: int, page_index: int, text: str) -> list[dict]:
+    """Read a page whose header spans several lines or nests, using column geometry."""
+    lines = text.split("\n")
+    heading_at = next((i for i, line in enumerate(lines) if _heading(line)), None)
+    if heading_at is None:
+        return []
+    number, title = _heading(lines[heading_at])
+
+    candidates: list[tuple[int, str, list, list]] = []
+    for i, line in enumerate(lines[heading_at + 1:], heading_at + 1):
+        parts = split_row(line)
+        if parts is None:
+            continue
+        label, values, _ = parts
+        if len(label) < 3 or not re.search(r"[A-Za-zÀ-ÿ]{3}", label) or label[-1].isdigit():
+            continue
+        spans = [(m.start(), m.end()) for m in NUMBER.finditer(line)]
+        if len(spans) != len(values):
+            continue
+        candidates.append((i, label, values, spans))
+
+    # The table's width is whatever most rows agree on. Establishing it first matters:
+    # a header line like "TOTAL   80 ans &+" or "Gouvernorat  2023  2022" parses as a
+    # perfectly good one- or two-value row, and taking it for data would put the header
+    # window above the real column labels and leave the columns unnamed.
+    centres = _data_columns([(lbl, v, s) for _, lbl, v, s in candidates])
+    if centres is None:
+        return []
+    width = len(centres)
+    rows = [(lbl, v, s) for _, lbl, v, s in candidates if len(v) == width]
+    first_data = next((i for i, _, v, _ in candidates if len(v) == width), None)
+    if first_data is None:
+        return []
+    window = [line for line in lines[max(heading_at + 1, first_data - HEADER_WINDOW):first_data]
+              if line.strip()]
+    labels = _label_columns(window, centres)
+    if any(not label for label in labels):
+        return []  # an unlabelled column is not worth guessing at
+    if len(set(labels)) != len(labels):
+        return []  # repeated labels mean the geometry was misread
+
+    # A nested header composes to "2023 Feminin": the year is the outer cell, and it
+    # dates that column even though the label is no longer a bare year.
+    year = _page_year(text)
+    leading = [re.match(r"^((?:19|20)\d\d)\b", label) for label in labels]
+    years = [int(m.group(1)) if m else None for m in leading]
+    if year is None and not all(y is not None for y in years):
+        return []
+
+    out = []
+    for label, values, _ in rows:
+        kind = "aggregate" if SUBTOTAL.match(label) else "data"
+        out.extend(
+            {
+                "edition": edition,
+                "table_number": number,
+                "table_title": title,
+                "page": page_index + 1,
+                "row_label": label,
+                "row_kind": kind,
+                "column_label": column,
+                "year": column_year if column_year is not None else year,
+                "value": value,
+                "provisional": False,
+            }
+            for column, column_year, value in zip(labels, years, values, strict=True)
+        )
+    return out
