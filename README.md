@@ -60,12 +60,17 @@ reach before 2011 — the 2005, 2010 and 2012 editions carry no unemployment tab
 ### Reading the whole corpus
 
 Beyond those hand-verified series, `build_yearbook.py` extracts the corpus's tabular
-content — 171,290 values from 895 tables across all 22 editions — into
+content — 178,021 values from 915 tables across all 22 editions — into
 `tn_yearbook_series`.
 
-Column headers come in three arrangements, and each needs its own reading:
+Column headers come in four arrangements, and each needs its own reading:
 
 - **A row of years.** The common case, and it dates itself.
+- **School or judicial years**, written reversed as `24-23` for 2023/24. These date
+  themselves too, and matter because the education and justice chapters use nothing else.
+  Age bands are written identically — `04-00`, `44-40` — so the notation cannot tell them
+  apart; the span does, one year against four. Reading an age-band header as years would
+  turn a cross-section into a fake time series.
 - **A classification** — age bands, indicator codes — for a single year taken from the
   page, never from the edition's cover.
 - **Neither on one line.** Nested headers put 2023 and 2022 across the top with
@@ -84,9 +89,9 @@ editions, most in five. Where two editions print the same cell they must agree:
 
 | `agreement` | Cells | What it means |
 | --- | --- | --- |
-| `confirmed` | 73,606 | Every edition that printed this cell printed the same value. |
-| `revised` | 9,723 | They differ slightly — INS revising itself. The newest edition wins. |
-| `single source` | 87,961 | Only one edition carries it. Nothing corroborates it. |
+| `confirmed` | 78,243 | Every edition that printed this cell printed the same value. |
+| `revised` | 9,911 | They differ slightly — INS revising itself. The newest edition wins. |
+| `single source` | 89,867 | Only one edition carries it. Nothing corroborates it. |
 
 Among **year-column** cells — the ones a later edition reprints — 61.5% are confirmed.
 Classification cells are 91% `single source`, and correctly so: table 1.4 in the 2023
@@ -96,9 +101,15 @@ the `agreement` column says so rather than implying a corroboration that does no
 
 Cells where editions disagreed by more than 10% are **not in the series at all** — that
 gap is the signature of a misparse rather than a revision. They are counted in
-`tn_yearbook_coverage`, which also records the 742 tables that yielded nothing — mostly
-tables whose row labels sit on one line and their numbers on the next, which no header
-rule can rescue.
+`tn_yearbook_coverage`, which also records the 722 tables that yielded nothing.
+
+Some tables print a row's label above its numbers, or wrapped around them, instead of
+beside them. Those labels are reassembled from the neighbouring lines and the rows are
+marked `label_inferred` — 2,078 cells — because that is weaker evidence than a label read
+off the same line. Where two rows in one table would end up with the same reassembled
+label, both are dropped rather than guessed at: on page 43 of the 2023 edition the
+first-cycle and second-cycle teacher counts are named identically once the Arabic is
+stripped, and nothing downstream could tell them apart.
 
 **The parser is deliberately strict**, because surveying real pages turned up a long list
 of ways a table parses cleanly and comes out wrong. `146 406.9134 862.0` is two values
@@ -138,7 +149,7 @@ Built into `data/processed/` as CSV and Parquet, each with a codebook in
 | `tn_cpi_by_division` | 39 | Price index by COICOP function 2021–2023, base 2015 = 100, with INS weights. |
 | `tn_unemployment_annual` | 104 | Unemployment by education level and by sex, 2011–2023. |
 | `tn_yearbook_tables` | 8,391 | Every numbered table heading in all 22 yearbooks, with edition and page. |
-| `tn_yearbook_series` | 171,290 | Values from the yearbooks' tables, reconciled across editions. |
+| `tn_yearbook_series` | 178,021 | Values from the yearbooks' tables, reconciled across editions. |
 | `tn_yearbook_coverage` | 1,637 | What was extracted, what was refused, and why. |
 
 All labels are translated to English; every codebook keeps the original French and Arabic

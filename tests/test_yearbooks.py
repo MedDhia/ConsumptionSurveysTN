@@ -181,8 +181,22 @@ def test_no_conflicting_cell_reaches_the_series(corpus):
 
 
 def _year_column(series):
-    """Cells from tables whose columns are years, as opposed to a classification."""
+    """Cells whose column is a calendar year."""
     return series[series.column_label == series.year.astype(str)]
+
+
+def _classification(series):
+    """Cells whose column names a category rather than a period.
+
+    School-year columns ("24-23") name a period too, so they belong with the years even
+    though `column_label` keeps INS's notation rather than the calendar year. Lumping
+    them in with the classification cells understates how often that group is
+    uncorroborated, because a school-year table is a time series that later editions
+    reprint.
+    """
+    is_year = series.column_label == series.year.astype(str)
+    is_school = series.column_label.str.match(r"^\d{2}-\d{2}$").fillna(False)
+    return series[~(is_year | is_school)]
 
 
 def test_most_year_column_cells_are_corroborated_by_a_second_edition(corpus):
@@ -207,7 +221,7 @@ def test_classification_tables_are_honestly_marked_uncorroborated(corpus):
     a reader filtering on `agreement` depends on it being applied.
     """
     _, series, _ = corpus
-    classification = series[series.column_label != series.year.astype(str)]
+    classification = _classification(series)
     assert not classification.empty
     single = (classification.agreement == "single source").mean()
     assert single > 0.8, f"only {single:.1%} of classification cells are marked single source"
@@ -356,3 +370,72 @@ def test_layout_reader_never_overrides_the_single_line_paths():
     assert {(r["row_label"], r["value"]) for r in direct} == {
         (r["row_label"], r["value"]) for r in parse_page_layout(2023, 23, text)
     }
+
+
+# ------------------------------------------------ school years and inferred row labels
+
+def test_school_years_are_told_apart_from_age_bands():
+    """Both are written as reversed two-digit ranges, and only the span separates them.
+
+    "24-23" is the 2023/24 school year; "04-00" is an age band. Reading an age-band
+    header as years would turn a cross-section into a fake time series.
+    """
+    from consumptiontn.build_yearbook import _school_year_header
+
+    assert _school_year_header("24-23 23-22 22-21") == [
+        ("24-23", 2023), ("23-22", 2022), ("22-21", 2021)
+    ]
+    assert _school_year_header("04-00 09-05 14-10") is None
+    assert _school_year_header("44-40 39-35") is None
+    # The century turn: "00-99" is the 1999/2000 school year.
+    assert _school_year_header("01-00 00-99") == [("01-00", 2000), ("00-99", 1999)]
+
+
+def test_a_school_year_table_is_dated_without_a_year_on_the_page(corpus):
+    """Table 2.1.3 counts schools by governorate with no calendar year printed anywhere.
+    Tunis reads 190 schools for 24-23 and 188 for 20-19."""
+    _, series, _ = corpus
+    schools = series[series.title_fr.str.contains("nombre d écoles par gouvernorat",
+                                                  na=False, case=False)
+                     & series.row_label.eq("Tunis")]
+    by_year = dict(zip(schools.year, schools.value, strict=True))
+    assert by_year[2023] == 190.0
+    assert by_year[2019] == 188.0
+
+
+def test_inferred_labels_are_flagged(corpus):
+    """A label read from a neighbouring line is weaker evidence than one printed beside
+    its numbers, so it is marked and a reader can drop the lot."""
+    _, series, _ = corpus
+    assert series.label_inferred.any()
+    assert not series.label_inferred.all(), "flag should mark a minority of rows"
+
+
+def test_a_label_wrapped_around_its_numbers_is_reassembled(corpus):
+    """Table 12.1.1 prints "Nombre d'abonnés au réseau de", then the numbers, then
+    "téléphone fixe (en milliers)". Fixed-line and mobile share the first half, so
+    stopping at the line above would give two different series the same name."""
+    _, series, _ = corpus
+    phones = series[series.title_fr.str.contains("réseaux téléphoniques", na=False)
+                    & series.year.eq(2023) & series.label_inferred]
+    values = dict(zip(phones.row_label, phones.value, strict=True))
+    # "telephone fixe", not merely "fixe": the density row is labelled
+    # "Densite telephonique (fixe+mobile)" and would match a looser test.
+    fixed = [label for label in values if "téléphone fixe" in label]
+    mobile = [label for label in values if "téléphone mobile" in label]
+    assert len(fixed) == 1 and len(mobile) == 1, list(values)
+    assert values[fixed[0]] == 1863.0
+    assert values[mobile[0]] == 16359.0
+
+
+def test_an_ambiguous_inferred_label_is_dropped_rather_than_guessed():
+    """Page 43 names two different teacher counts identically once the Arabic is
+    stripped -- first cycle and second cycle. Nothing downstream could tell them apart,
+    so the second is refused instead of overwriting or duplicating the first."""
+    from consumptiontn.build_yearbook import edition_pages, parse_page
+
+    rows, refused = parse_page(2023, 42, edition_pages(2023)[42])
+    reasons = [r["reason"] for r in refused]
+    assert any("not unique" in reason for reason in reasons), reasons
+    inferred = {r["row_label"] for r in rows if r["label_inferred"]}
+    assert len(inferred) == len({label for label in inferred})
