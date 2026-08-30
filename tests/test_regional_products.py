@@ -176,3 +176,20 @@ def test_a_balanced_panel_of_goods_exists(corpus):
     _, gini, _ = corpus
     counts = gini.groupby("product_ar").wave.nunique()
     assert (counts == 4).sum() >= 100
+
+
+def test_the_published_index_is_rounded_so_it_reproduces_elsewhere(corpus):
+    """A dataset that only rebuilds identically on one machine is not reproducible.
+
+    The weights come from `lstsq`, whose last bits differ between BLAS builds, and that
+    difference reached every Gini in the file. CI caught it; a reader would not have.
+    """
+    _, gini, _ = corpus
+    values = gini.spatial_gini.dropna()
+    assert (values.round(brp.GINI_DECIMALS) == values).all()
+
+    long, _, _ = corpus
+    wide = long.pivot_table(index=["wave", "product_ar"], columns="region",
+                            values="expenditure_pc_millimes").reset_index()
+    shares = brp.recovered_population_shares(wide[wide.wave == 2021])
+    assert (np.round(shares, brp.SHARE_DECIMALS) == shares).all()

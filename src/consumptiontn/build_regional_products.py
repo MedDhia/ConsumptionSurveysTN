@@ -58,6 +58,10 @@ VALUE = re.compile(
     r"|(?<![\d.])\d+(?:\.\d+)?(?![\d.])"
 )
 
+# Decimals kept on the recovered weights and on the published index. Both exist to make
+# the dataset reproducible on a different machine, not to express a precision claim.
+SHARE_DECIMALS, GINI_DECIMALS = 6, 6
+
 # The row that anchors the column mapping.
 TOTAL_ROW = "المجموع العام"
 
@@ -281,7 +285,12 @@ def recovered_population_shares(frame: pd.DataFrame) -> np.ndarray:
     x = frame[REGIONS].to_numpy(float)
     national = frame["National"].to_numpy(float)
     weights, *_ = np.linalg.lstsq(x, national, rcond=None)
-    return weights
+    # lstsq goes through LAPACK, and its last bits differ between BLAS builds. Left
+    # alone that difference reaches every published Gini and makes the dataset
+    # irreproducible across machines, which CI catches and a reader would not. Six
+    # decimals is far finer than a population share is known to and far coarser than
+    # the disagreement, so it pins the output without discarding anything real.
+    return np.round(weights, SHARE_DECIMALS)
 
 
 # A row passes if its printed national value is what its own regions imply. The floor
@@ -354,10 +363,10 @@ def build() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     gini = table[["wave", "product_ar"]].copy()
     gini["product_fr"] = gini.product_ar.map(french)
     gini["expenditure_pc_national"] = table.National / 1000.0
-    gini["spatial_gini"] = [
+    gini["spatial_gini"] = np.round([
         spatial_gini(row, shares[wave])
         for wave, row in zip(table.wave, table[REGIONS].to_numpy(float), strict=True)
-    ]
+    ], GINI_DECIMALS)
     gini = gini.sort_values(["wave", "product_ar"]).reset_index(drop=True)
 
     long = table.melt(id_vars=["wave", "product_ar"], value_vars=COLUMNS,
