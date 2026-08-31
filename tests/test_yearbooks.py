@@ -157,7 +157,7 @@ def corpus():
 
 
 def test_catalogue_covers_every_edition(corpus):
-    tables, _, _ = corpus
+    tables, _, _, _subtotals = corpus
     from consumptiontn.config import YEARBOOK_FILE_IDS
 
     assert set(tables.edition) == set(YEARBOOK_FILE_IDS)
@@ -169,14 +169,14 @@ def test_catalogue_excludes_contents_page_entries(corpus):
     They are recognisable by their dotted leaders, and the catalogue is meant to hold
     the tables rather than the list that points at them.
     """
-    tables, _, _ = corpus
+    tables, _, _, _subtotals = corpus
     leaders = tables[tables.table_title.str.contains(r"\.{4,}", regex=True, na=False)]
     assert leaders.empty, f"{len(leaders)} contents-page rows leaked into the catalogue"
 
 
 def test_no_conflicting_cell_reaches_the_series(corpus):
     """The whole point of reconciliation: a cell two editions disagree about is dropped."""
-    _, series, _ = corpus
+    _, series, _, _subtotals = corpus
     assert "conflict" not in set(series.agreement)
 
 
@@ -207,7 +207,7 @@ def test_most_year_column_cells_are_corroborated_by_a_second_edition(corpus):
     across editions -- silently disabling the corpus's main check. Measuring over every
     cell instead would let a flood of uncorroborable classification rows mask that.
     """
-    _, series, _ = corpus
+    _, series, _, _subtotals = corpus
     confirmed = (_year_column(series).agreement == "confirmed").mean()
     assert confirmed > 0.5, f"only {confirmed:.1%} of year-column cells are confirmed"
 
@@ -220,7 +220,7 @@ def test_classification_tables_are_honestly_marked_uncorroborated(corpus):
     printed twice and nothing corroborates it. `single source` is the correct label, and
     a reader filtering on `agreement` depends on it being applied.
     """
-    _, series, _ = corpus
+    _, series, _, _subtotals = corpus
     classification = _classification(series)
     assert not classification.empty
     single = (classification.agreement == "single source").mean()
@@ -228,7 +228,7 @@ def test_classification_tables_are_honestly_marked_uncorroborated(corpus):
 
 
 def test_every_confirmed_cell_really_had_more_than_one_edition(corpus):
-    _, series, _ = corpus
+    _, series, _, _subtotals = corpus
     confirmed = series[series.agreement == "confirmed"]
     assert (confirmed.n_editions > 1).all()
     single = series[series.agreement == "single source"]
@@ -244,7 +244,7 @@ def test_generic_extractor_reproduces_the_bespoke_unemployment_series(corpus):
     """
     from consumptiontn import build_labour
 
-    _, series, _ = corpus
+    _, series, _, _subtotals = corpus
     bespoke = build_labour.build()
     bespoke = bespoke[bespoke.breakdown == "education"]
     names = {"Sans niveau": "none", "Primaire": "primary", "Secondaire": "secondary",
@@ -259,32 +259,32 @@ def test_generic_extractor_reproduces_the_bespoke_unemployment_series(corpus):
 def test_aggregate_rows_are_marked(corpus):
     """Totals and regional subtotals sit among the data rows; summing without filtering
     them roughly double-counts."""
-    _, series, _ = corpus
+    _, series, _, _subtotals = corpus
     kinds = set(series.row_kind)
     assert kinds <= {"data", "aggregate"}
     assert (series.row_kind == "aggregate").sum() > 100
 
 
 def test_coverage_accounts_for_every_catalogued_table(corpus):
-    tables, _, coverage = corpus
+    tables, _, coverage, _subtotals = corpus
     assert set(tables.table_title) <= set(coverage.title_fr)
     assert (coverage.values_kept <= coverage.values_read).all()
 
 
 def test_years_are_plausible(corpus):
-    _, series, _ = corpus
+    _, series, _, _subtotals = corpus
     assert series.year.between(1900, 2030).all()
 
 
 def test_classification_tables_carry_a_year_from_the_page(corpus):
     """Never dated from the edition's cover: table 13.8 in the 2023 edition covers
     2018-2022, so the cover year would be wrong by a year for every value in it."""
-    _, series, _ = corpus
+    _, series, _, _subtotals = corpus
     assert series.year.notna().all()
 
 
 def test_column_labels_are_populated(corpus):
-    _, series, _ = corpus
+    _, series, _, _subtotals = corpus
     assert series.column_label.notna().all()
     assert (series.column_label.str.len() > 0).all()
 
@@ -293,7 +293,7 @@ def test_a_known_classification_table_matches_the_printed_page(corpus):
     """Table 1.8, fertility by governorate, 2023 edition: Tunis reads I.S.F 1.40 and
     T.G.F 41.6 on the page. Classification tables have no cross-edition check, so at
     least one is pinned against the paper."""
-    _, series, _ = corpus
+    _, series, _, _subtotals = corpus
     tunis = series[series.title_fr.str.contains("fécondite", na=False)
                    & series.row_label.eq("Tunis") & series.year.eq(2023)]
     values = dict(zip(tunis.column_label, tunis.value, strict=True))
@@ -307,7 +307,7 @@ def test_nested_year_header_dates_each_column(corpus):
     """Table 1.9 puts 2023 and 2022 across the top with Masculin / Feminin / Mas-Fem
     under each. Six columns hang off two year cells, and each must inherit its own year
     -- a single page-level year would date half the table wrongly."""
-    _, series, _ = corpus
+    _, series, _, _subtotals = corpus
     births = series[series.title_fr.str.contains("naissances par genre", na=False)
                     & series.row_label.eq("Tunis") & series.edition.eq(2023)]
     by_column = dict(zip(births.column_label, zip(births.year, births.value, strict=True),
@@ -321,7 +321,7 @@ def test_header_split_over_lines_is_reassembled(corpus):
     """On the continuation page of table 1.2 the cells read TOTAL, "80 ans &+" and the
     age bands across three lines, and TOTAL is printed last though it belongs first.
     Only the column geometry gets the order right."""
-    _, series, _ = corpus
+    _, series, _, _subtotals = corpus
     page = series[series.title_fr.str.contains("groupe d age genre", na=False)
                   & series.row_label.eq("Tunis") & series.column_label.eq("TOTAL")]
     assert not page.empty
@@ -332,7 +332,7 @@ def test_a_lone_dash_reads_as_zero(corpus):
     """INS's conventions table defines "-" as resultat rigoureusement nul: an observed
     zero, distinct from ">>" and "..." which mean unavailable. Table 1.13 records no
     still-births in Manouba for 2020 and 2021, printed as dashes."""
-    _, series, _ = corpus
+    _, series, _, _subtotals = corpus
     manouba = series[series.title_fr.str.contains("morts-n", na=False)
                      & series.row_label.eq("Manouba")]
     values = dict(zip(manouba.year, manouba.value, strict=True))
@@ -396,7 +396,7 @@ def test_school_years_are_told_apart_from_age_bands():
 def test_a_school_year_table_is_dated_without_a_year_on_the_page(corpus):
     """Table 2.1.3 counts schools by governorate with no calendar year printed anywhere.
     Tunis reads 190 schools for 24-23 and 188 for 20-19."""
-    _, series, _ = corpus
+    _, series, _, _subtotals = corpus
     schools = series[series.title_fr.str.contains("nombre d écoles par gouvernorat",
                                                   na=False, case=False)
                      & series.row_label.eq("Tunis")]
@@ -408,7 +408,7 @@ def test_a_school_year_table_is_dated_without_a_year_on_the_page(corpus):
 def test_inferred_labels_are_flagged(corpus):
     """A label read from a neighbouring line is weaker evidence than one printed beside
     its numbers, so it is marked and a reader can drop the lot."""
-    _, series, _ = corpus
+    _, series, _, _subtotals = corpus
     assert series.label_inferred.any()
     assert not series.label_inferred.all(), "flag should mark a minority of rows"
 
@@ -417,7 +417,7 @@ def test_a_label_wrapped_around_its_numbers_is_reassembled(corpus):
     """Table 12.1.1 prints "Nombre d'abonnés au réseau de", then the numbers, then
     "téléphone fixe (en milliers)". Fixed-line and mobile share the first half, so
     stopping at the line above would give two different series the same name."""
-    _, series, _ = corpus
+    _, series, _, _subtotals = corpus
     phones = series[series.title_fr.str.contains("réseaux téléphoniques", na=False)
                     & series.year.eq(2023) & series.label_inferred]
     values = dict(zip(phones.row_label, phones.value, strict=True))
@@ -463,7 +463,7 @@ def test_four_digit_school_years_resolve_to_the_same_year_as_two_digit():
 def test_the_two_school_year_notations_corroborate_each_other(corpus):
     """Canonicalising the label is what lets them: keyed on the printed token, two
     editions of the same figure would never have been compared."""
-    _, series, _ = corpus
+    _, series, _, _subtotals = corpus
     enrolment = series[series.title_fr.eq("population scolaire totale du 1er cycle de 8")
                        & series.row_label.eq("Sidi Bouzid")]
     by_year = enrolment.set_index("year")
@@ -475,7 +475,7 @@ def test_the_two_school_year_notations_corroborate_each_other(corpus):
 
 
 def test_school_year_labels_are_canonical(corpus):
-    _, series, _ = corpus
+    _, series, _, _subtotals = corpus
     school = series[series.column_label.str.match(r"^\d{4}/\d{2}$").fillna(False)]
     assert not school.empty
     # The canonical form always names the year it starts in.
@@ -570,7 +570,7 @@ def test_panel_names_drop_the_enumerator_so_editions_agree():
 
 
 def test_both_trade_panels_survive_into_the_corpus(corpus):
-    _, series, _ = corpus
+    _, series, _, _subtotals = corpus
     trade = series[series.title_fr.str.contains("mensuelle des échanges", na=False)]
     months = trade[trade.row_label.str.endswith("Janvier")]
     panels = set(months.row_label.str.rsplit(" / ", n=1).str[0])
@@ -593,7 +593,7 @@ def test_monthly_trade_is_corroborated_across_editions(corpus):
     either end are printed by one edition only -- no corroboration is possible there, and
     counting those against the parser would penalise the series for being longer.
     """
-    _, series, _ = corpus
+    _, series, _, _subtotals = corpus
     trade = series[series.title_fr.str.contains("mensuelle des échanges", na=False)]
     months = trade[trade.row_label.str.contains(" / ")]
     assert months.year.min() <= 1995 and months.year.max() >= 2023
@@ -691,7 +691,7 @@ def test_a_trailing_weight_column_does_not_refuse_the_table(corpus):
     across ten editions, which is the consumer price index by product group for 2012 to
     2023. The weight is a constant, not a point in a series, so it is dropped.
     """
-    _, series, _ = corpus
+    _, series, _, _subtotals = corpus
     rows = series[series.table_number.eq("13.7")]
     assert not rows.empty, "table 13.7 is being refused again"
     assert rows.year.between(2012, 2023).all()
@@ -723,7 +723,7 @@ def test_a_weight_column_beside_the_years_is_read_too(corpus):
     was refused whole -- 515 rows across fifteen editions, which is annual consumer price
     *inflation* by product group, the series the price index alone does not give.
     """
-    _, series, _ = corpus
+    _, series, _, _subtotals = corpus
     rows = series[series.table_number.eq("13.4")]
     assert not rows.empty, "table 13.4 is being refused again"
 
@@ -759,7 +759,7 @@ def test_the_trailing_column_goes_before_a_wrapped_label_is_recovered(corpus):
     one value wide, so the headline row of every one of these tables -- "Produits
     alimentaires et boissons non alcoolisées" -- was dropped without being refused.
     """
-    _, series, _ = corpus
+    _, series, _, _subtotals = corpus
     rows = series[series.table_number.eq("13.4")]
     headline = rows[rows.row_label.eq(
         "Produits alimentaires et boissons non alcoolisées") & rows.year.eq(2023)]
@@ -786,7 +786,7 @@ def test_a_decimal_broken_by_a_space_is_repaired_not_refused(corpus):
     # and is refused on its width rather than silently glued together.
     assert split_row("  Ventes      4 526     .2   4 590 ")[1] == [4590.0]
 
-    _, series, _ = corpus
+    _, series, _, _subtotals = corpus
     men = series[series.row_label.eq("Sexe masculin")
                  & series.title_fr.str.startswith("principales caract")]
     corroborated = men[men.year.eq(1999)]
@@ -805,7 +805,7 @@ def test_a_title_that_gained_words_is_still_the_same_table(corpus):
     each other. Merged, Tunis runs 1995 to 2023 with 26 of those years printed by two or
     more editions.
     """
-    _, series, _ = corpus
+    _, series, _, _subtotals = corpus
     tunis = series[series.title_fr.str.contains("offres d emploi", na=False)
                    & series.row_label.eq("Tunis")]
     years = sorted(tunis.year)
@@ -875,7 +875,7 @@ def test_the_sex_a_population_table_describes_is_kept(corpus):
     was truncated. Two editions printing different sexes were then reconciled against each
     other and one of them thrown away.
     """
-    _, series, _ = corpus
+    _, series, _, _subtotals = corpus
     captions = set(series[series.panel.ne("")].panel)
     assert captions == {"Masculin", "Féminin", "Masculin et Féminin"}
 
@@ -890,7 +890,7 @@ def test_the_two_sexes_add_up_to_the_both_sexes_panel(corpus):
     to the wrong pages, men plus women would not come to the printed total for both -- and
     over Tunis's 20-24 age band across seven years, they do, to the last decimal.
     """
-    _, series, _ = corpus
+    _, series, _, _subtotals = corpus
     cells = series[series.panel.ne("") & series.row_label.eq("Tunis")
                    & series.column_label.eq("24-20")]
     wide = cells.pivot_table(index="year", columns="panel", values="value")
@@ -924,6 +924,94 @@ def test_separating_the_sexes_removed_false_revisions(corpus):
     other and the difference recorded as INS revising the number. 1,733 cells were marked
     that way.
     """
-    _, series, _ = corpus
+    _, series, _, _subtotals = corpus
     population = series[series.title_fr.str.startswith("estimation de la population")]
     assert (population.agreement == "revised").mean() < 0.15
+
+
+# --------------------------------------------------- the region rows against their parts
+
+def test_regions_agree_with_the_governorates_they_are_made_of(corpus):
+    """The validator that needs no outside source and runs over the whole corpus.
+
+    Many tables print the seven grandes régions alongside the 24 governorates, so each
+    region row is a sum the corpus can check against its own parts. 5,847 such checks are
+    available and 98.96% of them hold.
+    """
+    _, _series, _coverage, subtotals = corpus
+    additive = subtotals[subtotals.additive]
+    assert len(additive) > 10_000, "far fewer checks than the corpus should offer"
+    assert additive.agrees.mean() > 0.98, additive[~additive.agrees].head().to_dict()
+
+
+def test_the_region_disagreements_stay_concentrated(corpus):
+    """A disagreement spreading across the corpus would mean the parser was drifting.
+
+    They do not spread: over half sit in population by age group in two editions, 2009
+    and 2018, and the rest in the births-by-place-of-delivery tables. All are *region*
+    rows contradicting their parts rather than governorate rows, which is why the
+    governorate panel built from the same corpus passes its own national-total check.
+    """
+    _, _series, _coverage, subtotals = corpus
+    off = subtotals[subtotals.agrees == False]  # noqa: E712
+    assert not off.empty, "the check has stopped finding the faults it used to"
+    assert len(off) < 200, f"{len(off)} disagreements is more than this has ever found"
+    population = off.title_fr.str.startswith("estimation de la population")
+    births = off.title_fr.str.startswith("naissances")
+    assert (population | births).all(), sorted(set(off[~(population | births)].title_fr))
+    assert population.sum() >= 50
+
+
+def test_a_rate_is_not_expected_to_add_up(corpus):
+    """A region's fertility rate is its governorates' mean, not their sum.
+
+    Checking those would report 1,681 disagreements that are arithmetic working properly.
+    Wording catches most of them; the rest are caught from the numbers, because a column
+    can be an average inside a table of counts -- "Accouch. assisté" is the percentage
+    assisted, sitting among counts of births.
+    """
+    _, _series, _coverage, subtotals = corpus
+    rates = subtotals[~subtotals.additive]
+    assert len(rates) > 1_000
+    assert rates.agrees.isna().all(), "a rate must not be counted as passing or failing"
+    assert rates.title_fr.str.contains("naissances selon le lieu").any()
+
+
+def test_both_sides_of_a_disagreement_are_published(corpus):
+    """A sum cannot say which side is wrong, so neither is dropped."""
+    _, _series, _coverage, subtotals = corpus
+    assert {"parts_sum", "parts_mean", "printed", "gap", "agrees"} <= set(subtotals.columns)
+    off = subtotals[subtotals.agrees == False]  # noqa: E712
+    assert (off.parts_sum.notna() & off.printed.notna()).all()
+
+
+def test_a_region_is_matched_however_it_is_spelt():
+    """INS sets a region five ways and a governorate two; both sides are folded."""
+    from consumptiontn.build_yearbook import _fold_label
+
+    assert _fold_label("Nord - Est") == _fold_label("Nord-Est") == _fold_label("Nord Est")
+    assert _fold_label("SidiBouzid") == _fold_label("Sidi Bouzid")
+    assert _fold_label("Béja") == _fold_label("Beja")
+    assert _fold_label("Nord-Est") != _fold_label("Nord-Ouest")
+
+
+# ------------------------------------------------------ lines that are not rows at all
+
+def test_a_unit_statement_is_not_a_row(corpus):
+    """"Unité : Le Nombre   Année" carries the year beside it and reads as -2001."""
+    _, series, _coverage, _subtotals = corpus
+    assert not series.row_label.str.match(r"^\s*Unit[ée]\s*:", na=False).any()
+    assert not series.row_label.str.contains("STATISTIQUES TUNISIE", na=False).any()
+
+
+def test_the_rule_does_not_catch_a_real_label():
+    """Words that merely begin the same way are data: a table of thermal springs has
+    "Sources thermales" down its side, and a sports table has "Baseball"."""
+    from consumptiontn.build_yearbook import NOT_A_ROW
+
+    for caption in ("Unité : Le Nombre", "Source : INS", "Base (2015 = 100)",
+                    "123   STATISTIQUES TUNISIE   ANNUAIRE STATISTIQUE"):
+        assert NOT_A_ROW.search(caption), caption
+    for label in ("Unités de production", "Sources thermales", "Baseball",
+                  "Tunis", "Nord-Ouest"):
+        assert not NOT_A_ROW.search(label), label

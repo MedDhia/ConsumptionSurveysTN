@@ -143,6 +143,18 @@ INTROS = {
         "year-and-base combinations rather than three. `n_editions` counts the editions "
         "printing a cell; where more than one does, they were required to agree."
     ),
+    "tn_yearbook_subtotals": (
+        "Every printed regional subtotal in the corpus beside the sum of the governorates "
+        "it is made of — 5,847 checks that need no outside source and run over every table "
+        "carrying both.\n\n"
+        "**98.96% agree.** All 61 that do not sit in two pages: population by age group in "
+        "the 2009 edition and again in 2018. Every one of them is a *region* row that "
+        "disagrees with its parts, not a governorate row, which is why the governorate "
+        "panel built from the same corpus passes its own checks.\n\n"
+        "Both figures are published with the gap rather than either being dropped: a sum "
+        "cannot say which side is misread, and a reader is better served knowing exactly "
+        "which cells to distrust than having one of them silently removed."
+    ),
     "tn_governorate_panel": (
         "Thirty indicators for all 24 governorates, 1994–2023, drawn out of the statistical "
         "yearbooks: population, schooling, employment, libraries, road casualties, banking, "
@@ -350,6 +362,8 @@ TITLES = {
         "Product rows refused by the national-versus-regions check",
     "tn_yearbook_series": "Statistical yearbook series, cross-checked across editions",
     "tn_yearbook_coverage": "Statistical yearbook extraction coverage",
+    "tn_yearbook_subtotals":
+        "Printed regional subtotals against the governorates they are made of",
 }
 
 # Datasets whose plain CSV would exceed GitHub's 100 MB per-file limit. Written as
@@ -390,10 +404,11 @@ def build_all() -> dict[str, pd.DataFrame]:
     datasets["tn_cpi_by_division"] = cpi_divisions
     datasets["tn_cpi_chained"] = cpi_chained
     datasets["tn_unemployment_annual"] = build_labour.build()
-    tables, series, coverage = build_yearbook.build()
+    tables, series, coverage, subtotals = build_yearbook.build()
     datasets["tn_yearbook_tables"] = tables
     datasets["tn_yearbook_series"] = series
     datasets["tn_yearbook_coverage"] = coverage
+    datasets["tn_yearbook_subtotals"] = subtotals
     governorates, governorates_refused = build_governorates.build(series)
     datasets["tn_governorate_panel"] = governorates
     datasets["tn_governorate_refused"] = governorates_refused

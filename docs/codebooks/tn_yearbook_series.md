@@ -1,6 +1,6 @@
 # Statistical yearbook series, cross-checked across editions
 
-`data/processed/tn_yearbook_series.csv` — 181,291 rows × 15 columns
+`data/processed/tn_yearbook_series.csv` — 183,063 rows × 15 columns
 
 Values extracted from the yearbooks' tables: one row per table × row label × column × year, across all 22 editions.
 
