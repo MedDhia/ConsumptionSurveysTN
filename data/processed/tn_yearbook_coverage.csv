@@ -275,7 +275,7 @@ equilibre ressources et emplois des biens et services : :,0,0,0,0,"not extracted
 equilibre ressources et emplois des biens et services : valeurs aux prix,8,420,158,2,extracted with conflicts
 equilibre ressources et emplois des biens et services valeurs aux prix,1,70,70,0,extracted
 estimation de la population 4,11,6327,6327,0,extracted
-estimation de la population par,11,12627,5050,1601,extracted with conflicts
+estimation de la population par,11,12627,12048,3,extracted with conflicts
 estimation de la population par 2,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 estimation de la population par 4,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 estimation de la population par gouvernorat 26 5,0,0,0,0,"not extracted (header unreadable, or rows refused)"
@@ -457,7 +457,7 @@ evolution des livres prêtés par catégorie de 6,21,3000,767,0,extracted
 evolution des longueurs des lignes par tension,1,28,28,0,extracted
 evolution des mort-nes declares 15.2,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution des mort-nes par gouvernorat de declaration,1,288,288,0,extracted
-evolution des morts -nes par 16,5,790,363,0,extracted
+evolution des morts -nes par 16,5,790,288,0,extracted
 evolution des morts-nes declares 15,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution des morts-nes declares par mois et par annee,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution des morts-nés déclarés 15,0,0,0,0,"not extracted (header unreadable, or rows refused)"
@@ -762,7 +762,7 @@ nombre d ecoles par gouvernorat du 1 cycle de l enseignement de base,1,168,168,0
 nombre d etablissements du 2 ème,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 nombre d écoles par gouvernorat 45 3,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 nombre d écoles par gouvernorat du 1 er cycle 3,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-nombre d écoles par gouvernorat du 1er cycle de 3,21,2615,707,0,extracted
+nombre d écoles par gouvernorat du 1er cycle de 3,21,2615,652,0,extracted
 nombre d établissements du 2ème cycle de l enseignement de 14,18,4480,1839,0,extracted
 nombre d établissements et classes-élèves par,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 nombre d établissements et classes-élèves par gouvernorat 57 14,0,0,0,0,"not extracted (header unreadable, or rows refused)"
@@ -832,7 +832,7 @@ paiements exterieurs de la tunisie : evolution des recettes,1,231,231,0,extracte
 paiements exterieurs de la tunisie: evolution des ( : 10,4,165,53,20,extracted with conflicts
 paiements extérieurs de la tunisie : : 11,16,2465,668,12,extracted with conflicts
 paiements extérieurs de la tunisie : evolution des dépenses : 11,4,350,145,1,extracted with conflicts
-paiements extérieurs de la tunisie: : 10,16,2535,758,1,extracted with conflicts
+paiements extérieurs de la tunisie: : 10,16,2535,708,1,extracted with conflicts
 paiements extérieurs de la tunisie: evolution des,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 paiements extérieurs de la tunisie: evolution des recettes : 10,4,395,163,0,extracted
 par genre et gouvernorat de déclaration 32 11,0,0,0,0,"not extracted (header unreadable, or rows refused)"

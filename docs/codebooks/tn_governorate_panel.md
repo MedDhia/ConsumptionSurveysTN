@@ -1,6 +1,6 @@
 # Thirty indicators for the 24 governorates, 1994–2023
 
-`data/processed/tn_governorate_panel.csv` — 16,221 rows × 8 columns
+`data/processed/tn_governorate_panel.csv` — 34,031 rows × 9 columns
 
 Thirty indicators for all 24 governorates, 1994–2023, drawn out of the statistical yearbooks: population, schooling, employment, libraries, road casualties, banking, sport and communications. Ten of them run the full 1995–2023.
 
@@ -17,6 +17,7 @@ Tables that look like governorate tables and are not are left out and named in t
 | `governorate` | str | — | derived | — |
 | `year` | int64 | — | derived | Calendar year the observation refers to. |
 | `indicator` | str | — | derived | — |
+| `breakdown` | str | — | derived | Which yearbook table the row came from: `education` or `sex`. |
 | `value` | float64 | — | derived | — |
 | `unit` | str | — | derived | — |
 | `n_editions` | int64 | — | derived | How many editions printed this cell. More than one means corroborated. |

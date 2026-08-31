@@ -54,6 +54,16 @@ governorates. They agree on 2 of 384 shared cells and are kept apart. Where the 
 hold, it turns three six-to-ten-year fragments of the job-offers panel into one 29-year
 series, 1995–2023, with 26 of those years printed by two or more editions.
 
+**Which half of a table a page carries.** Tables 1.2, 1.3 and 1.4 are one
+population-by-age table printed for men, for women and for both. The sex appears only as a
+caption beside the row-label heading — `Gouvernorat` … `Masculin` — and once that was
+dropped the three were indistinguishable, their titles differing only by where each was
+truncated. Two editions printing different sexes were then reconciled against each other,
+and **3,140 cells were recorded as INS revising a figure when they were men against
+women**. The caption is kept as `panel` and forms part of a cell's identity. It is
+*recorded*, not interpreted: layout alone cannot separate a caption for the page from a
+heading naming one column, so only captions checked against the printed page are accepted.
+
 **Three rendering faults will corrupt a naive parse.** Bold columns emit every glyph twice,
 so 70.0 arrives as `7700..00`; thousands are separated by a space, so `1 013.5` is one
 number; and a value is sometimes broken at its decimal point, so 4526.2 arrives as
@@ -71,9 +81,9 @@ reach before 2011 — the 2005, 2010 and 2012 editions carry no unemployment tab
 ### Reading the whole corpus
 
 Beyond those hand-verified series, `build_yearbook.py` extracts the corpus's tabular
-content — 174,473 values from 552 tables across all 22 editions — into
-`tn_yearbook_series`. 83,424 of those values are confirmed by two or more editions
-printing the same figure, and 4,670 of the series it yields run ten years or longer, 1,564
+content — 181,291 values from 552 tables across all 22 editions — into
+`tn_yearbook_series`. 83,322 of those values are confirmed by two or more editions
+printing the same figure, and 4,918 of the series it yields run ten years or longer, 1,564
 of them twenty or longer. The longest run 29 years, 1995–2023.
 
 Column headers come in four arrangements, and each needs its own reading:
@@ -160,12 +170,13 @@ Built into `data/processed/` as CSV and Parquet, each with a codebook in
 | `tn_wave_coverage` | 12 | What is available for each wave since 1968. |
 | `tn_cpi_annual` | 200 | Consumer price index 1999–2023, on each of INS's eight base years. |
 | `tn_cpi_by_division` | 182 | Price index by COICOP function 2012–2023, on bases 2010 and 2015, with INS weights. |
+| `tn_cpi_chained` | 156 | The same, spliced onto a single base 2015 = 100, with the chain factor's disagreement. |
 | `tn_unemployment_annual` | 104 | Unemployment by education level and by sex, 2011–2023. |
 | `tn_yearbook_tables` | 8,391 | Every numbered table heading in all 22 yearbooks, with edition and page. |
-| `tn_yearbook_series` | 174,473 | Values from the yearbooks' tables, reconciled across editions. |
+| `tn_yearbook_series` | 181,291 | Values from the yearbooks' tables, reconciled across editions. |
 | `tn_yearbook_coverage` | 1,254 | What was extracted, what was refused, and why. |
-| `tn_governorate_panel` | 16,221 | Thirty indicators for all 24 governorates, 1994–2023. |
-| `tn_governorate_refused` | 3 | Governorate-years whose parts contradict their printed national total. |
+| `tn_governorate_panel` | 34,031 | Thirty-three indicators for all 24 governorates, 1994–2023. |
+| `tn_governorate_refused` | 444 | Cells whose parts contradict a total printed beside them. |
 | `tn_expenditure_by_product_region` | 12,832 | Expenditure per person by product and region, four survey waves. |
 | `tn_spatial_gini_by_product` | 1,604 | Gini across regions of spending on each good, by wave. |
 | `tn_regional_products_refused` | 2 | Product rows whose printed national value contradicts their own regions. |
@@ -177,7 +188,11 @@ Built into `data/processed/` as CSV and Parquet, each with a codebook in
 means filtering 174,473 rows on a French title you would have to know, then working out
 whether a given table's columns are years, school years, age bands or something else.
 `tn_governorate_panel` settles that once — one row per governorate, year and indicator,
-under English names, thirty indicators, ten of them running the full 1995–2023.
+under English names, thirty-three indicators, ten of them running the full 1995–2023.
+Thirty are plain governorate-by-year series; the rest are population by age band and sex,
+which was excluded until the corpus started keeping the caption that says which sex a page
+carries. Men plus women come to the figure printed for both in 93% of the cells that carry
+all three, and the cells where they do not are refused.
 
 **The names were read off the printed page, never inferred from the title.** That is not
 pedantry. The job-placements table still carries a title saying it breaks down by

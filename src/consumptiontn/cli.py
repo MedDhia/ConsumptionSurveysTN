@@ -173,6 +173,20 @@ INTROS = {
         "following year — a misread in the only edition that prints that year, so no "
         "cross-edition check could have seen it."
     ),
+    "tn_cpi_chained": (
+        "The two bases of `tn_cpi_by_division` spliced into one series, 2012–2023, all of "
+        "it on base 2015 = 100 — the form needed to deflate anything across the 2016 "
+        "rebasing.\n\n"
+        "INS prints 2016 and 2017 on **both** bases, so the factor carrying a base-2010 "
+        "figure onto base 2015 is measured rather than assumed, and measured twice. That "
+        "second measurement is what says whether the splice is sound: across the thirteen "
+        "functions the two overlap years give factors agreeing to better than half a "
+        "percent, most to a tenth.\n\n"
+        "`basis` says whether a figure was published on base 2015 or chained onto it, and "
+        "`chain_disagreement` carries the gap between the two measurements of that "
+        "function's factor. A reader comparing 2013 with 2022 is relying on it, so it is a "
+        "column rather than a footnote."
+    ),
     "tn_unemployment_annual": (
         "Unemployment rate by education level and by sex, 2011–2023, surveyed each May, "
         "spliced from the 2015, 2019 and 2023 statistical yearbooks.\n\n"
@@ -320,6 +334,7 @@ TITLES = {
     "tn_poverty_delegations_2015": "Delegation-level poverty, 2015 small-area estimates",
     "tn_cpi_annual": "Consumer price index, 1999–2023",
     "tn_cpi_by_division": "Consumer price index by COICOP function, 2012–2023",
+    "tn_cpi_chained": "Consumer price index by function, chained to base 2015, 2012–2023",
     "tn_unemployment_annual": "Unemployment by education and sex, 2011–2023",
     "tn_governorate_panel": "Thirty indicators for the 24 governorates, 1994–2023",
     "tn_governorate_refused":
@@ -370,9 +385,10 @@ def build_all() -> dict[str, pd.DataFrame]:
         "tn_wave_coverage": panel_sources.WAVE_COVERAGE,
         "tn_poverty_delegations_2015": extract_pdf.delegation_poverty(),
     }
-    cpi_annual, cpi_divisions = build_prices.build()
+    cpi_annual, cpi_divisions, cpi_chained = build_prices.build()
     datasets["tn_cpi_annual"] = cpi_annual
     datasets["tn_cpi_by_division"] = cpi_divisions
+    datasets["tn_cpi_chained"] = cpi_chained
     datasets["tn_unemployment_annual"] = build_labour.build()
     tables, series, coverage = build_yearbook.build()
     datasets["tn_yearbook_tables"] = tables

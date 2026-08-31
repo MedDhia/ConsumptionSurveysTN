@@ -243,7 +243,74 @@ def cpi_by_division() -> pd.DataFrame:
     return frame.reset_index(drop=True)
 
 
-def build() -> tuple[pd.DataFrame, pd.DataFrame]:
+# The base a chained series is expressed on. 2015 is the newer of the two INS publishes
+# and is also an EBCNV survey year, so a price change measured from it lines up with a
+# change in budget shares.
+CHAIN_BASE = 2015
+
+
+def chained_divisions(divisions: pd.DataFrame) -> pd.DataFrame:
+    """The two bases spliced into one series on base 2015 = 100.
+
+    INS rebased in 2016 and prints two years on both bases, so the factor that carries a
+    base-2010 figure onto base 2015 can be measured rather than assumed -- and measured
+    twice, which is what says whether the splice is sound at all. It is: across the
+    thirteen functions the two overlap years give factors agreeing to better than half a
+    percent, most to a tenth.
+
+    That residual is carried as ``chain_disagreement`` rather than hidden. A reader
+    comparing 2013 with 2022 is relying on it, and should be able to see how big it is.
+    """
+    wide = divisions.pivot_table(index=["function_code", "function", "year"],
+                                 columns="base_year", values="index").reset_index()
+    overlap = wide.dropna(subset=[2010, CHAIN_BASE])
+    if overlap.year.nunique() < 2:
+        raise ValueError(f"only {overlap.year.nunique()} year(s) on both bases; a chain "
+                         f"factor measured once cannot be checked")
+
+    factors = overlap.assign(factor=overlap[CHAIN_BASE] / overlap[2010])
+    by_function = factors.groupby("function_code").factor.agg(["mean", "min", "max"])
+    disagreement = (by_function["max"] / by_function["min"] - 1).rename("chain_disagreement")
+
+    rows = []
+    for record in wide.to_dict("records"):
+        newer, older = record.get(CHAIN_BASE), record.get(2010)
+        code = record["function_code"]
+        if pd.notna(newer):
+            value, source = float(newer), "published"
+        elif pd.notna(older):
+            value, source = float(older) * float(by_function.loc[code, "mean"]), "chained"
+        else:
+            continue
+        rows.append({
+            "year": record["year"], "function_code": code, "function": record["function"],
+            "index": round(value, 4), "base_year": CHAIN_BASE, "basis": source,
+            "chain_disagreement": round(float(disagreement.loc[code]), 6),
+        })
+
+    frame = pd.DataFrame(rows).sort_values(["year", "function_code"])
+    _check_chain(frame)
+    return frame.reset_index(drop=True)
+
+
+def _check_chain(frame: pd.DataFrame) -> None:
+    """A chained series that falls or jumps at the splice has been spliced wrongly."""
+    if frame.year.nunique() < 12:
+        raise ValueError(f"the chained series covers {frame.year.nunique()} years, expected 12")
+    for code, group in frame.groupby("function_code"):
+        ordered = group.sort_values("year")
+        step = ordered["index"].pct_change().dropna()
+        if (step.abs() > 0.35).any():
+            worst = ordered.iloc[int(step.abs().to_numpy().argmax()) + 1]
+            raise ValueError(
+                f"function {code} moves {step.abs().max():.0%} into {int(worst.year)}, "
+                f"which is a splice fault rather than inflation")
+    if (frame.chain_disagreement > 0.01).any():
+        bad = frame[frame.chain_disagreement > 0.01].function.unique()
+        raise ValueError(f"the two overlap years disagree by more than 1% for {list(bad)}")
+
+
+def build() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """Both price tables, cross-checked against each other.
 
     The two tables are published separately, so the general index in one must equal the
@@ -268,4 +335,4 @@ def build() -> tuple[pd.DataFrame, pd.DataFrame]:
         checked += 1
     if checked < 10:
         raise ValueError(f"only {checked} years could be cross-checked, expected 10 or more")
-    return annual, divisions
+    return annual, divisions, chained_divisions(divisions)

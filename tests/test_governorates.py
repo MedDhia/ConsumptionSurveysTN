@@ -21,7 +21,9 @@ from consumptiontn import build_governorates as G
 
 @pytest.fixture(scope="module")
 def panel():
-    return G.build(pd.read_csv("data/processed/tn_yearbook_series.csv"))
+    # The caption is empty for most rows, so pandas infers a mixed column unless told.
+    return G.build(pd.read_csv("data/processed/tn_yearbook_series.csv",
+                               dtype={"panel": "string"}))
 
 
 # ------------------------------------------------------------------ shape and coverage
@@ -35,13 +37,14 @@ def test_every_indicator_covers_all_twenty_four_governorates(panel):
     """
     frame, _ = panel
     counts = frame.groupby("indicator").governorate.nunique()
+    counts = counts[~counts.index.str.startswith("population_")]
     assert (counts == 24).all(), counts[counts != 24].to_dict()
     assert set(frame.governorate) == set(G.GOVERNORATES)
 
 
 def test_the_long_series_really_are_long(panel):
     frame, _ = panel
-    spans = frame.groupby("indicator").year.nunique()
+    spans = frame[frame.breakdown.eq("")].groupby("indicator").year.nunique()
     assert (spans >= 10).all(), spans[spans < 10].to_dict()
     assert (spans >= 29).sum() >= 10, "ten indicators should run the full 1995-2023"
 
@@ -50,13 +53,14 @@ def test_a_cell_appears_once(panel):
     """A governorate reaching the panel under two printed labels must be pooled, not kept
     twice: "Ariana" and "7        Ariana" are the same place in two editions."""
     frame, _ = panel
-    assert not frame.duplicated(["governorate", "year", "indicator"]).any()
+    assert not frame.duplicated(["governorate", "year", "indicator", "breakdown"]).any()
 
 
 def test_pooling_the_labels_raises_the_corroboration(panel):
     """The point of pooling is not tidiness. Two labels are two independent printings."""
     frame, _ = panel
-    assert (frame.agreement == "confirmed").mean() > 0.8
+    yearly = frame[frame.breakdown.eq("")]
+    assert (yearly.agreement == "confirmed").mean() > 0.8
 
 
 # --------------------------------------------------------------- what the numbers say
@@ -79,7 +83,8 @@ def test_the_population_series_matches_tunisia(panel):
 def test_the_governorates_sum_to_the_printed_national_total(panel):
     """INS prints the total beside the parts. They must agree, and they do."""
     frame, _ = panel
-    series = pd.read_csv("data/processed/tn_yearbook_series.csv")
+    series = pd.read_csv("data/processed/tn_yearbook_series.csv",
+                         dtype={"panel": "string"})
     checked = G.national_totals(frame, series)
     assert len(checked) >= 300, "too few indicator-years could be checked"
     assert checked.agrees.all(), checked[~checked.agrees][
@@ -90,14 +95,16 @@ def test_the_years_that_fail_are_published_not_dropped(panel):
     """Each refusal marks a page worth re-reading, so it is named rather than deleted."""
     _, refused = panel
     assert not refused.empty
-    assert {"indicator", "year", "summed", "printed", "gap", "reason"} == set(refused.columns)
+    assert {"indicator", "year", "governorate", "breakdown",
+            "summed", "printed", "gap", "reason"} == set(refused.columns)
     # Library lending in 2000: Manouba reads 404 books against 150,250 the year after.
     assert ((refused.indicator == "library_books_lent") & (refused.year == 2000)).any()
 
 
 def test_a_refused_year_is_absent_from_the_panel(panel):
     frame, refused = panel
-    for row in refused.to_dict("records"):
+    years = refused[refused.governorate.eq("")]
+    for row in years.to_dict("records"):
         present = frame[(frame.indicator == row["indicator"]) & (frame.year == row["year"])]
         assert present.empty, f"{row['indicator']} {row['year']} was refused but shipped"
 
@@ -120,13 +127,13 @@ def test_the_court_tables_stayed_out(panel):
         assert "courts of first instance" in G.EXCLUDED[title]
 
 
-def test_population_by_age_stayed_out(panel):
-    """Tables 2.2 and 2.4 are one table's two halves, "Masculin et Féminin" and
-    "Masculin". The sex lives in the panel heading and does not survive extraction, so
-    pooling them would double-count men under a name that gave no hint of it."""
+def test_the_paramedical_and_secondary_tables_stayed_out(panel):
+    """Two tables whose breakdown cannot be read cleanly: grade labels fused with the
+    year, and a column crossing period with measure in too many forms."""
     frame, _ = panel
-    assert "population_by_age" not in set(frame.indicator)
-    assert "estimation de la population 4" in G.EXCLUDED
+    assert "répartition du personnel 4" in G.EXCLUDED
+    assert "nombre d établissements du 2ème cycle de l enseignement de 14" in G.EXCLUDED
+    assert not frame.indicator.str.contains("paramedical").any()
 
 
 def test_nothing_is_both_named_and_excluded():
@@ -159,3 +166,56 @@ def test_a_year_column_is_not_carried_as_a_breakdown():
     frame = pd.DataFrame({"column_label": ["2019", "2018/19", "19-18", "04-00"],
                           "year": [2019, 2018, 2018, 2010]})
     assert G._period_column(frame).tolist() == [True, True, True, False]
+
+
+# ------------------------------------------------------------ population by age and sex
+
+def test_population_by_age_is_now_readable(panel):
+    """It used to be excluded outright. The sex was printed as a caption beside the
+    row-label heading and dropped on extraction, leaving three near-identically titled
+    tables that could not be told apart. The corpus keeps that caption now."""
+    frame, _ = panel
+    by_sex = frame[frame.indicator.str.startswith("population_")]
+    assert set(by_sex.indicator) == {"population_male", "population_female", "population_all"}
+    assert by_sex.year.min() == 2007
+    assert by_sex.governorate.nunique() == 24
+    assert "population_by_age" not in set(G.EXCLUDED)
+
+
+def test_the_age_bands_are_written_the_right_way_round(panel):
+    """INS prints them backwards: "24-20" is the 20-to-24 band."""
+    frame, _ = panel
+    bands = sorted(set(frame[frame.breakdown.ne("")].breakdown))
+    assert bands[0] == "00-04"
+    assert "20-24" in bands and "80+" in bands
+    assert len(bands) == 17
+    assert G._age_band("24-20") == "20-24"
+    assert G._age_band("Masculin 80ans &+") == "80+"
+    assert G._age_band("2019") is None
+
+
+def test_men_and_women_make_the_figure_printed_for_both(panel):
+    """Nothing tells the parser which page is which sex. If the captions had been attached
+    to the wrong pages this would fail everywhere; instead it holds throughout, because
+    the cells where it does not are refused."""
+    frame, _ = panel
+    age = frame[frame.breakdown.ne("")]
+    wide = age.pivot_table(index=["governorate", "year", "breakdown"],
+                           columns="indicator", values="value").dropna()
+    assert len(wide) > 3_000
+    gap = (wide.population_male + wide.population_female - wide.population_all).abs()
+    assert (gap <= G.SEX_TOLERANCE).all()
+
+
+def test_the_inconsistent_age_cells_are_published(panel):
+    _, refused = panel
+    sexes = refused[refused.reason.str.startswith("men plus women")]
+    assert not sexes.empty
+    assert (sexes.governorate != "").all() and (sexes.breakdown != "").all()
+
+
+def test_only_the_age_table_carries_a_breakdown(panel):
+    """The other thirty indicators are one value per governorate and year."""
+    frame, _ = panel
+    plain = frame[~frame.indicator.str.startswith("population_")]
+    assert (plain.breakdown == "").all()
