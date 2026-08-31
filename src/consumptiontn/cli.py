@@ -25,6 +25,7 @@ import pandas as pd
 from . import (
     build_dwelling,
     build_expenditure,
+    build_governorates,
     build_household,
     build_individual,
     build_labour,
@@ -141,6 +142,36 @@ INTROS = {
         "cross-checks against `tn_cpi_annual` — which it now does for fourteen "
         "year-and-base combinations rather than three. `n_editions` counts the editions "
         "printing a cell; where more than one does, they were required to agree."
+    ),
+    "tn_governorate_panel": (
+        "Thirty indicators for all 24 governorates, 1994–2023, drawn out of the statistical "
+        "yearbooks: population, schooling, employment, libraries, road casualties, banking, "
+        "sport and communications. Ten of them run the full 1995–2023.\n\n"
+        "This is `tn_yearbook_series` made usable. The same numbers are there, but reaching "
+        "them means filtering 174,473 rows on a French title you would have to know, and "
+        "working out whether a given table's columns are years or something else. Here the "
+        "shape is settled: one row per governorate, year and indicator, under English names "
+        "**read off the printed page rather than inferred from the title**, which is a real "
+        "distinction — the job-placements table still carries a title saying it breaks down "
+        "by profession, from an edition where it did.\n\n"
+        "**86% of cells are confirmed** by two or more editions printing the same figure. "
+        "The check that runs over everything at once is the printed national total: the 24 "
+        "governorates must sum to the \"Total\" row of their own table. That found three "
+        "faults nothing else could, all published in `tn_governorate_refused` rather than "
+        "shipped — including a year of money orders where a column had been shuffled, and a "
+        "single misread cell in a table printed by only one edition.\n\n"
+        "Tables that look like governorate tables and are not are left out and named in the "
+        "module: the three justice tables are by **court of first instance**, so Grombalia "
+        "appears and Tunis is split in two."
+    ),
+    "tn_governorate_refused": (
+        "Indicator-years excluded from `tn_governorate_panel` because the 24 governorates "
+        "do not sum to the national total printed in the same table, with both figures and "
+        "the gap.\n\n"
+        "Published rather than dropped because each one marks a page worth re-reading. "
+        "Library lending in 2000 fails because Manouba reads 404 books against 150,250 the "
+        "following year — a misread in the only edition that prints that year, so no "
+        "cross-edition check could have seen it."
     ),
     "tn_unemployment_annual": (
         "Unemployment rate by education level and by sex, 2011–2023, surveyed each May, "
@@ -290,6 +321,9 @@ TITLES = {
     "tn_cpi_annual": "Consumer price index, 1999–2023",
     "tn_cpi_by_division": "Consumer price index by COICOP function, 2012–2023",
     "tn_unemployment_annual": "Unemployment by education and sex, 2011–2023",
+    "tn_governorate_panel": "Thirty indicators for the 24 governorates, 1994–2023",
+    "tn_governorate_refused":
+        "Governorate-years whose parts contradict their printed national total",
     "tn_yearbook_tables": "Statistical yearbook table catalogue, 2001–2023",
     "tn_poverty_inequality_2000_2010":
         "Poverty and inequality by region 2000-2010, on the revised 2010 basis",
@@ -344,6 +378,9 @@ def build_all() -> dict[str, pd.DataFrame]:
     datasets["tn_yearbook_tables"] = tables
     datasets["tn_yearbook_series"] = series
     datasets["tn_yearbook_coverage"] = coverage
+    governorates, governorates_refused = build_governorates.build(series)
+    datasets["tn_governorate_panel"] = governorates
+    datasets["tn_governorate_refused"] = governorates_refused
     regional, spatial_gini, refused = build_regional_products.build()
     datasets["tn_expenditure_by_product_region"] = regional
     datasets["tn_spatial_gini_by_product"] = spatial_gini

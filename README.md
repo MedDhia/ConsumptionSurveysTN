@@ -164,10 +164,46 @@ Built into `data/processed/` as CSV and Parquet, each with a codebook in
 | `tn_yearbook_tables` | 8,391 | Every numbered table heading in all 22 yearbooks, with edition and page. |
 | `tn_yearbook_series` | 174,473 | Values from the yearbooks' tables, reconciled across editions. |
 | `tn_yearbook_coverage` | 1,254 | What was extracted, what was refused, and why. |
+| `tn_governorate_panel` | 16,221 | Thirty indicators for all 24 governorates, 1994–2023. |
+| `tn_governorate_refused` | 3 | Governorate-years whose parts contradict their printed national total. |
 | `tn_expenditure_by_product_region` | 12,832 | Expenditure per person by product and region, four survey waves. |
 | `tn_spatial_gini_by_product` | 1,604 | Gini across regions of spending on each good, by wave. |
 | `tn_regional_products_refused` | 2 | Product rows whose printed national value contradicts their own regions. |
 | `tn_poverty_inequality_2000_2010` | 66 | Consumption, poverty lines and Gini by region 2000–2010, on the revised basis. |
+
+### The governorate panel
+
+`tn_yearbook_series` holds the governorate data but is not usable as a panel: reaching it
+means filtering 174,473 rows on a French title you would have to know, then working out
+whether a given table's columns are years, school years, age bands or something else.
+`tn_governorate_panel` settles that once — one row per governorate, year and indicator,
+under English names, thirty indicators, ten of them running the full 1995–2023.
+
+**The names were read off the printed page, never inferred from the title.** That is not
+pedantry. The job-placements table still carries a title saying it breaks down by
+profession, inherited from an edition where it did; "maisons des jeunes" is printed
+"maisons des jeûnnes" in the source. Either would have produced a plausible, wrong label.
+
+The check that runs over the whole panel is INS's own arithmetic: most of these tables
+print a `Total` row, and the 24 governorates have to sum to it. 86% of cells are confirmed
+by two or more editions, and the total check found three faults that nothing else in the
+pipeline could:
+
+- **Three tables are not governorate tables at all.** Divorces and court cases are by
+  *court of first instance* — Grombalia is a court in Nabeul, and Tunis is split into two —
+  so the 24 names that look like governorates sum to 86% of the printed total, every year.
+  Nothing about the table says so. They are excluded and named in the module.
+- **A shuffled column.** Money orders in 2011 read 151,183 for Tunis against roughly
+  100,000 on either side, and 6,389 for Gabès against 22,000. That year and the next are
+  refused.
+- **A single misread cell.** Library lending in 2000 gives Manouba 404 books against
+  150,250 the following year, in a governorate that had seven libraries and 127,485
+  readers at the time. Only one edition prints that year, so no cross-edition check could
+  ever have seen it.
+
+Population is the one series with an outside referee, and it passes: summed across the 24
+governorates it gives 10.03 million in 2005 and 11.87 million in 2023, matching the
+published national figures, and it rises in every single year.
 
 All labels are translated to English; every codebook keeps the original French and Arabic
 alongside, code by code.

@@ -1,0 +1,4 @@
+indicator,year,summed,printed,gap,reason
+library_books_lent,2000,2768144.0,2831478.0,63334.0,the governorates do not sum to the printed national total
+money_orders_from_abroad,2011,525969.0,546152.0,20183.0,the governorates do not sum to the printed national total
+money_orders_from_abroad,2012,577776.0,602041.0,24265.0,the governorates do not sum to the printed national total
