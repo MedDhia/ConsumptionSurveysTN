@@ -204,3 +204,36 @@ def test_the_estimates_are_rounded_for_reproducibility(estimates):
     for column in ("tau", "se", "honest_lo", "honest_hi", "worst_case_bias"):
         values = estimates[column].dropna()
         assert np.allclose(values, values.round(6))
+
+
+def test_every_column_computed_through_a_logarithm_is_rounded():
+    """The defect that reached CI three times, pinned across all of its homes.
+
+    IEEE 754 requires `+ - * /` to be correctly rounded, so ordinary arithmetic is
+    portable and most float columns in this repository carry full precision safely. It
+    says nothing about `log`, `exp` or `**`, and two libm versions genuinely disagree in
+    the last bit: `atkinson_1` differed at the seventeenth decimal, then `log_value` on
+    `log(455.7)`. Both failed the byte-for-byte build gate.
+
+    So the rule is narrow rather than repository-wide — only columns computed through a
+    transcendental function need it — and this test names them, so a fourth instance has
+    to be added here deliberately rather than discovered by CI.
+    """
+    import numpy as np
+
+    from consumptiontn import build_inequality_indices as I
+    from consumptiontn import build_regional_inequality as G
+
+    log_derived = {
+        "data/processed/tn_governorate_inequality.csv": (
+            ["theil_t", "theil_l", *I.ATKINSON_EPSILONS.values()], I.INDEX_DECIMALS),
+        "data/processed/tn_governorate_dispersion.csv": (
+            ["theil_weighted"], G.MEASURE_DECIMALS),
+        "data/processed/tn_monthly_series.csv": (["log_value"], M.VALUE_DECIMALS),
+    }
+    for path, (columns, decimals) in log_derived.items():
+        frame = pd.read_csv(path)
+        for column in columns:
+            values = frame[column].dropna()
+            assert not values.empty, f"{path}:{column}"
+            assert np.allclose(values, values.round(decimals)), f"{path}:{column}"

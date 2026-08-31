@@ -102,6 +102,15 @@ EXCLUDED = {
 # of integers and catches a month read from the wrong column.
 TOTAL_TOLERANCE = 0.005
 
+# `log_value` is the RDiT outcome, and `np.log` is not required by IEEE 754 to be
+# correctly rounded, so two libm versions disagree in the last bit: log(455.7) came back
+# as 6.121834698269836 here and 6.121834698269837 on the runner, which is enough to fail
+# the byte-for-byte gate. Rounded at source rather than on write, so the frame handed to
+# the estimator carries the same numbers as the CSV and a rebuild from either agrees.
+# Six decimals on a log near 6 is a relative precision of 1e-7, far finer than any effect
+# size read off it.
+VALUE_DECIMALS = 6
+
 # The tourist tables are printed once for all modes and again by mode, so the modes are an
 # independent check on the combined figure -- and the only one departures has.
 COMPONENTS = {
@@ -225,13 +234,14 @@ def build(series: pd.DataFrame | None = None) -> tuple[pd.DataFrame, pd.DataFram
                          index=frame.index)
     frame = frame[year_ok & month_ok].copy()
 
-    frame["t"] = frame.year + (frame.month - 1) / 12.0
+    frame["t"] = (frame.year + (frame.month - 1) / 12.0).round(VALUE_DECIMALS)
     # Months from January 2011. Integer by construction, so the cutoff sits exactly on a
     # sample point rather than between two.
     frame["running"] = ((frame.year - CUTOFF_YEAR) * 12
                         + (frame.month - CUTOFF_MONTH)).astype(int)
     frame["treated"] = frame.running >= 0
-    frame["log_value"] = np.where(frame.value > 0, np.log(frame.value), np.nan)
+    frame["log_value"] = np.where(frame.value > 0,
+                                  np.log(frame.value).round(VALUE_DECIMALS), np.nan)
 
     # How much of each year actually reached print. Twelve months everywhere except the
     # 2011 tourism peak season, where INS printed an ellipsis; carried on every row so a

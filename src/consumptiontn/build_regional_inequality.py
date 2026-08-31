@@ -84,6 +84,17 @@ LITTORAL = frozenset({
     "Sousse", "Monastir", "Mahdia", "Sfax", "Gabès", "Médenine",
 })
 
+# `theil_weighted` is computed through a logarithm, and `np.log` is not required by IEEE
+# 754 to be correctly rounded, so two libm versions can disagree in the last bit and fail
+# the byte-for-byte build gate. Ordinary arithmetic is safe -- the standard does require
+# correctly-rounded +, -, * and / -- so only the log-derived column needs this, but the
+# whole row is rounded together so no reader has to know which is which.
+#
+# This is the same defect that reached CI twice: once as `atkinson_1` in the inequality
+# indices and once as `log_value` in the monthly series. Here it had not yet fired, which
+# is luck rather than safety.
+MEASURE_DECIMALS = 6
+
 # The panel is complete at 24 from 2002; a dispersion value needs all of them.
 GOVERNORATE_COUNT = 24
 
@@ -246,8 +257,10 @@ def dispersion(normalised: pd.DataFrame) -> pd.DataFrame:
     frame = pd.DataFrame(rows)
     # Published, not silently dropped: an incomplete year is a page worth re-reading, and
     # a reader filtering on `complete` should be able to see what they are excluding.
-    for column in ("theil_weighted", "cv_weighted", "cv_unweighted", "tail_ratio"):
+    measures = ["mean", "theil_weighted", "cv_weighted", "cv_unweighted", "tail_ratio"]
+    for column in measures[1:]:
         frame.loc[~frame.complete, column] = np.nan
+    frame[measures] = frame[measures].round(MEASURE_DECIMALS)
     return frame.sort_values(["indicator", "basis", "geography", "year"],
                              ignore_index=True)
 
