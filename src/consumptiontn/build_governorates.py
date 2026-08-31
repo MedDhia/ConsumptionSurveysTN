@@ -1,7 +1,7 @@
 """A governorate panel, assembled from the yearbook corpus.
 
 ``tn_yearbook_series`` already carries this data, but reaching it means filtering
-174,473 rows on a French title you would have to know in advance, and then working out
+183,063 rows on a French title you would have to know in advance, and then working out
 whether a given table's columns are years or something else. This module does that once:
 one row per governorate, year and indicator, under English names, for the tables whose
 meaning was checked against the printed page.

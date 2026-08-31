@@ -32,6 +32,7 @@ from . import (
     build_panel,
     build_poverty_report,
     build_prices,
+    build_regional_inequality,
     build_regional_products,
     build_yearbook,
     codebook,
@@ -160,7 +161,7 @@ INTROS = {
         "yearbooks: population, schooling, employment, libraries, road casualties, banking, "
         "sport and communications. Ten of them run the full 1995–2023.\n\n"
         "This is `tn_yearbook_series` made usable. The same numbers are there, but reaching "
-        "them means filtering 174,473 rows on a French title you would have to know, and "
+        "them means filtering 183,063 rows on a French title you would have to know, and "
         "working out whether a given table's columns are years or something else. Here the "
         "shape is settled: one row per governorate, year and indicator, under English names "
         "**read off the printed page rather than inferred from the title**, which is a real "
@@ -193,6 +194,64 @@ INTROS = {
         "Library lending in 2000 fails because Manouba reads 404 books against 150,250 the "
         "following year — a misread in the only edition that prints that year, so no "
         "cross-edition check could have seen it."
+    ),
+    "tn_governorate_comparable": (
+        "`tn_governorate_panel` made comparable across governorates: every count carried "
+        "onto a basis that does not simply track population size, one row per governorate, "
+        "year, indicator, basis and geography.\n\n"
+        "A count cannot be compared across governorates — Tunis has roughly nine times "
+        "Tozeur's people, so ranking them on a count of schools mostly ranks them by "
+        "population. Two normalisations answer that, and they are both here because they "
+        "trade off against each other. **`per_head`** divides by population and is the "
+        "quantity anyone means by provision, but it exists only from 2005, leaving six "
+        "pre-revolution years. **`share_of_national`** is the governorate's share of the "
+        "national total, needs no denominator, and so runs the full span.\n\n"
+        "Two geographies, because the map changed. **`as_printed`** is the 24 governorates "
+        "as INS prints them. **`constant`** adds Manouba back into Ariana — summing the "
+        "count *and* the population, so the pair is one fixed area whatever the boundary "
+        "did inside it — giving 23 units on one geography from 1994. `share_of_national` "
+        "on the constant geography is what reaches **seventeen pre-2011 years**, against "
+        "six on `per_head`; on the as-printed geography the same basis stops at 2000, "
+        "because a complete year needs every unit and Manouba does not exist before then.\n\n"
+        "`money_orders_from_abroad` is deflated to constant 2015 dinars here. It is the one "
+        "series in the panel denominated in money, and comparing 2003 with 2023 without "
+        "deflating measures the currency rather than the remittances."
+    ),
+    "tn_governorate_dispersion": (
+        "How unequally each indicator is distributed across governorates, one row per "
+        "indicator, basis, geography and year — the outcome series for a study of regional "
+        "inequality.\n\n"
+        "Four measures, because no single one is neutral. `theil_weighted` and "
+        "`cv_weighted` weight governorates by population, which is the version to report: "
+        "unweighted dispersion treats Tozeur and Tunis as one observation each, answering "
+        "a question about administrative units rather than about people. `cv_unweighted` is "
+        "carried beside them precisely because the choice changes the answer and should be "
+        "visible. `tail_ratio` is the mean of the top three governorates over the mean of "
+        "the bottom three — no distributional assumption, and readable aloud.\n\n"
+        "**A dispersion value is only produced for a complete year.** A measure computed "
+        "over whichever governorates happened to be printed moves when *coverage* moves, "
+        "and Kasserine dropping out of one edition would register as inequality falling — "
+        "an artefact indistinguishable from the finding once it is in a chart. Incomplete "
+        "years keep their row and lose only their dispersion columns, so `complete` and "
+        "`governorates` let a reader see exactly what is excluded.\n\n"
+        "`theil_weighted` is empty where any governorate reports none of something. The "
+        "zero is usually real — Tozeur genuinely has no cinema screens in some years — and "
+        "a log measure has nothing to say about it, so that column is left absent rather "
+        "than floored to make it computable."
+    ),
+    "tn_governorate_baseline": (
+        "Each governorate's pre-revolution starting point, per indicator: its mean per head "
+        "over 2005–2010, its rank on that, its region and whether it is coastal.\n\n"
+        "These are the pre-determined characteristics a differential design needs. The 2011 "
+        "revolution is simultaneous and national, so there is no untreated governorate and "
+        "no average effect to recover; what the data can identify is how governorates that "
+        "differed *beforehand* diverged afterwards. The baseline window closes in 2010, so "
+        "nothing in it is post-treatment.\n\n"
+        "`region` is INS's own grouping into seven grandes régions. `baseline_per_head` and "
+        "`baseline_rank` are read off the data. `littoral` is the one coding decision — the "
+        "standard coastal/interior divide, with Manouba counted coastal as part of Grand "
+        "Tunis and Zaghouan interior despite its Nord-Est grouping. It is spelled out in "
+        "the source rather than buried, because it is contestable."
     ),
     "tn_cpi_chained": (
         "The two bases of `tn_cpi_by_division` spliced into one series, 2012–2023, all of "
@@ -360,6 +419,12 @@ TITLES = {
     "tn_governorate_panel": "Thirty indicators for the 24 governorates, 1994–2023",
     "tn_governorate_refused":
         "Governorate-years whose parts contradict their printed national total",
+    "tn_governorate_comparable":
+        "Governorate indicators per head and as shares, on two geographies",
+    "tn_governorate_dispersion":
+        "Between-governorate dispersion of each indicator, 1994–2023",
+    "tn_governorate_baseline":
+        "Pre-revolution starting point and region of each governorate",
     "tn_yearbook_tables": "Statistical yearbook table catalogue, 2001–2023",
     "tn_poverty_inequality_2000_2010":
         "Poverty and inequality by region 2000-2010, on the revised 2010 basis",
@@ -421,6 +486,11 @@ def build_all() -> dict[str, pd.DataFrame]:
     governorates, governorates_refused = build_governorates.build(series)
     datasets["tn_governorate_panel"] = governorates
     datasets["tn_governorate_refused"] = governorates_refused
+    comparable, dispersion, baseline = build_regional_inequality.build(
+        panel=governorates, cpi=cpi_annual)
+    datasets["tn_governorate_comparable"] = comparable
+    datasets["tn_governorate_dispersion"] = dispersion
+    datasets["tn_governorate_baseline"] = baseline
     regional, spatial_gini, refused = build_regional_products.build()
     datasets["tn_expenditure_by_product_region"] = regional
     datasets["tn_spatial_gini_by_product"] = spatial_gini
