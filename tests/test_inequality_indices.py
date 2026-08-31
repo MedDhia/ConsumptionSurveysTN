@@ -206,3 +206,32 @@ def test_2011_is_not_the_largest_annual_move(built):
     assert breadth.rank(ascending=False).loc[I.REVOLUTION] > 3
     # It is a real positive move, though, and the figure says so rather than dismissing it.
     assert change.mean(axis=1).loc[I.REVOLUTION] > 0
+
+
+def test_every_published_index_is_rounded_for_reproducibility(built):
+    """The last bits of a float are not the same on two machines, and this repo's
+    contract is that a fresh build reproduces the committed files byte for byte.
+
+    `atkinson_1` sums logarithms, and numpy's reduction order varies with the CPU and
+    build, so CI computed 0.06549969011997958 where this machine computed
+    0.0654996901199798. The gate caught it; nothing else would have. Rounding at write
+    time is what makes the dataset portable, so the property is pinned here rather than
+    left to be rediscovered the next time an index is added.
+    """
+    measures = ["mean", "gini", "theil_t", "theil_l", "cv", "p90_p10", "p80_p20",
+                *I.ATKINSON_EPSILONS.values()]
+    for column in measures:
+        values = built[column].dropna()
+        assert not values.empty, column
+        unrounded = values[values != values.round(I.INDEX_DECIMALS)]
+        assert unrounded.empty, f"{column} carries more than {I.INDEX_DECIMALS} decimals"
+
+
+def test_the_rounding_is_far_coarser_than_the_noise_it_hides():
+    """Six decimals is a choice, and it is only right if it sits well clear of both the
+    float noise below it and any reading of the index above it."""
+    assert I.INDEX_DECIMALS == 6
+    # The disagreement observed between two machines was around 2e-16.
+    assert 10.0 ** -I.INDEX_DECIMALS > 1e-12
+    # And an index in [0, 1] read to six decimals is finer than anyone interprets it.
+    assert 10.0 ** -I.INDEX_DECIMALS < 1e-4

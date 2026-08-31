@@ -59,6 +59,16 @@ PERCENTILE_PAIRS = ((90, 10), (80, 20))
 
 REVOLUTION = 2011
 
+# Every index is rounded before it is written, matching GINI_DECIMALS in
+# build_regional_products. This is not cosmetic: `atkinson_1` sums logarithms, and the
+# order numpy reduces a sum in varies with the CPU and build, so two machines computing
+# the same index disagreed in the last bit -- 0.0654996901199798 here against
+# 0.06549969011997958 in CI. That is invisible to any reading of the number and fatal to a
+# repository whose contract is that a fresh build reproduces the committed files byte for
+# byte. Six decimals is a hundred million times coarser than the disagreement and far finer
+# than anything these indices are interpreted at.
+INDEX_DECIMALS = 6
+
 
 def _shares(weights: np.ndarray | None, n: int) -> np.ndarray:
     if weights is None:
@@ -181,7 +191,7 @@ def _index_row(y: np.ndarray, weights: np.ndarray | None) -> dict[str, float]:
         row[label] = atkinson(y, epsilon, weights)
     for high, low in PERCENTILE_PAIRS:
         row[f"p{high}_p{low}"] = percentile_ratio(y, high, low, weights)
-    return row
+    return {key: round(value, INDEX_DECIMALS) for key, value in row.items()}
 
 
 def indices(comparable: pd.DataFrame, expected: dict[str, int]) -> pd.DataFrame:
@@ -212,7 +222,7 @@ def indices(comparable: pd.DataFrame, expected: dict[str, int]) -> pd.DataFrame:
                 "weighting": weighting,
                 "period": "post" if year >= REVOLUTION else "pre",
                 "governorates": len(block),
-                "mean": float(y.mean()),
+                "mean": round(float(y.mean()), INDEX_DECIMALS),
                 **_index_row(y, weights),
             })
 
