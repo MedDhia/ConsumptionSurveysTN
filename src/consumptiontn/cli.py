@@ -30,9 +30,11 @@ from . import (
     build_individual,
     build_inequality_indices,
     build_labour,
+    build_monthly,
     build_panel,
     build_poverty_report,
     build_prices,
+    build_rdit_estimates,
     build_regional_inequality,
     build_regional_products,
     build_yearbook,
@@ -239,6 +241,61 @@ INTROS = {
         "zero is usually real — Tozeur genuinely has no cinema screens in some years — and "
         "a log measure has nothing to say about it, so that column is left absent rather "
         "than floored to make it computable."
+    ),
+    "tn_monthly_series": (
+        "Five national series at monthly frequency, 1995–2023 — the only frequency in this "
+        "corpus at which a regression discontinuity in time can actually be local.\n\n"
+        "With annual data there is nothing to shrink: a five-year window holds five points "
+        "either side and the estimate is whatever the assumed polynomial does over a "
+        "decade. A six-month window holds six. `running` counts months from January 2011, "
+        "so the cutoff sits exactly on a sample point.\n\n"
+        "Every series is checked against arithmetic printed in the same table. The twelve "
+        "months must come to the printed `Total` — 82 year-panels can be checked that way "
+        "and all 82 agree — and the tourist tables, printed once for all modes and again "
+        "by air, land and sea, must have the parts come to the whole. That second check is "
+        "the only one departures has, since no edition prints a total beside them.\n\n"
+        "**`published_share` is not a formality.** INS printed an ellipsis rather than a "
+        "number for May–September and December 2011 in the tourism tables: six of twelve "
+        "months absent from the source, and they are the summer peak immediately after the "
+        "uprising, when any effect would be largest. The missingness is correlated with the "
+        "treatment. The road and money series are complete through 2011.\n\n"
+        "One candidate was rejected outright. Rows labelled with the twelve months appear "
+        "under a job-applications title, which would have been the most revolution-relevant "
+        "outcome in the yearbooks; table 6.1.6 is by governorate and prints no monthly "
+        "panel, and the rows sum to about 5,800 a year against a printed 391,927."
+    ),
+    "tn_monthly_reconciliation": (
+        "Every arithmetic check run on `tn_monthly_series`, with both figures and whether "
+        "they agree.\n\n"
+        "Two kinds. The twelve months of a year against the `Total` printed beside them, "
+        "which is available for 82 year-panels and holds in all 82. And, for the tourist "
+        "tables, the air, land and sea panels against the combined figure printed "
+        "separately — 453 months, agreeing in 98% of them. Published rather than reduced to "
+        "a pass mark because each disagreement marks a page worth re-reading, and the ten "
+        "months that fail are removed from the series rather than shipped."
+    ),
+    "tn_rdit_estimates": (
+        "Regression-discontinuity-in-time estimates of the January 2011 break, for every "
+        "outcome this corpus supports — monthly and annual, across a range of bandwidths.\n\n"
+        "The design question the whole repository circles: did the revolution change "
+        "anything measurable, and can a change be attributed to it rather than merely dated "
+        "to it. The answer depends on frequency, and both cases are reported here so the "
+        "contrast is visible in one table rather than argued for in prose.\n\n"
+        "`tau` is the jump at the cutoff, in logs for the monthly counts so it reads as a "
+        "proportional change. `se` is HAC, because monthly series are autocorrelated. "
+        "`honest_lo`/`honest_hi` are the Armstrong–Kolesár bias-aware interval: as the "
+        "bandwidth widens the worst-case bias grows with it, so **an interval that is tight "
+        "at six months and explodes at sixty is telling you the wide-bandwidth number was "
+        "never identified**. Watching that happen across the bandwidth column is how to "
+        "read this dataset.\n\n"
+        "`randomisation_p` is permutation inference inside the window and "
+        "`randomisation_floor` is the smallest p-value that window could possibly produce. "
+        "With few periods the floor sits above 0.05, and then the test cannot reject "
+        "whatever the data say — a p of 0.12 against a floor of 0.11 is not weak evidence "
+        "of no effect, it is no evidence either way.\n\n"
+        "Every monthly outcome is estimated with and without a one-month donut. Ben Ali "
+        "left on 14 January 2011, so that month is half of each regime; if the two "
+        "estimates disagree, the design is picking up the transition rather than a step."
     ),
     "tn_governorate_inequality": (
         "The conventional inequality indices for the distribution of each indicator across "
@@ -456,6 +513,12 @@ TITLES = {
         "Pre-revolution starting point and region of each governorate",
     "tn_governorate_inequality":
         "Gini, Theil, Atkinson and percentile ratios across governorates, 1994–2023",
+    "tn_monthly_series":
+        "Five national series at monthly frequency, 1995–2023",
+    "tn_monthly_reconciliation":
+        "Monthly panels against the totals and components printed beside them",
+    "tn_rdit_estimates":
+        "RDiT estimates of the January 2011 break, with bias-aware intervals",
     "tn_yearbook_tables": "Statistical yearbook table catalogue, 2001–2023",
     "tn_poverty_inequality_2000_2010":
         "Poverty and inequality by region 2000-2010, on the revised 2010 basis",
@@ -523,6 +586,11 @@ def build_all() -> dict[str, pd.DataFrame]:
     datasets["tn_governorate_dispersion"] = dispersion
     datasets["tn_governorate_baseline"] = baseline
     datasets["tn_governorate_inequality"] = build_inequality_indices.build(comparable)
+    monthly, monthly_checks = build_monthly.build(series)
+    datasets["tn_monthly_series"] = monthly
+    datasets["tn_monthly_reconciliation"] = monthly_checks
+    datasets["tn_rdit_estimates"] = build_rdit_estimates.build(
+        monthly, datasets["tn_governorate_inequality"])
     regional, spatial_gini, refused = build_regional_products.build()
     datasets["tn_expenditure_by_product_region"] = regional
     datasets["tn_spatial_gini_by_product"] = spatial_gini

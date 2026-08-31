@@ -182,6 +182,9 @@ Built into `data/processed/` as CSV and Parquet, each with a codebook in
 | `tn_governorate_dispersion` | 2,342 | How unequally each indicator is spread across governorates, by year. |
 | `tn_governorate_baseline` | 648 | Each governorate's pre-revolution level, rank, region and coastal status. |
 | `tn_governorate_inequality` | 3,889 | Gini, Theil, Atkinson, CV and percentile ratios across governorates, by year. |
+| `tn_monthly_series` | 1,565 | Five national series at monthly frequency, 1995–2023, with a running variable on Jan 2011. |
+| `tn_monthly_reconciliation` | 535 | Every arithmetic check on the monthly series, with both figures and the verdict. |
+| `tn_rdit_estimates` | 155 | RDiT estimates of the January 2011 break, with bias-aware intervals and permutation tests. |
 | `tn_expenditure_by_product_region` | 12,832 | Expenditure per person by product and region, four survey waves. |
 | `tn_spatial_gini_by_product` | 1,604 | Gini across regions of spending on each good, by wave. |
 | `tn_regional_products_refused` | 2 | Product rows whose printed national value contradicts their own regions. |

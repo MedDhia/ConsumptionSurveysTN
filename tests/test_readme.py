@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import gzip
 import re
+from collections import Counter
 from pathlib import Path
 
 import pandas as pd
@@ -64,11 +65,20 @@ def test_the_dataset_table_row_counts_are_current():
     assert not wrong, f"README row counts are stale (claimed, actual): {wrong}"
 
 
-def test_every_dataset_appears_in_the_readme_table():
-    """A dataset that ships without a line in the table is invisible to a reader."""
-    listed = set(re.findall(r"^\| `(tn_[a-z0-9_]+)` \|", _readme(), re.M))
+def test_every_dataset_appears_in_the_readme_table_exactly_once():
+    """A dataset missing from the table is invisible to a reader; one listed twice is
+    worse, because the two lines drift apart and neither is obviously the stale one.
+
+    The duplicate half of this test earns its place: adding four datasets to the table, I
+    re-added one that was already there, and every other check passed because both rows
+    carried the same row count.
+    """
+    listed = re.findall(r"^\| `(tn_[a-z0-9_]+)` \|", _readme(), re.M)
     shipped = {p.name.split(".")[0] for p in PROCESSED.glob("tn_*.csv*")}
-    assert not shipped - listed, f"shipped but undocumented: {sorted(shipped - listed)}"
+    assert not shipped - set(listed), f"shipped but undocumented: {sorted(shipped - set(listed))}"
+
+    seen = Counter(listed)
+    assert not [n for n, c in seen.items() if c > 1], f"listed twice: {seen.most_common(3)}"
 
 
 def test_the_corpus_figures_quoted_in_prose_are_current(series):
