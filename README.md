@@ -516,12 +516,14 @@ had no effect.
 Two workflows, split on whether they need the survey data:
 
 **`checks`** runs on every pull request, and on pushes to `main`. (Not on pushes to a
-branch with an open PR — that would run it twice for every commit.) Ruff, plus the 20
-structural tests that
-need no data and no network — that every decode rule names a real value set, that no
-value set is orphaned, that every source URL is HTTPS on ins.tn, that the committed
-manifest covers every registered source, that no dataset is missing a codebook title. It
-finishes in well under a minute, and a red result always means something about the diff.
+branch with an open PR — that would run it twice for every commit.) Ruff, plus the 92 of
+245 tests not marked `needs_raw`: the structural ones — that every decode rule names a
+real value set, that no value set is orphaned, that every source URL is HTTPS on ins.tn,
+that the committed manifest covers every registered source, that no dataset is missing a
+codebook title — together with the checks that read the committed `data/processed`, such
+as the governorate panel's national totals and the figures' data accessors. What none of
+them touch is `data/raw` or the network, which is what keeps a red result here a statement
+about the diff rather than about ins.tn's uptime. It finishes in well under a minute.
 
 **`pipeline`** does the real work: installs bsdtar and pdftotext, fetches the 290 MB from
 ins.tn, builds every dataset, and runs the full suite including the reproduction of INS's
