@@ -1,6 +1,6 @@
 # Governorate-years whose parts contradict their printed national total
 
-`data/processed/tn_governorate_refused.csv` — 444 rows × 8 columns
+`data/processed/tn_governorate_refused.csv` — 463 rows × 8 columns
 
 Indicator-years excluded from `tn_governorate_panel` because the 24 governorates do not sum to the national total printed in the same table, with both figures and the gap.
 

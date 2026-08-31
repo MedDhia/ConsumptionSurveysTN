@@ -36,8 +36,9 @@ def test_every_indicator_covers_all_twenty_four_governorates(panel):
     governorate quietly biases every cross-sectional comparison drawn from the panel.
     """
     frame, _ = panel
-    counts = frame.groupby("indicator").governorate.nunique()
-    counts = counts[~counts.index.str.startswith("population_")]
+    # From 2002 on, every governorate exists and every indicator must carry all of them.
+    settled = frame[frame.year.ge(2002) & ~frame.indicator.str.startswith("population_")]
+    counts = settled.groupby("indicator").governorate.nunique()
     assert (counts == 24).all(), counts[counts != 24].to_dict()
     assert set(frame.governorate) == set(G.GOVERNORATES)
 
@@ -219,3 +220,76 @@ def test_only_the_age_table_carries_a_breakdown(panel):
     frame, _ = panel
     plain = frame[~frame.indicator.str.startswith("population_")]
     assert (plain.breakdown == "").all()
+
+
+# ------------------------------------------- ready for cross-year and cross-governorate
+
+def test_the_manouba_split_is_flagged_where_it_bites(panel):
+    """Manouba was created in 2000 out of Ariana, and nothing in the table says so.
+
+    Ariana falls between 43% and 54% in a single year across ten unrelated indicators --
+    primary pupils 89,168 to 45,718, marriages 2,887 to 1,397 -- while Ariana plus Manouba
+    stays continuous. Anyone comparing Ariana in 1999 with Ariana in 2005 is measuring an
+    administrative boundary, so those rows say so.
+    """
+    frame, _ = panel
+    flagged = frame[frame.boundary.ne("")]
+    assert not flagged.empty
+    assert set(flagged.governorate) == {"Ariana"}
+    assert flagged.year.max() <= G.SPLIT_LAST_YEAR
+    assert flagged.indicator.nunique() >= 10
+
+
+def test_manouba_has_no_figures_before_it_existed(panel):
+    """A printed 0 for a governorate that did not exist is not an observation of zero.
+
+    Left in, a growth rate computed off it is infinite. They are removed and published.
+    """
+    frame, refused = panel
+    early = frame[frame.governorate.eq("Manouba") & frame.year.lt(2000)]
+    assert early.empty, early[["indicator", "year", "value"]].to_dict("records")
+    removed = refused[refused.reason.str.startswith("Manouba did not exist")]
+    assert not removed.empty
+    assert removed.year.max() <= G.SPLIT_LAST_YEAR
+
+
+def test_a_cell_level_refusal_does_not_take_the_year_with_it(panel):
+    """A refusal naming one governorate must not delete the other twenty-three.
+
+    Adding the pre-creation Manouba cells to the refusal frame silently dropped six years
+    of job offers for every governorate, because the rule that removes a convicted *year*
+    matched them too.
+    """
+    frame, _ = panel
+    offers = frame[frame.indicator.eq("job_offers")]
+    assert offers.year.min() == 1995
+    assert offers[offers.year.eq(1995)].governorate.nunique() == 23  # all but Manouba
+
+
+def test_a_count_can_be_put_per_head(panel):
+    """Comparing counts across governorates without a denominator ranks them by size.
+
+    Tunis has roughly nine times Tozeur's people, so the denominator travels with every
+    row rather than being a join the reader has to get right.
+    """
+    frame, _ = panel
+    assert "population_thousands" in frame.columns
+    covered = frame[frame.year.ge(2005)]
+    assert covered.population_thousands.notna().mean() > 0.99
+
+    # And it is the right denominator: population per head is 1.
+    people = frame[frame.indicator.eq("population") & frame.year.eq(2015)]
+    ratio = people.value / people.population_thousands
+    assert ratio.round(6).eq(1.0).all()
+
+
+def test_the_years_without_a_denominator_are_visibly_empty(panel):
+    """No yearbook in the corpus prints population by governorate before 2005.
+
+    That is a limit of the source, not of the parse, so it is left missing rather than
+    interpolated -- but a reader has to be able to see where.
+    """
+    frame, _ = panel
+    early = frame[frame.year.lt(2005)]
+    assert not early.empty
+    assert early.population_thousands.isna().all()

@@ -175,12 +175,69 @@ Built into `data/processed/` as CSV and Parquet, each with a codebook in
 | `tn_yearbook_tables` | 8,391 | Every numbered table heading in all 22 yearbooks, with edition and page. |
 | `tn_yearbook_series` | 181,291 | Values from the yearbooks' tables, reconciled across editions. |
 | `tn_yearbook_coverage` | 1,254 | What was extracted, what was refused, and why. |
-| `tn_governorate_panel` | 34,031 | Thirty-three indicators for all 24 governorates, 1994–2023. |
-| `tn_governorate_refused` | 444 | Cells whose parts contradict a total printed beside them. |
+| `tn_yearbook_subtotals` | 12,246 | Every printed regional subtotal against the governorates it is made of. |
+| `tn_governorate_panel` | 34,012 | Thirty-three indicators for all 24 governorates, 1994–2023, with a population denominator. |
+| `tn_governorate_refused` | 463 | Cells whose parts contradict a total printed beside them, or predate their governorate. |
 | `tn_expenditure_by_product_region` | 12,832 | Expenditure per person by product and region, four survey waves. |
 | `tn_spatial_gini_by_product` | 1,604 | Gini across regions of spending on each good, by wave. |
 | `tn_regional_products_refused` | 2 | Product rows whose printed national value contradicts their own regions. |
 | `tn_poverty_inequality_2000_2010` | 66 | Consumption, poverty lines and Gini by region 2000–2010, on the revised basis. |
+
+### Two things to settle before comparing across years or governorates
+
+Neither is mentioned anywhere in the tables themselves.
+
+**The map changed.** Manouba was created in 2000 out of Ariana. Nothing in the data says
+so, but it is unmistakable once looked for: Ariana falls between 43% and 54% **in a single
+year across ten unrelated indicators at once** — primary pupils 89,168 → 45,718, marriages
+2,887 → 1,397, and the same in libraries, schools, teachers and road casualties — while
+Ariana plus Manouba stays continuous. A simultaneous halving across unrelated domains is an
+administrative boundary, not an event.
+
+Those 72 Ariana rows carry a `boundary` note rather than being dropped: they are correct
+for the geography of their own year, and **adding Ariana and Manouba together gives a
+series consistent from 1995 to 2023**. Manouba's own pre-creation rows are a different
+matter — printed as `0`, they are not observations of anything, and a growth rate computed
+off one is infinite. Those 19 are removed and published in `tn_governorate_refused`.
+
+The window is bounded as well as dated: every series in which Ariana's drop appears has
+adopted the new geography by 2002. A later first appearance of Manouba means something
+else — bank branches not until 2009, youth complexes not until 2020 — which is Manouba
+having none to report, not Ariana still containing it.
+
+**Size dominates every count.** Tunis has roughly nine times Tozeur's people, so ranking
+governorates on a count of schools, libraries or road deaths mostly ranks them by
+population. `population_thousands` carries the denominator on every row, so a per-head
+comparison is one division rather than a join to get right.
+
+It is empty before 2005, and that is a limit of the source rather than the parse: no
+yearbook in the corpus prints population by governorate for an earlier year. That leaves
+11% of the panel without a denominator, and it is the pre-revolution stretch — left
+visibly missing rather than interpolated.
+
+### Checking the corpus against its own arithmetic
+
+Many tables print the seven grandes régions alongside the 24 governorates, so each region
+row is a sum the corpus can check against its own parts. That needs no outside source and
+runs over every table carrying both: **10,565 checks, 98.9% of which hold**, published as
+`tn_yearbook_subtotals` with both figures and the gap.
+
+Two things had to be got right for it to mean anything.
+
+**Not everything adds up.** A region's fertility rate is its governorates' *mean*, not
+their sum, and so are indices, densities and shares — 1,681 rows. Wording catches most,
+but not all: `naissances selon le lieu d'accouchement` reads as a table of counts and is
+one, except for the `Accouch. assisté` column, which is the percentage assisted. So
+non-additivity is also read off the numbers, where a region equals the mean of its parts
+rather than their sum. Those rows are marked, not deleted, and their `agrees` is left
+empty rather than counted as a failure.
+
+**Neither side is dropped when they disagree.** A sum cannot say which of the two is
+misread, and a reader is better served knowing which cells to distrust than having one
+quietly removed. The 115 disagreements are concentrated: over half in population by age
+group in the 2009 and 2018 editions, the rest in births by place of delivery. Every one is
+a *region* row contradicting its parts rather than a governorate row — which is why the
+governorate panel built from the same corpus passes its own national-total check.
 
 ### The governorate panel
 

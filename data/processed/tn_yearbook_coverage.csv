@@ -54,7 +54,7 @@ affaires enrôlées devant les tribunaux de 1ère instance en,0,0,0,0,"not extra
 affaires traitees devant les tribunaux 10,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 affaires traitees devant les tribunaux 7,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 affaires traitees devant les tribunaux 9,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-affaires traitees devant les tribunaux de 1 ere,1,24,24,0,extracted
+affaires traitees devant les tribunaux de 1 ere,1,22,22,0,extracted
 affaires traitées devant les tribunaux 7,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 affaires traitées devant les tribunaux 8,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 affaires traitées devant les tribunaux 9,0,0,0,0,"not extracted (header unreadable, or rows refused)"
@@ -204,7 +204,7 @@ décés corrigés et taux bruts 15,0,0,0,0,"not extracted (header unreadable, or
 décés corrigés et taux bruts 15.1,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 décés corrigés et taux bruts de mortalité par gouvernorat 12,1,256,256,0,extracted
 décés observés par genre et 13,7,1350,777,0,extracted
-décés observés par genre et 14,4,388,258,33,extracted with conflicts
+décés observés par genre et 14,4,768,447,33,extracted with conflicts
 décés observés par genre et gouvernorat de déclaration 11,6,1152,672,0,extracted
 décés observés par mois et par année 12,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 décés observés par mois et par année 13,0,0,0,0,"not extracted (header unreadable, or rows refused)"
@@ -222,9 +222,9 @@ dépenses du titre i par catégorie et chapitre 270 9,0,0,0,0,"not extracted (he
 dépenses du titre i par catégorie et département 9,5,564,452,0,extracted
 dépenses du titre i par chapitre 267 8,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 dépenses du titre i par chapitre 269 8,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-dépenses du titre i par chapitre 8,22,2210,1025,11,extracted with conflicts
+dépenses du titre i par chapitre 8,22,2207,1022,11,extracted with conflicts
 dépenses du titre ii (équipement) ( ) 10,4,405,225,0,extracted
-dépenses du titre ii (équipement) ) ( 10,8,885,375,40,extracted with conflicts
+dépenses du titre ii (équipement) ) ( 10,8,882,372,40,extracted with conflicts
 dépenses du titre ii (équipement) par chapitre ( ) 10,5,534,324,0,extracted
 dépenses du titre ii par chapitre 269 ( ) 10,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 dépenses du titre ii par chapitre 271 ( ) 10,0,0,0,0,"not extracted (header unreadable, or rows refused)"
@@ -303,7 +303,7 @@ evolution de l indice general des prix a la consommation familiale ( suite et fi
 evolution de l indice general des prix a la consommation familiale selon les,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution de l indice général 6,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution de l indice général 7,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-evolution de l indice général des prix 8,11,787,407,10,extracted with conflicts
+evolution de l indice général des prix 8,11,784,404,10,extracted with conflicts
 evolution de l indice général des prix à la,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution de l indice général des prix à la 6,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 evolution de l indice général des prix à la consommation,0,0,0,0,"not extracted (header unreadable, or rows refused)"
@@ -690,17 +690,17 @@ loi relative au sysyteme statistique tunisien,0,0,0,0,"not extracted (header unr
 mandats (régime général) ) ( 3,5,100,36,0,extracted
 mandats 3,11,220,64,0,extracted
 mandats régime général 202 3,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-mariage pour la 1ère fois selon le groupe 22,2,2,2,0,extracted
+mariage pour la 1ère fois selon le groupe 22,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 mariage pour la 1ère fois selon le groupe 23.1,2,630,630,0,extracted
 mariage selon le groupe d age de l epouse 20,5,1600,1600,0,extracted
 mariage selon le groupe d age de l epoux 19,3,1056,1056,0,extracted
-mariage selon le groupe d âge de l épouse 16,10,1257,286,267,extracted with conflicts
+mariage selon le groupe d âge de l épouse 16,5,1252,281,267,extracted with conflicts
 mariage selon le groupe d âge de l épouse 20,2,640,640,0,extracted
 mariage selon le groupe d âge de l épouse 21,1,320,320,0,extracted
 mariage selon le groupe d âge de l épouse 21.1,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 mariage selon le groupe d âge de l époux 15.1,3,627,627,0,extracted
 mariage selon le groupe d âge de l époux 19,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-mariage selon le groupe d âge de l époux 20,2,2,2,0,extracted
+mariage selon le groupe d âge de l époux 20,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 mariages contractes par gouvernorat de declaration,8,1358,498,0,extracted
 mariages contractes par mois et par annee,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 mariages contractes par mois et par annee 17,0,0,0,0,"not extracted (header unreadable, or rows refused)"
@@ -751,9 +751,9 @@ naissances selon le groupe d âge 8,2,576,576,0,extracted
 naissances selon le groupe d âge 9,4,1152,1152,0,extracted
 naissances selon le groupe d âge de la mère 7.1,1,288,288,0,extracted
 naissances selon le groupe d âge de la mère et le gouver- 7.1,4,1152,1152,0,extracted
-naissances selon le lieu d accouchement 10,5,5,5,0,extracted
+naissances selon le lieu d accouchement 10,5,954,954,0,extracted
 naissances selon le lieu d accouchement 11,1,180,180,0,extracted
-naissances selon le lieu d accouchement 12,4,386,386,0,extracted
+naissances selon le lieu d accouchement 12,4,768,768,0,extracted
 naissances selon le lieu d accouchement et le gouver- 10,5,960,960,0,extracted
 naissances suivant le groupe d age 8,5,1440,1440,0,extracted
 naissances suivant le lieu d accouchement 11,5,918,918,0,extracted
@@ -996,7 +996,7 @@ recettes du titre ii ( équipement ) ( ) 4,9,260,105,1,extracted with conflicts
 recettes du titre ii ( équipement ) ) ( 4,12,435,161,4,extracted with conflicts
 recettes du titre ii (équipement) 264 ) ( 4,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 recettes du titre ii (équipement) 266 ) ( 4,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-recettes ordinaires du budget de l état par article (suite) ) ( 3,22,4785,1968,50,extracted with conflicts
+recettes ordinaires du budget de l état par article (suite) ) ( 3,22,4782,1965,50,extracted with conflicts
 recettes ordinaires du budget de l état par article 260 3,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 recettes ordinaires du budget de l état par article 262 3,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 rejets d eaux usees en termes de dbo,6,116,44,0,extracted
@@ -1051,8 +1051,8 @@ ressources et emplois des biens et services aux prix courants 1,5,250,83,7,extra
 resultats des examens du 1er et du 2ème cycle 17,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 resultats des examens du 2 cycle de l enseignement de base et de l enseignement,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 revenu national 7,10,500,143,7,extracted with conflicts
-répartition de la flotille active 15,8,33,33,0,extracted
-répartition de la flotille active par type d embarcation et gouver- 15,5,16,9,0,extracted
+répartition de la flotille active 15,7,135,135,0,extracted
+répartition de la flotille active par type d embarcation et gouver- 15,5,75,38,0,extracted
 répartition de la flottille active par type 15,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 répartition de la flottille active par type d embarcation et 123 15,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 répartition de la otille active 15,3,60,60,0,extracted
@@ -1070,7 +1070,7 @@ répartition de la superficie selon 3,0,0,0,0,"not extracted (header unreadable,
 répartition de la superficie selon la catégorie,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 répartition de la superficie selon la catégorie d occupation du sol 3,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 répartition des abonnés aux maisons des jeûnes 2,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-répartition des abonnés aux maisons des jeûnes 3,4,219,219,0,extracted
+répartition des abonnés aux maisons des jeûnes 3,1,216,216,0,extracted
 répartition des abonnés aux maisons des jeûnes par activité 3,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 répartition des abonnés aux salles de sport privées 6,14,1650,423,2,extracted with conflicts
 répartition des abonnés aux salles de sport privées par,0,0,0,0,"not extracted (header unreadable, or rows refused)"
@@ -1114,12 +1114,12 @@ répartition des étudiants réguliers par ministère 20,0,0,0,0,"not extracted 
 répartition des étudiants réguliers par ministère 21,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 répartition du cheptel 118,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 répartition du cheptel 4,0,0,0,0,"not extracted (header unreadable, or rows refused)"
-répartition du nombre,9,144,144,0,extracted
+répartition du nombre,9,141,141,0,extracted
 répartition du nombre des accidents,2,24,24,0,extracted
 répartition du nombre des accidents et des victimes,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 répartition du nombre des accidents et des victimes 5,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 répartition du nombre des accidents par cause et milieu 4,3,36,36,0,extracted
-répartition du personnel 4,11,828,753,0,extracted
+répartition du personnel 4,11,825,750,0,extracted
 répartition du personnel paramédical du secteur public,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 répartition du personnel paramédical du secteur public 4,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 répartition du personnel paramédical par grade et par gouvernorat 4,2,150,150,0,extracted
@@ -1167,8 +1167,8 @@ taux de chômage selon le sexe (%) 109 )%( 2,0,0,0,0,"not extracted (header unre
 taux de fecondite1 selon le groupe d age ( 1) 9,5,1404,1404,0,extracted
 taux de fécondite1 selon le groupe d âge ( 1) 10,1,288,288,0,extracted
 taux de fécondite1 selon le groupe d âge ( 1) 9,2,576,576,0,extracted
-taux de fécondite1 selon le groupe d âge ) 1( 10,3,866,866,0,extracted
-taux de fécondite1 selon le groupe d âge ) 1( 8,5,1445,1445,0,extracted
+taux de fécondite1 selon le groupe d âge ) 1( 10,3,864,864,0,extracted
+taux de fécondite1 selon le groupe d âge ) 1( 8,5,1440,1440,0,extracted
 taux de fécondite1 selon le groupe d âge de la mère isf2 )3(,1,279,279,0,extracted
 taux de fécondite1 selon le groupe d âge de la mère isf2 . . ) 2( . . ) 1( 8,4,1116,1116,0,extracted
 taux de fécondité selon groupe d âge de la mère isf et tgf 29 . . . . 8,0,0,0,0,"not extracted (header unreadable, or rows refused)"
@@ -1230,7 +1230,7 @@ transport ferroviaire (suite) ) ( 9,5,135,51,0,extracted
 transport ferroviaire 182 9,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 transport maritime,21,3674,896,110,extracted with conflicts
 transport maritime (suite ) ( ) 11,5,189,189,0,extracted
-transport maritime (suite ) ) ( 11,5,5,5,0,extracted
+transport maritime (suite ) ) ( 11,5,168,168,0,extracted
 transport maritime (suite et fin),1,28,28,0,extracted
 transport maritime (suite et fin) ) ( 11,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 transport maritime (suite et n) ( ) 11,0,0,0,0,"not extracted (header unreadable, or rows refused)"
@@ -1247,7 +1247,7 @@ valeurs ajoutées par secteur d activité aux prix de l année,0,0,0,0,"not extr
 valeurs ajoutées par secteur d activité aux prix de l année précédente 13,14,2080,687,17,extracted with conflicts
 variations annuelles de l indice general 5,5,17,10,1,extracted with conflicts
 variations annuelles de l indice general des prix a la consommation,1,161,161,0,extracted
-variations annuelles de l indice général 5,6,717,370,15,extracted with conflicts
+variations annuelles de l indice général 5,6,714,367,15,extracted with conflicts
 variations annuelles de l indice général des prix à la,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 variations annuelles de l indice général des prix à la 4,0,0,0,0,"not extracted (header unreadable, or rows refused)"
 variations annuelles de l indice général des prix à la consommation 4,10,2001,804,33,extracted with conflicts

@@ -145,6 +145,17 @@ LEADER = re.compile(r"\.{4,}")
 # for table 2.4), plus sometimes a page number. Neither belongs in the title.
 TRAILING_NUMBERS = re.compile(r"[\s.]*\b\d{1,3}(?:\.\d{1,2})*\s*$")
 
+# Lines that are not rows at all. A unit statement or a page footer occasionally yields a
+# clean-looking row: "Unité : Le Nombre   Année" carries "2001" from the year beside it and
+# reads as -2001, and "123   STATISTIQUES TUNISIE   ANNUAIRE STATISTIQUE" reads as a row
+# labelled by the footer with the page number for a value. Ten cells across the corpus, and
+# each is unambiguously furniture rather than data.
+NOT_A_ROW = re.compile(
+    r"^\s*(?:Unit[ée]\s*:|Base\s*[:(]|Source\s*:|N\.?B\s*:|Champ\s*:)"
+    r"|STATISTIQUES\s+TUNISIE|ANNUAIRE\s+STATISTIQUE",
+    re.I,
+)
+
 # Rows that are aggregates of other rows. Kept, but marked, because summing them with
 # their own components double-counts -- and because they are free arithmetic checks.
 SUBTOTAL = re.compile(
@@ -674,7 +685,9 @@ def parse_page(edition: int, page_index: int, text: str) -> tuple[list[dict], li
                 label, inferred = candidate, True
 
             reason = None
-            if label[-1].isdigit():
+            if NOT_A_ROW.search(label):
+                reason = "the label is a caption or a page footer, not a row"
+            elif label[-1].isdigit():
                 reason = "label ends in a digit (footnote marker shifts the columns)"
             elif len(values) != width:
                 reason = f"{len(values)} values for {width} columns"
@@ -956,8 +969,97 @@ def reconcile(series: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     return clean.reset_index(drop=True), conflicts.reset_index(drop=True)
 
 
-def build() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-    """The three yearbook datasets: catalogue, reconciled series, coverage report."""
+# Tunisia's seven grandes régions and the governorates each is made of. Many tables print
+# both, which makes the region row a sum the corpus can check against its own parts -- the
+# validator the plan called for and never got. It needs no outside source and runs over
+# every table carrying both at once.
+GRANDES_REGIONS: dict[str, tuple[str, ...]] = {
+    "District-Tunis": ("Tunis", "Ariana", "Ben Arous", "Manouba"),
+    "Nord-Est": ("Nabeul", "Zaghouan", "Bizerte"),
+    "Nord-Ouest": ("Béja", "Jendouba", "Le Kef", "Siliana"),
+    "Centre-Est": ("Sousse", "Monastir", "Mahdia", "Sfax"),
+    "Centre-Ouest": ("Kairouan", "Kasserine", "Sidi Bouzid"),
+    "Sud-Est": ("Gabès", "Médenine", "Tataouine"),
+    "Sud-Ouest": ("Gafsa", "Tozeur", "Kébili"),
+}
+
+# INS sets a region five ways -- "Nord-Est", "Nord -Est", "Nord - Est", "Nord Ouest" -- and
+# a governorate two, so both sides are folded before being matched. The tables that print
+# regions happen to use the hyphenated form throughout, so this adds no checks today; it
+# means a future edition changing its spelling does not silently stop being checked.
+SUBTOTAL_TOLERANCE = 0.02
+SUBTOTAL_FLOOR = 1.0
+
+# Only a count adds up. A region's fertility rate is not the sum of its governorates' --
+# it is their population-weighted mean -- and the same goes for an index, a density, a
+# share or an average. Checking those would report 1,400 disagreements that are arithmetic
+# working correctly, and drown the ones that mean something: rate tables come out 10.8%
+# in agreement against 97.8% for the rest. They are marked rather than dropped, so the
+# dataset says which rows were checked and which could not be.
+NOT_ADDITIVE = re.compile(
+    r"\btaux\b|\bindice|\bratio\b|\bmoyenne|\bpour\s*1\s*000|\bdensit|\bpart\b"
+    r"|\bisf\b|\btgf\b|%",
+    re.I,
+)
+
+
+def _fold_label(name: str) -> str:
+    bare = unicodedata.normalize("NFKD", str(name))
+    return re.sub(r"[^a-z]", "",
+                  "".join(ch for ch in bare if not unicodedata.combining(ch)).lower())
+
+
+def region_subtotals(series: pd.DataFrame) -> pd.DataFrame:
+    """Each printed region row beside the sum of the governorates it is made of.
+
+    A region that disagrees with its own parts is a misread on one side or the other, and
+    the sum cannot say which. Rather than drop either, both figures are published with the
+    gap, so a reader knows exactly which cells not to trust.
+
+    ``additive`` says whether the check applies at all: a rate, an index or an average is
+    not the sum of its parts, so those rows are reported with ``agrees`` left empty rather
+    than counted as failures. That is settled from the title where the wording gives it
+    away and from the numbers otherwise, since a column can be an average inside a table
+    of counts.
+    """
+    folded = series.row_label.map(_fold_label)
+    key = ["title_fr", "panel", "column_label", "year"]
+    frame = series.assign(folded=folded)
+    checks = []
+    for region, members in GRANDES_REGIONS.items():
+        printed = frame[frame.folded.eq(_fold_label(region))]
+        printed = printed.drop_duplicates(key).set_index(key).value.rename("printed")
+        wanted = {_fold_label(name) for name in members}
+        parts = frame[frame.folded.isin(wanted)]
+        summed = parts.groupby(key).value.agg(parts_sum="sum", found="size")
+        summed = summed[summed.found.eq(len(members))]
+        joined = summed.join(printed, how="inner").reset_index()
+        joined.insert(0, "region", region)
+        joined["parts_mean"] = joined.parts_sum / len(members)
+        checks.append(joined)
+
+    result = pd.concat(checks, ignore_index=True)
+    result["gap"] = (result.parts_sum - result.printed).abs()
+    allowed = (SUBTOTAL_TOLERANCE * result.printed.abs()).clip(lower=SUBTOTAL_FLOOR)
+
+    # Wording is not enough to say what adds up. "Naissances selon le lieu d'accouchement"
+    # reads as a count and its columns are counts -- except "Accouch. assisté", which is
+    # the percentage assisted, and a region's is the mean of its governorates' rather than
+    # their sum. So non-additivity is also read off the numbers: where the region equals
+    # the *mean* of its parts and not their sum, it is an average. A misread landing within
+    # 2% of the mean by chance would be excused wrongly, which is why this marks a row
+    # rather than deleting it.
+    by_name = result.title_fr.str.contains(NOT_ADDITIVE, na=False)
+    like_mean = (result.parts_mean - result.printed).abs() <= allowed
+    result["additive"] = ~(by_name | (like_mean & (result.gap > allowed)))
+    result["agrees"] = (result.gap <= allowed).where(result.additive)
+    columns = ["title_fr", "panel", "region", "column_label", "year",
+               "parts_sum", "parts_mean", "printed", "gap", "additive", "agrees"]
+    return result[columns].sort_values(columns[:5]).reset_index(drop=True)
+
+
+def build() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """The four yearbook datasets: catalogue, series, coverage report and subtotal check."""
     raw, refused = extract()
     series, conflicts = reconcile(raw)
     index = catalogue()
@@ -991,7 +1093,8 @@ def build() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     refused_reasons = (refused.assign(n=1).groupby("reason")["n"].sum()
                        if not refused.empty else pd.Series(dtype=int))
     coverage.attrs["refused"] = refused_reasons.to_dict()
-    return index, series, coverage.reset_index().sort_values("title_fr")
+    return (index, series, coverage.reset_index().sort_values("title_fr"),
+            region_subtotals(series))
 
 
 # ------------------------------------------------------- layout-driven column headers
@@ -1120,6 +1223,8 @@ def parse_page_layout(edition: int, page_index: int, text: str) -> list[dict]:
         label, values, _ = parts
         if len(label) < 3 or not re.search(r"[A-Za-zÀ-ÿ]{3}", label) or label[-1].isdigit():
             continue
+        if NOT_A_ROW.search(label):
+            continue  # a unit statement or page footer, not a row -- as in parse_page
         spans = [(m.start(), m.end()) for m in NUMBER.finditer(line)]
         if len(spans) != len(values):
             continue

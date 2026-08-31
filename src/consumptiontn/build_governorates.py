@@ -41,6 +41,24 @@ The check that runs over the whole panel is the printed national total: most of 
 tables end with a "Total" row, and the 24 governorates have to sum to it. That catches a
 governorate read from the wrong column, which is the failure mode a panel like this would
 otherwise hide.
+
+**Two things a panel like this has to get right before it can be compared across years or
+across governorates**, neither of which the tables themselves mention:
+
+* *The map changed.* Manouba was created in 2000 out of Ariana. Ariana falls between 43%
+  and 54% in a single year across ten unrelated indicators -- primary pupils 89,168 to
+  45,718, marriages 2,887 to 1,397 -- while Ariana plus Manouba stays continuous. Those
+  Ariana rows carry a ``boundary`` note rather than being dropped: they are right for the
+  geography of their own year, and adding the two together gives a series consistent from
+  1995 to 2023. Manouba's own pre-creation rows, printed as 0, are removed -- a governorate
+  that did not exist did not have no libraries, and a growth rate off that zero is
+  infinite.
+* *Size dominates every count.* Tunis has roughly nine times Tozeur's people, so ranking
+  governorates on a count of schools or road deaths mostly ranks them by population.
+  ``population_thousands`` carries the denominator on every row. It is empty before 2005,
+  because no yearbook in the corpus prints population by governorate for an earlier year --
+  a limit of the source rather than the parse, and left visibly missing rather than
+  interpolated.
 """
 
 from __future__ import annotations
@@ -212,6 +230,59 @@ def _governorate(label: str) -> str | None:
     return FOLDED.get(_fold(LEADING_DIGITS.sub("", str(label))))
 
 
+# Manouba was created in 2000 out of Ariana, and the split is the largest hazard in this
+# panel for anyone comparing across years. It shows up unmistakably: Ariana falls between
+# 43% and 54% in a single year across *ten unrelated indicators at once* -- primary pupils
+# 89,168 to 45,718, marriages 2,887 to 1,397 -- while Ariana plus Manouba stays continuous.
+# A simultaneous halving across schools, libraries, marriages and road deaths is an
+# administrative boundary, not an event.
+#
+# The year it takes effect differs by series, because each table adopted the new geography
+# when its own source did, so it is read from the data rather than assumed: the first year
+# Manouba reports a figure of its own.
+SPLIT_PARENT, SPLIT_CHILD = "Ariana", "Manouba"
+
+# The split is bounded as well as dated. Every series in which Ariana's drop appears has
+# adopted the new geography by 2002 -- schools and marriages in 2000 and 2001, road
+# casualties in 2002 -- so a later first appearance of Manouba means something else. Bank
+# branches do not report it until 2009 and youth complexes until 2020, which is Manouba
+# having none to report, not Ariana still containing it.
+SPLIT_LAST_YEAR = 2002
+
+
+def _boundary_break(panel: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Flag the cells whose territory is not what the same series later means.
+
+    Before the split, Ariana's figure covers what became two governorates, so comparing it
+    with a later Ariana understates by about half. Those rows are marked rather than
+    dropped -- they are correct for the geography of their own year, and a reader adding
+    Ariana and Manouba together gets a series consistent from 1995 to 2023.
+
+    Manouba's own pre-creation rows are a different matter. They are printed as 0, which is
+    not an observation of anything: a governorate that did not exist did not have no
+    libraries, and a growth rate computed off that zero is infinite. Those are removed.
+    """
+    reporting = panel[panel.governorate.eq(SPLIT_CHILD) & panel.value.gt(0)]
+    first_year = reporting.groupby("indicator").year.min().clip(upper=SPLIT_LAST_YEAR)
+
+    starts = panel.indicator.map(first_year)
+    before = panel.year.lt(starts)            # NaN start -> False, which is what we want
+    panel = panel.copy()
+    panel["boundary"] = ""
+    panel.loc[before & panel.governorate.eq(SPLIT_PARENT), "boundary"] = (
+        "includes Manouba, which was still part of Ariana")
+
+    stale = before & panel.governorate.eq(SPLIT_CHILD)
+    gone = panel[stale]
+    dropped = pd.DataFrame({
+        "indicator": gone.indicator, "year": gone.year,
+        "governorate": gone.governorate, "breakdown": gone.breakdown,
+        "summed": float("nan"), "printed": gone.value, "gap": float("nan"),
+        "reason": "Manouba did not exist yet; the printed 0 is not an observation",
+    })
+    return panel[~stale].reset_index(drop=True), dropped
+
+
 def _period_column(frame: pd.DataFrame) -> pd.Series:
     """True where a row's column label is the period the row is dated to.
 
@@ -268,7 +339,9 @@ def build(series: pd.DataFrame | None = None) -> tuple[pd.DataFrame, pd.DataFram
     refused = checked[~checked.agrees].drop(columns="agrees")
     refused["reason"] = "the governorates do not sum to the printed national total"
     inconsistent, panel = _drop_inconsistent_sexes(panel)
-    refused = pd.concat([refused, disputed, inconsistent], ignore_index=True)
+    panel, pre_creation = _boundary_break(panel)
+    panel = _with_denominator(panel)
+    refused = pd.concat([refused, disputed, inconsistent, pre_creation], ignore_index=True)
     columns = ["indicator", "year", "governorate", "breakdown",
                "summed", "printed", "gap", "reason"]
     for column in columns:
@@ -277,7 +350,13 @@ def build(series: pd.DataFrame | None = None) -> tuple[pd.DataFrame, pd.DataFram
     refused = refused[columns].fillna({"governorate": "", "breakdown": ""})
     _check(panel, checked)
 
-    convicted = set(zip(refused.indicator, refused.year, strict=True))
+    # Only a *year* convicted by the national total takes its whole row of governorates
+    # with it. A refusal naming one governorate has already been removed from the panel
+    # where it belongs, and matching it here would delete the other twenty-three: adding
+    # the pre-creation Manouba cells to this frame silently dropped six years of job
+    # offers for every governorate before this distinction was drawn.
+    years = refused[refused.governorate.eq("")]
+    convicted = set(zip(years.indicator, years.year, strict=True))
     keep = [pair not in convicted
             for pair in zip(panel.indicator, panel.year, strict=True)]
     return panel[keep].reset_index(drop=True), refused
@@ -342,6 +421,25 @@ def _drop_inconsistent_sexes(panel: pd.DataFrame) -> tuple[pd.DataFrame, pd.Data
     refused["gap"] = gap.loc[bad].to_numpy()
     refused["reason"] = "men plus women do not make the figure printed for both sexes"
     return refused, panel[keep].reset_index(drop=True)
+
+
+def _with_denominator(panel: pd.DataFrame) -> pd.DataFrame:
+    """Carry each governorate-year's population beside every figure for it.
+
+    Comparing counts across governorates without it is close to meaningless: Tunis has
+    roughly nine times Tozeur's people, so on any count of schools, libraries or road
+    deaths the ranking is mostly a ranking of size. Supplying the denominator makes a
+    per-head comparison one division rather than a join a reader has to get right.
+
+    It is empty before 2005, and that is a limit of the corpus rather than of the parse:
+    no yearbook in it prints population by governorate for an earlier year. Roughly a
+    quarter of the panel sits in those years, and it is the pre-revolution stretch, so it
+    is left visibly missing rather than filled by interpolation.
+    """
+    people = panel[panel.indicator.eq("population") & panel.breakdown.eq("")]
+    people = people.set_index(["governorate", "year"]).value.rename("population_thousands")
+    joined = panel.join(people, on=["governorate", "year"])
+    return joined
 
 
 def _combine(rows: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
