@@ -1,9 +1,13 @@
 # The evolution of inequality in Tunisia, 1985–2021
 
-Thirty-seven figures built from `data/processed`. Regenerate with `make figures`.
+Thirty-eight figures built from `data/processed`. Regenerate with `make figures`.
 
 **No composite index appears in any of them except figures 35–37.** No Gini, no Theil, no
-Atkinson, no polarisation index. Every other figure shows either an observed quantity — a
+Atkinson, no polarisation index. Figure 38 is not an exception to this and is worth saying
+why: a Lorenz curve is the *uncompressed* form of the Gini. It shows the whole distribution
+rather than the one number computed from it, and the statistic it is read on — the share of
+a service going to the least-served half of the population — is an observed quantity you
+can recover from `tn_governorate_comparable` by adding twelve numbers. Every other figure shows either an observed quantity — a
 group's mean expenditure, a poverty rate, a budget share — or the relation between two
 observed quantities, such as one region's mean against the national mean, or a region's
 share of spending against its share of people. Any number in them can be recovered from
@@ -531,7 +535,7 @@ The conclusion below is about these four figures' outcome at annual frequency, n
 the revolution in general.
 
 The outcome throughout is **pupils per teacher in the first cycle of basic education**,
-across 23 governorates and 21 years (1998–2018), 481 of 483 cells present. It needs no
+across all 24 governorates and 21 years (1998–2018), 502 of 504 cells present. It needs no
 population denominator — both halves come from the same chapter and the same years — and
 it measures something governments actually allocate.
 
@@ -545,7 +549,7 @@ it measures something governments actually allocate.
 An interrupted time series compares what happened against the pre-trend carried forward,
 so the estimate is only ever as good as that extrapolation. Three defensible choices —
 linear on 1998–2010, quadratic on the same window, linear on 2006–2010 — give "effects"
-of **+6.9, +3.4 and +2.6** pupils per teacher. A factor of 2.7 between them, and nothing
+of **+7.0, +3.4 and +2.7** pupils per teacher. A factor of 2.6 between them, and nothing
 in the data adjudicates.
 
 The national series itself is not ambiguous: 23.8 pupils per teacher in 1998, falling to
@@ -563,8 +567,8 @@ The falsification test. The same segmented regression is run thirteen times, mov
 the year the break is assumed to occur. If January 2011 caused a discrete change, the
 estimated step should peak there.
 
-It does not. 2010 gives **+1.05**, 2011 gives **+1.06**, 2012 gives **+1.08** — and 2014
-and 2015 give larger steps still, at +1.28 and +1.54. The estimates form a smooth ramp
+It does not. 2010 gives **+1.04**, 2011 gives **+1.05**, 2012 gives **+1.09** — and 2014
+and 2015 give larger steps still, at +1.31 and +1.58. The estimates form a smooth ramp
 across candidate years, which is the signature of a gradual change in trend, not of an
 event. A single-break design cannot separate the two, and this figure is how you find
 that out rather than assuming it away.
@@ -581,9 +585,10 @@ INS's Nord-Ouest, Centre-Ouest and Sud-Ouest, where the revolution began and whe
 grievance was concentrated — against the coastal and metropolitan governorates.
 
 That design needs the two groups to have been moving in parallel before 2011. They were
-not. The gap widened **every year from 1998**, at 0.21 pupils per teacher a year, going
-from −0.45 in 1998 to −3.17 by 2010 and on to −4.56 by 2018. A post-2011 difference is
-indistinguishable from a trend that had been running for twelve years.
+not. The gap widened in **ten of the twelve years to 2010** — narrowing only in 2001 and
+2003 — averaging 0.20 pupils per teacher a year, going from −0.47 in 1998 to −2.97 by 2010
+and on to −4.36 by 2018. A post-2011 difference is indistinguishable from a trend that had
+been running for twelve years.
 
 Note the sign, which is easy to misread: interior governorates have *fewer* pupils per
 teacher — small rural schools against crowded coastal ones. On this measure the interior
@@ -593,7 +598,7 @@ looks better served, and still diverging.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="30-regional-dispersion-dark.png">
-  <img alt="Dispersion in pupils per teacher across 23 governorates, 1998 to 2018" src="30-regional-dispersion-light.png">
+  <img alt="Dispersion in pupils per teacher across 24 governorates, 1998 to 2018" src="30-regional-dispersion-light.png">
 </picture>
 
 Description, and it is worth having. The ratio between the highest and lowest governorate
@@ -681,10 +686,10 @@ close that gap: bound the curvature of the conditional mean, take the worst-case
 that class, and widen the interval to cover it.
 
 Applied here the two frequencies come apart completely. The **monthly** series can shrink
-its bandwidth until the bias bound is negligible, and the honest interval is within **1%**
-of the conventional one at six and twelve months. The **annual** interior–coastal gap
-cannot: its honest interval runs from **6.9× the conventional one at a five-year bandwidth
-to 23× at ten years**, and it spans zero at every bandwidth — including the bandwidths
+its bandwidth until the bias bound is negligible, and the honest interval is within
+**0.3%** of the conventional one at six and nine months. The **annual** interior–coastal
+gap cannot: its honest interval runs from **7.4× the conventional one at a five-year
+bandwidth to 23× at ten years**, and it spans zero at every bandwidth — including the bandwidths
 where the conventional interval excludes zero and would have been reported as a finding.
 
 The annual panel's apparent effect of about **+0.1 pupils per teacher** is not a small
@@ -705,7 +710,7 @@ and that caps the p-value it can return **before any outcome is read**.
 
 Reaching 0.05 takes three periods either side. For the monthly series that is three months
 around January 2011 — a neighbourhood over which little else changed. For the annual
-series it is three years, a window across which the interior–coastal gap moves by **1.3
+series it is three years, a window across which the interior–coastal gap moves by **1.2
 pupils per teacher** on its own, which is precisely the trend local randomisation assumes
 away. And the tell is that the annual randomisation p-value comes out **exactly at the
 floor** (0.0286 at ±3 years): the observed split is the single most extreme arrangement,
@@ -797,6 +802,34 @@ waves cannot support the design at all.
 
 ---
 
+### 38. Job offers concentrated after the revolution; almost nothing else did
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="38-lorenz-across-governorates-dark.png">
+  <img alt="Lorenz curves of job offers across the 24 governorates in 2010 and 2023, and the share going to the least-served half of the population for nineteen services" src="38-lorenz-across-governorates-light.png">
+</picture>
+
+Governorates are ordered from least to best served per person, so the diagonal is the
+distribution in which every Tunisian is served equally regardless of where they live, and
+distance below it is concentration.
+
+The half of Tunisians living in the least-served governorates received **35% of job offers
+in 2010 and 20% in 2023**. That fall of 15 points is roughly **four times** the next
+largest among nineteen services complete in both years, and the faint lines show it is a
+drift through the intervening years rather than two unrepresentative endpoints.
+
+Nothing else in the panel moves like it. Ten of the nineteen became more concentrated and
+nine less, most of them barely: primary teachers shifted two points, primary schools one.
+Three moved the other way — **remittances, library subscriptions and fixed telephone
+lines all spread out**, which is worth noticing, because two of those are things households
+acquire rather than things the state allocates.
+
+**This is a description of two years, not an effect of the revolution.** The shock is
+national and simultaneous, so there is no untreated governorate to compare against and no
+average effect to recover; see the note above figure 27. One further caution specific to
+this series: job offers are administrative counts registered at employment offices, so a
+change in *where offers are registered* would look identical to a change in where they are.
+
 ## Colour
 
 The palette is the dataviz reference instance: blue `#2a78d6` and orange `#eb6834` on
@@ -816,6 +849,7 @@ yearbooks, and figure 18 sets one of those against the panel. Figures 6, 7, 10, 
 20–26 are recomputed from the EBCNV 2021 microdata. Figures 27–30 come from the statistical yearbooks'
 governorate panel, and figures 31–34 from the same corpus's monthly trade table (14.1)
 alongside that panel. Figures 35–37 come from `tn_spatial_gini_by_product`, built by
-reading the product-by-region tables out of all four survey volumes. Every claim above is reproducible from `scripts/make_figures.py`, and
+reading the product-by-region tables out of all four survey volumes. Figure 38 comes from
+`tn_governorate_comparable`, the per-head normalisation of that same governorate panel. Every claim above is reproducible from `scripts/make_figures.py`, and
 the numbers quoted here were recomputed from the data before being written rather than
 read off the charts.

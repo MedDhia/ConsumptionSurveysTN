@@ -471,15 +471,16 @@ which is exactly the kind of error that survives casual checking.
 
 ## Figures
 
-[`figures/`](figures) holds thirty charts on inequality, with a light and a dark
+[`figures/`](figures) holds thirty-eight charts on inequality, with a light and a dark
 version of each. Six trace its evolution from 1985 to 2021; six look inside the groups the
 first six average over; four compare the two waves before January 2011 with the two after;
 three come from the statistical yearbooks and cover prices and unemployment annually; and
 seven use the health, education and labour modules and the product-level file; eight ask
 whether the revolution's effect can be identified at all, four from the yearbooks'
-governorate panel and four by regression discontinuity in time; and three measure how
-unevenly each consumption good is spread across the regions. **Only those last three use a
-composite index of inequality** — elsewhere there is no Gini, no Theil, no Atkinson, and
+governorate panel and four by regression discontinuity in time; three measure how
+unevenly each consumption good is spread across the regions; and one draws Lorenz curves
+of nineteen services across the 24 governorates. **Only those three regional-spread charts
+use a composite index of inequality** — elsewhere there is no Gini, no Theil, no Atkinson, and
 every figure shows an observed quantity or the relation between two observed quantities,
 so any number in them can be recovered from the datasets by hand. `make figures` redraws
 them.

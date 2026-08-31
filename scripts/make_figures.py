@@ -1,5 +1,10 @@
 """Figures on the evolution of inequality in Tunisia, 1985-2021.
 
+Figure 38 draws Lorenz curves and is deliberately *not* an exception to the rule below: a
+Lorenz curve is the uncompressed form of the Gini, showing the whole distribution rather
+than the one number computed from it, and the statistic it is read on -- the share of a
+service going to the least-served half of the population -- is an observed quantity.
+
 **Composite indices appear in exactly one place, figures 35 to 37.** Everywhere else
 there is no Gini, no Theil, no Atkinson and no polarisation index: every figure shows
 either an observed quantity (a group's mean expenditure, a poverty rate, a budget share)
@@ -1284,22 +1289,40 @@ INTERIOR = {"Béja", "Jendouba", "Le Kef", "Siliana", "Kairouan", "Kasserine",
             "Sidi Bouzid", "Gafsa", "Tozeur", "Kébili"}
 
 
+PUPILS_LAST_YEAR = 2018
+
+
 def pupils_per_teacher() -> pd.DataFrame:
     """Governorate x year panel, 1998-2018. Rows are governorates, columns years.
 
     Pupils per teacher in the first cycle of basic education: a provision ratio that
     needs no population denominator, since both halves come from the same chapter and
-    the same years. 23 governorates (Medenine is absent from the staff table) over 21
-    years, 481 of 483 cells present.
+    the same years. All 24 governorates over 21 years, 502 of 504 cells present.
+
+    Read from ``tn_governorate_panel`` rather than by looking up two French titles in the
+    corpus, which is how this broke: the title-canonicalisation pass merged each of these
+    tables across editions and neither exact string survived, so both lookups returned
+    nothing and the five figures below died at ``polyfit``. The panel's names were checked
+    against the printed page and its governorate rows are verified against the national
+    total printed beside them, so it cannot fail silently that way. It also has the better
+    data -- 24 governorates, not 23. "Medenine is absent from the staff table" was never
+    true; it was one edition's title variant that the old lookup missed.
+
+    The window stops at 2018 although the panel now reaches 2023. Figures 27 to 30 are
+    built around a 2010 break with a 2018 endpoint, and moving the endpoint would change
+    what they demonstrate rather than restore it.
     """
-    series = read("tn_yearbook_series")
-
-    def block(title: str) -> pd.DataFrame:
-        rows = series[series.title_fr.eq(title) & series.row_label.isin(GOVERNORATES)]
-        return rows.groupby(["row_label", "year"]).value.first().unstack()
-
-    return (block("population scolaire totale du 1er cycle 8")
-            / block("personnel enseignant par gouvernorat")).dropna(how="all")
+    panel = read("tn_governorate_panel")
+    rows = panel[panel.breakdown.fillna("").eq("")
+                 & panel.indicator.isin(["primary_pupils", "primary_teachers"])
+                 & panel.year.le(PUPILS_LAST_YEAR)]
+    wide = rows.pivot_table(index="governorate", columns=["indicator", "year"],
+                            values="value")
+    ratio = wide["primary_pupils"] / wide["primary_teachers"]
+    if ratio.isna().all().any():
+        empty = sorted(ratio.columns[ratio.isna().all()])
+        raise ValueError(f"pupils per teacher is empty for {empty}")
+    return ratio.dropna(how="all")
 
 
 def _segmented(years, values, break_year):
@@ -1341,7 +1364,7 @@ def fig_counterfactual(t: dict):
     fig.subplots_adjust(left=0.08, right=0.78, top=0.79, bottom=0.17)
     finish(fig, t,
            "The counterfactual is an assumption, and it decides the answer",
-           "Pupils per teacher, first cycle, 23 governorates averaged, 1998-2018",
+           "Pupils per teacher, first cycle, 24 governorates averaged, 1998-2018",
            "INS yearbooks, tables 2.1.5 and 2.1.8. An interrupted time series compares "
            "what happened against a pre-trend carried forward, so the estimate is only "
            "as good as that extrapolation. Three defensible choices give effects from "
@@ -1447,7 +1470,7 @@ def fig_dispersion(t: dict):
     fig.subplots_adjust(left=0.09, right=0.97, top=0.79, bottom=0.17)
     finish(fig, t,
            "Regional spread widened steadily from 1998, straight through 2011",
-           "Dispersion in pupils per teacher across 23 governorates, 1998-2018",
+           "Dispersion in pupils per teacher across 24 governorates, 1998-2018",
            "Two ratios between observed quantities, so no composite index is involved. "
            "The widest gap grew from 1.21 to 1.93 and the interquartile ratio from 1.06 "
            "to 1.29, both climbing before, across and after the revolution with no step "
@@ -1992,6 +2015,167 @@ def fig_gini_rdd(t: dict):
     return fig
 
 
+# ------------------------------------------------------------------ governorate Lorenz
+
+LORENZ_YEARS = (2010, 2023)
+
+# Read off the panel's indicator names. Kept explicit rather than derived from the
+# underscores so the axis reads as English rather than as column names.
+PRETTY = {
+    "job_offers": "job offers",
+    "job_placements": "job placements",
+    "public_libraries": "public libraries",
+    "primary_pupils": "primary pupils",
+    "primary_teachers": "primary teachers",
+    "primary_schools": "primary schools",
+    "library_books_lent": "library books lent",
+    "library_book_stock": "library book stock",
+    "library_capacity": "library seats",
+    "library_readers": "library readers",
+    "library_subscribers": "library subscribers",
+    "youth_centres": "youth centres",
+    "youth_centre_members": "youth centre members",
+    "marriages": "marriages",
+    "secondary_pupils": "secondary pupils",
+    "private_sports_halls": "private sports halls",
+    "sports_halls": "sports halls",
+    "money_orders_from_abroad": "remittances received",
+    "fixed_line_subscribers": "fixed telephone lines",
+}
+
+
+def _per_head() -> pd.DataFrame:
+    frame = pd.read_csv(PROCESSED / "tn_governorate_comparable.csv")
+    return frame[frame.basis.eq("per_head") & frame.geography.eq("as_printed")]
+
+
+def lorenz(block: pd.DataFrame):
+    """Cumulative share of people against cumulative share of the thing.
+
+    Governorates ordered from least to best served per head. The diagonal is the
+    distribution in which every Tunisian is served equally regardless of governorate.
+    """
+    ordered = block.sort_values("comparable")
+    people = ordered.population_thousands.to_numpy(dtype=float)
+    amount = ordered.value.to_numpy(dtype=float)
+    x = np.concatenate([[0.0], np.cumsum(people) / people.sum()])
+    y = np.concatenate([[0.0], np.cumsum(amount) / amount.sum()])
+    return x, y
+
+
+def least_served_half(x, y) -> float:
+    """Share of the total going to the half of the population that gets least.
+
+    An observed quantity a reader can check against the panel, which is why it carries
+    the figure rather than the area between the curve and the diagonal.
+    """
+    return float(np.interp(0.5, x, y))
+
+
+def _complete(frame: pd.DataFrame, indicator: str, year: int) -> pd.DataFrame | None:
+    block = frame[frame.indicator.eq(indicator) & frame.year.eq(year)]
+    return block if len(block) == 24 else None
+
+
+def fig_lorenz(t: dict):
+    """Where the concentration of job offers sits against every other service."""
+    frame = _per_head()
+    lo, hi = LORENZ_YEARS
+
+    both = [i for i in sorted(set(frame.indicator))
+            if _complete(frame, i, lo) is not None and _complete(frame, i, hi) is not None]
+    shares = {}
+    for indicator in both:
+        shares[indicator] = tuple(
+            least_served_half(*lorenz(_complete(frame, indicator, year)))
+            for year in (lo, hi))
+
+    fig, axes = plt.subplots(1, 2, figsize=(11.6, 6.9),
+                             gridspec_kw={"width_ratios": [1, 1.02]})
+    fig.subplots_adjust(top=0.78, bottom=0.20, left=0.065, right=0.985, wspace=0.30)
+
+    # Left: the curve itself, for the one indicator that moved.
+    ax = axes[0]
+    ax.plot([0, 1], [0, 1], color=t["axis"], lw=1.2, ls=(0, (4, 3)), zorder=1)
+    ax.text(0.63, 0.70, "every Tunisian\nserved equally", fontsize=8.5, color=t["muted"],
+            rotation=39, rotation_mode="anchor", ha="center", va="bottom", linespacing=1.3)
+
+    # Every intervening year, faint, so the two highlighted ones are not a lucky pair.
+    for year in range(lo, hi + 1):
+        block = _complete(frame, "job_offers", year)
+        if block is None or year in LORENZ_YEARS:
+            continue
+        ax.plot(*lorenz(block), color=t["muted"], lw=0.7, alpha=0.30, zorder=2)
+
+    for year, colour in ((lo, t["s2"]), (hi, t["s1"])):
+        x, y = lorenz(_complete(frame, "job_offers", year))
+        ax.plot(x, y, color=colour, lw=2.6, zorder=4, label=str(year))
+        ax.scatter([0.5], [least_served_half(x, y)], s=64, color=colour,
+                   edgecolor=t["surface"], linewidth=1.4, zorder=5)
+
+    ax.axvline(0.5, color=t["axis"], lw=1.0, zorder=1)
+    for year, colour, offset in ((lo, t["s2"], 13), (hi, t["s1"], -17)):
+        share = least_served_half(*lorenz(_complete(frame, "job_offers", year)))
+        ax.annotate(f"{share:.0%}", (0.5, share), textcoords="offset points",
+                    xytext=(-34, offset), fontsize=10, fontweight="bold", color=colour)
+    # Above the diagonal at x=0.5 is the one empty region of this panel.
+    ax.text(0.487, 0.99, "the half served least", rotation=90, ha="right", va="top",
+            fontsize=8.5, color=t["ink2"])
+
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+    ax.set_aspect("equal")
+    ax.set_xlabel("cumulative share of population")
+    ax.set_ylabel("cumulative share of job offers")
+    ax.set_title("job offers, 24 governorates", color=t["ink2"], loc="left", fontsize=10)
+    legend = ax.legend(frameon=False, loc="upper left", fontsize=9.5)
+    for text in legend.get_texts():
+        text.set_color(t["ink2"])
+
+    # Right: the same statistic for every service that is complete in both years.
+    ax = axes[1]
+    order = sorted(both, key=lambda i: shares[i][1] - shares[i][0])
+    left = [shares[i][0] for i in order]
+    right = [shares[i][1] for i in order]
+    labels = [PRETTY.get(i, i.replace("_", " ")) for i in order]
+    y = dumbbell(ax, t, left, right, labels, str(lo), str(hi))
+    ax.axvline(0.5, color=t["axis"], lw=1.0, zorder=0)
+    ax.text(0.5, 1.005, "equal", transform=ax.get_xaxis_transform(), ha="center",
+            va="bottom", fontsize=8.5, color=t["muted"])
+    ax.set_xlabel("share going to the least-served half of the population")
+    ax.set_xlim(min(left + right) - 0.015, 0.515)
+    ax.set_ylim(y.min() - 0.7, y.max() + 0.7)
+    ax.invert_yaxis()
+    ax.set_title(f"{len(order)} services, {lo} against {hi}", color=t["ink2"],
+                 loc="left", fontsize=10)
+    legend = ax.legend(frameon=False, loc="lower right", fontsize=9.5)
+    for text in legend.get_texts():
+        text.set_color(t["ink2"])
+
+    fell = sum(1 for i in order if shares[i][1] < shares[i][0])
+    worst, runner = order[0], order[1]
+    drop = shares[worst][0] - shares[worst][1]
+    times = drop / (shares[runner][0] - shares[runner][1])
+    finish(fig, t,
+           "Job offers concentrated after the revolution. Almost nothing else did",
+           f"Lorenz curves across the 24 governorates, per head. {lo} against {hi}; "
+           f"faint lines are the years between.",
+           f"Governorates ordered from least to best served per person, so the diagonal "
+           f"is equal provision and distance below it is concentration. The half of "
+           f"Tunisians living in the least-served governorates received "
+           f"{shares[worst][0]:.0%} of job offers in {lo} and {shares[worst][1]:.0%} in "
+           f"{hi}, a fall of {drop:.0%} — roughly {times:.0f} times the next largest, "
+           f"{PRETTY[runner]}. Of {len(order)} services complete "
+           f"in both years, {fell} became more concentrated and {len(order) - fell} less; "
+           f"remittances, library subscriptions and telephone lines all spread out. "
+           f"This is a description of two years, not an effect of the revolution: the "
+           f"shock is national and simultaneous, so no untreated governorate exists to "
+           f"compare against. Job offers are also administrative counts from the "
+           f"employment offices, and a change in where offers are registered would look "
+           f"the same as a change in where they are.")
+    return fig
+
+
 BUILDERS = [
     ("01-expenditure-by-quintile", fig_quintiles, True),
     ("02-regional-gap", fig_regional_gap, True),
@@ -2030,6 +2214,7 @@ BUILDERS = [
     ("35-spatial-gini-by-good", fig_gini_by_good, False),
     ("36-spatial-gini-series", fig_gini_series, False),
     ("37-why-rdd-fails-on-waves", fig_gini_rdd, False),
+    ("38-lorenz-across-governorates", fig_lorenz, False),
 ]
 
 
