@@ -1,0 +1,157 @@
+year,function_code,function,index,base_year,basis,chain_disagreement
+2012,0,All items,85.805,2015,chained,0.000549
+2012,1,Food and non-alcoholic beverages,83.6037,2015,chained,0.000833
+2012,2,Alcoholic beverages and tobacco,84.8563,2015,chained,0.000514
+2012,3,Clothing and footwear,81.1598,2015,chained,5.9e-05
+2012,4,"Housing, water, gas and electricity",86.4987,2015,chained,0.00289
+2012,5,Furnishings and household maintenance,84.3841,2015,chained,0.000384
+2012,6,Health,92.271,2015,chained,0.003093
+2012,7,Transport,88.6451,2015,chained,0.00143
+2012,8,Communication,102.005,2015,chained,0.002036
+2012,9,Recreation and culture,90.1611,2015,chained,0.002673
+2012,10,Education,89.027,2015,chained,0.004743
+2012,11,Restaurants and hotels,79.4539,2015,chained,0.00029
+2012,12,Miscellaneous goods and services,83.8895,2015,chained,0.001501
+2013,0,All items,90.7734,2015,chained,0.000549
+2013,1,Food and non-alcoholic beverages,90.2801,2015,chained,0.000833
+2013,2,Alcoholic beverages and tobacco,89.0765,2015,chained,0.000514
+2013,3,Clothing and footwear,87.0399,2015,chained,5.9e-05
+2013,4,"Housing, water, gas and electricity",89.9163,2015,chained,0.00289
+2013,5,Furnishings and household maintenance,89.634,2015,chained,0.000384
+2013,6,Health,94.221,2015,chained,0.003093
+2013,7,Transport,94.2747,2015,chained,0.00143
+2013,8,Communication,103.0071,2015,chained,0.002036
+2013,9,Recreation and culture,93.0895,2015,chained,0.002673
+2013,10,Education,91.8297,2015,chained,0.004743
+2013,11,Restaurants and hotels,85.2899,2015,chained,0.00029
+2013,12,Miscellaneous goods and services,88.2312,2015,chained,0.001501
+2014,0,All items,95.2687,2015,chained,0.000549
+2014,1,Food and non-alcoholic beverages,95.1762,2015,chained,0.000833
+2014,2,Alcoholic beverages and tobacco,93.8995,2015,chained,0.000514
+2014,3,Clothing and footwear,93.5733,2015,chained,5.9e-05
+2014,4,"Housing, water, gas and electricity",94.7173,2015,chained,0.00289
+2014,5,Furnishings and household maintenance,94.4978,2015,chained,0.000384
+2014,6,Health,96.7028,2015,chained,0.003093
+2014,7,Transport,97.6357,2015,chained,0.00143
+2014,8,Communication,102.7065,2015,chained,0.002036
+2014,9,Recreation and culture,96.2842,2015,chained,0.002673
+2014,10,Education,94.3851,2015,chained,0.004743
+2014,11,Restaurants and hotels,90.9853,2015,chained,0.00029
+2014,12,Miscellaneous goods and services,93.4259,2015,chained,0.001501
+2015,0,All items,99.8429,2015,chained,0.000549
+2015,1,Food and non-alcoholic beverages,100.1464,2015,chained,0.000833
+2015,2,Alcoholic beverages and tobacco,100.0038,2015,chained,0.000514
+2015,3,Clothing and footwear,99.889,2015,chained,5.9e-05
+2015,4,"Housing, water, gas and electricity",99.681,2015,chained,0.00289
+2015,5,Furnishings and household maintenance,99.7477,2015,chained,0.000384
+2015,6,Health,99.9824,2015,chained,0.003093
+2015,7,Transport,99.9884,2015,chained,0.00143
+2015,8,Communication,99.9008,2015,chained,0.002036
+2015,9,Recreation and culture,99.3014,2015,chained,0.002673
+2015,10,Education,99.7432,2015,chained,0.004743
+2015,11,Restaurants and hotels,99.9151,2015,chained,0.00029
+2015,12,Miscellaneous goods and services,99.4734,2015,chained,0.001501
+2016,0,All items,103.6,2015,published,0.000549
+2016,1,Food and non-alcoholic beverages,102.7,2015,published,0.000833
+2016,2,Alcoholic beverages and tobacco,99.3,2015,published,0.000514
+2016,3,Clothing and footwear,107.0,2015,published,5.9e-05
+2016,4,"Housing, water, gas and electricity",104.9,2015,published,0.00289
+2016,5,Furnishings and household maintenance,104.4,2015,published,0.000384
+2016,6,Health,102.8,2015,published,0.003093
+2016,7,Transport,102.1,2015,published,0.00143
+2016,8,Communication,99.2,2015,published,0.002036
+2016,9,Recreation and culture,101.3,2015,published,0.002673
+2016,10,Education,108.8,2015,published,0.004743
+2016,11,Restaurants and hotels,104.4,2015,published,0.00029
+2016,12,Miscellaneous goods and services,105.6,2015,published,0.001501
+2017,0,All items,109.1,2015,published,0.000549
+2017,1,Food and non-alcoholic beverages,108.5,2015,published,0.000833
+2017,2,Alcoholic beverages and tobacco,104.1,2015,published,0.000514
+2017,3,Clothing and footwear,115.5,2015,published,5.9e-05
+2017,4,"Housing, water, gas and electricity",110.5,2015,published,0.00289
+2017,5,Furnishings and household maintenance,109.3,2015,published,0.000384
+2017,6,Health,106.2,2015,published,0.003093
+2017,7,Transport,108.3,2015,published,0.00143
+2017,8,Communication,100.6,2015,published,0.002036
+2017,9,Recreation and culture,103.6,2015,published,0.002673
+2017,10,Education,115.1,2015,published,0.004743
+2017,11,Restaurants and hotels,110.9,2015,published,0.00029
+2017,12,Miscellaneous goods and services,110.4,2015,published,0.001501
+2018,0,All items,117.1,2015,published,0.000549
+2018,1,Food and non-alcoholic beverages,116.4,2015,published,0.000833
+2018,2,Alcoholic beverages and tobacco,110.6,2015,published,0.000514
+2018,3,Clothing and footwear,124.0,2015,published,5.9e-05
+2018,4,"Housing, water, gas and electricity",115.8,2015,published,0.00289
+2018,5,Furnishings and household maintenance,118.4,2015,published,0.000384
+2018,6,Health,111.7,2015,published,0.003093
+2018,7,Transport,120.4,2015,published,0.00143
+2018,8,Communication,102.3,2015,published,0.002036
+2018,9,Recreation and culture,112.3,2015,published,0.002673
+2018,10,Education,124.3,2015,published,0.004743
+2018,11,Restaurants and hotels,120.8,2015,published,0.00029
+2018,12,Miscellaneous goods and services,122.4,2015,published,0.001501
+2019,0,All items,125.0,2015,published,0.000549
+2019,1,Food and non-alcoholic beverages,124.4,2015,published,0.000833
+2019,2,Alcoholic beverages and tobacco,120.4,2015,published,0.000514
+2019,3,Clothing and footwear,134.1,2015,published,5.9e-05
+2019,4,"Housing, water, gas and electricity",121.4,2015,published,0.00289
+2019,5,Furnishings and household maintenance,128.9,2015,published,0.000384
+2019,6,Health,118.1,2015,published,0.003093
+2019,7,Transport,128.5,2015,published,0.00143
+2019,8,Communication,102.2,2015,published,0.002036
+2019,9,Recreation and culture,118.3,2015,published,0.002673
+2019,10,Education,132.4,2015,published,0.004743
+2019,11,Restaurants and hotels,133.3,2015,published,0.00029
+2019,12,Miscellaneous goods and services,135.3,2015,published,0.001501
+2020,0,All items,132.0,2015,published,0.000549
+2020,1,Food and non-alcoholic beverages,130.2,2015,published,0.000833
+2020,2,Alcoholic beverages and tobacco,144.0,2015,published,0.000514
+2020,3,Clothing and footwear,143.9,2015,published,5.9e-05
+2020,4,"Housing, water, gas and electricity",127.1,2015,published,0.00289
+2020,5,Furnishings and household maintenance,137.7,2015,published,0.000384
+2020,6,Health,127.6,2015,published,0.003093
+2020,7,Transport,130.7,2015,published,0.00143
+2020,8,Communication,103.4,2015,published,0.002036
+2020,9,Recreation and culture,122.6,2015,published,0.002673
+2020,10,Education,140.6,2015,published,0.004743
+2020,11,Restaurants and hotels,147.8,2015,published,0.00029
+2020,12,Miscellaneous goods and services,146.4,2015,published,0.001501
+2021,0,All items,139.6,2015,published,0.000549
+2021,1,Food and non-alcoholic beverages,138.4,2015,published,0.000833
+2021,2,Alcoholic beverages and tobacco,163.9,2015,published,0.000514
+2021,3,Clothing and footwear,154.7,2015,published,5.9e-05
+2021,4,"Housing, water, gas and electricity",133.5,2015,published,0.00289
+2021,5,Furnishings and household maintenance,143.7,2015,published,0.000384
+2021,6,Health,136.5,2015,published,0.003093
+2021,7,Transport,134.8,2015,published,0.00143
+2021,8,Communication,104.7,2015,published,0.002036
+2021,9,Recreation and culture,127.9,2015,published,0.002673
+2021,10,Education,150.3,2015,published,0.004743
+2021,11,Restaurants and hotels,158.9,2015,published,0.00029
+2021,12,Miscellaneous goods and services,153.9,2015,published,0.001501
+2022,0,All items,151.1,2015,published,0.000549
+2022,1,Food and non-alcoholic beverages,153.5,2015,published,0.000833
+2022,2,Alcoholic beverages and tobacco,185.6,2015,published,0.000514
+2022,3,Clothing and footwear,169.6,2015,published,5.9e-05
+2022,4,"Housing, water, gas and electricity",141.6,2015,published,0.00289
+2022,5,Furnishings and household maintenance,157.1,2015,published,0.000384
+2022,6,Health,142.0,2015,published,0.003093
+2022,7,Transport,145.0,2015,published,0.00143
+2022,8,Communication,107.0,2015,published,0.002036
+2022,9,Recreation and culture,136.5,2015,published,0.002673
+2022,10,Education,164.0,2015,published,0.004743
+2022,11,Restaurants and hotels,171.9,2015,published,0.00029
+2022,12,Miscellaneous goods and services,165.7,2015,published,0.001501
+2023,0,All items,165.2,2015,published,0.000549
+2023,1,Food and non-alcoholic beverages,175.5,2015,published,0.000833
+2023,2,Alcoholic beverages and tobacco,195.3,2015,published,0.000514
+2023,3,Clothing and footwear,185.7,2015,published,5.9e-05
+2023,4,"Housing, water, gas and electricity",149.7,2015,published,0.00289
+2023,5,Furnishings and household maintenance,172.8,2015,published,0.000384
+2023,6,Health,147.8,2015,published,0.003093
+2023,7,Transport,157.9,2015,published,0.00143
+2023,8,Communication,109.3,2015,published,0.002036
+2023,9,Recreation and culture,145.2,2015,published,0.002673
+2023,10,Education,175.3,2015,published,0.004743
+2023,11,Restaurants and hotels,189.8,2015,published,0.00029
+2023,12,Miscellaneous goods and services,182.3,2015,published,0.001501

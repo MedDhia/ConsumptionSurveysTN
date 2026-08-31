@@ -52,6 +52,16 @@ that pdftotext leaves in. This used to be treated as damage and refused, which c
 rows; the corpus itself settles it, since the repaired figures are confirmed by editions
 that print the same numbers cleanly.
 
+**Which half of a table a page carries.** Tables 1.2, 1.3 and 1.4 are one population-by-age
+table printed for men, for women and for both. The sex appears only as a caption beside
+the row-label heading -- "Gouvernorat <gap> Masculin" -- and once that was dropped the
+three were indistinguishable, their titles differing only by where each was truncated:
+two editions printing different sexes were reconciled against each other and 3,140 cells
+were marked as INS revising a figure when they were men against women. The caption is now
+kept as ``panel`` and forms part of a cell's identity. It is *recorded*, not interpreted:
+layout alone cannot tell a caption for the page from a heading naming one column, so only
+captions checked against the printed page are accepted.
+
 **Stacked panels.** Many tables put two or more panels under one number and repeat the
 same row labels down each: table 14.1 lists the twelve months once under "I -
 Importations" and again under "II - Exportations", and table 13.2 lists them once per
@@ -316,6 +326,55 @@ def _category_header(line: str) -> list[str] | None:
     return tokens
 
 
+# The caption a page sets to the right of its row-label heading -- "Gouvernorat
+# <gap> Masculin" -- names which half of a table the page carries. Tables 1.2, 1.3 and 1.4
+# are the same population-by-age table printed once for men, once for women and once for
+# both, and without this the three are indistinguishable once the heading is gone: their
+# titles differ only by a truncation.
+#
+# It is *recorded*, not interpreted. Whether such a caption names a panel or merely labels
+# the column group cannot be told from the layout -- table 20.3 sets "Tranche de salariés"
+# in exactly the same place -- so it becomes a column of its own rather than a qualifier on
+# the row label, which would be a claim the page does not support.
+PANEL_CAPTIONS = (
+    "Gouvernorat", "Station", "Catégorie", "Categorie", "Désignation", "Designation",
+    "Secteur", "Branche", "Pays", "Nationalité", "Nationalite", "Libellé", "Indicateur",
+    "Rubrique",
+)
+
+# Only captions that were checked against the printed page are accepted. Layout alone
+# cannot tell a caption for the page from a heading that names one column -- on the
+# continuation pages the sex is set above the last column, so it looks exactly like that
+# column's label, and a purely structural rule let "Total ND" and "Cabinets Cabinets de"
+# through. A short vocabulary of verified captions claims only what was read.
+PANEL_VALUES = ("Masculin", "Féminin", "Masculin et Féminin")
+
+# A wrapped two-word heading -- "Année Judiciaire", "Produit Intérieur Brut" -- continues
+# straight after its first word. A caption for the page sits far to the right of it.
+PANEL_GAP = 8
+
+
+def _caption_on(line: str) -> str:
+    """The caption this line sets to the right of a row-label heading, if it is one."""
+    latin = re.sub(r"[\u0600-\u06ff\ufb50-\ufdff\ufe70-\ufeff]+", " ", line)
+    split = re.match(r"\s*(\S+)(\s+)(\S.*?)\s*$", latin)
+    if split is None or split.group(1) not in PANEL_CAPTIONS:
+        return ""
+    if len(split.group(2)) < PANEL_GAP:
+        return ""
+    caption = " ".join(split.group(3).split())
+    return caption if caption in PANEL_VALUES else ""
+
+
+def _panel_caption(lines: list[str], at: int) -> str:
+    """The caption printed beside the row-label heading above a table's columns."""
+    for line in reversed(lines[max(0, at - 3):at]):
+        if not line.strip():
+            continue
+        return _caption_on(line)
+    return ""
+
+
 def _latin_only(text: str) -> str:
     """Drop the Arabic rendering printed beside every French label.
 
@@ -515,6 +574,10 @@ def parse_page(edition: int, page_index: int, text: str) -> tuple[list[dict], li
         else:
             columns, column_years = categories, [page_year] * len(categories)
         width = len(columns)
+        # Only a classification table needs this. A year header dates itself, so nothing
+        # about it is ambiguous; it is the single-year tables printed once per sex that are
+        # indistinguishable without the caption above their columns.
+        panel = _panel_caption(lines, i) if categories is not None else ""
         # Some year tables carry one more column that is not a year, with its label on
         # the line below the years rather than beside them: table 13.7 prints the
         # consumer price index for three years and then each group's expenditure weight.
@@ -637,6 +700,7 @@ def parse_page(edition: int, page_index: int, text: str) -> tuple[list[dict], li
                 "page": page_index + 1,
                 "row_label": entry["label"],
                 "row_kind": "aggregate" if SUBTOTAL.match(entry["label"]) else "data",
+                "panel": panel,
                 "column_label": column,
                 "year": column_year,
                 "value": value,
@@ -818,6 +882,35 @@ def catalogue(editions: tuple[int, ...] = EDITIONS) -> pd.DataFrame:
             .reset_index(drop=True))
 
 
+# pdftotext puts the Arabic side's digits on lines of their own, and one occasionally
+# lands at the head of a row: "7        Ariana   86  86  85  85  83" in the 2005 edition's
+# table 3.3. The values are untouched -- the row still yields exactly as many as there are
+# columns, which a leaked value would break -- but the label is not the one the rest of the
+# corpus uses, so the governorate is split into two series and each half stops confirming
+# the other.
+STRAY_DIGITS = re.compile(r"^\d+\s{2,}")
+
+
+def _rejoin_stray_digits(frame: pd.DataFrame) -> pd.Series:
+    """Strip a stray leading digit run, but only where the label it leaves already exists.
+
+    Stripping unconditionally would merge rows that merely start with a number, and the
+    page footers that reach this far -- "123   STATISTIQUES TUNISIE   ANNUAIRE STATISTIQUE"
+    -- would collapse into one label across every page they appear on. Requiring the
+    stripped form to be a label the same table already uses makes the repair evidence-led:
+    there has to be something to rejoin.
+    """
+    stripped = frame.row_label.str.replace(STRAY_DIGITS, "", regex=True)
+    changed = stripped != frame.row_label
+    if not changed.any():
+        return frame.row_label
+    known = set(zip(frame.title_fr[~changed], frame.row_label[~changed], strict=True))
+    joins = pd.Series([pair in known for pair in
+                       zip(frame.title_fr, stripped, strict=True)], index=frame.index)
+    rejoinable = changed & joins
+    return frame.row_label.where(~rejoinable, stripped)
+
+
 def reconcile(series: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Collapse the per-edition rows to one value per cell, and split off the conflicts.
 
@@ -830,9 +923,13 @@ def reconcile(series: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     frame = series.copy()
     frame["title_fr"] = frame.table_title.map(_latin)
     frame["row_label"] = frame.row_label.str.strip()
+    frame["row_label"] = _rejoin_stray_digits(frame)
     frame["chapter"] = frame.table_number.astype(str).str.split(".").str[0]
     frame["title_fr"] = frame.title_fr.map(canonical_titles(frame))
-    key = ["title_fr", "row_label", "column_label", "year"]
+    # The caption is part of the identity of a cell, not a note about it: tables 1.2 and
+    # 1.3 are the same population-by-age table for men and for women, and without it in the
+    # key two editions printing different sexes would be compared and one thrown away.
+    key = ["title_fr", "panel", "row_label", "column_label", "year"]
 
     stats = frame.groupby(key)["value"].agg(
         n_editions="size", lo="min", hi="max", distinct="nunique"
@@ -852,7 +949,7 @@ def reconcile(series: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     conflicts = joined[joined.agreement == "conflict"].reset_index()
     clean = joined[joined.agreement != "conflict"].reset_index()
 
-    columns = ["table_number", "table_title", "title_fr", "row_label", "row_kind",
+    columns = ["table_number", "table_title", "title_fr", "panel", "row_label", "row_kind",
                "column_label", "year", "value", "provisional", "label_inferred",
                "n_editions", "agreement", "edition", "page"]
     clean = clean[columns].sort_values(["title_fr", "row_label", "year"])
@@ -1043,6 +1140,12 @@ def parse_page_layout(edition: int, page_index: int, text: str) -> list[dict]:
     window = [line for line in lines[max(heading_at + 1, first_data - HEADER_WINDOW):first_data]
               if line.strip()]
     labels = _label_columns(window, centres)
+    # The caption sits inside the header window here rather than just above it: the
+    # continuation pages carrying the older age bands set "Gouvernorat   Masculin" two
+    # lines above their column labels. Without this the second half of every population
+    # table has no sex against it, which is the fault this was meant to repair.
+    #
+    panel = next((found for line in window if (found := _caption_on(line))), "")
     if any(not label for label in labels):
         return []  # an unlabelled column is not worth guessing at
     if len(set(labels)) != len(labels):
@@ -1076,6 +1179,7 @@ def parse_page_layout(edition: int, page_index: int, text: str) -> list[dict]:
                 "page": page_index + 1,
                 "row_label": label,
                 "row_kind": kind,
+                "panel": panel,
                 "column_label": column,
                 "year": column_year if column_year is not None else year,
                 "value": value,

@@ -3,8 +3,16 @@
 ``tn_yearbook_series`` already carries this data, but reaching it means filtering
 174,473 rows on a French title you would have to know in advance, and then working out
 whether a given table's columns are years or something else. This module does that once:
-one row per governorate, year and indicator, under English names, for the 33 tables whose
-columns are the period and whose meaning was checked against the printed page.
+one row per governorate, year and indicator, under English names, for the tables whose
+meaning was checked against the printed page.
+
+Thirty of them are plain governorate-by-year series and carry no ``breakdown``. The
+thirty-first is population by age group, which is also printed once per sex -- and which
+used to be excluded outright, because the sex is set as a caption beside the row-label
+heading and was dropped on extraction, leaving three near-identically titled tables that
+could not be told apart. The corpus keeps that caption now, so it can be read: men plus
+women come to the figure printed for both in 93% of the cells that carry all three, and
+the cells where they do not are refused.
 
 **Every name here was read off a page, not inferred from the title.** The titles the
 corpus carries are truncated and merged across editions, and several are actively
@@ -16,11 +24,6 @@ source. Guessing from either would have produced a plausible, wrong label.
 **What is deliberately left out**, and why, because a governorate panel that quietly mixed
 these in would be worse than a smaller one:
 
-* *Population by age group* (tables 2.2 and 2.4) is printed as two panels, "Masculin et
-  Féminin" and "Masculin", on facing pages under near-identical titles. The sex is carried
-  by the panel heading, which does not survive into the row label, so the two are
-  indistinguishable once extracted. Both are excluded rather than pooled into a
-  "population" series that would silently double-count men.
 * *Paramedical staff by grade* (table 4.4) has its grade labels fused with the year --
   "Année 2010 Inﬁrmiers" -- so the breakdown cannot be read cleanly.
 * *Secondary establishments* (table 2.14) crosses the period with a measure
@@ -132,13 +135,34 @@ INDICATORS: dict[str, tuple[str, str]] = {
         ("bank_branches", "branches"),
 }
 
+# Population by age is the one table here whose columns are not the period, so it carries
+# a `breakdown`. It is also printed once per sex, and the sex lives in a caption beside the
+# row-label heading that the corpus now keeps as `panel`; before that it was lost and the
+# three printings were indistinguishable, which is why this table used to be excluded.
+BY_SEX: dict[str, str] = {
+    "Masculin": "population_male",
+    "Féminin": "population_female",
+    "Masculin et Féminin": "population_all",
+}
+
+# INS writes an age band backwards, high end first: "24-20" is 20 to 24. The open-ended
+# band is set several ways across editions -- "80 ans &+", "80ans &+", and once with the
+# Arabic still attached -- so it is matched on its number rather than its wording.
+AGE_BAND = re.compile(r"^(\d{2})-(\d{2})$")
+OPEN_BAND = re.compile(r"\b80\s*ans?\s*&")
+
+
+def _age_band(column: str) -> str | None:
+    """The age band a column stands for, written low end first."""
+    band = AGE_BAND.match(str(column))
+    if band:
+        return f"{band.group(2)}-{band.group(1)}"
+    return "80+" if OPEN_BAND.search(str(column)) else None
+
+
 # Tables that carry governorate rows and are left out on purpose. Kept here rather than
 # only in prose so the decision is visible from the code and testable.
 EXCLUDED: dict[str, str] = {
-    "estimation de la population par":
-        "population by age: the Masculin / Masculin et Féminin panel is lost on extraction",
-    "estimation de la population 4":
-        "population by age: the Masculin / Masculin et Féminin panel is lost on extraction",
     "répartition du personnel 4":
         "paramedical staff: grade labels are fused with the year",
     "nombre d établissements du 2ème cycle de l enseignement de 14":
@@ -229,7 +253,9 @@ def build(series: pd.DataFrame | None = None) -> tuple[pd.DataFrame, pd.DataFram
     named = rows.title_fr.map(INDICATORS)
     rows["indicator"] = [pair[0] for pair in named]
     rows["unit"] = [pair[1] for pair in named]
+    rows["breakdown"] = ""
     rows = rows.rename(columns={"title_fr": "source_title"})
+    rows = pd.concat([rows, _population_by_age(series)], ignore_index=True)
 
     panel, disputed = _combine(rows)
 
@@ -241,14 +267,81 @@ def build(series: pd.DataFrame | None = None) -> tuple[pd.DataFrame, pd.DataFram
     checked = national_totals(panel, series)
     refused = checked[~checked.agrees].drop(columns="agrees")
     refused["reason"] = "the governorates do not sum to the printed national total"
-    refused = pd.concat([refused, disputed], ignore_index=True)
-    refused = refused[["indicator", "year", "summed", "printed", "gap", "reason"]]
+    inconsistent, panel = _drop_inconsistent_sexes(panel)
+    refused = pd.concat([refused, disputed, inconsistent], ignore_index=True)
+    columns = ["indicator", "year", "governorate", "breakdown",
+               "summed", "printed", "gap", "reason"]
+    for column in columns:
+        if column not in refused:
+            refused[column] = ""
+    refused = refused[columns].fillna({"governorate": "", "breakdown": ""})
     _check(panel, checked)
 
     convicted = set(zip(refused.indicator, refused.year, strict=True))
     keep = [pair not in convicted
             for pair in zip(panel.indicator, panel.year, strict=True)]
     return panel[keep].reset_index(drop=True), refused
+
+
+def _population_by_age(series: pd.DataFrame) -> pd.DataFrame:
+    """Population by governorate, year, age band and sex.
+
+    The one table here whose columns are a classification rather than the period, and the
+    reason it can be read at all: the sex is printed as a caption beside the row-label
+    heading, which the corpus keeps as `panel`. Without it, tables 1.2, 1.3 and 1.4 are the
+    same figures under three near-identical titles and there is no telling which is which.
+    """
+    # An empty caption survives a CSV round-trip as NaN rather than "", so a reader
+    # loading the file gets a different frame from the one the pipeline built. Normalising
+    # here means this reads the same either way.
+    panel = series.panel.fillna("") if "panel" in series else ""
+    rows = series[pd.Series(panel, index=series.index).isin(BY_SEX)
+                  & series.row_kind.eq("data")].copy()
+    rows["panel"] = rows.panel.fillna("")
+    rows["governorate"] = rows.row_label.map(_governorate)
+    rows["breakdown"] = rows.column_label.map(_age_band)
+    rows = rows[rows.governorate.notna() & rows.breakdown.notna()]
+    rows["indicator"] = rows.panel.map(BY_SEX)
+    rows["unit"] = "thousands"
+    return rows.rename(columns={"title_fr": "source_title"})[
+        ["governorate", "year", "indicator", "breakdown", "value", "unit",
+         "n_editions", "agreement", "source_title"]]
+
+
+# Men and women have to come to the printed figure for both. INS rounds each of the three
+# to a tenth of a thousand independently, so a gap of a hundred people is arithmetic; the
+# ones that fail cluster in particular years and reach 49,400.
+SEX_TOLERANCE = 0.15
+
+
+def _drop_inconsistent_sexes(panel: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Remove age cells where men plus women do not make the figure printed for both.
+
+    This is the only check the age table has, and it is a strong one: nothing tells the
+    parser which page is which sex, so if the captions had been attached wrongly the sums
+    would fail everywhere. They hold for 93% of the cells that carry all three. Where they
+    do not, one of the three is misread and the sum cannot say which, so all three go.
+    """
+    age = panel[panel.breakdown.ne("")]
+    wide = age.pivot_table(index=["governorate", "year", "breakdown"],
+                           columns="indicator", values="value")
+    needed = {"population_male", "population_female", "population_all"}
+    if not needed <= set(wide.columns):
+        return pd.DataFrame(), panel
+    wide = wide.dropna(subset=list(needed))
+    gap = (wide.population_male + wide.population_female - wide.population_all).abs()
+    bad = wide[gap > SEX_TOLERANCE].index
+
+    if len(bad) == 0:
+        return pd.DataFrame(), panel
+    convicted = set(bad)
+    triples = zip(panel.governorate, panel.year, panel.breakdown, strict=True)
+    keep = [triple not in convicted for triple in triples]
+    refused = pd.DataFrame(list(bad), columns=["governorate", "year", "breakdown"])
+    refused["indicator"] = "population_by_age"
+    refused["gap"] = gap.loc[bad].to_numpy()
+    refused["reason"] = "men plus women do not make the figure printed for both sexes"
+    return refused, panel[keep].reset_index(drop=True)
 
 
 def _combine(rows: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
@@ -260,7 +353,7 @@ def _combine(rows: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     cell that was single-source under either label becomes confirmed. All 55 such cells
     agree; one that did not would be a misread and is refused instead.
     """
-    key = ["source_title", "indicator", "unit", "governorate", "year"]
+    key = ["source_title", "indicator", "unit", "governorate", "year", "breakdown"]
     grouped = rows.groupby(key, as_index=False).agg(
         value=("value", "first"),
         distinct=("value", "nunique"),
@@ -278,15 +371,15 @@ def _combine(rows: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     panel["agreement"] = "single source"
     panel.loc[panel.n_editions > 1, "agreement"] = "confirmed"
     panel.loc[panel.revised, "agreement"] = "revised"
-    panel = panel[["governorate", "year", "indicator", "value", "unit",
+    panel = panel[["governorate", "year", "indicator", "breakdown", "value", "unit",
                    "n_editions", "agreement", "source_title"]]
-    return (panel.sort_values(["indicator", "governorate", "year"]).reset_index(drop=True),
-            disputed)
+    return (panel.sort_values(["indicator", "governorate", "year", "breakdown"])
+            .reset_index(drop=True), disputed)
 
 
 def _check(panel: pd.DataFrame, checked: pd.DataFrame) -> None:
     """What the panel has to satisfy before it is worth publishing."""
-    duplicated = panel.duplicated(["governorate", "year", "indicator"])
+    duplicated = panel.duplicated(["governorate", "year", "indicator", "breakdown"])
     if duplicated.any():
         clash = panel[duplicated].iloc[0]
         raise RuntimeError(
@@ -325,7 +418,8 @@ def national_totals(panel: pd.DataFrame, series: pd.DataFrame) -> pd.DataFrame:
     printed = series[series.row_label.eq("Total") & series.title_fr.isin(INDICATORS)]
     printed = printed[["title_fr", "column_label", "year", "value"]].rename(
         columns={"value": "printed"})
-    summed = (panel.groupby(["source_title", "indicator", "year"], as_index=False)
+    yearly = panel[panel.breakdown.eq("")]
+    summed = (yearly.groupby(["source_title", "indicator", "year"], as_index=False)
               .agg(summed=("value", "sum"), n=("value", "size")))
     summed = summed[summed.n == 24]
 

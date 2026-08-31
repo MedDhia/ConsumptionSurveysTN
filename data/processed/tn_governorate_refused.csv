@@ -1,4 +1,445 @@
-indicator,year,summed,printed,gap,reason
-library_books_lent,2000,2768144.0,2831478.0,63334.0,the governorates do not sum to the printed national total
-money_orders_from_abroad,2011,525969.0,546152.0,20183.0,the governorates do not sum to the printed national total
-money_orders_from_abroad,2012,577776.0,602041.0,24265.0,the governorates do not sum to the printed national total
+indicator,year,governorate,breakdown,summed,printed,gap,reason
+library_books_lent,2000,,,2768144.0,2831478.0,63334.0,the governorates do not sum to the printed national total
+money_orders_from_abroad,2011,,,525969.0,546152.0,20183.0,the governorates do not sum to the printed national total
+money_orders_from_abroad,2012,,,577776.0,602041.0,24265.0,the governorates do not sum to the printed national total
+population_by_age,2007,Ariana,45-49,,,0.5999999999999979,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Ariana,50-54,,,0.8000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Ariana,55-59,,,0.6999999999999993,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Ariana,60-64,,,0.5,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Ariana,65-69,,,0.29999999999999893,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Ariana,15-19,,,0.29999999999999716,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Ariana,25-29,,,0.4000000000000057,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Ariana,30-34,,,0.8999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Ariana,35-39,,,0.6000000000000085,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Ariana,40-44,,,0.5,men plus women do not make the figure printed for both sexes
+population_by_age,2014,Ariana,00-04,,,4.699999999999996,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Ben Arous,45-49,,,0.7999999999999972,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Ben Arous,50-54,,,0.9999999999999964,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Ben Arous,55-59,,,0.8000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Ben Arous,60-64,,,0.5,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Ben Arous,65-69,,,0.1999999999999993,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Ben Arous,75-79,,,0.1999999999999993,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Ben Arous,10-14,,,0.20000000000000284,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Ben Arous,15-19,,,0.3999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Ben Arous,25-29,,,0.3999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Ben Arous,30-34,,,0.7000000000000028,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Ben Arous,35-39,,,0.29999999999999716,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Ben Arous,40-44,,,0.29999999999999716,men plus women do not make the figure printed for both sexes
+population_by_age,2014,Ben Arous,00-04,,,4.700000000000003,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Bizerte,45-49,,,0.5,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Bizerte,50-54,,,0.3999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Bizerte,55-59,,,0.5000000000000036,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Bizerte,60-64,,,0.40000000000000213,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Bizerte,75-79,,,0.20000000000000018,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Bizerte,80+,,,0.20000000000000018,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Bizerte,00-04,,,0.19999999999999574,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Bizerte,10-14,,,0.5,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Bizerte,15-19,,,0.6000000000000014,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Bizerte,20-24,,,0.3999999999999915,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Bizerte,25-29,,,0.3999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Bizerte,30-34,,,0.5999999999999943,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Bizerte,35-39,,,0.20000000000000284,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Bizerte,40-44,,,0.20000000000000284,men plus women do not make the figure printed for both sexes
+population_by_age,2014,Bizerte,00-04,,,3.0,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Béja,45-49,,,0.3000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Béja,50-54,,,0.3000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Béja,55-59,,,0.3000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Béja,60-64,,,0.29999999999999893,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Béja,00-04,,,0.1999999999999993,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Béja,05-09,,,0.29999999999999716,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Béja,10-14,,,0.1999999999999993,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Béja,15-19,,,0.3999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Béja,20-24,,,0.1999999999999993,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Béja,45-49,,,8.399999999999999,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Béja,50-54,,,6.599999999999998,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Béja,55-59,,,4.800000000000001,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Béja,60-64,,,1.4000000000000004,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Béja,65-69,,,1.8000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Béja,70-74,,,1.700000000000001,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Béja,75-79,,,0.7000000000000002,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Béja,80+,,,1.0999999999999996,men plus women do not make the figure printed for both sexes
+population_by_age,2014,Béja,00-04,,,0.8999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Gabès,45-49,,,0.3000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Gabès,50-54,,,0.3999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Gabès,55-59,,,0.40000000000000036,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Gabès,60-64,,,0.1999999999999993,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Gabès,00-04,,,0.29999999999999716,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Gabès,10-14,,,0.6000000000000014,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Gabès,15-19,,,0.6000000000000014,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Gabès,25-29,,,0.5,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Gabès,30-34,,,0.5,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Gabès,35-39,,,0.3000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2014,Gabès,00-04,,,1.9999999999999964,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Gabès,45-49,,,2.3000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Gabès,50-54,,,1.2000000000000028,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Gabès,55-59,,,2.1999999999999993,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Gabès,60-64,,,1.700000000000001,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Gabès,65-69,,,1.5,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Gabès,70-74,,,1.5,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Gabès,75-79,,,1.299999999999999,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Gabès,80+,,,2.1999999999999993,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Gafsa,45-49,,,0.3999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Gafsa,50-54,,,0.40000000000000036,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Gafsa,55-59,,,0.3000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Gafsa,60-64,,,0.2999999999999998,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Gafsa,75-79,,,0.20000000000000018,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Gafsa,10-14,,,0.5,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Gafsa,15-19,,,0.6000000000000014,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Gafsa,25-29,,,0.5,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Gafsa,30-34,,,0.3999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2014,Gafsa,00-04,,,2.200000000000003,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Gafsa,45-49,,,6.500000000000002,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Gafsa,50-54,,,6.300000000000001,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Gafsa,55-59,,,6.0,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Gafsa,60-64,,,5.0,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Gafsa,65-69,,,3.3999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Gafsa,70-74,,,2.3,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Gafsa,75-79,,,1.8999999999999995,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Gafsa,80+,,,2.2,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Jendouba,45-49,,,0.3000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Jendouba,50-54,,,0.3000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Jendouba,55-59,,,0.5999999999999979,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Jendouba,60-64,,,0.3000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Jendouba,05-09,,,0.29999999999999716,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Jendouba,10-14,,,0.5,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Jendouba,15-19,,,0.6000000000000085,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Jendouba,25-29,,,0.4000000000000057,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Jendouba,30-34,,,0.30000000000000426,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Jendouba,45-49,,,1.1000000000000014,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Jendouba,50-54,,,4.199999999999999,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Jendouba,55-59,,,3.8999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Jendouba,60-64,,,3.0999999999999996,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Jendouba,65-69,,,1.8000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Jendouba,70-74,,,2.500000000000001,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Jendouba,75-79,,,2.0,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Jendouba,80+,,,1.2999999999999998,men plus women do not make the figure printed for both sexes
+population_by_age,2014,Jendouba,00-04,,,0.8000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Kairouan,45-49,,,0.3999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Kairouan,50-54,,,0.1999999999999993,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Kairouan,55-59,,,0.6000000000000014,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Kairouan,60-64,,,0.20000000000000107,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Kairouan,65-69,,,0.20000000000000107,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Kairouan,75-79,,,0.20000000000000018,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Kairouan,00-04,,,0.20000000000000284,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Kairouan,05-09,,,0.20000000000000284,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Kairouan,10-14,,,0.7999999999999972,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Kairouan,15-19,,,0.5,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Kairouan,20-24,,,0.19999999999999574,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Kairouan,25-29,,,0.3999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Kairouan,30-34,,,0.5,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Kairouan,35-39,,,0.5,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Kairouan,40-44,,,0.3999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2014,Kairouan,00-04,,,4.5,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Kairouan,45-49,,,3.3000000000000043,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Kairouan,50-54,,,3.099999999999998,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Kairouan,55-59,,,4.600000000000001,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Kairouan,60-64,,,2.6999999999999993,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Kairouan,65-69,,,2.6999999999999993,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Kairouan,70-74,,,1.9000000000000004,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Kairouan,75-79,,,1.5,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Kairouan,80+,,,1.8000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Kasserine,45-49,,,0.40000000000000213,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Kasserine,55-59,,,0.40000000000000036,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Kasserine,60-64,,,0.1999999999999993,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Kasserine,65-69,,,0.1999999999999993,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Kasserine,75-79,,,0.20000000000000018,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Kasserine,05-09,,,0.20000000000000284,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Kasserine,10-14,,,0.6999999999999957,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Kasserine,15-19,,,0.5,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Kasserine,20-24,,,0.3999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Kasserine,25-29,,,0.3999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Kasserine,30-34,,,0.40000000000000213,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Kasserine,35-39,,,0.29999999999999716,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Kasserine,40-44,,,0.20000000000000284,men plus women do not make the figure printed for both sexes
+population_by_age,2014,Kasserine,00-04,,,1.8999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Kasserine,45-49,,,0.29999999999999716,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Kasserine,50-54,,,0.1999999999999993,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Kasserine,55-59,,,1.1000000000000014,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Kasserine,60-64,,,0.5,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Kasserine,65-69,,,0.1999999999999993,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Kasserine,70-74,,,0.2999999999999998,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Kasserine,75-79,,,0.39999999999999947,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Kasserine,80+,,,1.0,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Kébili,50-54,,,0.20000000000000018,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Kébili,55-59,,,0.20000000000000018,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Kébili,10-14,,,0.29999999999999893,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Kébili,15-19,,,0.3999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Kébili,25-29,,,0.20000000000000107,men plus women do not make the figure printed for both sexes
+population_by_age,2014,Kébili,00-04,,,1.9000000000000004,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Kébili,45-49,,,13.700000000000001,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Kébili,50-54,,,12.7,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Kébili,55-59,,,11.7,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Kébili,60-64,,,9.0,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Kébili,65-69,,,6.5,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Kébili,70-74,,,3.8000000000000003,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Kébili,75-79,,,3.4999999999999996,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Kébili,80+,,,4.0,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Le Kef,45-49,,,0.20000000000000284,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Le Kef,50-54,,,0.20000000000000107,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Le Kef,55-59,,,0.29999999999999893,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Le Kef,60-64,,,0.1999999999999993,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Le Kef,05-09,,,0.19999999999999574,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Le Kef,10-14,,,0.40000000000000213,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Le Kef,15-19,,,0.29999999999999716,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Le Kef,25-29,,,0.3000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Le Kef,45-49,,,6.5,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Le Kef,50-54,,,5.399999999999999,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Le Kef,55-59,,,2.8000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Le Kef,60-64,,,2.8000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Le Kef,65-69,,,2.6999999999999993,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Le Kef,70-74,,,1.4000000000000004,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Le Kef,75-79,,,1.2999999999999998,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Le Kef,80+,,,1.8000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2014,Le Kef,00-04,,,0.1999999999999993,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Mahdia,45-49,,,0.3000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Mahdia,50-54,,,0.3000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Mahdia,55-59,,,0.40000000000000036,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Mahdia,00-04,,,0.29999999999999716,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Mahdia,10-14,,,0.4000000000000057,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Mahdia,15-19,,,0.3999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Mahdia,25-29,,,0.3999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Mahdia,30-34,,,0.3999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Mahdia,35-39,,,0.40000000000000213,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Mahdia,40-44,,,0.29999999999999716,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Mahdia,45-49,,,6.300000000000001,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Mahdia,50-54,,,5.699999999999999,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Mahdia,55-59,,,4.699999999999999,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Mahdia,60-64,,,3.8000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Mahdia,65-69,,,3.1999999999999984,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Mahdia,70-74,,,2.299999999999999,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Mahdia,75-79,,,2.6000000000000005,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Mahdia,80+,,,2.0999999999999996,men plus women do not make the figure printed for both sexes
+population_by_age,2014,Mahdia,00-04,,,1.3999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Mahdia,45-49,,,19.6,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Mahdia,50-54,,,19.6,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Mahdia,55-59,,,17.500000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Mahdia,60-64,,,13.399999999999999,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Mahdia,65-69,,,9.3,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Mahdia,70-74,,,5.5,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Mahdia,75-79,,,4.500000000000001,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Mahdia,80+,,,5.0,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Manouba,45-49,,,0.40000000000000213,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Manouba,50-54,,,0.5,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Manouba,55-59,,,0.5999999999999996,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Manouba,60-64,,,0.40000000000000036,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Manouba,10-14,,,0.3000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Manouba,15-19,,,0.3999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Manouba,20-24,,,0.29999999999999716,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Manouba,25-29,,,0.30000000000000426,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Manouba,30-34,,,0.7000000000000028,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Manouba,35-39,,,0.3000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2014,Manouba,00-04,,,2.3000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Monastir,45-49,,,0.40000000000000213,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Monastir,50-54,,,0.6000000000000014,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Monastir,55-59,,,0.5000000000000018,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Monastir,00-04,,,0.5999999999999943,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Monastir,05-09,,,0.30000000000000426,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Monastir,10-14,,,0.20000000000000284,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Monastir,15-19,,,0.20000000000000284,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Monastir,25-29,,,0.7000000000000028,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Monastir,30-34,,,1.1000000000000014,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Monastir,35-39,,,0.5,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Monastir,40-44,,,0.29999999999999716,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Monastir,45-49,,,15.399999999999997,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Monastir,50-54,,,12.0,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Monastir,55-59,,,7.200000000000001,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Monastir,60-64,,,5.9,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Monastir,65-69,,,4.8,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Monastir,70-74,,,3.2,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Monastir,75-79,,,2.6999999999999997,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Monastir,80+,,,2.5999999999999996,men plus women do not make the figure printed for both sexes
+population_by_age,2014,Monastir,00-04,,,2.5999999999999943,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Monastir,45-49,,,5.099999999999994,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Monastir,50-54,,,5.700000000000003,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Monastir,55-59,,,4.0,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Monastir,60-64,,,2.200000000000003,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Monastir,65-69,,,1.3000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Monastir,70-74,,,0.6000000000000014,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Monastir,75-79,,,0.20000000000000018,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Monastir,80+,,,0.7999999999999989,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Médenine,45-49,,,0.3000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Médenine,50-54,,,0.40000000000000213,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Médenine,55-59,,,0.3999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Médenine,00-04,,,0.3999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Médenine,10-14,,,0.6000000000000014,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Médenine,15-19,,,0.6999999999999957,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Médenine,25-29,,,0.6000000000000014,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Médenine,30-34,,,0.6000000000000014,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Médenine,35-39,,,0.6000000000000014,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Médenine,40-44,,,0.3999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2014,Médenine,00-04,,,2.700000000000003,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Médenine,45-49,,,10.700000000000003,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Médenine,50-54,,,9.0,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Médenine,55-59,,,8.799999999999997,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Médenine,60-64,,,6.800000000000001,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Médenine,65-69,,,5.4,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Médenine,70-74,,,3.6999999999999993,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Médenine,75-79,,,2.9000000000000004,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Médenine,80+,,,4.6000000000000005,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Nabeul,45-49,,,0.7999999999999972,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Nabeul,50-54,,,0.6999999999999957,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Nabeul,55-59,,,0.6999999999999993,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Nabeul,60-64,,,0.40000000000000213,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Nabeul,65-69,,,0.30000000000000426,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Nabeul,75-79,,,0.3000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Nabeul,00-04,,,0.5,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Nabeul,05-09,,,0.4000000000000057,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Nabeul,10-14,,,0.29999999999999716,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Nabeul,15-19,,,0.8000000000000114,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Nabeul,25-29,,,0.5,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Nabeul,30-34,,,0.4999999999999929,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Nabeul,35-39,,,0.5,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Nabeul,40-44,,,0.5,men plus women do not make the figure printed for both sexes
+population_by_age,2014,Nabeul,00-04,,,4.299999999999997,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Sfax,45-49,,,1.0,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Sfax,50-54,,,1.1999999999999957,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Sfax,55-59,,,0.9000000000000021,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Sfax,60-64,,,0.40000000000000213,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Sfax,70-74,,,0.19999999999999574,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Sfax,75-79,,,0.3999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Sfax,80+,,,0.20000000000000107,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Sfax,00-04,,,0.5999999999999943,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Sfax,05-09,,,0.29999999999999716,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Sfax,10-14,,,0.6000000000000085,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Sfax,15-19,,,0.9000000000000057,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Sfax,25-29,,,0.7999999999999972,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Sfax,30-34,,,1.2999999999999972,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Sfax,35-39,,,0.7000000000000028,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Sfax,40-44,,,0.20000000000000284,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Sfax,45-49,,,7.0,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Sfax,50-54,,,2.700000000000003,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Sfax,55-59,,,0.3999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Sfax,60-64,,,2.3000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Sfax,65-69,,,1.3000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Sfax,70-74,,,0.3999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Sfax,75-79,,,0.8000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Sfax,80+,,,1.0,men plus women do not make the figure printed for both sexes
+population_by_age,2014,Sfax,00-04,,,3.4000000000000057,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Sfax,45-49,,,49.4,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Sfax,50-54,,,46.10000000000001,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Sfax,55-59,,,42.999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Sfax,60-64,,,32.8,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Sfax,65-69,,,23.799999999999997,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Sfax,70-74,,,13.900000000000002,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Sfax,75-79,,,10.300000000000002,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Sfax,80+,,,13.0,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Sidi Bouzid,45-49,,,0.3999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Sidi Bouzid,50-54,,,0.3000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Sidi Bouzid,55-59,,,0.40000000000000036,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Sidi Bouzid,60-64,,,0.1999999999999993,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Sidi Bouzid,65-69,,,0.20000000000000107,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Sidi Bouzid,75-79,,,0.20000000000000018,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Sidi Bouzid,00-04,,,0.20000000000000284,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Sidi Bouzid,10-14,,,0.7999999999999972,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Sidi Bouzid,15-19,,,0.7000000000000028,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Sidi Bouzid,25-29,,,0.3999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Sidi Bouzid,30-34,,,0.1999999999999993,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Sidi Bouzid,35-39,,,0.1999999999999993,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Sidi Bouzid,40-44,,,0.3000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2014,Sidi Bouzid,00-04,,,2.5,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Sidi Bouzid,45-49,,,27.6,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Sidi Bouzid,50-54,,,24.200000000000003,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Sidi Bouzid,55-59,,,23.1,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Sidi Bouzid,60-64,,,19.1,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Sidi Bouzid,65-69,,,14.200000000000001,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Sidi Bouzid,70-74,,,9.1,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Sidi Bouzid,75-79,,,8.5,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Sidi Bouzid,80+,,,10.299999999999999,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Siliana,55-59,,,0.3000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Siliana,10-14,,,0.3999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Siliana,15-19,,,0.3000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Siliana,30-34,,,0.1999999999999993,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Siliana,35-39,,,0.20000000000000107,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Siliana,45-49,,,19.799999999999997,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Siliana,50-54,,,14.2,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Siliana,55-59,,,9.900000000000002,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Siliana,60-64,,,8.299999999999999,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Siliana,65-69,,,6.800000000000001,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Siliana,70-74,,,5.9,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Siliana,75-79,,,3.8999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Siliana,80+,,,3.3000000000000003,men plus women do not make the figure printed for both sexes
+population_by_age,2014,Siliana,00-04,,,0.8000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Sousse,45-49,,,0.3999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Sousse,50-54,,,0.8000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Sousse,55-59,,,0.8000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Sousse,60-64,,,0.40000000000000036,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Sousse,70-74,,,0.1999999999999993,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Sousse,75-79,,,0.20000000000000018,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Sousse,00-04,,,0.7000000000000028,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Sousse,05-09,,,0.5,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Sousse,10-14,,,0.4000000000000057,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Sousse,15-19,,,0.5,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Sousse,25-29,,,0.3999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Sousse,30-34,,,0.8999999999999986,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Sousse,35-39,,,0.8000000000000043,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Sousse,40-44,,,0.20000000000000284,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Sousse,45-49,,,4.700000000000003,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Sousse,50-54,,,3.6999999999999957,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Sousse,55-59,,,3.0,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Sousse,60-64,,,3.0,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Sousse,65-69,,,4.300000000000001,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Sousse,70-74,,,4.4,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Sousse,75-79,,,4.3,men plus women do not make the figure printed for both sexes
+population_by_age,2009,Sousse,80+,,,4.1,men plus women do not make the figure printed for both sexes
+population_by_age,2014,Sousse,00-04,,,3.700000000000003,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Sousse,45-49,,,4.200000000000003,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Sousse,50-54,,,2.799999999999997,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Sousse,55-59,,,4.599999999999994,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Sousse,60-64,,,4.0,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Sousse,65-69,,,2.6000000000000014,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Sousse,70-74,,,1.0,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Sousse,75-79,,,0.9999999999999982,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Sousse,80+,,,1.0999999999999996,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Tataouine,55-59,,,0.19999999999999973,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Tataouine,05-09,,,0.1999999999999993,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Tataouine,10-14,,,0.3000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Tataouine,15-19,,,0.1999999999999993,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Tataouine,25-29,,,0.3000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Tataouine,30-34,,,0.3000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Tataouine,35-39,,,0.1999999999999993,men plus women do not make the figure printed for both sexes
+population_by_age,2014,Tataouine,00-04,,,1.1000000000000014,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Tataouine,45-49,,,26.0,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Tataouine,50-54,,,23.499999999999996,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Tataouine,55-59,,,22.1,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Tataouine,60-64,,,16.8,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Tataouine,65-69,,,13.5,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Tataouine,70-74,,,8.9,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Tataouine,75-79,,,7.299999999999999,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Tataouine,80+,,,11.1,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Tozeur,45-49,,,0.20000000000000018,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Tozeur,15-19,,,0.20000000000000107,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Tozeur,25-29,,,0.1999999999999993,men plus women do not make the figure printed for both sexes
+population_by_age,2014,Tozeur,00-04,,,0.5,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Tozeur,45-49,,,1.2000000000000002,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Tozeur,50-54,,,0.5,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Tozeur,55-59,,,1.0,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Tozeur,60-64,,,0.6000000000000005,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Tozeur,65-69,,,0.7999999999999998,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Tozeur,70-74,,,0.5999999999999999,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Tozeur,75-79,,,0.6999999999999997,men plus women do not make the figure printed for both sexes
+population_by_age,2018,Tozeur,80+,,,1.1,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Tunis,45-49,,,1.0,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Tunis,50-54,,,1.2000000000000028,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Tunis,55-59,,,1.1999999999999957,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Tunis,60-64,,,0.7000000000000064,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Tunis,65-69,,,0.3000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Tunis,70-74,,,0.3000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Tunis,75-79,,,0.40000000000000036,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Tunis,80+,,,0.3000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Tunis,00-04,,,0.19999999999999574,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Tunis,05-09,,,0.4000000000000057,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Tunis,10-14,,,0.7999999999999972,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Tunis,15-19,,,1.2000000000000028,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Tunis,20-24,,,1.0999999999999943,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Tunis,25-29,,,0.19999999999998863,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Tunis,30-34,,,0.8000000000000114,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Tunis,40-44,,,0.29999999999999716,men plus women do not make the figure printed for both sexes
+population_by_age,2014,Tunis,00-04,,,5.1000000000000085,men plus women do not make the figure printed for both sexes
+population_by_age,2007,Zaghouan,55-59,,,0.1999999999999993,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Zaghouan,00-04,,,0.30000000000000426,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Zaghouan,05-09,,,0.20000000000000107,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Zaghouan,10-14,,,0.1999999999999993,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Zaghouan,15-19,,,0.3000000000000007,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Zaghouan,30-34,,,0.1999999999999993,men plus women do not make the figure printed for both sexes
+population_by_age,2008,Zaghouan,35-39,,,0.1999999999999993,men plus women do not make the figure printed for both sexes
+population_by_age,2014,Zaghouan,00-04,,,1.200000000000001,men plus women do not make the figure printed for both sexes

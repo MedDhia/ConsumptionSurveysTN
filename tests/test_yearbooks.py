@@ -32,7 +32,7 @@ def labour():
 # ----------------------------------------------------------------------------- prices
 
 def test_cpi_covers_the_survey_waves(prices):
-    annual, _ = prices
+    annual, _divisions, _chained = prices
     years = set(annual.year)
     assert {2005, 2010, 2015, 2021} <= years
     assert annual.year.min() == 1999 and annual.year.max() == 2023
@@ -40,7 +40,7 @@ def test_cpi_covers_the_survey_waves(prices):
 
 def test_every_base_year_reads_100_in_its_own_year(prices):
     """The cheapest check that the eight columns were not transposed."""
-    annual, _ = prices
+    annual, _divisions, _chained = prices
     for base in sorted(annual.base_year.unique()):
         own = annual[(annual.base_year == base) & (annual.year == base)]
         if own.empty:
@@ -50,26 +50,26 @@ def test_every_base_year_reads_100_in_its_own_year(prices):
 
 def test_cpi_rises_monotonically_on_every_base(prices):
     """Tunisia had no deflation in any of these years. A dip means a misread row."""
-    annual, _ = prices
+    annual, _divisions, _chained = prices
     for base, block in annual.groupby("base_year"):
         series = block.sort_values("year")["index"]
         assert series.is_monotonic_increasing, f"base {base} dips"
 
 
 def test_division_weights_sum_to_100000(prices):
-    _, divisions = prices
+    _, divisions, _chained = prices
     weights = divisions[divisions.function_code != 0].drop_duplicates("function_code")
     assert int(weights.weight_per_100000.sum()) == 100_000
 
 
 def test_all_twelve_functions_present_plus_the_total(prices):
-    _, divisions = prices
+    _, divisions, _chained = prices
     assert set(divisions.function_code.unique()) == set(range(13))
 
 
 def test_general_index_agrees_between_the_two_tables(prices):
     """13.6 and 13.7 are published separately and must tell the same story."""
-    annual, divisions = prices
+    annual, divisions, _chained = prices
     for year in (2021, 2022, 2023):
         left = annual[(annual.year == year) & (annual.base_year == 2015)]["index"].iloc[0]
         right = divisions[(divisions.year == year) & (divisions.function_code == 0)]["index"]
@@ -78,7 +78,7 @@ def test_general_index_agrees_between_the_two_tables(prices):
 
 def test_cpi_reproduces_published_landmarks(prices):
     """Values read off the printed page by eye, as a guard against a plausible misparse."""
-    annual, _ = prices
+    annual, _divisions, _chained = prices
     s = annual[annual.base_year == 2015].set_index("year")["index"]
     for year, expected in {1999: 55.3, 2005: 64.7, 2010: 79.0,
                            2015: 100.0, 2021: 139.6, 2023: 165.2}.items():
@@ -92,7 +92,7 @@ def test_thousands_separator_and_doubled_glyphs_were_repaired(prices):
     glyph twice, so 70.0 arrives as ``7700..00``. If either slipped through, the value
     would be absent or off by orders of magnitude.
     """
-    annual, _ = prices
+    annual, _divisions, _chained = prices
     assert round(float(annual[(annual.base_year == 1970) & (annual.year == 2013)]
                        ["index"].iloc[0]), 1) == 1013.5
     assert round(float(annual[(annual.base_year == 2010) & (annual.year == 1999)]
@@ -864,3 +864,66 @@ def test_a_title_variant_that_agrees_is_merged():
     # The longer, more explicit wording is the one kept.
     assert canonical["evolution des placements"] == (
         "evolution des placements par gouvernorat")
+
+
+# ------------------------------------------- the caption that says which half of a table
+
+def test_the_sex_a_population_table_describes_is_kept(corpus):
+    """Tables 1.2, 1.3 and 1.4 are one table printed three times, for men, for women and
+    for both. The sex is printed beside the row-label heading and nowhere else, so once it
+    was dropped the three were indistinguishable -- their titles differ only by where each
+    was truncated. Two editions printing different sexes were then reconciled against each
+    other and one of them thrown away.
+    """
+    _, series, _ = corpus
+    captions = set(series[series.panel.ne("")].panel)
+    assert captions == {"Masculin", "Féminin", "Masculin et Féminin"}
+
+    population = series[series.title_fr.str.startswith("estimation de la population")]
+    assert population.panel.nunique() >= 3
+
+
+def test_the_two_sexes_add_up_to_the_both_sexes_panel(corpus):
+    """The check that proves the captions were read the right way round.
+
+    Nothing tells the parser what "Masculin" means. If the three panels had been attached
+    to the wrong pages, men plus women would not come to the printed total for both -- and
+    over Tunis's 20-24 age band across seven years, they do, to the last decimal.
+    """
+    _, series, _ = corpus
+    cells = series[series.panel.ne("") & series.row_label.eq("Tunis")
+                   & series.column_label.eq("24-20")]
+    wide = cells.pivot_table(index="year", columns="panel", values="value")
+    wide = wide.dropna()
+    assert len(wide) >= 5, "too few years carry all three panels to check"
+    both = wide["Masculin"] + wide["Féminin"]
+    agree = (both - wide["Masculin et Féminin"]).abs() <= 0.15
+    assert agree.mean() > 0.8, wide[~agree].to_dict()
+
+
+def test_a_caption_is_not_taken_from_a_wrapped_heading():
+    """"Année Judiciaire" and "Produit Intérieur Brut" wrap onto the heading line and
+    continue straight after the first word. A caption for the page sits far to its
+    right, and that gap is the only thing separating the two."""
+    from consumptiontn.build_yearbook import _panel_caption
+
+    wide = ["Gouvernorat" + " " * 20 + "Masculin et Féminin", "  44-40   39-35   34-30"]
+    assert _panel_caption(wide, 1) == "Masculin et Féminin"
+    # The same words set immediately after the heading are its own continuation.
+    assert _panel_caption(["Gouvernorat Masculin", "  44-40   39-35"], 1) == ""
+    # An enumerator carries no lower-case letter and is not a caption.
+    assert _panel_caption(["Catégorie" + " " * 20 + "III", "  44-40   39-35"], 1) == ""
+    # Nor is a line that does not open with a row-label heading at all.
+    assert _panel_caption(["Zaghouan" + " " * 20 + "Masculin", "  44-40"], 1) == ""
+
+
+def test_separating_the_sexes_removed_false_revisions(corpus):
+    """A cell whose two printings differ is a revision only if they are the same cell.
+
+    Before the caption was kept, a man's figure and a woman's were reconciled against each
+    other and the difference recorded as INS revising the number. 1,733 cells were marked
+    that way.
+    """
+    _, series, _ = corpus
+    population = series[series.title_fr.str.startswith("estimation de la population")]
+    assert (population.agreement == "revised").mean() < 0.15
