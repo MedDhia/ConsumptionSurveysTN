@@ -174,7 +174,16 @@ INTROS = {
         "single misread cell in a table printed by only one edition.\n\n"
         "Tables that look like governorate tables and are not are left out and named in the "
         "module: the three justice tables are by **court of first instance**, so Grombalia "
-        "appears and Tunis is split in two."
+        "appears and Tunis is split in two.\n\n"
+        "**Two things to know before comparing across years or governorates**, neither of "
+        "which the tables mention. *The map changed*: Manouba was created in 2000 out of "
+        "Ariana, and Ariana falls 43–54% in a single year across ten unrelated indicators "
+        "while Ariana plus Manouba stays continuous. Those rows carry a `boundary` note — "
+        "they are right for their own year, and adding the two gives a consistent 1995–2023 "
+        "series. Manouba's pre-creation rows, printed as 0, are removed. *Size dominates "
+        "every count*: `population_thousands` carries the denominator on each row, empty "
+        "before 2005 because no yearbook in the corpus prints population by governorate "
+        "earlier — left missing rather than interpolated."
     ),
     "tn_governorate_refused": (
         "Indicator-years excluded from `tn_governorate_panel` because the 24 governorates "
