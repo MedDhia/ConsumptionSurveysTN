@@ -28,6 +28,7 @@ from . import (
     build_governorates,
     build_household,
     build_individual,
+    build_inequality_indices,
     build_labour,
     build_panel,
     build_poverty_report,
@@ -239,6 +240,34 @@ INTROS = {
         "a log measure has nothing to say about it, so that column is left absent rather "
         "than floored to make it computable."
     ),
+    "tn_governorate_inequality": (
+        "The conventional inequality indices for the distribution of each indicator across "
+        "governorates, one row per indicator, basis, geography, year and weighting — the "
+        "longitudinal form needed to ask how regional inequality *evolved*.\n\n"
+        "Elsewhere this repository avoided composite indices and showed observed quantities "
+        "instead. That constraint is lifted here, because a question about evolution needs "
+        "one comparable number per year. Several indices are computed rather than one, since "
+        "the choice of index is a choice about which part of the distribution matters: "
+        "`gini` reads the middle, `theil_t` the top, `theil_l` (mean log deviation) the "
+        "bottom, and `atkinson_05/1/2` the same distribution with rising aversion to the "
+        "worst-off. `cv` is the most outlier-driven of the set; `p90_p10` and `p80_p20` are "
+        "ratios between positions rather than summaries of everything, which is why they "
+        "belong beside the others. **Where Theil-T and Theil-L disagree, that disagreement "
+        "is the finding** — it locates the change in the distribution.\n\n"
+        "Every index is computed twice. `population` weighting treats the distribution as "
+        "one over people: a Tunisian picked at random. `unweighted` treats it as one over "
+        "administrative units, which is what a governorate-level regression does to its "
+        "observations. They can move in opposite directions, and when they do it means a "
+        "change concentrated in small governorates. The weighted family needs a population "
+        "and so begins in 2005, while the unweighted runs from 1994.\n\n"
+        "Theil-L and Atkinson at ε≥1 are undefined where any governorate reports zero, and "
+        "those cells are left empty rather than floored — a governorate with no cinema "
+        "screens is a real observation that a log measure has nothing to say about. `gini`, "
+        "`cv` and the ratios survive zeros.\n\n"
+        "Only complete years are measured, for the reason `tn_governorate_dispersion` gives: "
+        "an index computed over whichever governorates were printed moves when coverage "
+        "moves, and that artefact is indistinguishable from a trend once plotted."
+    ),
     "tn_governorate_baseline": (
         "Each governorate's pre-revolution starting point, per indicator: its mean per head "
         "over 2005–2010, its rank on that, its region and whether it is coastal.\n\n"
@@ -425,6 +454,8 @@ TITLES = {
         "Between-governorate dispersion of each indicator, 1994–2023",
     "tn_governorate_baseline":
         "Pre-revolution starting point and region of each governorate",
+    "tn_governorate_inequality":
+        "Gini, Theil, Atkinson and percentile ratios across governorates, 1994–2023",
     "tn_yearbook_tables": "Statistical yearbook table catalogue, 2001–2023",
     "tn_poverty_inequality_2000_2010":
         "Poverty and inequality by region 2000-2010, on the revised 2010 basis",
@@ -491,6 +522,7 @@ def build_all() -> dict[str, pd.DataFrame]:
     datasets["tn_governorate_comparable"] = comparable
     datasets["tn_governorate_dispersion"] = dispersion
     datasets["tn_governorate_baseline"] = baseline
+    datasets["tn_governorate_inequality"] = build_inequality_indices.build(comparable)
     regional, spatial_gini, refused = build_regional_products.build()
     datasets["tn_expenditure_by_product_region"] = regional
     datasets["tn_spatial_gini_by_product"] = spatial_gini

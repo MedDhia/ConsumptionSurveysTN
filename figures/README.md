@@ -1,19 +1,28 @@
 # The evolution of inequality in Tunisia, 1985–2021
 
-Thirty-eight figures built from `data/processed`. Regenerate with `make figures`.
+Forty-three figures built from `data/processed`. Regenerate with `make figures`.
 
-**No composite index appears in any of them except figures 35–37.** No Gini, no Theil, no
-Atkinson, no polarisation index. Figure 38 is not an exception to this and is worth saying
-why: a Lorenz curve is the *uncompressed* form of the Gini. It shows the whole distribution
-rather than the one number computed from it, and the statistic it is read on — the share of
-a service going to the least-served half of the population — is an observed quantity you
-can recover from `tn_governorate_comparable` by adding twelve numbers. Every other figure shows either an observed quantity — a
-group's mean expenditure, a poverty rate, a budget share — or the relation between two
-observed quantities, such as one region's mean against the national mean, or a region's
-share of spending against its share of people. Any number in them can be recovered from
-the datasets with arithmetic you can do in your head.
+**Composite indices now appear deliberately, in figures 39–43.** For most of this
+directory they still do not: figures 1–34 show either an observed quantity — a group's mean
+expenditure, a poverty rate, a budget share — or the relation between two observed
+quantities, and any number in them can be recovered from the datasets with arithmetic you
+can do in your head. That was a constraint worth keeping for as long as the question was
+*what* the distribution looks like.
 
-The exception is narrow and was asked for. Figures 35–37 rank *goods* by how unevenly each
+It was lifted for figures 39–43, where the question is how regional inequality **evolved**,
+and a longitudinal answer needs one comparable number per year. Those five report the
+standard family — Gini, Theil-T, Theil-L, Atkinson, the coefficient of variation and
+percentile ratios — rather than a single index, because which index you pick is a choice
+about which part of the distribution matters, and reporting one hides that choice. Figure
+43 exists specifically to show the indices disagreeing.
+
+Figure 38 is still not an exception and is worth saying why: a Lorenz curve is the
+*uncompressed* form of the Gini. It shows the whole distribution rather than the one number
+computed from it, and the statistic it is read on — the share of a service going to the
+least-served half of the population — is an observed quantity you can recover from
+`tn_governorate_comparable` by adding twelve numbers.
+
+Figures 35–37 remain the narrow, separately-asked-for exception. They rank *goods* by how unevenly each
 is spread across the seven regions, which cannot be done without reducing seven regional
 means to one number per good. The seven values behind every one of them are published in
 `tn_expenditure_by_product_region`, and the measure compares regions rather than
@@ -802,7 +811,7 @@ waves cannot support the design at all.
 
 ---
 
-### 38. Job offers concentrated after the revolution; almost nothing else did
+### 38. Job offers concentrated sharply; almost nothing else did
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="38-lorenz-across-governorates-dark.png">
@@ -815,8 +824,14 @@ distance below it is concentration.
 
 The half of Tunisians living in the least-served governorates received **35% of job offers
 in 2010 and 20% in 2023**. That fall of 15 points is roughly **four times** the next
-largest among nineteen services complete in both years, and the faint lines show it is a
-drift through the intervening years rather than two unrepresentative endpoints.
+largest among nineteen services complete in both years.
+
+Two qualifications the year-by-year series adds, and figure 41 shows directly. **2010 is a
+local peak** — 2005 to 2009 run between 28% and 32% — so the endpoint pair flatters the
+size of the fall. And the decline is not evenly spread: 9 of the 15 points accrue over the
+nine years to 2019, while **8 points arrive in the single year 2019 to 2020**, with a
+partial recovery after. The faint lines are a real downward drift, but the largest single
+move in them is the first pandemic year.
 
 Nothing else in the panel moves like it. Ten of the nineteen became more concentrated and
 nine less, most of them barely: primary teachers shifted two points, primary schools one.
@@ -829,6 +844,118 @@ national and simultaneous, so there is no untreated governorate to compare again
 average effect to recover; see the note above figure 27. One further caution specific to
 this series: job offers are administrative counts registered at employment offices, so a
 change in *where offers are registered* would look identical to a change in where they are.
+
+
+### 39. Regional inequality, service by service, 1994–2023
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="39-gini-evolution-by-service-dark.png">
+  <img alt="Sixteen small multiples, each showing the Gini of one service across governorates from 1994 to 2023, with 2011 marked and 2020 to 2023 shaded" src="39-gini-evolution-by-service-light.png">
+</picture>
+
+The first figure in this directory to use a composite index, and the reason the constraint
+was lifted: "how did inequality evolve" cannot be answered by an observed quantity, because
+evolution needs one comparable number per year.
+
+Sixteen services have both a long pre-2011 run and a long post-2011 run. **Most of them are
+flat or falling.** Library book stock, public libraries, library books lent, marriages and
+library subscribers all become *less* unequally distributed across the period; primary
+schools, teachers and classrooms barely move at all. The Gini for primary provision sits
+around 0.22 and stays there for thirty years.
+
+Two rise. Bank branches climb from 0.47 to 0.53 and then stop when the series does in 2018.
+Job offers rise from about 0.40 to about 0.55 — and the shaded band shows where: the rise
+is concentrated in 2020–23, not at the dashed line.
+
+The panels use the constant geography, Ariana and Manouba combined, which is what lets them
+start in 1994 rather than 2000; see the note on figure 42 for what the unweighted reading
+costs.
+
+### 40. 2011 is not the year regional inequality changed
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="40-is-2011-special-dark.png">
+  <img alt="Two bar panels by year: the share of services whose Gini rose, and the mean change in Gini, with 2011 highlighted" src="40-is-2011-special-light.png">
+</picture>
+
+This is the figure to read before attempting any design that puts a cutoff at 2011.
+
+Across the sixteen services, **2011 ranks 9th of 29 years** by how many of them grew more
+unequal, and **4th** by the size of the average move. The second of those is not nothing —
+2011 is a real positive bump, and the figure marks it rather than dismissing it. But 1995,
+2019 and 2020 are all larger, and on the breadth measure 2011 sits in the middle of the
+distribution of years.
+
+A regression discontinuity needs the cutoff to be distinguishable from the years around it.
+Here it is not, and no amount of bandwidth tuning creates a discontinuity that the annual
+series does not contain. That is a statement about what this data can support, not about
+whether the revolution mattered.
+
+### 41. The biggest break in the data is the pandemic, not the revolution
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="41-covid-contamination-dark.png">
+  <img alt="Left, the Gini of job offers across governorates 1995 to 2023 with 2020 to 2023 shaded; right, the post-2011 slope break computed through 2023 and through 2019" src="41-covid-contamination-light.png">
+</picture>
+
+Job offers carry the largest post-2011 slope break of any series here, and this figure is
+why that statistic should not be read as evidence about 2011.
+
+Fitting a linear post-2011 trend through 2023 reports a break of **+0.127** Gini per decade.
+Fitting the same thing through 2019 only reports **+0.028** — a factor of 4.5. The
+difference is four pandemic years in which the Gini jumps from 0.47 to 0.59 and `p90/p10`
+goes from about 11 to 41.
+
+The pre-2011 years are genuinely flat, which is what made the break look credible in the
+first place. What is wrong is running one straight line from 2011 to 2023 across a series
+that contains a second, much larger shock, and attributing the result to the first one.
+
+Job offers are administrative counts registered at employment offices, so a change in
+*where offers are registered* would look identical to a change in where they are. Both
+readings are consistent with a pandemic that closed offices unevenly.
+
+### 42. Inequality between governorates is not inequality between Tunisians
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="42-weighted-or-not-dark.png">
+  <img alt="Left, the Gini of primary pupils read weighted and unweighted from 2005 to 2023; right, a dumbbell of the two readings for 24 services" src="42-weighted-or-not-light.png">
+</picture>
+
+Weighting governorates by population asks about a Tunisian picked at random. Leaving it out
+asks about an administrative unit picked at random. They are different questions and they
+give different answers.
+
+**Weighting lowers the measured Gini in all 24 services** where both readings exist, by
+0.047 on average and by 0.098 for cinema screens, the largest gap. The reason is that the
+governorates at the extremes of these distributions are the small ones: Tozeur and Tataouine
+move an unweighted index far more than their share of the population justifies.
+
+This matters for interpretation rather than for arithmetic. A governorate-level regression
+weights every governorate equally, so it implicitly uses the unweighted reading — the one
+that, on this evidence, systematically overstates inequality between people. And the
+weighted family cannot reach before 2005, because no yearbook in the corpus prints
+governorate population earlier. So a long pre-period and a population-weighted index are
+not simultaneously available here, and that trade has to be made explicitly.
+
+### 43. Which index you choose is a choice about what counts
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="43-index-disagreement-dark.png">
+  <img alt="Left, five inequality indices for library readers normalised to their 1995 values; right, the change in Theil-T against the change in Theil-L for sixteen services" src="43-index-disagreement-light.png">
+</picture>
+
+Reporting a single index hides a decision. Each of these weights a different part of the
+distribution, and on real data they disagree.
+
+For library readers, **four of the five say the distribution grew more unequal after 2011
+and Atkinson ε=2 says the opposite.** ε=2 weights the worst-served governorates most
+heavily, so the two readings together say something the Gini alone cannot: the bottom of the
+distribution caught up while the spread above it widened.
+
+The right panel generalises that. Theil-T is top-sensitive and Theil-L bottom-sensitive, so
+a service above the dashed line moved more at the bottom of its distribution than at the
+top. Most sit close to the line — the two Theils usually agree — and the ones that do not
+are where a distributional story exists to be told.
 
 ## Colour
 
@@ -850,6 +977,7 @@ yearbooks, and figure 18 sets one of those against the panel. Figures 6, 7, 10, 
 governorate panel, and figures 31–34 from the same corpus's monthly trade table (14.1)
 alongside that panel. Figures 35–37 come from `tn_spatial_gini_by_product`, built by
 reading the product-by-region tables out of all four survey volumes. Figure 38 comes from
-`tn_governorate_comparable`, the per-head normalisation of that same governorate panel. Every claim above is reproducible from `scripts/make_figures.py`, and
+`tn_governorate_comparable`, the per-head normalisation of that same governorate panel, and
+figures 39–43 from `tn_governorate_inequality`, the conventional indices computed on it. Every claim above is reproducible from `scripts/make_figures.py`, and
 the numbers quoted here were recomputed from the data before being written rather than
 read off the charts.

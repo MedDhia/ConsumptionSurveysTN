@@ -181,6 +181,7 @@ Built into `data/processed/` as CSV and Parquet, each with a codebook in
 | `tn_governorate_comparable` | 54,494 | Every indicator per head and as a share of the national total, on two geographies. |
 | `tn_governorate_dispersion` | 2,342 | How unequally each indicator is spread across governorates, by year. |
 | `tn_governorate_baseline` | 648 | Each governorate's pre-revolution level, rank, region and coastal status. |
+| `tn_governorate_inequality` | 3,889 | Gini, Theil, Atkinson, CV and percentile ratios across governorates, by year. |
 | `tn_expenditure_by_product_region` | 12,832 | Expenditure per person by product and region, four survey waves. |
 | `tn_spatial_gini_by_product` | 1,604 | Gini across regions of spending on each good, by wave. |
 | `tn_regional_products_refused` | 2 | Product rows whose printed national value contradicts their own regions. |
@@ -479,11 +480,15 @@ seven use the health, education and labour modules and the product-level file; e
 whether the revolution's effect can be identified at all, four from the yearbooks'
 governorate panel and four by regression discontinuity in time; three measure how
 unevenly each consumption good is spread across the regions; and one draws Lorenz curves
-of nineteen services across the 24 governorates. **Only those three regional-spread charts
-use a composite index of inequality** — elsewhere there is no Gini, no Theil, no Atkinson, and
-every figure shows an observed quantity or the relation between two observed quantities,
-so any number in them can be recovered from the datasets by hand. `make figures` redraws
-them.
+of nineteen services across the 24 governorates; and five track the conventional
+inequality indices across governorates year by year. **Composite indices appear only in
+those last five and in the three regional-spread charts** — across figures 1–34 there is no
+Gini, no Theil and no Atkinson, and every one shows an observed quantity or the relation
+between two observed quantities, so any number in them can be recovered from the datasets
+by hand. Figures 39–43 lift that constraint on purpose: asking how inequality *evolved*
+needs one comparable number per year, and they report the whole index family rather than a
+single one, because which index you pick is a choice about which part of the distribution
+matters. `make figures` redraws them all.
 
 Two caveats the figures carry in their own text rather than in a footnote. Figures 13–16
 are descriptive before-and-after comparisons, not causal estimates: the 2010–2021 window
