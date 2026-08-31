@@ -13,6 +13,13 @@ on:
   schedule:
     # Mondays, 06:00 UTC.
     - cron: "0 6 * * 1"
+  # Deliberately unfiltered, unlike the pull_request trigger below. This run exists to
+  # check the state that actually landed, and the state that landed is a merge commit
+  # that no pull_request run ever saw: a PR is tested against its own head merged with
+  # the base at the time, so anything merged in between is untested here. Any paths
+  # filter would reopen that hole for whichever commit happened to fall outside it.
+  push:
+    branches: [main]
   pull_request:
     paths:
       - "src/**"
@@ -22,6 +29,11 @@ on:
       - "Makefile"
       - "pyproject.toml"
       - ".github/workflows/pipeline.yml"
+      # The last step compares these against a fresh build, so a diff that edits them
+      # and nothing else is exactly what that step is for -- and would otherwise be the
+      # one kind of change that skips the check meant to catch it.
+      - "data/processed/**"
+      - "docs/codebooks/**"
 
 permissions:
   contents: read
@@ -81,9 +93,10 @@ jobs:
     # Deliberately cache-free: the point is to re-download from ins.tn and notice if INS
     # has republished a file under the same URL. A red run here is the alarm, not a bug.
     #
-    # Runs on the weekly schedule and on demand. Not on pull requests -- force-fetching
-    # roughly 290 MB (the yearbook mirror is most of it) is not a cost a PR should pay,
-    # and a source changing unrelated to the diff is not a reason to block one.
+    # Runs on the weekly schedule and on demand only. Not on pull requests or pushes --
+    # force-fetching roughly 290 MB (the yearbook mirror is most of it) is not a cost a
+    # PR should pay, and a source changing unrelated to the diff is not a reason to
+    # block one, nor to redden a merge that has already happened.
     #
     # A download that comes back as an error or interstitial page rather than the file is
     # rejected on its magic bytes before it reaches the manifest, so a red run here means

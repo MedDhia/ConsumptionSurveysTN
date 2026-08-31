@@ -462,9 +462,18 @@ finishes in well under a minute, and a red result always means something about t
 ins.tn, builds every dataset, and runs the full suite including the reproduction of INS's
 published figures. It also asserts that a fresh build reproduces the committed datasets
 and codebooks byte for byte, and uploads `data/processed` as an artifact so the built
-datasets can be downloaded without running anything. It runs weekly, on demand, and on
-pull requests that touch the pipeline. `data/raw` is cached on the committed manifest's
-hash, so ins.tn is only contacted when the manifest changes or the cache expires.
+datasets can be downloaded without running anything. `data/raw` is cached on the
+committed manifest's hash, so ins.tn is only contacted when the manifest changes or the
+cache expires.
+
+It runs weekly, on demand, on **every push to `main`**, and on pull requests that touch
+the pipeline, the built datasets or the codebooks. The push trigger is what makes the
+badge above a statement about `main` rather than about whichever pull request last ran:
+a pull request is checked against its own head merged with the base *at that moment*, so
+the commit that actually lands can differ from anything CI saw, and a merge queue of two
+approved branches is enough to produce one. That trigger carries no paths filter on
+purpose — the byte-for-byte check covers `data/processed` and `docs/codebooks`, so any
+filter would let some commit through the check meant to catch it.
 
 The `upstream-drift` job re-downloads everything with the cache disabled and fails if any
 checksum has moved — that is `make check-upstream`, and a red run means INS has
