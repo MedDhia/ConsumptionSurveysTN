@@ -31,6 +31,7 @@ from . import (
     build_inequality_indices,
     build_labour,
     build_monthly,
+    build_monthly_prices,
     build_panel,
     build_poverty_report,
     build_prices,
@@ -273,6 +274,50 @@ INTROS = {
         "separately — 453 months, agreeing in 98% of them. Published rather than reduced to "
         "a pass mark because each disagreement marks a page worth re-reading, and the ten "
         "months that fail are removed from the series rather than shipped."
+    ),
+    "tn_monthly_prices": (
+        "The consumer price index and the industrial selling price index at monthly "
+        "frequency, on every base each is printed on — the price channel of the "
+        "revolution, at the frequency an RD needs.\n\n"
+        "Prices are the outcome least contaminated by everything else that happened. The "
+        "strongest monthly count series is tourism, and a tourist arrival responds to the "
+        "2015 attacks and the Libyan war as much as to the uprising; prices respond to the "
+        "thing the uprising was about. Bouazizi was a fruit seller.\n\n"
+        "**Neither index is chained, and that is measured rather than assumed.** Both were "
+        "rebased in the period — CPI from 2000 to 2005, IPI from 2000 to 2010 — and this "
+        "repository already chains across a rebasing where the two bases overlap. Here it "
+        "would be wrong: the IPI tables overlap in 2010–2012 and the ratio between them is "
+        "not constant within a sector. Chemicals runs 0.607 to 0.774 across thirty-six "
+        "months, where a pure rebasing would give one number. INS re-weighted the basket as "
+        "well as moving the base, so `tn_monthly_rebasing` publishes the factors instead of "
+        "a splice.\n\n"
+        "That costs the design nothing, because **one base spans January 2011 on each "
+        "index**: CPI base 2005 covers 2009–2012 with twenty-four months either side, IPI "
+        "base 2000 covers 1998–2012 with a hundred and fifty-six before. Estimating on each "
+        "base apart makes them independent measurements rather than one measurement of an "
+        "assumed join — and on the IPI they disagree, which is the point of having both.\n\n"
+        "**The base is verified, not trusted.** Where a column heading states one it is "
+        "used, and the assignment is then checked against `tn_cpi_annual`, built from a "
+        "different table: the twelve months of a year must average to the annual index "
+        "printed for that base. They do, to between 0.01 and 0.37 index points on values "
+        "near 120. A year that fails is refused, because a monthly series on the wrong base "
+        "would sit in an RD looking perfectly normal and be wrong by tens of percent."
+    ),
+    "tn_monthly_rebasing": (
+        "The ratio between the two industrial-price bases in the months both are printed, "
+        "which is the evidence for not chaining them.\n\n"
+        "A rebasing alone rescales an index, so the ratio between two bases would be one "
+        "constant per sector and a single factor would carry either series onto the other. "
+        "These are not constant. Across the thirty-six overlapping months of 2010–2012, "
+        "chemicals ranges from 0.607 to 0.774 and textiles from 0.775 to 0.873, while "
+        "food holds to within a third of a percent — so the basket was re-weighted "
+        "unevenly, not merely re-based.\n\n"
+        "The consequence is visible in `tn_rdit_estimates`: over the *same* six months "
+        "either side of January 2011, the two bases give industrial-price jumps that differ "
+        "in sign for four of the eight sectors. A log difference is invariant to a pure "
+        "rescaling, so that disagreement is entirely the re-weighting, and it says the "
+        "industrial-price discontinuity is not robust to which index construction you read "
+        "it on."
     ),
     "tn_rdit_estimates": (
         "Regression-discontinuity-in-time estimates of the January 2011 break, for every "
@@ -519,6 +564,10 @@ TITLES = {
         "Monthly panels against the totals and components printed beside them",
     "tn_rdit_estimates":
         "RDiT estimates of the January 2011 break, with bias-aware intervals",
+    "tn_monthly_prices":
+        "Consumer and industrial price indices by month, on each printed base",
+    "tn_monthly_rebasing":
+        "The measured ratio between the two industrial-price bases where they overlap",
     "tn_yearbook_tables": "Statistical yearbook table catalogue, 2001–2023",
     "tn_poverty_inequality_2000_2010":
         "Poverty and inequality by region 2000-2010, on the revised 2010 basis",
@@ -589,8 +638,13 @@ def build_all() -> dict[str, pd.DataFrame]:
     monthly, monthly_checks = build_monthly.build(series)
     datasets["tn_monthly_series"] = monthly
     datasets["tn_monthly_reconciliation"] = monthly_checks
+    monthly_prices, price_checks, rebasing = build_monthly_prices.build(series, cpi_annual)
+    datasets["tn_monthly_prices"] = monthly_prices
+    datasets["tn_monthly_rebasing"] = rebasing
+    datasets["tn_monthly_reconciliation"] = pd.concat(
+        [monthly_checks, price_checks], ignore_index=True)
     datasets["tn_rdit_estimates"] = build_rdit_estimates.build(
-        monthly, datasets["tn_governorate_inequality"])
+        monthly, datasets["tn_governorate_inequality"], monthly_prices)
     regional, spatial_gini, refused = build_regional_products.build()
     datasets["tn_expenditure_by_product_region"] = regional
     datasets["tn_spatial_gini_by_product"] = spatial_gini

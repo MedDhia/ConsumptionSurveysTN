@@ -5,10 +5,11 @@ anything measurable, and can the change be attributed to it rather than merely d
 The answer differs by *frequency*, and separating the two cases is the whole point of
 running both here.
 
-**Monthly outcomes can be estimated.** Five national series run at monthly frequency
-through January 2011 with between 82 and 192 pre-cutoff months. A six-month bandwidth
-holds six observations either side, so the estimate is local in the sense continuity-based
-RD requires, and the Armstrong-Kolesar honest interval stays finite and interpretable.
+**Monthly outcomes can be estimated.** Five count series and two price indices run at
+monthly frequency through January 2011, with between 24 and 192 pre-cutoff months. A
+six-month bandwidth holds six observations either side, so the estimate is local in the
+sense continuity-based RD requires, and the Armstrong-Kolesar honest interval stays finite
+and interpretable.
 
 **Annual outcomes cannot.** The governorate inequality indices have at most 17 pre-cutoff
 years and 13 after. Shrinking the bandwidth to anything deserving the name "local" leaves
@@ -135,6 +136,40 @@ def monthly_estimates(monthly: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def price_estimates(prices: pd.DataFrame) -> pd.DataFrame:
+    """RDiT on each monthly price index, separately on each base it is printed on.
+
+    Deliberately not run on a spliced series. One base spans January 2011 on each index --
+    CPI 2005 and IPI 2000 -- so the estimate never needs a chain, and running the two bases
+    apart makes them independent measurements of the same discontinuity rather than one
+    measurement of a series whose join was assumed.
+    """
+    rows = []
+    keys = ["series", "group", "base_year"]
+    for (name, group, base), block in prices.groupby(keys, sort=True):
+        block = block.sort_values("running")
+        y = block.log_value.to_numpy(dtype=float)
+        good = np.isfinite(y)
+        r = block.running.to_numpy(dtype=float)[good]
+        # Both sides of the cutoff, or there is no discontinuity to estimate.
+        if (r < 0).sum() < 12 or (r >= 0).sum() < 12:
+            continue
+        adjusted = rdit.deseasonalise(r, y[good], block.month.to_numpy(dtype=int)[good])
+        smoothness = rdit.smoothness_bound(r, adjusted)
+        outcome = name if group in ("all items",) else f"{name}: {group}"
+        label = {"outcome": f"{outcome} (base {int(base)})", "frequency": "monthly",
+                 "scale": "log", "smoothness": smoothness}
+        for bandwidth in MONTHLY_BANDWIDTHS:
+            if bandwidth > max(abs(r).max(), 1):
+                continue
+            for donut in (0, 1):
+                rows.append(_estimate(r, adjusted, bandwidth, donut=donut,
+                                      smoothness=smoothness, label=label))
+        for window in MONTHLY_RANDOMISATION:
+            rows.append(_randomisation(r, adjusted, window, label))
+    return pd.DataFrame(rows)
+
+
 def annual_estimates(indices: pd.DataFrame, measure: str = "gini") -> pd.DataFrame:
     """The same design on the annual inequality indices, where it has far less to work with.
 
@@ -163,15 +198,18 @@ def annual_estimates(indices: pd.DataFrame, measure: str = "gini") -> pd.DataFra
 
 
 def build(monthly: pd.DataFrame | None = None,
-          indices: pd.DataFrame | None = None) -> pd.DataFrame:
+          indices: pd.DataFrame | None = None,
+          prices: pd.DataFrame | None = None) -> pd.DataFrame:
     """Every RDiT estimate at the January 2011 cutoff, monthly and annual."""
     if monthly is None:
         monthly = pd.read_csv("data/processed/tn_monthly_series.csv")
     if indices is None:
         indices = pd.read_csv("data/processed/tn_governorate_inequality.csv")
+    if prices is None:
+        prices = pd.read_csv("data/processed/tn_monthly_prices.csv")
 
-    frame = pd.concat([monthly_estimates(monthly), annual_estimates(indices)],
-                      ignore_index=True)
+    frame = pd.concat([monthly_estimates(monthly), price_estimates(prices),
+                       annual_estimates(indices)], ignore_index=True)
     if frame.empty:
         raise RuntimeError("no RDiT estimate could be produced")
 

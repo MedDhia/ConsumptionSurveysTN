@@ -113,10 +113,13 @@ def test_the_running_variable_puts_the_cutoff_on_a_sample_point(built):
 # ------------------------------------------------------------------------ the estimates
 
 @pytest.fixture(scope="module")
-def estimates(built):
+def estimates(built, series):
+    from consumptiontn import build_monthly_prices as P
+
     frame, _ = built
     indices = pd.read_csv("data/processed/tn_governorate_inequality.csv")
-    return R.build(frame, indices)
+    prices, _, _ = P.build(series, pd.read_csv("data/processed/tn_cpi_annual.csv"))
+    return R.build(frame, indices, prices)
 
 
 def test_the_annual_design_reports_that_it_cannot_answer(estimates):
@@ -237,3 +240,67 @@ def test_every_column_computed_through_a_logarithm_is_rounded():
             values = frame[column].dropna()
             assert not values.empty, f"{path}:{column}"
             assert np.allclose(values, values.round(decimals)), f"{path}:{column}"
+
+
+# ------------------------------------------------------------------------ monthly prices
+
+@pytest.fixture(scope="module")
+def priced(series):
+    from consumptiontn import build_monthly_prices as P
+
+    annual = pd.read_csv("data/processed/tn_cpi_annual.csv")
+    return P.build(series, annual)
+
+
+def test_the_monthly_cpi_reproduces_the_annual_index(priced):
+    """The check with an outside referee.
+
+    `tn_cpi_annual` is built from a different table and was verified separately, so a
+    monthly series whose twelve months average to it is not agreeing with itself. A year
+    assigned to the wrong base would be out by tens of percent and pass nothing.
+    """
+    _, check, _ = priced
+    assert len(check) >= 8
+    assert check.agrees.all(), check[~check.agrees].to_dict("records")
+    assert (check.months == 12).all()
+    # And the agreement is tight, not merely inside the tolerance.
+    assert (check.gap / check.printed).max() < 0.004
+
+
+def test_a_year_failing_the_annual_check_does_not_ship(priced):
+    frame, check, _ = priced
+    cpi = frame[frame.series.eq("cpi_general")]
+    shipped = set(zip(cpi.base_year, cpi.year, strict=True))
+    for row in check[~check.agrees].to_dict("records"):
+        assert (row["base_year"], row["year"]) not in shipped
+
+
+def test_the_two_industrial_bases_are_not_a_rescaling_of_each_other(priced):
+    """The measured reason the two bases are published apart rather than chained.
+
+    A rebasing rescales, so the ratio between bases would be one constant per sector.
+    These are not: the basket was re-weighted too, unevenly across sectors.
+    """
+    _, _, factors = priced
+    assert not factors.empty
+    spread = factors.groupby("group").ratio.agg(lambda s: s.max() / s.min())
+    assert spread.max() > 1.2, "no sector varies enough to justify refusing to chain"
+    assert spread.min() < 1.05, "and at least one is nearly constant, so it is not noise"
+
+
+def test_one_base_spans_the_cutoff_on_each_index(priced):
+    """What makes chaining unnecessary for the design this feeds."""
+    frame, _, _ = priced
+    for name, base in (("cpi_general", 2005), ("industrial_prices", 2000)):
+        block = frame[frame.series.eq(name) & frame.base_year.eq(base)]
+        assert (block.running < 0).sum() >= 12, name
+        assert (block.running >= 0).sum() >= 12, name
+
+
+def test_the_price_log_is_rounded_like_every_other_logarithm(priced):
+    from consumptiontn.build_monthly import VALUE_DECIMALS
+
+    frame, _, _ = priced
+    values = frame.log_value.dropna()
+    assert not values.empty
+    assert np.allclose(values, values.round(VALUE_DECIMALS))
