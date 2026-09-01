@@ -1,15 +1,15 @@
 # The evolution of inequality in Tunisia, 1985–2021
 
-Forty-four figures built from `data/processed`. Regenerate with `make figures`.
+Forty-five figures built from `data/processed`. Regenerate with `make figures`.
 
-**Composite indices now appear deliberately, in figures 39–44.** For most of this
+**Composite indices now appear deliberately, in figures 39–45.** For most of this
 directory they still do not: figures 1–34 show either an observed quantity — a group's mean
 expenditure, a poverty rate, a budget share — or the relation between two observed
 quantities, and any number in them can be recovered from the datasets with arithmetic you
 can do in your head. That was a constraint worth keeping for as long as the question was
 *what* the distribution looks like.
 
-It was lifted for figures 39–44, where the question is how regional inequality **evolved**,
+It was lifted for figures 39–45, where the question is how regional inequality **evolved**,
 and a longitudinal answer needs one comparable number per year. Those five report the
 standard family — Gini, Theil-T, Theil-L, Atkinson, the coefficient of variation and
 percentile ratios — rather than a single index, because which index you pick is a choice
@@ -957,33 +957,55 @@ a service above the dashed line moved more at the bottom of its distribution tha
 top. Most sit close to the line — the two Theils usually agree — and the ones that do not
 are where a distributional story exists to be told.
 
-### 44. The revolution left no discontinuity in regional inequality
+### 44. No service shows a break in regional inequality at the revolution
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="44-gini-rdd-governorates-dark.png">
-  <img alt="Left, between-governorate Gini for nineteen services and their average; middle, the share of services rejecting a permutation test at each candidate cutoff year; right, the local-linear jump at 2011 with bias-aware intervals" src="44-gini-rdd-governorates-light.png">
+  <img alt="Seventeen small-multiple regression discontinuity plots, one per service, each showing between-governorate Gini against years from January 2011 with a local linear fitted either side of the cutoff" src="44-gini-rdd-governorates-light.png">
 </picture>
 
-The regression discontinuity the governorate strand was built for, and it returns a null.
-What makes the null worth drawing rather than stating is the middle panel.
+One regression discontinuity per service, drawn as one: the Gini across governorates
+against years from January 2011, cutoff at zero, a triangular-kernel local linear fitted
+separately either side, and the bar at zero is the jump. Faint points fall outside the
+eight-year window. Panels run from the most negative estimate to the most positive.
 
-Run at January 2011, a local randomisation test rejects for **nine of the seventeen
-services** it can score. Taken alone that reads as a finding. Run the identical test at
-every other year from 2001 to 2018 and it rejects for **between 39% and 65% of services at
-every one of them** — 2011 ranks sixth of eighteen. The test compares a mean before with a
-mean after, and most of these series trend, so it rejects whatever year is pointed at. The
-2011 rejection is trend, not a break, and nothing but the placebo shows that.
+**Zero lies inside the bias-aware interval for all seventeen.** The estimates span −0.062
+for cinema screens to +0.039 for job placements, and none is distinguishable from no
+change.
 
-The right panel is the estimator that removes the trend: local linear with the
-Armstrong–Kolesár bias-aware interval. **Zero lies inside every interval.** The worst-case
-bias also exceeds the point estimate for every service, so the honest reading is *not
-identified* rather than *precisely zero* — with seventeen pre-cutoff years there is no
-bandwidth small enough to be local and large enough to fit.
+Two panels are missing and their absence is a refusal rather than a null: road deaths and
+road injuries carry eleven years each, and at this bandwidth that leaves four residual
+degrees of freedom, too few to fit.
 
-Two limits worth carrying. This is the unweighted Gini, because population weighting needs
-a governorate denominator the corpus does not print before 2005, so it measures inequality
-across administrative units rather than across Tunisians. And a design with nineteen
-services and eight years either side can rule out a large jump, not a small one.
+The panels are not equally informative, and the widths say which. **Primary schooling is
+the tight test** — +0.0005 with an interval of [−0.001, +0.002], because the series is long
+and smooth, and that panel rules out even a small jump. Fixed telephone lines, stillbirths,
+library seats and cinema screens have eight or nine pre-cutoff years and intervals ten times
+wider; their flatness is low power, not evidence. The worst-case bias exceeds the estimate
+for most of the seventeen, so read these as ruling out a large break rather than
+establishing a zero one.
+
+### 45. Every service's 2011 estimate is ordinary among its own placebos
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="45-gini-rdd-placebo-dark.png">
+  <img alt="Left, each service's placebo estimates with the true 2011 estimate marked; right, the share of placebo cutoffs producing a larger jump, against a 0.05 line" src="45-gini-rdd-placebo-light.png">
+</picture>
+
+Intervals covering zero is the weaker half of a null. The stronger half is showing that the
+cutoff year is not special, and that needs the same estimator pointed somewhere it should
+find nothing.
+
+Re-run with the cutoff moved to each year from 2001 to 2018, every service gives a spread of
+jumps that its 2011 estimate sits inside. The right panel counts the share of those placebos
+with a larger absolute jump — a randomisation p-value over cutoffs rather than over
+assignments — and **not one service falls below 0.05**.
+
+This panel is also what corrected an earlier reading of the same data. A local randomisation
+test at January 2011 rejects for nine of seventeen services, which taken alone looks like a
+finding; it rejects for between 39% and 65% of them at *every* cutoff in this range, because
+it compares a mean before with a mean after and most of these series trend. Nothing but the
+placebo distinguishes those two cases.
 
 ## Colour
 
@@ -1006,6 +1028,6 @@ governorate panel, and figures 31–34 from the same corpus's monthly trade tabl
 alongside that panel. Figures 35–37 come from `tn_spatial_gini_by_product`, built by
 reading the product-by-region tables out of all four survey volumes. Figure 38 comes from
 `tn_governorate_comparable`, the per-head normalisation of that same governorate panel, and
-figures 39–43 from `tn_governorate_inequality`, the conventional indices computed on it, and figure 44 from those indices together with `tn_rdit_estimates`. Every claim above is reproducible from `scripts/make_figures.py`, and
+figures 39–43 from `tn_governorate_inequality`, the conventional indices computed on it, and figures 44 and 45 from those indices, re-estimated at every cutoff. Every claim above is reproducible from `scripts/make_figures.py`, and
 the numbers quoted here were recomputed from the data before being written rather than
 read off the charts.

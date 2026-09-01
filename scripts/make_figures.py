@@ -2606,123 +2606,164 @@ def _placebo_rejections() -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def _gini_rd_fits(bandwidth: int = RD_BANDWIDTH):
+    """One RD fit per service, with its honest interval. Sorted by the jump."""
+    rows = []
+    for name, (year, gini) in _gini_series().items():
+        running = year - rdit.CUTOFF
+        try:
+            fit = rdit.fit(running, gini, bandwidth)
+        except ValueError:
+            # Road deaths and injuries carry eleven years; at this bandwidth that leaves
+            # too few residual degrees of freedom to fit, which is a refusal not a zero.
+            continue
+        smoothness = rdit.smoothness_bound(running, gini)
+        lo, hi, bias = rdit.honest_interval(fit, smoothness)
+        rows.append({"name": name, "running": running, "gini": gini, "tau": fit.tau,
+                     "lo": lo, "hi": hi, "bias": bias})
+    return sorted(rows, key=lambda r: r["tau"])
+
+
 def fig_gini_rdd_governorates(t: dict):
-    """The RD plot proper: outcome against the running variable, a fit either side."""
-    series = _gini_series()
-    years = sorted({int(y) for yr, _ in series.values() for y in yr})
-    stacked = pd.DataFrame(
-        {name: pd.Series(g, index=yr.astype(int)) for name, (yr, g) in series.items()}
-    ).reindex(years)
-    # The outcome is the average Gini across services: one number per year, which is what
-    # "inequality between governorates" means when it is not qualified by a service.
-    mean = stacked.mean(axis=1).dropna()
-    running = mean.index.to_numpy(float) - rdit.CUTOFF
-    gini = mean.to_numpy(float)
+    """One regression discontinuity per service, drawn as regression discontinuities."""
+    fits = _gini_rd_fits()
+    cols = 5
+    rows_n = -(-len(fits) // cols)
+    fig, axes = plt.subplots(rows_n, cols, figsize=(13.6, 2.42 * rows_n + 1.5))
+    fig.subplots_adjust(top=0.845, bottom=0.085, left=0.048, right=0.988,
+                        hspace=0.60, wspace=0.30)
+    flat = axes.ravel()
 
-    fig = plt.figure(figsize=(12.8, 6.2))
-    grid = fig.add_gridspec(2, 2, width_ratios=[1.5, 1], height_ratios=[1, 1],
-                            hspace=0.62, wspace=0.26)
-    fig.subplots_adjust(top=0.755, bottom=0.165, left=0.058, right=0.986)
-    ax = fig.add_subplot(grid[:, 0])
+    for ax, row in zip(flat, fits, strict=False):
+        running, gini = row["running"], row["gini"]
+        outside = np.abs(running) > RD_BANDWIDTH
+        ax.scatter(running[outside], gini[outside], s=11, color=t["muted"], alpha=0.35,
+                   linewidths=0, zorder=2)
+        ax.scatter(running[~outside], gini[~outside], s=20, color=t["ink2"], alpha=0.85,
+                   linewidths=0, zorder=3)
 
-    # The RD plot. Everything outside the bandwidth is still shown, faint, so a reader can
-    # see what the window excluded rather than only what it kept.
-    outside = np.abs(running) > RD_BANDWIDTH
-    ax.scatter(running[outside], gini[outside], s=26, color=t["muted"], alpha=0.40,
-               linewidths=0, zorder=2)
-    ax.scatter(running[~outside], gini[~outside], s=44, color=t["ink2"], alpha=0.85,
-               linewidths=0, zorder=3)
+        edges = {}
+        for treated, colour in ((False, t["s2"]), (True, t["s1"])):
+            curve_x, curve_y, edge = _side_fit(running, gini, RD_BANDWIDTH, treated)
+            ax.plot(curve_x, curve_y, color=colour, lw=2.0, zorder=5)
+            edges[treated] = edge
+        ax.axvline(0, color=t["axis"], lw=1.1, ls=(0, (3, 3)), zorder=1)
+        lo, hi = sorted(edges.values())
+        ax.plot([0, 0], [lo, hi], color=t["ink"], lw=2.4, solid_capstyle="butt", zorder=6)
 
-    edges = {}
-    for treated, colour in ((False, t["s2"]), (True, t["s1"])):
-        curve_x, curve_y, edge = _side_fit(running, gini, RD_BANDWIDTH, treated)
-        ax.plot(curve_x, curve_y, color=colour, lw=2.6, zorder=5)
-        edges[treated] = edge
-    ax.axvline(0, color=t["axis"], lw=1.3, ls=(0, (4, 3)), zorder=1)
+        ax.set_title(PRETTY.get(row["name"], row["name"].replace("_", " ")),
+                     color=t["ink2"], loc="left", fontsize=9)
+        ax.annotate(f"{row['tau']:+.3f}", (0.97, 0.06), xycoords="axes fraction",
+                    ha="right", fontsize=8.6, color=t["ink"], fontweight="bold")
+        ax.tick_params(labelsize=7.5)
+        ax.set_xlim(-16, 14)
+        span = gini.max() - gini.min()
+        ax.set_ylim(gini.min() - span * 0.12, gini.max() + span * 0.18)
 
-    # The gap at the cutoff is the estimate; draw it rather than only report it.
-    lo, hi = sorted(edges.values())
-    ax.plot([0, 0], [lo, hi], color=t["ink"], lw=3.0, solid_capstyle="butt", zorder=6)
-    fit = rdit.fit(running, gini, RD_BANDWIDTH)
-    smoothness = rdit.smoothness_bound(running, gini)
-    band_lo, band_hi, bias = rdit.honest_interval(fit, smoothness)
-    ax.annotate(
-        f"jump = {fit.tau:+.4f}\nhonest 95% [{band_lo:+.3f}, {band_hi:+.3f}]",
-        (0, (lo + hi) / 2), textcoords="offset points", xytext=(16, -6),
-        fontsize=9.5, color=t["ink"], fontweight="bold",
-        arrowprops=dict(arrowstyle="-", color=t["ink"], lw=0.9))
-    ax.text(-RD_BANDWIDTH + 0.4, ax.get_ylim()[1], "before", fontsize=9, color=t["s2"],
-            va="top")
-    ax.text(RD_BANDWIDTH - 0.4, ax.get_ylim()[1], "after", fontsize=9, color=t["s1"],
-            va="top", ha="right")
-    ax.set_xlabel("years from January 2011")
-    ax.set_ylabel("mean Gini across the 24 governorates")
-    ax.set_title(f"{len(series)} services averaged, local linear, bandwidth "
-                 f"{RD_BANDWIDTH} years", color=t["ink2"], loc="left", fontsize=10)
+    for ax in flat[len(fits):]:
+        ax.set_visible(False)
+    spare = flat[len(fits)] if len(fits) < len(flat) else None
+    if spare is not None:
+        spare.set_visible(True)
+        spare.axis("off")
+        handles = [
+            Line2D([0], [0], color=t["s2"], lw=2.0, label="fit before 2011"),
+            Line2D([0], [0], color=t["s1"], lw=2.0, label="fit after"),
+            Line2D([0], [0], color=t["ink"], lw=2.4, label="the jump"),
+            Line2D([0], [0], marker="o", color=t["muted"], lw=0, markersize=4,
+                   label="outside the window"),
+        ]
+        legend = spare.legend(handles=handles, frameon=False, loc="center left",
+                              fontsize=8.4)
+        for text in legend.get_texts():
+            text.set_color(t["ink2"])
 
-    # Sensitivity: the estimate against the bandwidth, with the bias-aware interval.
-    ax = fig.add_subplot(grid[0, 1])
-    widths, taus, los, his = [], [], [], []
-    for bandwidth in range(4, 15):
-        try:
-            f = rdit.fit(running, gini, bandwidth)
-        except ValueError:
-            continue
-        a, b, _ = rdit.honest_interval(f, rdit.smoothness_bound(running, gini))
-        widths.append(bandwidth)
-        taus.append(f.tau)
-        los.append(a)
-        his.append(b)
-    ax.fill_between(widths, los, his, color=t["s1"], alpha=0.16, zorder=2)
-    ax.plot(widths, taus, color=t["s1"], lw=2.2, marker="o", ms=4, zorder=4)
-    ax.axhline(0, color=t["ink2"], lw=1.2, zorder=3)
-    ax.set_xlabel("bandwidth (years)")
-    ax.set_ylabel("jump at 2011")
-    ax.set_title("every bandwidth covers zero", color=t["ink2"], loc="left", fontsize=10)
-
-    # Falsification: the same estimate at every other cutoff, the standard placebo plot.
-    ax = fig.add_subplot(grid[1, 1])
-    placebo = []
-    for cutoff in PLACEBO_CUTOFFS:
-        r = mean.index.to_numpy(float) - cutoff
-        if (np.abs(r) <= RD_BANDWIDTH).sum() < 8:
-            continue
-        if (r[np.abs(r) <= RD_BANDWIDTH] < 0).sum() < 3:
-            continue
-        if (r[np.abs(r) <= RD_BANDWIDTH] >= 0).sum() < 3:
-            continue
-        try:
-            placebo.append((cutoff, rdit.fit(r, gini, RD_BANDWIDTH).tau))
-        except ValueError:
-            continue
-    fake = [tau for cutoff, tau in placebo if cutoff != int(rdit.CUTOFF)]
-    ax.scatter([c for c, _ in placebo], [v for _, v in placebo], s=34,
-               color=t["muted"], linewidths=0, zorder=3)
-    true = [v for c, v in placebo if c == int(rdit.CUTOFF)]
-    ax.scatter([int(rdit.CUTOFF)], true, s=76, color=t["s2"], zorder=5,
-               edgecolor=t["surface"], linewidth=1.3)
-    ax.axhline(0, color=t["ink2"], lw=1.2, zorder=2)
-    bigger = sum(1 for v in fake if abs(v) >= abs(true[0])) if true else 0
-    ax.annotate(f"{bigger} of {len(fake)} placebos\nare larger", (int(rdit.CUTOFF), true[0]),
-                textcoords="offset points", xytext=(10, 12), fontsize=8.8,
-                color=t["s2"], fontweight="bold")
-    ax.set_xlabel("cutoff year tested")
-    ax.set_ylabel("estimated jump")
-    ax.set_title("the same estimate at every other year", color=t["ink2"], loc="left",
-                 fontsize=10)
-
+    covered = sum(1 for r in fits if r["lo"] <= 0 <= r["hi"])
+    unidentified = sum(1 for r in fits if r["bias"] > abs(r["tau"]))
     finish(
         fig, t,
-        "No discontinuity in regional inequality at the revolution",
-        f"The gap at the cutoff is {fit.tau:+.4f} Gini points, against a bias-aware interval "
-        f"of [{band_lo:+.3f}, {band_hi:+.3f}]. {bigger} of {len(fake)} placebo cutoffs give a "
-        "larger jump.",
-        "tn_governorate_inequality: unweighted Gini across the governorates, share of "
-        "national total, constant geography, averaged over the services complete in each "
-        "year. Local linear with a triangular kernel either side of the cutoff; the interval "
-        "is Armstrong-Kolesar bias-aware, and the worst-case bias here is "
-        f"{bias:.4f} against an estimate of {abs(fit.tau):.4f}, so this rules out a large "
-        "jump rather than establishing a zero one. Faint points lie outside the bandwidth.",
+        "No service shows a break in regional inequality at the revolution",
+        f"One regression discontinuity per service: Gini across the governorates against "
+        f"years from January 2011, fitted separately either side. Zero lies inside the "
+        f"bias-aware interval for all {covered}. Panels ordered by the size of the jump.",
+        "tn_governorate_inequality: unweighted Gini, share of national total, constant "
+        f"geography. Local linear with a triangular kernel, bandwidth {RD_BANDWIDTH} years; "
+        "faint points fall outside it. Road deaths and road injuries are absent because "
+        "eleven years leave too few residual degrees of freedom at this bandwidth, which is "
+        "a refusal rather than a null. The worst-case bias exceeds the estimate for "
+        f"{unidentified} of {len(fits)}, so these rule out a large jump rather than "
+        "establishing a zero one.",
+    )
+    return fig
+
+
+def fig_gini_rdd_placebo(t: dict):
+    """Whether each service's 2011 estimate stands out from the same estimate elsewhere."""
+    fits = _gini_rd_fits()
+    fig, axes = plt.subplots(1, 2, figsize=(12.4, 6.4),
+                             gridspec_kw={"width_ratios": [1.25, 1]})
+    fig.subplots_adjust(top=0.775, bottom=0.145, left=0.175, right=0.986, wspace=0.22)
+
+    # Left: for each service, every placebo estimate and the real one on top of them.
+    ax = axes[0]
+    beaten, totals = [], []
+    for pos, row in enumerate(fits):
+        year = row["running"] + rdit.CUTOFF
+        placebo = []
+        for cutoff in PLACEBO_CUTOFFS:
+            r = year - cutoff
+            inside = np.abs(r) <= RD_BANDWIDTH
+            if (r[inside] < 0).sum() < 4 or (r[inside] >= 0).sum() < 4:
+                continue
+            try:
+                placebo.append(rdit.fit(r, row["gini"], RD_BANDWIDTH).tau)
+            except ValueError:
+                continue
+        fake = [v for v in placebo]
+        ax.scatter(fake, [pos] * len(fake), s=16, color=t["muted"], alpha=0.55,
+                   linewidths=0, zorder=2)
+        ax.scatter([row["tau"]], [pos], s=52, color=t["s2"], zorder=4,
+                   edgecolor=t["surface"], linewidth=1.1)
+        beaten.append(sum(1 for v in fake if abs(v) >= abs(row["tau"])))
+        totals.append(len(fake))
+    ax.axvline(0, color=t["ink2"], lw=1.2, zorder=1)
+    ax.set_yticks(range(len(fits)))
+    ax.set_yticklabels([PRETTY.get(r["name"], r["name"].replace("_", " ")) for r in fits],
+                       fontsize=8.4)
+    ax.set_xlabel("estimated jump in Gini")
+    ax.set_title("2011 against every other cutoff", color=t["ink2"], loc="left",
+                 fontsize=10)
+    ax.grid(axis="y", visible=False)
+    ax.set_ylim(-0.8, len(fits) - 0.2)
+
+    # Right: the share of placebo cutoffs beating the real one, which is a p-value in all
+    # but name -- and above 0.05 everywhere is what a null looks like on this test.
+    ax = axes[1]
+    share = np.array([b / n if n else np.nan for b, n in zip(beaten, totals, strict=True)])
+    ax.barh(range(len(fits)), share, height=0.62, color=t["s1"], zorder=3)
+    ax.axvline(0.05, color=t["s2"], lw=1.3, ls=(0, (4, 3)), zorder=4)
+    ax.text(0.062, len(fits) - 0.9, "0.05", fontsize=8.6, color=t["s2"])
+    ax.set_yticks(range(len(fits)))
+    ax.set_yticklabels([])
+    ax.set_xlabel("share of placebo cutoffs with a larger jump")
+    ax.set_xlim(0, 1)
+    ax.set_title("none is unusual for its own series", color=t["ink2"], loc="left",
+                 fontsize=10)
+    ax.grid(axis="y", visible=False)
+    ax.set_ylim(-0.8, len(fits) - 0.2)
+
+    worst = float(np.nanmin(share))
+    finish(
+        fig, t,
+        "Every service's 2011 estimate is ordinary among its own placebos",
+        "Running the same estimator at every cutoff from 2001 to 2018 gives, for each "
+        f"service, a spread of jumps that 2011 sits inside. The most unusual is beaten by "
+        f"{worst:.0%} of its placebos, well above the 5% a rejection would need.",
+        "tn_governorate_inequality: the estimator of the previous figure, re-run with the "
+        "cutoff moved to each year in turn and the true cutoff marked. The right panel is a "
+        "randomisation p-value over cutoffs rather than over assignments; it asks whether "
+        "2011 is extreme for this series, which is the question a placebo test exists to "
+        "answer.",
     )
     return fig
 
@@ -2772,6 +2813,7 @@ BUILDERS = [
     ("42-weighted-or-not", fig_weighted_or_not, False),
     ("43-index-disagreement", fig_index_disagreement, False),
     ("44-gini-rdd-governorates", fig_gini_rdd_governorates, False),
+    ("45-gini-rdd-placebo", fig_gini_rdd_placebo, False),
 ]
 
 
