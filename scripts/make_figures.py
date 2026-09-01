@@ -1,19 +1,27 @@
 """Figures on the evolution of inequality in Tunisia, 1985-2021.
 
-**Composite indices appear in exactly one place, figures 35 to 37.** Everywhere else
-there is no Gini, no Theil, no Atkinson and no polarisation index: every figure shows
-either an observed quantity (a group's mean expenditure, a poverty rate, a budget share)
-or the relation between two observed quantities (one region's mean against the national
-mean, a region's share of spending against its share of people). A reader can recover
-any number in those figures from the underlying dataset with arithmetic they can do in
-their head.
+Figure 38 draws Lorenz curves and is deliberately *not* an exception to the rule below: a
+Lorenz curve is the uncompressed form of the Gini, showing the whole distribution rather
+than the one number computed from it, and the statistic it is read on -- the share of a
+service going to the least-served half of the population -- is an observed quantity.
 
-The exception is deliberate and narrow. Figures 35 to 37 ask which *goods* are consumed
-unequally across regions, and that question needs the seven regional means for a good
-reduced to one number before goods can be ranked against each other. What is compressed
-there is seven observed values, all of them published in
-`tn_expenditure_by_product_region`, and the measure compares regions rather than
-households.
+**Composite indices appear deliberately in figures 39 to 43, and in 35 to 37.**
+Everywhere else there is none: figures 1 to 34 show either an observed quantity (a group's
+mean expenditure, a poverty rate, a budget share) or the relation between two observed
+quantities, and a reader can recover any number in them from the underlying dataset with
+arithmetic they can do in their head.
+
+The lift for 39 to 43 is deliberate. Those ask how regional inequality *evolved*, and a
+longitudinal answer needs one comparable number per year. They report the standard family
+-- Gini, Theil-T, Theil-L, Atkinson, coefficient of variation, percentile ratios -- rather
+than a single index, because which index you pick is a choice about which part of the
+distribution matters. Figure 43 exists to show them disagreeing.
+
+Figures 35 to 37 are the older and narrower exception: they ask which *goods* are consumed
+unequally across regions, and ranking goods against each other needs the seven regional
+means for a good reduced to one number. What is compressed there is seven observed values,
+all published in `tn_expenditure_by_product_region`, and the measure compares regions
+rather than households.
 
 That is a deliberate constraint, and it costs something: a single index compresses a
 distribution into one comparable number, which these figures cannot do. What they give
@@ -36,6 +44,8 @@ from consumptiontn import rdit
 
 mpl.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
+from matplotlib.lines import Line2D  # noqa: E402
+from matplotlib.patches import Patch  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[1]
 PROCESSED = ROOT / "data" / "processed"
@@ -112,7 +122,10 @@ def finish(fig, t: dict, title: str, subtitle: str, source: str) -> None:
     """
     fig.text(0.012, 0.975, title, ha="left", va="top", fontsize=13,
              fontweight="bold", color=t["ink"])
-    fig.text(0.012, 0.912, subtitle, ha="left", va="top", fontsize=9.5, color=t["ink2"])
+    # Wrapped for the same reason the source note is: a subtitle written one clause too
+    # long ran off the right edge of figure 43 and was silently truncated in the PNG.
+    fig.text(0.012, 0.912, textwrap.fill(subtitle, width=int(fig.get_figwidth() * 13.2)),
+             ha="left", va="top", fontsize=9.5, color=t["ink2"])
     # Wrap to the figure's own width: unwrapped notes ran off the right edge at 9in.
     wrapped = textwrap.fill(source, width=int(fig.get_figwidth() * 15.5))
     fig.text(0.012, 0.018, wrapped, ha="left", va="bottom", fontsize=8, color=t["muted"])
@@ -1284,22 +1297,40 @@ INTERIOR = {"Béja", "Jendouba", "Le Kef", "Siliana", "Kairouan", "Kasserine",
             "Sidi Bouzid", "Gafsa", "Tozeur", "Kébili"}
 
 
+PUPILS_LAST_YEAR = 2018
+
+
 def pupils_per_teacher() -> pd.DataFrame:
     """Governorate x year panel, 1998-2018. Rows are governorates, columns years.
 
     Pupils per teacher in the first cycle of basic education: a provision ratio that
     needs no population denominator, since both halves come from the same chapter and
-    the same years. 23 governorates (Medenine is absent from the staff table) over 21
-    years, 481 of 483 cells present.
+    the same years. All 24 governorates over 21 years, 502 of 504 cells present.
+
+    Read from ``tn_governorate_panel`` rather than by looking up two French titles in the
+    corpus, which is how this broke: the title-canonicalisation pass merged each of these
+    tables across editions and neither exact string survived, so both lookups returned
+    nothing and the five figures below died at ``polyfit``. The panel's names were checked
+    against the printed page and its governorate rows are verified against the national
+    total printed beside them, so it cannot fail silently that way. It also has the better
+    data -- 24 governorates, not 23. "Medenine is absent from the staff table" was never
+    true; it was one edition's title variant that the old lookup missed.
+
+    The window stops at 2018 although the panel now reaches 2023. Figures 27 to 30 are
+    built around a 2010 break with a 2018 endpoint, and moving the endpoint would change
+    what they demonstrate rather than restore it.
     """
-    series = read("tn_yearbook_series")
-
-    def block(title: str) -> pd.DataFrame:
-        rows = series[series.title_fr.eq(title) & series.row_label.isin(GOVERNORATES)]
-        return rows.groupby(["row_label", "year"]).value.first().unstack()
-
-    return (block("population scolaire totale du 1er cycle 8")
-            / block("personnel enseignant par gouvernorat")).dropna(how="all")
+    panel = read("tn_governorate_panel")
+    rows = panel[panel.breakdown.fillna("").eq("")
+                 & panel.indicator.isin(["primary_pupils", "primary_teachers"])
+                 & panel.year.le(PUPILS_LAST_YEAR)]
+    wide = rows.pivot_table(index="governorate", columns=["indicator", "year"],
+                            values="value")
+    ratio = wide["primary_pupils"] / wide["primary_teachers"]
+    if ratio.isna().all().any():
+        empty = sorted(ratio.columns[ratio.isna().all()])
+        raise ValueError(f"pupils per teacher is empty for {empty}")
+    return ratio.dropna(how="all")
 
 
 def _segmented(years, values, break_year):
@@ -1341,7 +1372,7 @@ def fig_counterfactual(t: dict):
     fig.subplots_adjust(left=0.08, right=0.78, top=0.79, bottom=0.17)
     finish(fig, t,
            "The counterfactual is an assumption, and it decides the answer",
-           "Pupils per teacher, first cycle, 23 governorates averaged, 1998-2018",
+           "Pupils per teacher, first cycle, 24 governorates averaged, 1998-2018",
            "INS yearbooks, tables 2.1.5 and 2.1.8. An interrupted time series compares "
            "what happened against a pre-trend carried forward, so the estimate is only "
            "as good as that extrapolation. Three defensible choices give effects from "
@@ -1447,7 +1478,7 @@ def fig_dispersion(t: dict):
     fig.subplots_adjust(left=0.09, right=0.97, top=0.79, bottom=0.17)
     finish(fig, t,
            "Regional spread widened steadily from 1998, straight through 2011",
-           "Dispersion in pupils per teacher across 23 governorates, 1998-2018",
+           "Dispersion in pupils per teacher across 24 governorates, 1998-2018",
            "Two ratios between observed quantities, so no composite index is involved. "
            "The widest gap grew from 1.21 to 1.93 and the interquartile ratio from 1.06 "
            "to 1.29, both climbing before, across and after the revolution with no step "
@@ -1992,6 +2023,535 @@ def fig_gini_rdd(t: dict):
     return fig
 
 
+# ------------------------------------------------------------------ governorate Lorenz
+
+LORENZ_YEARS = (2010, 2023)
+
+# Read off the panel's indicator names. Kept explicit rather than derived from the
+# underscores so the axis reads as English rather than as column names.
+PRETTY = {
+    "job_offers": "job offers",
+    "job_placements": "job placements",
+    "public_libraries": "public libraries",
+    "primary_pupils": "primary pupils",
+    "primary_teachers": "primary teachers",
+    "primary_schools": "primary schools",
+    "library_books_lent": "library books lent",
+    "library_book_stock": "library book stock",
+    "library_capacity": "library seats",
+    "library_readers": "library readers",
+    "library_subscribers": "library subscribers",
+    "youth_centres": "youth centres",
+    "youth_centre_members": "youth centre members",
+    "marriages": "marriages",
+    "secondary_pupils": "secondary pupils",
+    "private_sports_halls": "private sports halls",
+    "sports_halls": "sports halls",
+    "money_orders_from_abroad": "remittances received",
+    "fixed_line_subscribers": "fixed telephone lines",
+}
+
+
+def _per_head() -> pd.DataFrame:
+    frame = pd.read_csv(PROCESSED / "tn_governorate_comparable.csv")
+    return frame[frame.basis.eq("per_head") & frame.geography.eq("as_printed")]
+
+
+def lorenz(block: pd.DataFrame):
+    """Cumulative share of people against cumulative share of the thing.
+
+    Governorates ordered from least to best served per head. The diagonal is the
+    distribution in which every Tunisian is served equally regardless of governorate.
+    """
+    ordered = block.sort_values("comparable")
+    people = ordered.population_thousands.to_numpy(dtype=float)
+    amount = ordered.value.to_numpy(dtype=float)
+    x = np.concatenate([[0.0], np.cumsum(people) / people.sum()])
+    y = np.concatenate([[0.0], np.cumsum(amount) / amount.sum()])
+    return x, y
+
+
+def least_served_half(x, y) -> float:
+    """Share of the total going to the half of the population that gets least.
+
+    An observed quantity a reader can check against the panel, which is why it carries
+    the figure rather than the area between the curve and the diagonal.
+    """
+    return float(np.interp(0.5, x, y))
+
+
+def _complete(frame: pd.DataFrame, indicator: str, year: int) -> pd.DataFrame | None:
+    block = frame[frame.indicator.eq(indicator) & frame.year.eq(year)]
+    return block if len(block) == 24 else None
+
+
+def fig_lorenz(t: dict):
+    """Where the concentration of job offers sits against every other service."""
+    frame = _per_head()
+    lo, hi = LORENZ_YEARS
+
+    both = [i for i in sorted(set(frame.indicator))
+            if _complete(frame, i, lo) is not None and _complete(frame, i, hi) is not None]
+    shares = {}
+    for indicator in both:
+        shares[indicator] = tuple(
+            least_served_half(*lorenz(_complete(frame, indicator, year)))
+            for year in (lo, hi))
+
+    fig, axes = plt.subplots(1, 2, figsize=(11.6, 6.9),
+                             gridspec_kw={"width_ratios": [1, 1.02]})
+    fig.subplots_adjust(top=0.78, bottom=0.20, left=0.065, right=0.985, wspace=0.30)
+
+    # Left: the curve itself, for the one indicator that moved.
+    ax = axes[0]
+    ax.plot([0, 1], [0, 1], color=t["axis"], lw=1.2, ls=(0, (4, 3)), zorder=1)
+    ax.text(0.63, 0.70, "every Tunisian\nserved equally", fontsize=8.5, color=t["muted"],
+            rotation=39, rotation_mode="anchor", ha="center", va="bottom", linespacing=1.3)
+
+    # Every intervening year, faint, so the two highlighted ones are not a lucky pair.
+    for year in range(lo, hi + 1):
+        block = _complete(frame, "job_offers", year)
+        if block is None or year in LORENZ_YEARS:
+            continue
+        ax.plot(*lorenz(block), color=t["muted"], lw=0.7, alpha=0.30, zorder=2)
+
+    for year, colour in ((lo, t["s2"]), (hi, t["s1"])):
+        x, y = lorenz(_complete(frame, "job_offers", year))
+        ax.plot(x, y, color=colour, lw=2.6, zorder=4, label=str(year))
+        ax.scatter([0.5], [least_served_half(x, y)], s=64, color=colour,
+                   edgecolor=t["surface"], linewidth=1.4, zorder=5)
+
+    ax.axvline(0.5, color=t["axis"], lw=1.0, zorder=1)
+    for year, colour, offset in ((lo, t["s2"], 13), (hi, t["s1"], -17)):
+        share = least_served_half(*lorenz(_complete(frame, "job_offers", year)))
+        ax.annotate(f"{share:.0%}", (0.5, share), textcoords="offset points",
+                    xytext=(-34, offset), fontsize=10, fontweight="bold", color=colour)
+    # Above the diagonal at x=0.5 is the one empty region of this panel.
+    ax.text(0.487, 0.99, "the half served least", rotation=90, ha="right", va="top",
+            fontsize=8.5, color=t["ink2"])
+
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+    ax.set_aspect("equal")
+    ax.set_xlabel("cumulative share of population")
+    ax.set_ylabel("cumulative share of job offers")
+    ax.set_title("job offers, 24 governorates", color=t["ink2"], loc="left", fontsize=10)
+    legend = ax.legend(frameon=False, loc="upper left", fontsize=9.5)
+    for text in legend.get_texts():
+        text.set_color(t["ink2"])
+
+    # Right: the same statistic for every service that is complete in both years.
+    ax = axes[1]
+    order = sorted(both, key=lambda i: shares[i][1] - shares[i][0])
+    left = [shares[i][0] for i in order]
+    right = [shares[i][1] for i in order]
+    labels = [PRETTY.get(i, i.replace("_", " ")) for i in order]
+    y = dumbbell(ax, t, left, right, labels, str(lo), str(hi))
+    ax.axvline(0.5, color=t["axis"], lw=1.0, zorder=0)
+    ax.text(0.5, 1.005, "equal", transform=ax.get_xaxis_transform(), ha="center",
+            va="bottom", fontsize=8.5, color=t["muted"])
+    ax.set_xlabel("share going to the least-served half of the population")
+    ax.set_xlim(min(left + right) - 0.015, 0.515)
+    ax.set_ylim(y.min() - 0.7, y.max() + 0.7)
+    ax.invert_yaxis()
+    ax.set_title(f"{len(order)} services, {lo} against {hi}", color=t["ink2"],
+                 loc="left", fontsize=10)
+    legend = ax.legend(frameon=False, loc="lower right", fontsize=9.5)
+    for text in legend.get_texts():
+        text.set_color(t["ink2"])
+
+    fell = sum(1 for i in order if shares[i][1] < shares[i][0])
+    worst, runner = order[0], order[1]
+    drop = shares[worst][0] - shares[worst][1]
+    times = drop / (shares[runner][0] - shares[runner][1])
+    finish(fig, t,
+           "Job offers concentrated after the revolution. Almost nothing else did",
+           f"Lorenz curves across the 24 governorates, per head. {lo} against {hi}; "
+           f"faint lines are the years between.",
+           f"Governorates ordered from least to best served per person, so the diagonal "
+           f"is equal provision and distance below it is concentration. The half of "
+           f"Tunisians living in the least-served governorates received "
+           f"{shares[worst][0]:.0%} of job offers in {lo} and {shares[worst][1]:.0%} in "
+           f"{hi}, a fall of {drop:.0%} — roughly {times:.0f} times the next largest, "
+           f"{PRETTY[runner]}. Of {len(order)} services complete "
+           f"in both years, {fell} became more concentrated and {len(order) - fell} less; "
+           f"remittances, library subscriptions and telephone lines all spread out. "
+           f"This is a description of two years, not an effect of the revolution: the "
+           f"shock is national and simultaneous, so no untreated governorate exists to "
+           f"compare against. Job offers are also administrative counts from the "
+           f"employment offices, and a change in where offers are registered would look "
+           f"the same as a change in where they are.")
+    return fig
+
+
+
+# --------------------------------------------------------------------------------------
+# Figures 39-43: the conventional indices, longitudinally.
+#
+# These are the figures the no-composite-index rule was lifted for. The question they ask
+# -- how did regional inequality evolve -- cannot be answered by an observed quantity,
+# because "evolve" needs one comparable number per year. What they buy in exchange for the
+# compression is a shape, and the shape is the point: a slope fitted either side of 2011
+# reports a break for job offers four times larger than the one a reader can see, because
+# the number is dominated by four pandemic years at the end of the series.
+
+REVOLUTION = 2011
+COVID = (2020, 2023)
+
+# Every index in the dataset, with how it should be read.
+INDEX_LABELS = {
+    "gini": "Gini",
+    "theil_t": "Theil-T (top-sensitive)",
+    "theil_l": "Theil-L (bottom-sensitive)",
+    "atkinson_05": "Atkinson ε=0.5",
+    "atkinson_1": "Atkinson ε=1",
+    "atkinson_2": "Atkinson ε=2",
+    "cv": "coefficient of variation",
+    "p90_p10": "p90 / p10",
+    "p80_p20": "p80 / p20",
+}
+
+
+def _indices(weighting: str = "unweighted", basis: str = "share_of_national",
+             geography: str = "constant") -> pd.DataFrame:
+    """The long window: unweighted, share of national, constant geography, 1994-2023.
+
+    The unweighted family is the only one that reaches before 2005, because weighting needs
+    a population the corpus does not print earlier. That is a real cost -- it answers a
+    question about administrative units rather than about people -- and figure 42 is what
+    shows how much it changes the answer where both exist.
+    """
+    frame = pd.read_csv(PROCESSED / "tn_governorate_inequality.csv")
+    return frame[frame.weighting.eq(weighting) & frame.basis.eq(basis)
+                 & frame.geography.eq(geography)]
+
+
+def _long_indicators(frame: pd.DataFrame, min_pre: int = 10, min_post: int = 8) -> list[str]:
+    keep = []
+    for indicator, block in frame.groupby("indicator"):
+        years = block.dropna(subset=["gini"]).year
+        if (years < REVOLUTION).sum() >= min_pre and (years >= REVOLUTION).sum() >= min_post:
+            keep.append(indicator)
+    return sorted(keep)
+
+
+def fig_gini_evolution(t: dict):
+    """Every long service's Gini across governorates, 1994-2023, one panel each."""
+    frame = _indices()
+    indicators = _long_indicators(frame)
+    # Ordered by how much the level moved, so the panels that carry the story come first.
+    def shift(i):
+        b = frame[frame.indicator.eq(i)].dropna(subset=["gini"])
+        post = b[b.year.ge(REVOLUTION)].gini.mean()
+        pre = b[b.year.lt(REVOLUTION)].gini.mean()
+        return -(post - pre)
+    indicators = sorted(indicators, key=shift)
+
+    cols = 4
+    rows = -(-len(indicators) // cols)
+    fig, axes = plt.subplots(rows, cols, figsize=(12.4, 2.15 * rows + 1.1),
+                             sharex=True)
+    # Room between the title block and the first row of panels for the legend: at
+    # top=0.845 a figure legend in that corner sat on top of two panel titles.
+    fig.subplots_adjust(top=0.805, bottom=0.105, left=0.055, right=0.988,
+                        hspace=0.42, wspace=0.26)
+    flat = axes.ravel()
+
+    for ax, indicator in zip(flat, indicators, strict=False):
+        block = frame[frame.indicator.eq(indicator)].dropna(subset=["gini"]).sort_values("year")
+        ax.axvspan(COVID[0] - 0.5, COVID[1] + 0.5, color=t["grid"], zorder=0)
+        ax.axvline(REVOLUTION, color=t["s2"], lw=1.2, ls=(0, (4, 3)), zorder=1)
+        ax.plot(block.year, block.gini, color=t["s1"], lw=1.9, zorder=3)
+        ax.set_title(PRETTY.get(indicator, indicator.replace("_", " ")),
+                     color=t["ink2"], loc="left", fontsize=9.5)
+        ax.set_ylim(0, max(0.62, block.gini.max() * 1.12))
+        ax.tick_params(labelsize=8)
+        ax.set_xlim(1993, 2024)
+    for ax in flat[len(indicators):]:
+        ax.set_visible(False)
+    for ax in axes[-1] if rows > 1 else axes:
+        ax.set_xlabel("")
+
+    # One legend, in the first empty cell if there is one, else above.
+    handles = [
+        Line2D([0], [0], color=t["s1"], lw=1.9, label="Gini across the 23 units"),
+        Line2D([0], [0], color=t["s2"], lw=1.2, ls=(0, (4, 3)), label="2011"),
+        Patch(facecolor=t["grid"], label="2020–23 (pandemic)"),
+    ]
+    legend = fig.legend(handles=handles, frameon=False, ncol=3, loc="upper left",
+                        bbox_to_anchor=(0.048, 0.868), fontsize=9,
+                        handlelength=1.8, columnspacing=1.8)
+    for text in legend.get_texts():
+        text.set_color(t["ink2"])
+
+    finish(
+        fig, t,
+        f"Regional inequality, service by service, {int(frame.year.min())}–{int(frame.year.max())}",
+        "Gini of each service's distribution across governorates. Panels ordered by how "
+        "much the average level shifted after 2011 — job offers first, and its rise is "
+        "almost entirely the pandemic.",
+        "tn_governorate_inequality: unweighted Gini, share of national total, constant "
+        "geography (Ariana and Manouba combined so one geography spans the whole period). "
+        "Only years in which all 23 units are printed are measured. Vertical line marks "
+        "2011; the shaded band is 2020–23, when job offers concentrated sharply for reasons "
+        "that are not the revolution.",
+    )
+    return fig
+
+
+def fig_is_2011_special(t: dict):
+    """The question the other figures beg: does 2011 stand out among years at all?"""
+    frame = _indices()
+    indicators = _long_indicators(frame)
+    wide = (frame[frame.indicator.isin(indicators)]
+            .pivot_table(index="year", columns="indicator", values="gini"))
+    change = wide.diff()
+    rose = (change > 0).sum(axis=1)
+    measured = change.notna().sum(axis=1)
+    share = (rose / measured).dropna()
+    mean_change = change.mean(axis=1).dropna()
+
+    fig, axes = plt.subplots(2, 1, figsize=(11.4, 7.4), sharex=True,
+                             gridspec_kw={"height_ratios": [1, 1]})
+    fig.subplots_adjust(top=0.80, bottom=0.155, left=0.075, right=0.985, hspace=0.22)
+
+    for ax, series, label in (
+        (axes[0], share, "share of services whose Gini rose"),
+        (axes[1], mean_change, "mean change in Gini"),
+    ):
+        colours = [t["s2"] if year == REVOLUTION else t["axis"] for year in series.index]
+        ax.bar(series.index, series.to_numpy(), color=colours, width=0.72, zorder=3)
+        ax.set_ylabel(label)
+        ax.tick_params(labelsize=9)
+    axes[0].axhline(0.5, color=t["ink2"], lw=1.0, ls=(0, (4, 3)), zorder=4)
+    axes[0].text(1993.6, 0.52, "half rising, half falling", fontsize=8.5, color=t["ink2"])
+    axes[1].axhline(0.0, color=t["ink2"], lw=1.0, zorder=4)
+
+    rank = int(share.rank(ascending=False).loc[REVOLUTION])
+    mean_rank = int(mean_change.rank(ascending=False).loc[REVOLUTION])
+    axes[0].annotate(
+        f"2011 ranks {rank}th of {len(share)}",
+        (REVOLUTION, share.loc[REVOLUTION]), textcoords="offset points", xytext=(8, 14),
+        fontsize=9.5, fontweight="bold", color=t["s2"],
+        arrowprops=dict(arrowstyle="-", color=t["s2"], lw=1.0),
+    )
+    axes[1].annotate(
+        f"{mean_rank}th largest",
+        (REVOLUTION, mean_change.loc[REVOLUTION]), textcoords="offset points",
+        xytext=(9, 6), fontsize=9, fontweight="bold", color=t["s2"])
+    axes[1].set_xlabel("year")
+    axes[1].set_xlim(1993.2, 2024)
+
+    finish(
+        fig, t,
+        "2011 is not the year regional inequality changed",
+        f"Across {len(indicators)} services, 2011 ranks {rank}th of {len(share)} years by how "
+        f"many of them grew more unequal and {mean_rank}th by the size of the average move. "
+        "A real bump — but 1995, 2019 and 2020 are all larger.",
+        "tn_governorate_inequality: unweighted Gini, share of national total, constant "
+        "geography. Each bar is one year against the one before it. This figure is the "
+        "reason the slope-break statistics elsewhere should not be read as a 2011 effect: a "
+        "regression discontinuity needs the cutoff year to be distinguishable from the "
+        "others, and here it is not.",
+    )
+    return fig
+
+
+def fig_covid_contamination(t: dict):
+    """Why the largest slope break in the data is not evidence about 2011."""
+    frame = _indices()
+    block = frame[frame.indicator.eq("job_offers")].dropna(subset=["gini"]).sort_values("year")
+
+    fig, axes = plt.subplots(1, 2, figsize=(11.8, 6.0),
+                             gridspec_kw={"width_ratios": [1.35, 1]})
+    fig.subplots_adjust(top=0.795, bottom=0.185, left=0.062, right=0.985, wspace=0.235)
+
+    ax = axes[0]
+    ax.axvspan(COVID[0] - 0.5, COVID[1] + 0.5, color=t["grid"], zorder=0)
+    ax.axvline(REVOLUTION, color=t["s2"], lw=1.2, ls=(0, (4, 3)), zorder=1)
+    ax.plot(block.year, block.gini, color=t["s1"], lw=2.3, marker="o", ms=4.5, zorder=3)
+    ax.text(COVID[0] - 0.35, block.gini.max() * 1.06, "2020–23", fontsize=9,
+            color=t["ink2"], ha="left", va="bottom")
+    ax.text(REVOLUTION + 0.3, 0.30, "2011", fontsize=9, color=t["s2"])
+    ax.set_ylabel("Gini of job offers across governorates")
+    ax.set_xlabel("year")
+    ax.set_ylim(0, block.gini.max() * 1.1)
+    ax.set_title("the series", color=t["ink2"], loc="left", fontsize=10)
+
+    # Right: the same break statistic, computed on two windows.
+    ax = axes[1]
+    rows = []
+    for hi, label in ((2023, f"through {2023}"), (2019, "excluding 2020–23")):
+        s = block[block.year.le(hi)].set_index("year").gini
+        pre, post = s[s.index < REVOLUTION], s[s.index >= REVOLUTION]
+        pre_slope = np.polyfit(pre.index, pre.to_numpy(), 1)[0] * 10
+        post_slope = np.polyfit(post.index, post.to_numpy(), 1)[0] * 10
+        rows.append((label, post_slope - pre_slope))
+    labels = [r[0] for r in rows]
+    values = [r[1] for r in rows]
+    y = np.arange(len(rows))[::-1]
+    ax.barh(y, values, height=0.32, color=[t["s2"], t["s1"]], zorder=3)
+    ax.set_ylim(-0.62, 1.62)
+    for pos, value in zip(y, values, strict=True):
+        ax.annotate(f"{value:+.3f}", (value, pos), textcoords="offset points",
+                    xytext=(7, 0), va="center", fontsize=10.5, fontweight="bold",
+                    color=t["ink"])
+    ax.set_yticks(y)
+    ax.set_yticklabels(labels, fontsize=9.5)
+    ax.set_xlim(0, max(values) * 1.32)
+    ax.set_xlabel("change in Gini slope after 2011, per decade")
+    ax.set_title("the break statistic, two windows", color=t["ink2"], loc="left",
+                 fontsize=10)
+    ax.grid(axis="y", visible=False)
+
+    finish(
+        fig, t,
+        "The biggest break in the data is the pandemic, not the revolution",
+        "Job offers concentrated sharply from 2020. Fitting a post-2011 slope through those "
+        f"four years reports a break {values[0] / values[1]:.1f} times the one measured "
+        "without them.",
+        "tn_governorate_inequality: unweighted Gini, share of national total, constant "
+        "geography. Left, every year 1995–2023. Right, the difference between the pre- and "
+        "post-2011 Gini slope, fitted first through 2023 and then through 2019 only. Job "
+        "offers are administrative counts from the employment offices, so a change in where "
+        "offers are registered would look the same as a change in where they are.",
+    )
+    return fig
+
+
+def fig_weighted_or_not(t: dict):
+    """Whether the distribution is over people or over administrative units."""
+    weighted = _indices(weighting="population")
+    plain = _indices(weighting="unweighted")
+    shared = sorted(set(_long_indicators(plain, min_pre=4)) & set(weighted.indicator))
+
+    fig, axes = plt.subplots(1, 2, figsize=(11.9, 6.1),
+                             gridspec_kw={"width_ratios": [1, 1.12]})
+    fig.subplots_adjust(top=0.795, bottom=0.185, left=0.062, right=0.985, wspace=0.255)
+
+    # Left: the two readings of one service, over the years both exist.
+    ax = axes[0]
+    for frame, colour, label in ((plain, t["s2"], "unweighted (per governorate)"),
+                                 (weighted, t["s1"], "population-weighted (per person)")):
+        block = (frame[frame.indicator.eq("primary_pupils") & frame.year.ge(2005)]
+                 .dropna(subset=["gini"]).sort_values("year"))
+        ax.plot(block.year, block.gini, color=colour, lw=2.3, label=label, zorder=3)
+    ax.axvline(REVOLUTION, color=t["axis"], lw=1.1, ls=(0, (4, 3)), zorder=1)
+    ax.set_ylim(0, None)
+    ax.set_xlabel("year")
+    ax.set_ylabel("Gini across governorates")
+    ax.xaxis.set_major_locator(mpl.ticker.MultipleLocator(5))
+    ax.xaxis.set_major_formatter(mpl.ticker.FuncFormatter(lambda v, _: f"{int(v)}"))
+    ax.set_title("primary pupils, both readings", color=t["ink2"], loc="left", fontsize=10)
+    legend = ax.legend(frameon=False, loc="lower left", fontsize=9)
+    for text in legend.get_texts():
+        text.set_color(t["ink2"])
+
+    # Right: how far apart the two readings are, every service.
+    ax = axes[1]
+    pairs = []
+    for indicator in shared:
+        a = plain[plain.indicator.eq(indicator) & plain.year.ge(2005)].gini.mean()
+        b = weighted[weighted.indicator.eq(indicator)].gini.mean()
+        if np.isfinite(a) and np.isfinite(b):
+            pairs.append((indicator, a, b))
+    pairs.sort(key=lambda r: r[2] - r[1])
+    labels = [PRETTY.get(p[0], p[0].replace("_", " ")) for p in pairs]
+    y = dumbbell(ax, t, [p[1] for p in pairs], [p[2] for p in pairs], labels,
+                 "unweighted", "population-weighted")
+    ax.set_xlabel("mean Gini, 2005–2023")
+    ax.set_ylim(y.min() - 0.7, y.max() + 0.7)
+    ax.invert_yaxis()
+    ax.set_title(f"{len(pairs)} services", color=t["ink2"], loc="left", fontsize=10)
+    lower = sum(1 for _, plain_g, weighted_g in pairs if weighted_g < plain_g)
+
+    finish(
+        fig, t,
+        "Inequality between governorates is not inequality between Tunisians",
+        "Weighting by population asks about a person picked at random; leaving it out asks "
+        f"about an administrative unit. Weighting lowers measured inequality in {lower} of "
+        f"{len(pairs)} services, because the governorates at the extremes are the small ones.",
+        "tn_governorate_inequality, base 2005–2023, the years in which both readings exist: "
+        "population weighting needs a governorate population and the corpus prints none "
+        "before 2005. Share of national total, constant geography. A governorate-level "
+        "regression implicitly uses the unweighted reading — the one that, on this "
+        "evidence, systematically overstates inequality between Tunisians.",
+    )
+    return fig
+
+
+def fig_index_disagreement(t: dict):
+    """Five indices on one distribution, each normalised to its own 1995 value."""
+    frame = _indices()
+    block = frame[frame.indicator.eq("library_readers")].dropna(subset=["gini"])
+    keys = ["gini", "theil_t", "theil_l", "atkinson_2", "cv"]
+    block = frame[frame.indicator.eq("library_readers")].dropna(subset=keys).sort_values("year")
+
+    fig, axes = plt.subplots(1, 2, figsize=(11.9, 6.0))
+    fig.subplots_adjust(top=0.795, bottom=0.185, left=0.062, right=0.985, wspace=0.215)
+
+    palette = [t["s1"], t["s2"], t["ink2"], t["muted"], t["axis"]]
+    ax = axes[0]
+    base = block.iloc[0]
+    for key, colour in zip(keys, palette, strict=True):
+        ax.plot(block.year, block[key] / base[key], color=colour, lw=2.1,
+                label=INDEX_LABELS[key], zorder=3)
+    ax.axhline(1.0, color=t["ink2"], lw=1.0, zorder=2)
+    ax.axvline(REVOLUTION, color=t["axis"], lw=1.1, ls=(0, (4, 3)), zorder=1)
+    ax.set_xlabel("year")
+    ax.set_ylabel(f"index, {int(block.year.iloc[0])} = 1")
+    ax.set_title("library readers, five indices", color=t["ink2"], loc="left", fontsize=10)
+    legend = ax.legend(frameon=False, loc="upper left", fontsize=8.8)
+    for text in legend.get_texts():
+        text.set_color(t["ink2"])
+
+    # Right: Theil-T against Theil-L across services. Above the line, the top pulled away;
+    # below it, the bottom fell behind. This is the pair's whole reason for existing.
+    ax = axes[1]
+    indicators = _long_indicators(frame)
+    xs, ys, names = [], [], []
+    for indicator in indicators:
+        b = frame[frame.indicator.eq(indicator)].dropna(subset=["theil_t", "theil_l"])
+        pre, post = b[b.year.lt(REVOLUTION)], b[b.year.ge(REVOLUTION)]
+        if pre.empty or post.empty:
+            continue
+        xs.append(post.theil_t.mean() - pre.theil_t.mean())
+        ys.append(post.theil_l.mean() - pre.theil_l.mean())
+        names.append(indicator)
+    span = max(max(np.abs(xs)), max(np.abs(ys))) * 1.18
+    ax.plot([-span, span], [-span, span], color=t["axis"], lw=1.1, ls=(0, (4, 3)), zorder=1)
+    ax.axhline(0, color=t["ink2"], lw=1.0, zorder=2)
+    ax.axvline(0, color=t["ink2"], lw=1.0, zorder=2)
+    ax.scatter(xs, ys, s=52, color=t["s1"], edgecolor=t["surface"], linewidth=1.2, zorder=4)
+    # Most services sit in one cluster near the origin and their labels collide into an
+    # unreadable smear. Only the furthest few are named; the rest are the point cloud.
+    distance = np.hypot(xs, ys)
+    furthest = np.argsort(distance)[-5:]
+    for i in furthest:
+        offset = (8, 4) if ys[i] >= xs[i] else (8, -11)
+        ax.annotate(PRETTY.get(names[i], names[i].replace("_", " ")), (xs[i], ys[i]),
+                    textcoords="offset points", xytext=offset, fontsize=8.6,
+                    color=t["ink2"], zorder=5)
+    ax.set_xlim(-span, span)
+    ax.set_ylim(-span, span)
+    ax.set_xlabel("change in Theil-T (top-sensitive)")
+    ax.set_ylabel("change in Theil-L (bottom-sensitive)")
+    ax.set_title("where in the distribution it moved", color=t["ink2"], loc="left",
+                 fontsize=10)
+
+    finish(
+        fig, t,
+        "Which index you choose is a choice about what counts",
+        "Four of the five say library readers grew more unequal after 2011; Atkinson ε=2, "
+        "which weights the worst-served governorates most, says the opposite. Right: "
+        "services above the dashed line moved more at the bottom than at the top.",
+        "tn_governorate_inequality: unweighted, share of national total, constant geography. "
+        "Left, each index divided by its own first-year value so five different scales can "
+        "share an axis. Right, the post-2011 mean of each Theil measure less its pre-2011 "
+        "mean; the dashed line is where the two moved equally.",
+    )
+    return fig
+
 BUILDERS = [
     ("01-expenditure-by-quintile", fig_quintiles, True),
     ("02-regional-gap", fig_regional_gap, True),
@@ -2030,6 +2590,12 @@ BUILDERS = [
     ("35-spatial-gini-by-good", fig_gini_by_good, False),
     ("36-spatial-gini-series", fig_gini_series, False),
     ("37-why-rdd-fails-on-waves", fig_gini_rdd, False),
+    ("38-lorenz-across-governorates", fig_lorenz, False),
+    ("39-gini-evolution-by-service", fig_gini_evolution, False),
+    ("40-is-2011-special", fig_is_2011_special, False),
+    ("41-covid-contamination", fig_covid_contamination, False),
+    ("42-weighted-or-not", fig_weighted_or_not, False),
+    ("43-index-disagreement", fig_index_disagreement, False),
 ]
 
 

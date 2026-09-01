@@ -1,0 +1,649 @@
+indicator,governorate,baseline_per_head,region,littoral,baseline_rank
+bank_branches,Tunis,0.28808736547912617,District-Tunis,True,1
+bank_branches,Sousse,0.17027779315240135,Centre-Est,True,2
+bank_branches,Ariana,0.15202770515815509,District-Tunis,True,3
+bank_branches,Tozeur,0.13915332753455548,Sud-Ouest,False,4
+bank_branches,Nabeul,0.13401496328925436,Nord-Est,True,5
+bank_branches,Sfax,0.12751847071193176,Centre-Est,True,6
+bank_branches,Ben Arous,0.1229436350591828,District-Tunis,True,7
+bank_branches,Monastir,0.1140575100359053,Centre-Est,True,8
+bank_branches,Médenine,0.1116318563339237,Sud-Est,True,9
+bank_branches,Bizerte,0.09512433881011151,Nord-Est,True,10
+bank_branches,Manouba,0.07728401876897599,District-Tunis,True,11
+bank_branches,Zaghouan,0.0767791290499645,Nord-Est,False,12
+bank_branches,Tataouine,0.0731137349912602,Sud-Est,False,13
+bank_branches,Gabès,0.07019916720439026,Sud-Est,True,14
+bank_branches,Mahdia,0.0654264527567959,Centre-Est,True,15
+bank_branches,Béja,0.06509471467818208,Nord-Ouest,False,16
+bank_branches,Jendouba,0.06374191431951634,Nord-Ouest,False,17
+bank_branches,Le Kef,0.06326983495845787,Nord-Ouest,False,18
+bank_branches,Kébili,0.05565005009142878,Sud-Ouest,False,19
+bank_branches,Gafsa,0.04845839723201116,Sud-Ouest,False,20
+bank_branches,Kairouan,0.04661332476497708,Centre-Ouest,False,21
+bank_branches,Siliana,0.04388195821809111,Nord-Ouest,False,22
+bank_branches,Sidi Bouzid,0.0384913770796224,Centre-Ouest,False,23
+bank_branches,Kasserine,0.0297993078396779,Centre-Ouest,False,24
+cinema_screens,Tunis,0.010529690040778012,District-Tunis,True,1
+cinema_screens,Monastir,0.005140695614086252,Centre-Est,True,2
+cinema_screens,Bizerte,0.0028159181285952496,Nord-Est,True,3
+cinema_screens,Sfax,0.0027976128246706964,Centre-Est,True,4
+cinema_screens,Nabeul,0.002321918946209503,Nord-Est,True,5
+cinema_screens,Béja,0.002193164519915068,Nord-Ouest,False,6
+cinema_screens,Ariana,0.0017567491280198568,District-Tunis,True,7
+cinema_screens,Sousse,0.0017084146258255731,Centre-Est,True,8
+cinema_screens,Tozeur,0.001692047377326565,Sud-Ouest,False,9
+cinema_screens,Médenine,0.0015175454709916974,Sud-Est,True,10
+cinema_screens,Ben Arous,0.0015023788230733072,District-Tunis,True,11
+cinema_screens,Mahdia,0.001300652324087077,Centre-Est,True,12
+cinema_screens,Gabès,0.0,Sud-Est,True,13
+cinema_screens,Gafsa,0.0,Sud-Ouest,False,13
+cinema_screens,Jendouba,0.0,Nord-Ouest,False,13
+cinema_screens,Kairouan,0.0,Centre-Ouest,False,13
+cinema_screens,Kasserine,0.0,Centre-Ouest,False,13
+cinema_screens,Kébili,0.0,Sud-Ouest,False,13
+cinema_screens,Le Kef,0.0,Nord-Ouest,False,13
+cinema_screens,Manouba,0.0,District-Tunis,True,13
+cinema_screens,Sidi Bouzid,0.0,Centre-Ouest,False,13
+cinema_screens,Siliana,0.0,Nord-Ouest,False,13
+cinema_screens,Tataouine,0.0,Sud-Est,False,13
+cinema_screens,Zaghouan,0.0,Nord-Est,False,13
+fixed_line_subscribers,Tunis,224.98714414359515,District-Tunis,True,1
+fixed_line_subscribers,Ariana,208.77196251026282,District-Tunis,True,2
+fixed_line_subscribers,Ben Arous,172.9084937070736,District-Tunis,True,3
+fixed_line_subscribers,Sfax,163.01039874528234,Centre-Est,True,4
+fixed_line_subscribers,Sousse,152.09055999803638,Centre-Est,True,5
+fixed_line_subscribers,Médenine,150.12651528662474,Sud-Est,True,6
+fixed_line_subscribers,Manouba,147.72487980963697,District-Tunis,True,7
+fixed_line_subscribers,Monastir,140.6211306903917,Centre-Est,True,8
+fixed_line_subscribers,Tozeur,131.28860544241664,Sud-Ouest,False,9
+fixed_line_subscribers,Nabeul,109.34228174663565,Nord-Est,True,10
+fixed_line_subscribers,Tataouine,105.7974687391856,Sud-Est,False,11
+fixed_line_subscribers,Gabès,105.66276911979084,Sud-Est,True,12
+fixed_line_subscribers,Kébili,102.34933560395218,Sud-Ouest,False,13
+fixed_line_subscribers,Gafsa,97.93902773198903,Sud-Ouest,False,14
+fixed_line_subscribers,Bizerte,95.72885427245815,Nord-Est,True,15
+fixed_line_subscribers,Le Kef,84.42608197676878,Nord-Ouest,False,16
+fixed_line_subscribers,Mahdia,70.14485481777528,Centre-Est,True,17
+fixed_line_subscribers,Béja,67.29528582952807,Nord-Ouest,False,18
+fixed_line_subscribers,Zaghouan,66.87819416958196,Nord-Est,False,19
+fixed_line_subscribers,Kairouan,58.17204946263811,Centre-Ouest,False,20
+fixed_line_subscribers,Siliana,54.444948834810994,Nord-Ouest,False,21
+fixed_line_subscribers,Jendouba,52.639537619116574,Nord-Ouest,False,22
+fixed_line_subscribers,Sidi Bouzid,42.037101319650354,Centre-Ouest,False,23
+fixed_line_subscribers,Kasserine,38.95032101051975,Centre-Ouest,False,24
+grass_pitches,Sousse,0.03471977562394577,Centre-Est,True,1
+grass_pitches,Tunis,0.028424237376382656,District-Tunis,True,2
+grass_pitches,Ben Arous,0.027615530418692517,District-Tunis,True,3
+grass_pitches,Monastir,0.023523857377553022,Centre-Est,True,4
+grass_pitches,Jendouba,0.021531737717653026,Nord-Ouest,False,5
+grass_pitches,Le Kef,0.020572803630738642,Nord-Ouest,False,6
+grass_pitches,Médenine,0.019941104764017135,Sud-Est,True,7
+grass_pitches,Tozeur,0.019620784092140294,Sud-Ouest,False,8
+grass_pitches,Bizerte,0.01659406140300656,Nord-Est,True,9
+grass_pitches,Gafsa,0.016531895547476964,Sud-Ouest,False,10
+grass_pitches,Mahdia,0.015297244135160863,Centre-Est,True,11
+grass_pitches,Sfax,0.014301354806528603,Centre-Est,True,12
+grass_pitches,Tataouine,0.013742003915819338,Sud-Est,False,13
+grass_pitches,Béja,0.01314063073327067,Nord-Ouest,False,14
+grass_pitches,Kairouan,0.013019896648452024,Centre-Ouest,False,15
+grass_pitches,Siliana,0.01291552471560957,Nord-Ouest,False,16
+grass_pitches,Gabès,0.01258323975274429,Sud-Est,True,17
+grass_pitches,Zaghouan,0.012030320024603362,Nord-Est,False,18
+grass_pitches,Nabeul,0.010488277463424758,Nord-Est,True,19
+grass_pitches,Kasserine,0.009390062629730878,Centre-Ouest,False,20
+grass_pitches,Sidi Bouzid,0.007339640069064343,Centre-Ouest,False,21
+grass_pitches,Kébili,0.006727153794546385,Sud-Ouest,False,22
+grass_pitches,Ariana,0.004640139080010627,District-Tunis,True,23
+grass_pitches,Manouba,0.002785481120236556,District-Tunis,True,24
+job_offers,Sousse,28.436107381800593,Centre-Est,True,1
+job_offers,Bizerte,26.235396521712165,Nord-Est,True,2
+job_offers,Tozeur,24.743735684275,Sud-Ouest,False,3
+job_offers,Monastir,24.22579246098394,Centre-Est,True,4
+job_offers,Zaghouan,21.85469572854723,Nord-Est,False,5
+job_offers,Nabeul,19.70561379725927,Nord-Est,True,6
+job_offers,Sfax,17.079233870581067,Centre-Est,True,7
+job_offers,Tunis,16.17107798900531,District-Tunis,True,8
+job_offers,Ben Arous,14.598538379647508,District-Tunis,True,9
+job_offers,Jendouba,13.752089621883343,Nord-Ouest,False,10
+job_offers,Siliana,11.671141776861562,Nord-Ouest,False,11
+job_offers,Gabès,10.939538617232996,Sud-Est,True,12
+job_offers,Ariana,10.875486824163149,District-Tunis,True,13
+job_offers,Kasserine,10.596580105785948,Centre-Ouest,False,14
+job_offers,Kébili,10.581838302374173,Sud-Ouest,False,15
+job_offers,Gafsa,10.388743967018177,Sud-Ouest,False,16
+job_offers,Mahdia,10.290090380022203,Centre-Est,True,17
+job_offers,Manouba,9.272094896076121,District-Tunis,True,18
+job_offers,Le Kef,9.265829906124798,Nord-Ouest,False,19
+job_offers,Béja,7.610781792197597,Nord-Ouest,False,20
+job_offers,Kairouan,5.998257928867667,Centre-Ouest,False,21
+job_offers,Sidi Bouzid,5.9945063043795885,Centre-Ouest,False,22
+job_offers,Médenine,5.916509116246869,Sud-Est,True,23
+job_offers,Tataouine,4.43958979457993,Sud-Est,False,24
+job_placements,Bizerte,22.901487124772885,Nord-Est,True,1
+job_placements,Sousse,22.528391855931797,Centre-Est,True,2
+job_placements,Tozeur,21.219229233851177,Sud-Ouest,False,3
+job_placements,Monastir,19.584412833203974,Centre-Est,True,4
+job_placements,Nabeul,18.199038236317737,Nord-Est,True,5
+job_placements,Zaghouan,16.504420827028344,Nord-Est,False,6
+job_placements,Sfax,15.83726737371713,Centre-Est,True,7
+job_placements,Jendouba,12.576548366122857,Nord-Ouest,False,8
+job_placements,Tunis,12.103499752224868,District-Tunis,True,9
+job_placements,Ben Arous,11.598389191980658,District-Tunis,True,10
+job_placements,Siliana,10.450678598791866,Nord-Ouest,False,11
+job_placements,Gabès,9.730473723973779,Sud-Est,True,12
+job_placements,Mahdia,9.03208282182115,Centre-Est,True,13
+job_placements,Kébili,8.841118609603006,Sud-Ouest,False,14
+job_placements,Ariana,8.285035566961923,District-Tunis,True,15
+job_placements,Manouba,8.08287184847475,District-Tunis,True,16
+job_placements,Kasserine,7.3223081504739485,Centre-Ouest,False,17
+job_placements,Gafsa,7.181810485296988,Sud-Ouest,False,18
+job_placements,Le Kef,7.032324291869256,Nord-Ouest,False,19
+job_placements,Béja,6.238630684285977,Nord-Ouest,False,20
+job_placements,Kairouan,5.469543784254916,Centre-Ouest,False,21
+job_placements,Médenine,5.370873893774771,Sud-Est,True,22
+job_placements,Sidi Bouzid,5.212817988021212,Centre-Ouest,False,23
+job_placements,Tataouine,4.249780383462262,Sud-Est,False,24
+library_book_stock,Tozeur,1393.3270014630955,Sud-Ouest,False,1
+library_book_stock,Gabès,927.4352446806516,Sud-Est,True,2
+library_book_stock,Zaghouan,913.7402216351883,Nord-Est,False,3
+library_book_stock,Tataouine,885.5113076807887,Sud-Est,False,4
+library_book_stock,Le Kef,884.2950840534971,Nord-Ouest,False,5
+library_book_stock,Siliana,880.894760330103,Nord-Ouest,False,6
+library_book_stock,Kébili,816.4311308746655,Sud-Ouest,False,7
+library_book_stock,Monastir,722.1574722195088,Centre-Est,True,8
+library_book_stock,Nabeul,711.2248828272659,Nord-Est,True,9
+library_book_stock,Gafsa,703.8879481573034,Sud-Ouest,False,10
+library_book_stock,Bizerte,622.4121842315308,Nord-Est,True,11
+library_book_stock,Béja,602.8545680602964,Nord-Ouest,False,12
+library_book_stock,Mahdia,597.1803470313095,Centre-Est,True,13
+library_book_stock,Sidi Bouzid,575.9505990344952,Centre-Ouest,False,14
+library_book_stock,Médenine,504.09376600852937,Sud-Est,True,15
+library_book_stock,Jendouba,501.1946706323733,Nord-Ouest,False,16
+library_book_stock,Kasserine,484.8158426999009,Centre-Ouest,False,17
+library_book_stock,Ben Arous,479.5936403418812,District-Tunis,True,18
+library_book_stock,Kairouan,469.2707916534138,Centre-Ouest,False,19
+library_book_stock,Sousse,441.99656746925507,Centre-Est,True,20
+library_book_stock,Sfax,441.5223495609119,Centre-Est,True,21
+library_book_stock,Manouba,384.3162325327616,District-Tunis,True,22
+library_book_stock,Tunis,375.1226522718019,District-Tunis,True,23
+library_book_stock,Ariana,367.5006157776933,District-Tunis,True,24
+library_books_lent,Tozeur,818.8815509004062,Sud-Ouest,False,1
+library_books_lent,Médenine,795.3561449654359,Sud-Est,True,2
+library_books_lent,Tataouine,772.5800411211557,Sud-Est,False,3
+library_books_lent,Gabès,711.6225991270784,Sud-Est,True,4
+library_books_lent,Manouba,536.7884497196679,District-Tunis,True,5
+library_books_lent,Monastir,464.8403408463023,Centre-Est,True,6
+library_books_lent,Sousse,442.2434137107362,Centre-Est,True,7
+library_books_lent,Siliana,415.2057318421316,Nord-Ouest,False,8
+library_books_lent,Béja,405.13756232176297,Nord-Ouest,False,9
+library_books_lent,Kébili,404.5471703385258,Sud-Ouest,False,10
+library_books_lent,Jendouba,390.98567923464293,Nord-Ouest,False,11
+library_books_lent,Kairouan,325.0542540465289,Centre-Ouest,False,12
+library_books_lent,Zaghouan,322.31340264257375,Nord-Est,False,13
+library_books_lent,Gafsa,321.5948724242157,Sud-Ouest,False,14
+library_books_lent,Le Kef,317.94292558364475,Nord-Ouest,False,15
+library_books_lent,Ben Arous,305.4017605567255,District-Tunis,True,16
+library_books_lent,Tunis,302.7715371970374,District-Tunis,True,17
+library_books_lent,Nabeul,300.8663305505481,Nord-Est,True,18
+library_books_lent,Sfax,292.85537630502,Centre-Est,True,19
+library_books_lent,Mahdia,275.5748058859792,Centre-Est,True,20
+library_books_lent,Sidi Bouzid,233.6776559833115,Centre-Ouest,False,21
+library_books_lent,Kasserine,220.22863767410016,Centre-Ouest,False,22
+library_books_lent,Bizerte,200.81144550379202,Nord-Est,True,23
+library_books_lent,Ariana,135.6858897354135,District-Tunis,True,24
+library_capacity,Tozeur,8.03645014837786,Sud-Ouest,False,1
+library_capacity,Tataouine,6.8448480242019825,Sud-Est,False,2
+library_capacity,Siliana,4.871158850829229,Nord-Ouest,False,3
+library_capacity,Gafsa,4.868700000304508,Sud-Ouest,False,4
+library_capacity,Kébili,4.8052626487852725,Sud-Ouest,False,5
+library_capacity,Gabès,4.705481857924673,Sud-Est,True,6
+library_capacity,Mahdia,4.56215493378422,Centre-Est,True,7
+library_capacity,Monastir,4.395947190573121,Centre-Est,True,8
+library_capacity,Le Kef,4.002285614291549,Nord-Ouest,False,9
+library_capacity,Zaghouan,3.689990635726756,Nord-Est,False,10
+library_capacity,Bizerte,3.5025923810893396,Nord-Est,True,11
+library_capacity,Nabeul,3.452388091353345,Nord-Est,True,12
+library_capacity,Béja,3.364209409754205,Nord-Ouest,False,13
+library_capacity,Kasserine,3.237467569992408,Centre-Ouest,False,14
+library_capacity,Médenine,3.100879823446709,Sud-Est,True,15
+library_capacity,Sidi Bouzid,3.0248910163938945,Centre-Ouest,False,16
+library_capacity,Kairouan,2.7122268259416447,Centre-Ouest,False,17
+library_capacity,Sousse,2.3546331315395874,Centre-Est,True,18
+library_capacity,Ben Arous,2.2855289918864545,District-Tunis,True,19
+library_capacity,Sfax,2.1718586418022476,Centre-Est,True,20
+library_capacity,Jendouba,2.1384005459491755,Nord-Ouest,False,21
+library_capacity,Manouba,1.9618835227364901,District-Tunis,True,22
+library_capacity,Ariana,1.495543196615196,District-Tunis,True,23
+library_capacity,Tunis,1.298570762236019,District-Tunis,True,24
+library_readers,Tozeur,2453.6903974411994,Sud-Ouest,False,1
+library_readers,Gabès,834.9018400954051,Sud-Est,True,2
+library_readers,Monastir,732.3161883022657,Centre-Est,True,3
+library_readers,Mahdia,720.8890515392377,Centre-Est,True,4
+library_readers,Siliana,633.1065389791668,Nord-Ouest,False,5
+library_readers,Tataouine,619.0564988753412,Sud-Est,False,6
+library_readers,Gafsa,599.2600872455713,Sud-Ouest,False,7
+library_readers,Manouba,556.8864325066077,District-Tunis,True,8
+library_readers,Béja,551.0020015862834,Nord-Ouest,False,9
+library_readers,Nabeul,512.3952022340355,Nord-Est,True,10
+library_readers,Le Kef,507.89212302092886,Nord-Ouest,False,11
+library_readers,Médenine,500.0367465042187,Sud-Est,True,12
+library_readers,Kairouan,490.4277366544167,Centre-Ouest,False,13
+library_readers,Bizerte,416.20736110256485,Nord-Est,True,14
+library_readers,Kébili,412.465202411207,Sud-Ouest,False,15
+library_readers,Tunis,360.7341961219588,District-Tunis,True,16
+library_readers,Sidi Bouzid,345.0634670983015,Centre-Ouest,False,17
+library_readers,Ben Arous,317.1290604171507,District-Tunis,True,18
+library_readers,Sousse,312.07598260357815,Centre-Est,True,19
+library_readers,Jendouba,310.7867265529316,Nord-Ouest,False,20
+library_readers,Kasserine,253.39937475447513,Centre-Ouest,False,21
+library_readers,Sfax,237.21155686334723,Centre-Est,True,22
+library_readers,Zaghouan,211.09702815034427,Nord-Est,False,23
+library_readers,Ariana,174.59704704234775,District-Tunis,True,24
+library_subscribers,Tataouine,40.08485790731899,Sud-Est,False,1
+library_subscribers,Manouba,33.14919907143639,District-Tunis,True,2
+library_subscribers,Gabès,26.730803122446016,Sud-Est,True,3
+library_subscribers,Zaghouan,24.17672113090823,Nord-Est,False,4
+library_subscribers,Béja,23.210137333528873,Nord-Ouest,False,5
+library_subscribers,Monastir,20.139493008432364,Centre-Est,True,6
+library_subscribers,Médenine,20.025583218042406,Sud-Est,True,7
+library_subscribers,Ben Arous,19.48815774524361,District-Tunis,True,8
+library_subscribers,Siliana,18.602487437738027,Nord-Ouest,False,9
+library_subscribers,Sfax,18.285779248493416,Centre-Est,True,10
+library_subscribers,Le Kef,18.103793253300953,Nord-Ouest,False,11
+library_subscribers,Kébili,18.094662158684745,Sud-Ouest,False,12
+library_subscribers,Nabeul,17.1340712629523,Nord-Est,True,13
+library_subscribers,Kasserine,16.99237616880581,Centre-Ouest,False,14
+library_subscribers,Jendouba,16.2431169939326,Nord-Ouest,False,15
+library_subscribers,Gafsa,14.919200857684395,Sud-Ouest,False,16
+library_subscribers,Sousse,13.44961973814168,Centre-Est,True,17
+library_subscribers,Tozeur,13.422785652396831,Sud-Ouest,False,18
+library_subscribers,Ariana,11.389864017553665,District-Tunis,True,19
+library_subscribers,Sidi Bouzid,9.387269405504727,Centre-Ouest,False,20
+library_subscribers,Bizerte,8.934414419616045,Nord-Est,True,21
+library_subscribers,Tunis,7.326447184015975,District-Tunis,True,22
+library_subscribers,Mahdia,5.429315467073054,Centre-Est,True,23
+library_subscribers,Kairouan,5.194146361256667,Centre-Ouest,False,24
+marriages,Bizerte,9.290722411931467,Nord-Est,True,1
+marriages,Sousse,9.186016789919373,Centre-Est,True,2
+marriages,Nabeul,9.184345225645243,Nord-Est,True,3
+marriages,Médenine,9.152701626015354,Sud-Est,True,4
+marriages,Monastir,8.8178250723524,Centre-Est,True,5
+marriages,Mahdia,8.615522786374727,Centre-Est,True,6
+marriages,Tozeur,8.43909901474289,Sud-Ouest,False,7
+marriages,Zaghouan,8.437423651242941,Nord-Est,False,8
+marriages,Ben Arous,8.417555661582458,District-Tunis,True,9
+marriages,Siliana,8.388422814717703,Nord-Ouest,False,10
+marriages,Gafsa,8.357255893797248,Sud-Ouest,False,11
+marriages,Jendouba,8.188549846498711,Nord-Ouest,False,12
+marriages,Béja,8.068872509443477,Nord-Ouest,False,13
+marriages,Tunis,7.973848063925081,District-Tunis,True,14
+marriages,Sidi Bouzid,7.648601376799195,Centre-Ouest,False,15
+marriages,Kasserine,7.538364877836138,Centre-Ouest,False,16
+marriages,Manouba,7.491931844580128,District-Tunis,True,17
+marriages,Gabès,7.439085598676215,Sud-Est,True,18
+marriages,Le Kef,7.414607624280366,Nord-Ouest,False,19
+marriages,Sfax,7.3859493085376045,Centre-Est,True,20
+marriages,Kébili,7.171239600951917,Sud-Ouest,False,21
+marriages,Kairouan,5.883017461144291,Centre-Ouest,False,22
+marriages,Ariana,4.780830509558411,District-Tunis,True,23
+marriages,Tataouine,4.357558659526453,Sud-Est,False,24
+money_orders_from_abroad,Tunis,120.72444816866033,District-Tunis,True,1
+money_orders_from_abroad,Médenine,118.72290894878584,Sud-Est,True,2
+money_orders_from_abroad,Mahdia,94.25723515931175,Centre-Est,True,3
+money_orders_from_abroad,Tataouine,84.83059615853405,Sud-Est,False,4
+money_orders_from_abroad,Bizerte,79.32141664366146,Nord-Est,True,5
+money_orders_from_abroad,Sousse,75.01477698027952,Centre-Est,True,6
+money_orders_from_abroad,Ben Arous,74.23696569971678,District-Tunis,True,7
+money_orders_from_abroad,Kébili,73.98809670139208,Sud-Ouest,False,8
+money_orders_from_abroad,Gabès,72.69584981755489,Sud-Est,True,9
+money_orders_from_abroad,Le Kef,68.2190549886086,Nord-Ouest,False,10
+money_orders_from_abroad,Jendouba,65.8794770295844,Nord-Ouest,False,11
+money_orders_from_abroad,Monastir,63.47814792414521,Centre-Est,True,12
+money_orders_from_abroad,Nabeul,61.340928597662476,Nord-Est,True,13
+money_orders_from_abroad,Manouba,50.12349734607064,District-Tunis,True,14
+money_orders_from_abroad,Tozeur,47.99212933792171,Sud-Ouest,False,15
+money_orders_from_abroad,Gafsa,46.078671876760126,Sud-Ouest,False,16
+money_orders_from_abroad,Ariana,44.661414334419334,District-Tunis,True,17
+money_orders_from_abroad,Zaghouan,44.41219894341095,Nord-Est,False,18
+money_orders_from_abroad,Siliana,41.65302654013123,Nord-Ouest,False,19
+money_orders_from_abroad,Kasserine,36.53230780930898,Centre-Ouest,False,20
+money_orders_from_abroad,Kairouan,36.40479705059242,Centre-Ouest,False,21
+money_orders_from_abroad,Béja,35.65483400513816,Nord-Ouest,False,22
+money_orders_from_abroad,Sfax,34.09623251732207,Centre-Est,True,23
+money_orders_from_abroad,Sidi Bouzid,24.54902234813575,Centre-Ouest,False,24
+primary_classrooms,Tataouine,3.639562313931299,Sud-Est,False,1
+primary_classrooms,Siliana,3.445528234987455,Nord-Ouest,False,2
+primary_classrooms,Gafsa,3.3288264435746515,Sud-Ouest,False,3
+primary_classrooms,Sidi Bouzid,3.3086217553897903,Centre-Ouest,False,4
+primary_classrooms,Le Kef,3.2730612464087963,Nord-Ouest,False,5
+primary_classrooms,Kasserine,3.2258019448000943,Centre-Ouest,False,6
+primary_classrooms,Zaghouan,3.1339618906608315,Nord-Est,False,7
+primary_classrooms,Médenine,3.1276317456641625,Sud-Est,True,8
+primary_classrooms,Kairouan,2.90354789755674,Centre-Ouest,False,9
+primary_classrooms,Kébili,2.8873280810857733,Sud-Ouest,False,10
+primary_classrooms,Gabès,2.8678493977783823,Sud-Est,True,11
+primary_classrooms,Jendouba,2.8083822912584693,Nord-Ouest,False,12
+primary_classrooms,Mahdia,2.7877532488856347,Centre-Est,True,13
+primary_classrooms,Tozeur,2.7850646417342215,Sud-Ouest,False,14
+primary_classrooms,Béja,2.7369971712346035,Nord-Ouest,False,15
+primary_classrooms,Monastir,2.4991569499551964,Centre-Est,True,16
+primary_classrooms,Bizerte,2.4295431675723784,Nord-Est,True,17
+primary_classrooms,Sfax,2.397985898619563,Centre-Est,True,18
+primary_classrooms,Nabeul,2.3125569623466915,Nord-Est,True,19
+primary_classrooms,Sousse,2.268434208814087,Centre-Est,True,20
+primary_classrooms,Manouba,2.1317420136267047,District-Tunis,True,21
+primary_classrooms,Ben Arous,2.099407888583949,District-Tunis,True,22
+primary_classrooms,Tunis,1.8617952502426773,District-Tunis,True,23
+primary_classrooms,Ariana,1.707337033569648,District-Tunis,True,24
+primary_pupils,Kasserine,126.11491121204294,Centre-Ouest,False,1
+primary_pupils,Kairouan,119.97306393336993,Centre-Ouest,False,2
+primary_pupils,Tataouine,117.53736199019657,Sud-Est,False,3
+primary_pupils,Mahdia,114.12974047680113,Centre-Est,True,4
+primary_pupils,Sidi Bouzid,112.90963807868768,Centre-Ouest,False,5
+primary_pupils,Monastir,111.94240362725999,Centre-Est,True,6
+primary_pupils,Médenine,109.1360396273797,Sud-Est,True,7
+primary_pupils,Tozeur,107.25774562631518,Sud-Ouest,False,8
+primary_pupils,Gafsa,106.13686385674877,Sud-Ouest,False,9
+primary_pupils,Siliana,105.28188928156641,Nord-Ouest,False,10
+primary_pupils,Gabès,103.90253635645259,Sud-Est,True,11
+primary_pupils,Sousse,103.33111774961053,Centre-Est,True,12
+primary_pupils,Zaghouan,102.65427139802371,Nord-Est,False,13
+primary_pupils,Kébili,100.5091846175531,Sud-Ouest,False,14
+primary_pupils,Jendouba,99.5245788685027,Nord-Ouest,False,15
+primary_pupils,Sfax,99.50829126553019,Centre-Est,True,16
+primary_pupils,Bizerte,99.243697186188,Nord-Est,True,17
+primary_pupils,Béja,97.1011894771686,Nord-Ouest,False,18
+primary_pupils,Le Kef,96.65243818707758,Nord-Ouest,False,19
+primary_pupils,Nabeul,96.0368948001918,Nord-Est,True,20
+primary_pupils,Ben Arous,89.56631113614058,District-Tunis,True,21
+primary_pupils,Manouba,85.77312360308736,District-Tunis,True,22
+primary_pupils,Ariana,83.83549810844147,District-Tunis,True,23
+primary_pupils,Tunis,78.29359242907356,District-Tunis,True,24
+primary_schools,Siliana,0.8233755653079918,Nord-Ouest,False,1
+primary_schools,Sidi Bouzid,0.7722482412853907,Centre-Ouest,False,2
+primary_schools,Tataouine,0.766467893709835,Sud-Est,False,3
+primary_schools,Le Kef,0.7528581826690778,Nord-Ouest,False,4
+primary_schools,Kasserine,0.7110195811722834,Centre-Ouest,False,5
+primary_schools,Zaghouan,0.6470461874567849,Nord-Est,False,6
+primary_schools,Gafsa,0.5669536935096772,Sud-Ouest,False,7
+primary_schools,Kairouan,0.5618160016575912,Centre-Ouest,False,8
+primary_schools,Médenine,0.5552188570976254,Sud-Est,True,9
+primary_schools,Jendouba,0.5519800785213717,Nord-Ouest,False,10
+primary_schools,Kébili,0.5291867771852377,Sud-Ouest,False,11
+primary_schools,Béja,0.494685450853699,Nord-Ouest,False,12
+primary_schools,Mahdia,0.4847791516361378,Centre-Est,True,13
+primary_schools,Gabès,0.4725021653501726,Sud-Est,True,14
+primary_schools,Tozeur,0.47060326094225813,Sud-Ouest,False,15
+primary_schools,Sfax,0.4092222428233346,Centre-Est,True,16
+primary_schools,Bizerte,0.38282027634582244,Nord-Est,True,17
+primary_schools,Nabeul,0.3682015881075009,Nord-Est,True,18
+primary_schools,Monastir,0.31374716108396405,Centre-Est,True,19
+primary_schools,Sousse,0.297970447607869,Centre-Est,True,20
+primary_schools,Ben Arous,0.2740238010520801,District-Tunis,True,21
+primary_schools,Manouba,0.2683532471293695,District-Tunis,True,22
+primary_schools,Ariana,0.1843351905328252,District-Tunis,True,23
+primary_schools,Tunis,0.1806062587802337,District-Tunis,True,24
+primary_teachers,Kasserine,7.210257061869254,Centre-Ouest,False,1
+primary_teachers,Siliana,7.167559008374627,Nord-Ouest,False,2
+primary_teachers,Tataouine,7.1419863336119205,Sud-Est,False,3
+primary_teachers,Le Kef,7.115399098485946,Nord-Ouest,False,4
+primary_teachers,Sidi Bouzid,7.0327921862684235,Centre-Ouest,False,5
+primary_teachers,Gafsa,6.876873493231153,Sud-Ouest,False,6
+primary_teachers,Kairouan,6.825504073611062,Centre-Ouest,False,7
+primary_teachers,Médenine,6.593656441091952,Sud-Est,True,8
+primary_teachers,Kébili,6.561868736566773,Sud-Ouest,False,9
+primary_teachers,Gabès,6.44909067354966,Sud-Est,True,10
+primary_teachers,Mahdia,6.160619322141187,Centre-Est,True,11
+primary_teachers,Zaghouan,5.974763659915323,Nord-Est,False,12
+primary_teachers,Jendouba,5.8947447139920195,Nord-Ouest,False,13
+primary_teachers,Tozeur,5.841786372338515,Sud-Ouest,False,14
+primary_teachers,Monastir,5.6564248233110375,Centre-Est,True,15
+primary_teachers,Béja,5.650241162739465,Nord-Ouest,False,16
+primary_teachers,Sfax,5.46980753322434,Centre-Est,True,17
+primary_teachers,Bizerte,5.244732950557275,Nord-Est,True,18
+primary_teachers,Nabeul,5.186165259527402,Nord-Est,True,19
+primary_teachers,Sousse,5.134279747685728,Centre-Est,True,20
+primary_teachers,Ben Arous,4.683420592276318,District-Tunis,True,21
+primary_teachers,Manouba,4.528092994347751,District-Tunis,True,22
+primary_teachers,Tunis,4.081891449489,District-Tunis,True,23
+primary_teachers,Ariana,4.0731245164047545,District-Tunis,True,24
+private_gym_members,Ben Arous,8.132389622674673,District-Tunis,True,1
+private_gym_members,Tunis,7.890251541739672,District-Tunis,True,2
+private_gym_members,Manouba,7.6118077998156775,District-Tunis,True,3
+private_gym_members,Mahdia,6.2972608734993525,Centre-Est,True,4
+private_gym_members,Ariana,5.943360155054164,District-Tunis,True,5
+private_gym_members,Kébili,5.749576566827919,Sud-Ouest,False,6
+private_gym_members,Tozeur,5.528753988055889,Sud-Ouest,False,7
+private_gym_members,Sousse,5.0721524603225845,Centre-Est,True,8
+private_gym_members,Gabès,4.399594659528898,Sud-Est,True,9
+private_gym_members,Monastir,4.313472487940621,Centre-Est,True,10
+private_gym_members,Béja,4.21613242298264,Nord-Ouest,False,11
+private_gym_members,Nabeul,4.195096851429276,Nord-Est,True,12
+private_gym_members,Jendouba,2.7350408715634935,Nord-Ouest,False,13
+private_gym_members,Médenine,2.571090091462551,Sud-Est,True,14
+private_gym_members,Bizerte,2.4360485941469605,Nord-Est,True,15
+private_gym_members,Sidi Bouzid,2.4110856390208486,Centre-Ouest,False,16
+private_gym_members,Gafsa,2.183920090312803,Sud-Ouest,False,17
+private_gym_members,Sfax,2.129101688280885,Centre-Est,True,18
+private_gym_members,Tataouine,2.0837214463696245,Sud-Est,False,19
+private_gym_members,Zaghouan,2.083103806141259,Nord-Est,False,20
+private_gym_members,Siliana,1.6522893386387942,Nord-Ouest,False,21
+private_gym_members,Kasserine,1.6046225141998605,Centre-Ouest,False,22
+private_gym_members,Kairouan,1.2436968586597827,Centre-Ouest,False,23
+private_gym_members,Le Kef,1.1413325695168746,Nord-Ouest,False,24
+private_sports_halls,Ariana,0.09597877889281607,District-Tunis,True,1
+private_sports_halls,Ben Arous,0.09357583663029376,District-Tunis,True,2
+private_sports_halls,Monastir,0.0900403876850161,Centre-Est,True,3
+private_sports_halls,Mahdia,0.07768283927048886,Centre-Est,True,4
+private_sports_halls,Sousse,0.07568812199650778,Centre-Est,True,5
+private_sports_halls,Manouba,0.07509599469364589,District-Tunis,True,6
+private_sports_halls,Tunis,0.07377740340272665,District-Tunis,True,7
+private_sports_halls,Gabès,0.06865913616443518,Sud-Est,True,8
+private_sports_halls,Kébili,0.057110791125334445,Sud-Ouest,False,9
+private_sports_halls,Tozeur,0.056345224489003275,Sud-Ouest,False,10
+private_sports_halls,Bizerte,0.052955348306934456,Nord-Est,True,11
+private_sports_halls,Nabeul,0.05272644376857416,Nord-Est,True,12
+private_sports_halls,Zaghouan,0.04610082043513972,Nord-Est,False,13
+private_sports_halls,Jendouba,0.03709592640348966,Nord-Ouest,False,14
+private_sports_halls,Sidi Bouzid,0.03541142135000115,Centre-Ouest,False,15
+private_sports_halls,Gafsa,0.0330874407762574,Sud-Ouest,False,16
+private_sports_halls,Sfax,0.03160962491968465,Centre-Est,True,17
+private_sports_halls,Tataouine,0.03087383834011325,Sud-Est,False,18
+private_sports_halls,Kasserine,0.029323216761225207,Centre-Ouest,False,19
+private_sports_halls,Médenine,0.02823558967372245,Sud-Est,True,20
+private_sports_halls,Le Kef,0.025510709980202106,Nord-Ouest,False,21
+private_sports_halls,Siliana,0.024759467776697065,Nord-Ouest,False,22
+private_sports_halls,Béja,0.021348395250668645,Nord-Ouest,False,23
+private_sports_halls,Kairouan,0.01882128452035607,Centre-Ouest,False,24
+public_libraries,Tozeur,0.07888308857171011,Sud-Ouest,False,1
+public_libraries,Tataouine,0.07237248501412173,Sud-Est,False,2
+public_libraries,Kébili,0.0579932740699276,Sud-Ouest,False,3
+public_libraries,Gafsa,0.05592594539936527,Sud-Ouest,False,4
+public_libraries,Zaghouan,0.053681961060436614,Nord-Est,False,5
+public_libraries,Gabès,0.05070195926241302,Sud-Est,True,6
+public_libraries,Le Kef,0.04941991463354367,Nord-Ouest,False,7
+public_libraries,Monastir,0.049067683033826616,Centre-Est,True,8
+public_libraries,Mahdia,0.04882186010118883,Centre-Est,True,9
+public_libraries,Siliana,0.04725420538174253,Nord-Ouest,False,10
+public_libraries,Béja,0.04163359242985356,Nord-Ouest,False,11
+public_libraries,Sidi Bouzid,0.03697342693448857,Centre-Ouest,False,12
+public_libraries,Médenine,0.0356301053205968,Sud-Est,True,13
+public_libraries,Nabeul,0.03546490147568592,Nord-Est,True,14
+public_libraries,Kasserine,0.035326676438810954,Centre-Ouest,False,15
+public_libraries,Bizerte,0.03528079288632972,Nord-Est,True,16
+public_libraries,Sousse,0.0346971939517264,Centre-Est,True,17
+public_libraries,Ben Arous,0.02916429466910884,District-Tunis,True,18
+public_libraries,Sfax,0.028799518472162264,Centre-Est,True,19
+public_libraries,Kairouan,0.028558702304996065,Centre-Ouest,False,20
+public_libraries,Jendouba,0.02830344100874929,Nord-Ouest,False,21
+public_libraries,Manouba,0.028247710224144153,District-Tunis,True,22
+public_libraries,Tunis,0.02205410851935347,District-Tunis,True,23
+public_libraries,Ariana,0.021390998200746095,District-Tunis,True,24
+road_deaths,Zaghouan,0.2344893884561409,Nord-Est,False,1
+road_deaths,Médenine,0.22252977816035424,Sud-Est,True,2
+road_deaths,Kairouan,0.1939257715877377,Centre-Ouest,False,3
+road_deaths,Gabès,0.18417671585501266,Sud-Est,True,4
+road_deaths,Sousse,0.18038456009528273,Centre-Est,True,5
+road_deaths,Mahdia,0.17839164382204128,Centre-Est,True,6
+road_deaths,Sfax,0.15846049472393983,Centre-Est,True,7
+road_deaths,Nabeul,0.1574635113294799,Nord-Est,True,8
+road_deaths,Tataouine,0.15607021385988773,Sud-Est,False,9
+road_deaths,Sidi Bouzid,0.14877688550510743,Centre-Ouest,False,10
+road_deaths,Béja,0.14663615075099648,Nord-Ouest,False,11
+road_deaths,Manouba,0.1404330017554125,District-Tunis,True,12
+road_deaths,Ben Arous,0.13456362937331795,District-Tunis,True,13
+road_deaths,Gafsa,0.1300214576402342,Sud-Ouest,False,14
+road_deaths,Le Kef,0.12427655958667941,Nord-Ouest,False,15
+road_deaths,Kasserine,0.12404045144742415,Centre-Ouest,False,16
+road_deaths,Monastir,0.11551851412286651,Centre-Est,True,17
+road_deaths,Tunis,0.10970695937633271,District-Tunis,True,18
+road_deaths,Bizerte,0.10804774726080435,Nord-Est,True,19
+road_deaths,Siliana,0.10017087381024418,Nord-Ouest,False,20
+road_deaths,Tozeur,0.09931031105971355,Sud-Ouest,False,21
+road_deaths,Kébili,0.09260664370842364,Sud-Ouest,False,22
+road_deaths,Ariana,0.09059523277224053,District-Tunis,True,23
+road_deaths,Jendouba,0.0655634448685735,Nord-Ouest,False,24
+road_injuries,Tunis,2.9082528294439505,District-Tunis,True,1
+road_injuries,Ben Arous,2.5009611687812376,District-Tunis,True,2
+road_injuries,Manouba,2.0479812755997657,District-Tunis,True,3
+road_injuries,Ariana,1.7185752164417745,District-Tunis,True,4
+road_injuries,Nabeul,1.6811618061815852,Nord-Est,True,5
+road_injuries,Zaghouan,1.5112466894625658,Nord-Est,False,6
+road_injuries,Gafsa,1.3248180267760867,Sud-Ouest,False,7
+road_injuries,Gabès,1.1714732544529392,Sud-Est,True,8
+road_injuries,Sousse,1.1620219701263748,Centre-Est,True,9
+road_injuries,Kairouan,1.1400196978816275,Centre-Ouest,False,10
+road_injuries,Le Kef,1.138493177724992,Nord-Ouest,False,11
+road_injuries,Béja,1.0772884894063568,Nord-Ouest,False,12
+road_injuries,Sfax,1.066401826581911,Centre-Est,True,13
+road_injuries,Médenine,1.0406076723983284,Sud-Est,True,14
+road_injuries,Siliana,1.0320908822531079,Nord-Ouest,False,15
+road_injuries,Sidi Bouzid,1.0034273748171485,Centre-Ouest,False,16
+road_injuries,Bizerte,0.9503905941476062,Nord-Est,True,17
+road_injuries,Kasserine,0.9001526144744482,Centre-Ouest,False,18
+road_injuries,Tozeur,0.8676967300497057,Sud-Ouest,False,19
+road_injuries,Mahdia,0.8648877063914912,Centre-Est,True,20
+road_injuries,Tataouine,0.7741673587343735,Sud-Est,False,21
+road_injuries,Monastir,0.7407096605335551,Centre-Est,True,22
+road_injuries,Jendouba,0.6604777264995813,Nord-Ouest,False,23
+road_injuries,Kébili,0.543040747359329,Sud-Ouest,False,24
+secondary_pupils,Tataouine,136.6833508976963,Sud-Est,False,1
+secondary_pupils,Kébili,133.214084134018,Sud-Ouest,False,2
+secondary_pupils,Gafsa,129.88568229224427,Sud-Ouest,False,3
+secondary_pupils,Tozeur,112.29796180134923,Sud-Ouest,False,4
+secondary_pupils,Gabès,112.26295308341662,Sud-Est,True,5
+secondary_pupils,Le Kef,111.3963927244913,Nord-Ouest,False,6
+secondary_pupils,Sidi Bouzid,110.1296437106377,Centre-Ouest,False,7
+secondary_pupils,Médenine,109.72176215807133,Sud-Est,True,8
+secondary_pupils,Kasserine,106.42223247781094,Centre-Ouest,False,9
+secondary_pupils,Siliana,105.49937470669335,Nord-Ouest,False,10
+secondary_pupils,Monastir,104.21751772950081,Centre-Est,True,11
+secondary_pupils,Jendouba,100.31530310318514,Nord-Ouest,False,12
+secondary_pupils,Ben Arous,97.73412617608089,District-Tunis,True,13
+secondary_pupils,Zaghouan,96.6266079131159,Nord-Est,False,14
+secondary_pupils,Sousse,96.62413887085167,Centre-Est,True,15
+secondary_pupils,Bizerte,96.15811990204355,Nord-Est,True,16
+secondary_pupils,Manouba,94.98797775015926,District-Tunis,True,17
+secondary_pupils,Béja,94.68406519719984,Nord-Ouest,False,18
+secondary_pupils,Mahdia,94.21803453245138,Centre-Est,True,19
+secondary_pupils,Kairouan,93.16402607994728,Centre-Ouest,False,20
+secondary_pupils,Sfax,91.47514505770079,Centre-Est,True,21
+secondary_pupils,Tunis,91.07687321571039,District-Tunis,True,22
+secondary_pupils,Ariana,89.42991980204393,District-Tunis,True,23
+secondary_pupils,Nabeul,86.55325722013185,Nord-Est,True,24
+sports_halls,Tunis,0.0324150523541216,District-Tunis,True,1
+sports_halls,Monastir,0.02205072171762775,Centre-Est,True,2
+sports_halls,Ben Arous,0.021807092166168315,District-Tunis,True,3
+sports_halls,Le Kef,0.020572803630738642,Nord-Ouest,False,4
+sports_halls,Béja,0.014781319866853292,Nord-Ouest,False,5
+sports_halls,Nabeul,0.014549173297235773,Nord-Est,True,6
+sports_halls,Kébili,0.01345430758909277,Sud-Ouest,False,7
+sports_halls,Siliana,0.012934373002724462,Nord-Ouest,False,8
+sports_halls,Mahdia,0.012747703445967385,Centre-Est,True,9
+sports_halls,Bizerte,0.012429561556342322,Nord-Est,True,10
+sports_halls,Ariana,0.012390619005829738,District-Tunis,True,11
+sports_halls,Tataouine,0.012009502183317606,Sud-Est,False,12
+sports_halls,Sfax,0.011001324736497415,Centre-Est,True,13
+sports_halls,Zaghouan,0.010383580323243637,Nord-Est,False,14
+sports_halls,Sousse,0.010013580911430564,Centre-Est,True,15
+sports_halls,Médenine,0.00995628854937606,Sud-Est,True,16
+sports_halls,Tozeur,0.009810392046070147,Sud-Ouest,False,17
+sports_halls,Kairouan,0.009410313762511942,Centre-Ouest,False,18
+sports_halls,Manouba,0.009026768494870755,District-Tunis,True,19
+sports_halls,Gabès,0.008412062180242938,Sud-Est,True,20
+sports_halls,Sidi Bouzid,0.007339640069064343,Centre-Ouest,False,21
+sports_halls,Jendouba,0.007190122488999627,Nord-Ouest,False,22
+sports_halls,Kasserine,0.007042546972298158,Centre-Ouest,False,23
+sports_halls,Gafsa,0.0030069295335938256,Sud-Ouest,False,24
+stillbirths,Tunis,0.31046541311831105,District-Tunis,True,1
+stillbirths,Gafsa,0.2775751258022316,Sud-Ouest,False,2
+stillbirths,Sousse,0.27721179060731477,Centre-Est,True,3
+stillbirths,Gabès,0.26175292594011573,Sud-Est,True,4
+stillbirths,Tozeur,0.2517465868406202,Sud-Ouest,False,5
+stillbirths,Sfax,0.2458875230757045,Centre-Est,True,6
+stillbirths,Mahdia,0.21962842797673413,Centre-Est,True,7
+stillbirths,Bizerte,0.17725949645424532,Nord-Est,True,8
+stillbirths,Kébili,0.16697904001698638,Sud-Ouest,False,9
+stillbirths,Kasserine,0.16186545360830698,Centre-Ouest,False,10
+stillbirths,Monastir,0.14611855249323288,Centre-Est,True,11
+stillbirths,Kairouan,0.14198559155650792,Centre-Ouest,False,12
+stillbirths,Nabeul,0.12720403899388735,Nord-Est,True,13
+stillbirths,Ben Arous,0.1261531483323947,District-Tunis,True,14
+stillbirths,Le Kef,0.12579924529674705,Nord-Ouest,False,15
+stillbirths,Siliana,0.11773267560742717,Nord-Ouest,False,16
+stillbirths,Jendouba,0.09554579354628566,Nord-Ouest,False,17
+stillbirths,Médenine,0.08478942075504546,Sud-Est,True,18
+stillbirths,Ariana,0.07424072290853556,District-Tunis,True,19
+stillbirths,Béja,0.05095036696770868,Nord-Ouest,False,20
+stillbirths,Tataouine,0.03615819209039548,Sud-Est,False,21
+stillbirths,Zaghouan,0.011975046387900123,Nord-Est,False,22
+stillbirths,Manouba,0.007325374986243952,District-Tunis,True,23
+stillbirths,Sidi Bouzid,0.004548690441237584,Centre-Ouest,False,24
+youth_centre_members,Kébili,14.125427479512565,Sud-Ouest,False,1
+youth_centre_members,Zaghouan,12.147067264494048,Nord-Est,False,2
+youth_centre_members,Tozeur,12.075467547855636,Sud-Ouest,False,3
+youth_centre_members,Gabès,10.3687601209705,Sud-Est,True,4
+youth_centre_members,Monastir,10.010337052373462,Centre-Est,True,5
+youth_centre_members,Sousse,9.631279302541927,Centre-Est,True,6
+youth_centre_members,Médenine,9.45368350531589,Sud-Est,True,7
+youth_centre_members,Siliana,8.468513674347964,Nord-Ouest,False,8
+youth_centre_members,Tataouine,8.419931389233549,Sud-Est,False,9
+youth_centre_members,Nabeul,7.837185984346865,Nord-Est,True,10
+youth_centre_members,Le Kef,7.55312045992268,Nord-Ouest,False,11
+youth_centre_members,Mahdia,7.265727513576002,Centre-Est,True,12
+youth_centre_members,Béja,7.232042136390472,Nord-Ouest,False,13
+youth_centre_members,Bizerte,7.0922568230644965,Nord-Est,True,14
+youth_centre_members,Sfax,7.024800057052134,Centre-Est,True,15
+youth_centre_members,Gafsa,6.876663504033615,Sud-Ouest,False,16
+youth_centre_members,Kasserine,6.4541403432929645,Centre-Ouest,False,17
+youth_centre_members,Sidi Bouzid,6.239764247100652,Centre-Ouest,False,18
+youth_centre_members,Jendouba,5.807156423881981,Nord-Ouest,False,19
+youth_centre_members,Kairouan,4.639157224086735,Centre-Ouest,False,20
+youth_centre_members,Manouba,4.440170138235087,District-Tunis,True,21
+youth_centre_members,Ben Arous,3.457190192529791,District-Tunis,True,22
+youth_centre_members,Tunis,3.1594407276332706,District-Tunis,True,23
+youth_centre_members,Ariana,1.0532021969929692,District-Tunis,True,24
+youth_centres,Tozeur,0.08829352841463134,Sud-Ouest,False,1
+youth_centres,Kébili,0.06727153794546385,Sud-Ouest,False,2
+youth_centres,Zaghouan,0.063907274859411,Nord-Est,False,3
+youth_centres,Médenine,0.04762281977029732,Sud-Est,True,4
+youth_centres,Monastir,0.04559059058296862,Centre-Est,True,5
+youth_centres,Gabès,0.04484953828166692,Sud-Est,True,6
+youth_centres,Tataouine,0.044687420810526825,Sud-Est,False,7
+youth_centres,Mahdia,0.04142031861434143,Centre-Est,True,8
+youth_centres,Siliana,0.03874657414682871,Nord-Ouest,False,9
+youth_centres,Le Kef,0.035236072462732825,Nord-Ouest,False,10
+youth_centres,Sidi Bouzid,0.02997402064060991,Centre-Ouest,False,11
+youth_centres,Sousse,0.029698124973498052,Centre-Est,True,12
+youth_centres,Béja,0.029566419149859007,Nord-Ouest,False,13
+youth_centres,Nabeul,0.02710371782140319,Nord-Est,True,14
+youth_centres,Gafsa,0.025552684148258443,Sud-Ouest,False,15
+youth_centres,Manouba,0.025069330082129006,District-Tunis,True,16
+youth_centres,Sfax,0.025037585656857247,Centre-Est,True,17
+youth_centres,Ben Arous,0.024959859257425915,District-Tunis,True,18
+youth_centres,Bizerte,0.02350278189389505,Nord-Est,True,19
+youth_centres,Kasserine,0.023475156574327194,Centre-Ouest,False,20
+youth_centres,Jendouba,0.022137587988647345,Nord-Ouest,False,21
+youth_centres,Kairouan,0.017964705890156685,Centre-Ouest,False,22
+youth_centres,Tunis,0.013210911670796428,District-Tunis,True,23
+youth_centres,Ariana,0.009837949362549838,District-Tunis,True,24

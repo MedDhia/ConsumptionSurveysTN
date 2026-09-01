@@ -81,9 +81,9 @@ reach before 2011 — the 2005, 2010 and 2012 editions carry no unemployment tab
 ### Reading the whole corpus
 
 Beyond those hand-verified series, `build_yearbook.py` extracts the corpus's tabular
-content — 181,291 values from 552 tables across all 22 editions — into
-`tn_yearbook_series`. 83,322 of those values are confirmed by two or more editions
-printing the same figure, and 4,918 of the series it yields run ten years or longer, 1,564
+content — 183,063 values from 550 tables across all 22 editions — into
+`tn_yearbook_series`. 83,546 of those values are confirmed by two or more editions
+printing the same figure, and 5,560 of the series it yields run ten years or longer, 1,662
 of them twenty or longer. The longest run 29 years, 1995–2023.
 
 Column headers come in four arrangements, and each needs its own reading:
@@ -173,15 +173,83 @@ Built into `data/processed/` as CSV and Parquet, each with a codebook in
 | `tn_cpi_chained` | 156 | The same, spliced onto a single base 2015 = 100, with the chain factor's disagreement. |
 | `tn_unemployment_annual` | 104 | Unemployment by education level and by sex, 2011–2023. |
 | `tn_yearbook_tables` | 8,391 | Every numbered table heading in all 22 yearbooks, with edition and page. |
-| `tn_yearbook_series` | 181,291 | Values from the yearbooks' tables, reconciled across editions. |
+| `tn_yearbook_series` | 183,063 | Values from the yearbooks' tables, reconciled across editions. |
 | `tn_yearbook_coverage` | 1,254 | What was extracted, what was refused, and why. |
 | `tn_yearbook_subtotals` | 12,246 | Every printed regional subtotal against the governorates it is made of. |
 | `tn_governorate_panel` | 34,012 | Thirty-three indicators for all 24 governorates, 1994–2023, with a population denominator. |
 | `tn_governorate_refused` | 463 | Cells whose parts contradict a total printed beside them, or predate their governorate. |
+| `tn_governorate_comparable` | 54,494 | Every indicator per head and as a share of the national total, on two geographies. |
+| `tn_governorate_dispersion` | 2,342 | How unequally each indicator is spread across governorates, by year. |
+| `tn_governorate_baseline` | 648 | Each governorate's pre-revolution level, rank, region and coastal status. |
+| `tn_governorate_inequality` | 3,889 | Gini, Theil, Atkinson, CV and percentile ratios across governorates, by year. |
+| `tn_monthly_series` | 1,565 | Five national series at monthly frequency, 1995–2023, with a running variable on Jan 2011. |
+| `tn_monthly_reconciliation` | 535 | Every arithmetic check on the monthly series, with both figures and the verdict. |
+| `tn_rdit_estimates` | 155 | RDiT estimates of the January 2011 break, with bias-aware intervals and permutation tests. |
 | `tn_expenditure_by_product_region` | 12,832 | Expenditure per person by product and region, four survey waves. |
 | `tn_spatial_gini_by_product` | 1,604 | Gini across regions of spending on each good, by wave. |
 | `tn_regional_products_refused` | 2 | Product rows whose printed national value contradicts their own regions. |
 | `tn_poverty_inequality_2000_2010` | 66 | Consumption, poverty lines and Gini by region 2000–2010, on the revised basis. |
+
+### Measuring regional inequality
+
+`tn_governorate_panel` carries counts. A count cannot be compared across governorates, and
+a *dispersion* of counts is worse — it moves when the population distribution moves.
+`tn_governorate_comparable` and `tn_governorate_dispersion` do that normalisation once.
+
+**Two bases, because they trade off against each other.** `per_head` divides by population
+and is what anyone means by provision, but it exists only from 2005, leaving six
+pre-revolution years. `share_of_national` is the governorate's share of the national total,
+needs no denominator, and runs the full span. A governorate's share reflects its size, so it
+is not a welfare quantity — but a *change* in share is redistribution, which is the
+question. Where the two bases agree, a finding does not rest on the denominator; where they
+disagree, that is itself the finding.
+
+**Two geographies, because the map changed.** `as_printed` is the 24 governorates. `constant`
+adds Manouba back into Ariana, summing the count *and* the population so the pair is one
+fixed area whatever the boundary did inside it. This is what buys the pre-period: on the
+as-printed geography a complete year needs all 24 units, so it cannot reach before 2000,
+while `share_of_national` on the constant geography gives **seventeen pre-2011 years**
+against six on `per_head`. That is the difference between asserting parallel trends and
+testing them.
+
+**One measure is only produced for a complete year.** A dispersion computed over whichever
+governorates happened to be printed moves when *coverage* moves — Kasserine dropping out of
+an edition would read as inequality falling, an artefact indistinguishable from a finding
+once it is in a chart. Incomplete years keep their row and lose only their dispersion
+columns, so `complete` and `governorates` show exactly what is being excluded.
+
+**A constraint worth knowing before designing around it.** The population-weighted measures
+are the defensible ones — unweighted dispersion treats Tozeur and Tunis as one observation
+each, answering a question about administrative units rather than about people. But
+weighting needs a population, so the weighted measures inherit the 2005 limit *even on the
+basis that reaches 1994*. Testing pre-trends over a long window therefore means accepting
+the unit-level question. Both are carried, and a test pins the constraint so it cannot be
+forgotten.
+
+`money_orders_from_abroad` is deflated to constant 2015 dinars here — it is the one series
+in the panel denominated in money, and comparing 2003 with 2023 nominally measures the
+currency rather than the remittances.
+
+### What this data can and cannot support causally
+
+Worth stating plainly, because the datasets above invite a question they cannot answer. The
+2011 revolution is **simultaneous and national**: there is no untreated governorate and no
+comparison country in this corpus. So the average effect of the revolution is not
+identified, and no amount of extraction changes that. An interrupted time series on a
+national series is an extrapolated trend with one unit, confounded by the global commodity
+shock and by the Libyan civil war, which hits Médenine and Tataouine specifically.
+
+What *is* identified is a **differential**: how governorates that differed beforehand
+diverged afterwards. `tn_governorate_baseline` carries the pre-determined characteristics
+for that — region, pre-revolution level and rank, coastal status — all measured over
+2005–2010, so none is contaminated by post-treatment years. The estimand is a difference
+between governorates, not the effect of the revolution, and it should be reported as one.
+
+Two limits in the same spirit. `tn_unemployment_annual` begins in 2011, so it supports no
+before-and-after at all. And regional inequality in the *welfare* sense — income,
+consumption, poverty — is not in this annual panel: it lives in `tn_consumption_panel` at
+seven regions and survey waves (two before the revolution, two after), which is a much
+thinner structure than 24 governorates by 30 years.
 
 ### Two things to settle before comparing across years or governorates
 
@@ -242,7 +310,7 @@ governorate panel built from the same corpus passes its own national-total check
 ### The governorate panel
 
 `tn_yearbook_series` holds the governorate data but is not usable as a panel: reaching it
-means filtering 174,473 rows on a French title you would have to know, then working out
+means filtering 183,063 rows on a French title you would have to know, then working out
 whether a given table's columns are years, school years, age bands or something else.
 `tn_governorate_panel` settles that once — one row per governorate, year and indicator,
 under English names, thirty-three indicators, ten of them running the full 1995–2023.
@@ -407,18 +475,23 @@ which is exactly the kind of error that survives casual checking.
 
 ## Figures
 
-[`figures/`](figures) holds thirty charts on inequality, with a light and a dark
+[`figures/`](figures) holds thirty-eight charts on inequality, with a light and a dark
 version of each. Six trace its evolution from 1985 to 2021; six look inside the groups the
 first six average over; four compare the two waves before January 2011 with the two after;
 three come from the statistical yearbooks and cover prices and unemployment annually; and
 seven use the health, education and labour modules and the product-level file; eight ask
 whether the revolution's effect can be identified at all, four from the yearbooks'
-governorate panel and four by regression discontinuity in time; and three measure how
-unevenly each consumption good is spread across the regions. **Only those last three use a
-composite index of inequality** — elsewhere there is no Gini, no Theil, no Atkinson, and
-every figure shows an observed quantity or the relation between two observed quantities,
-so any number in them can be recovered from the datasets by hand. `make figures` redraws
-them.
+governorate panel and four by regression discontinuity in time; three measure how
+unevenly each consumption good is spread across the regions; and one draws Lorenz curves
+of nineteen services across the 24 governorates; and five track the conventional
+inequality indices across governorates year by year. **Composite indices appear only in
+those last five and in the three regional-spread charts** — across figures 1–34 there is no
+Gini, no Theil and no Atkinson, and every one shows an observed quantity or the relation
+between two observed quantities, so any number in them can be recovered from the datasets
+by hand. Figures 39–43 lift that constraint on purpose: asking how inequality *evolved*
+needs one comparable number per year, and they report the whole index family rather than a
+single one, because which index you pick is a choice about which part of the distribution
+matters. `make figures` redraws them all.
 
 Two caveats the figures carry in their own text rather than in a footnote. Figures 13–16
 are descriptive before-and-after comparisons, not causal estimates: the 2010–2021 window
@@ -451,12 +524,14 @@ had no effect.
 Two workflows, split on whether they need the survey data:
 
 **`checks`** runs on every pull request, and on pushes to `main`. (Not on pushes to a
-branch with an open PR — that would run it twice for every commit.) Ruff, plus the 20
-structural tests that
-need no data and no network — that every decode rule names a real value set, that no
-value set is orphaned, that every source URL is HTTPS on ins.tn, that the committed
-manifest covers every registered source, that no dataset is missing a codebook title. It
-finishes in well under a minute, and a red result always means something about the diff.
+branch with an open PR — that would run it twice for every commit.) Ruff, plus the 92 of
+245 tests not marked `needs_raw`: the structural ones — that every decode rule names a
+real value set, that no value set is orphaned, that every source URL is HTTPS on ins.tn,
+that the committed manifest covers every registered source, that no dataset is missing a
+codebook title — together with the checks that read the committed `data/processed`, such
+as the governorate panel's national totals and the figures' data accessors. What none of
+them touch is `data/raw` or the network, which is what keeps a red result here a statement
+about the diff rather than about ins.tn's uptime. It finishes in well under a minute.
 
 **`pipeline`** does the real work: installs bsdtar and pdftotext, fetches the 290 MB from
 ins.tn, builds every dataset, and runs the full suite including the reproduction of INS's
