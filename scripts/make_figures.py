@@ -2552,6 +2552,181 @@ def fig_index_disagreement(t: dict):
     )
     return fig
 
+
+# --------------------------------------------------------------------------------------
+# Figure 44: the regression discontinuity on regional inequality itself.
+#
+# The figure the whole governorate strand was built for, and it reports a null. What makes
+# the null worth drawing rather than stating is the middle panel: a permutation test on
+# these series rejects at *any* cutoff you choose, because it compares a mean before with a
+# mean after and most of these series trend. Reading the 2011 rejection as evidence about
+# the revolution would have been wrong, and only the placebo shows it.
+
+PLACEBO_CUTOFFS = range(2001, 2019)
+PLACEBO_WINDOW = 6
+RD_BANDWIDTH = 8
+_GINI_CACHE: dict = {}
+
+
+def _gini_series() -> dict:
+    """Each long indicator's between-governorate Gini, on the one basis that reaches 1994.
+
+    Unweighted, share of national total, constant geography: the population-weighted
+    family needs a denominator the corpus does not print before 2005, so it cannot reach a
+    pre-period worth testing against.
+    """
+    if _GINI_CACHE:
+        return _GINI_CACHE
+    frame = pd.read_csv(PROCESSED / "tn_governorate_inequality.csv")
+    long = frame[frame.basis.eq("share_of_national") & frame.geography.eq("constant")
+                 & frame.weighting.eq("unweighted")]
+    for name, block in long.groupby("indicator"):
+        block = block.dropna(subset=["gini"]).sort_values("year")
+        if len(block) >= 20:
+            _GINI_CACHE[name] = (block.year.to_numpy(float), block.gini.to_numpy(float))
+    return _GINI_CACHE
+
+
+def _placebo_rejections() -> pd.DataFrame:
+    """Share of indicators the permutation test rejects at each candidate cutoff."""
+    rows = []
+    for cutoff in PLACEBO_CUTOFFS:
+        tested = rejected = 0
+        for year, gini in _gini_series().values():
+            running = year - cutoff
+            inside = np.abs(running) <= PLACEBO_WINDOW
+            if (running[inside] < 0).sum() < 4 or (running[inside] >= 0).sum() < 4:
+                continue
+            p, _, _ = rdit.randomisation_pvalue(running, gini, PLACEBO_WINDOW)
+            tested += 1
+            rejected += p < 0.05
+        if tested:
+            rows.append({"cutoff": cutoff, "tested": tested, "rejected": rejected,
+                         "share": rejected / tested})
+    return pd.DataFrame(rows)
+
+
+def fig_gini_rdd_governorates(t: dict):
+    """The RD plot proper: outcome against the running variable, a fit either side."""
+    series = _gini_series()
+    years = sorted({int(y) for yr, _ in series.values() for y in yr})
+    stacked = pd.DataFrame(
+        {name: pd.Series(g, index=yr.astype(int)) for name, (yr, g) in series.items()}
+    ).reindex(years)
+    # The outcome is the average Gini across services: one number per year, which is what
+    # "inequality between governorates" means when it is not qualified by a service.
+    mean = stacked.mean(axis=1).dropna()
+    running = mean.index.to_numpy(float) - rdit.CUTOFF
+    gini = mean.to_numpy(float)
+
+    fig = plt.figure(figsize=(12.8, 6.2))
+    grid = fig.add_gridspec(2, 2, width_ratios=[1.5, 1], height_ratios=[1, 1],
+                            hspace=0.62, wspace=0.26)
+    fig.subplots_adjust(top=0.755, bottom=0.165, left=0.058, right=0.986)
+    ax = fig.add_subplot(grid[:, 0])
+
+    # The RD plot. Everything outside the bandwidth is still shown, faint, so a reader can
+    # see what the window excluded rather than only what it kept.
+    outside = np.abs(running) > RD_BANDWIDTH
+    ax.scatter(running[outside], gini[outside], s=26, color=t["muted"], alpha=0.40,
+               linewidths=0, zorder=2)
+    ax.scatter(running[~outside], gini[~outside], s=44, color=t["ink2"], alpha=0.85,
+               linewidths=0, zorder=3)
+
+    edges = {}
+    for treated, colour in ((False, t["s2"]), (True, t["s1"])):
+        curve_x, curve_y, edge = _side_fit(running, gini, RD_BANDWIDTH, treated)
+        ax.plot(curve_x, curve_y, color=colour, lw=2.6, zorder=5)
+        edges[treated] = edge
+    ax.axvline(0, color=t["axis"], lw=1.3, ls=(0, (4, 3)), zorder=1)
+
+    # The gap at the cutoff is the estimate; draw it rather than only report it.
+    lo, hi = sorted(edges.values())
+    ax.plot([0, 0], [lo, hi], color=t["ink"], lw=3.0, solid_capstyle="butt", zorder=6)
+    fit = rdit.fit(running, gini, RD_BANDWIDTH)
+    smoothness = rdit.smoothness_bound(running, gini)
+    band_lo, band_hi, bias = rdit.honest_interval(fit, smoothness)
+    ax.annotate(
+        f"jump = {fit.tau:+.4f}\nhonest 95% [{band_lo:+.3f}, {band_hi:+.3f}]",
+        (0, (lo + hi) / 2), textcoords="offset points", xytext=(16, -6),
+        fontsize=9.5, color=t["ink"], fontweight="bold",
+        arrowprops=dict(arrowstyle="-", color=t["ink"], lw=0.9))
+    ax.text(-RD_BANDWIDTH + 0.4, ax.get_ylim()[1], "before", fontsize=9, color=t["s2"],
+            va="top")
+    ax.text(RD_BANDWIDTH - 0.4, ax.get_ylim()[1], "after", fontsize=9, color=t["s1"],
+            va="top", ha="right")
+    ax.set_xlabel("years from January 2011")
+    ax.set_ylabel("mean Gini across the 24 governorates")
+    ax.set_title(f"{len(series)} services averaged, local linear, bandwidth "
+                 f"{RD_BANDWIDTH} years", color=t["ink2"], loc="left", fontsize=10)
+
+    # Sensitivity: the estimate against the bandwidth, with the bias-aware interval.
+    ax = fig.add_subplot(grid[0, 1])
+    widths, taus, los, his = [], [], [], []
+    for bandwidth in range(4, 15):
+        try:
+            f = rdit.fit(running, gini, bandwidth)
+        except ValueError:
+            continue
+        a, b, _ = rdit.honest_interval(f, rdit.smoothness_bound(running, gini))
+        widths.append(bandwidth)
+        taus.append(f.tau)
+        los.append(a)
+        his.append(b)
+    ax.fill_between(widths, los, his, color=t["s1"], alpha=0.16, zorder=2)
+    ax.plot(widths, taus, color=t["s1"], lw=2.2, marker="o", ms=4, zorder=4)
+    ax.axhline(0, color=t["ink2"], lw=1.2, zorder=3)
+    ax.set_xlabel("bandwidth (years)")
+    ax.set_ylabel("jump at 2011")
+    ax.set_title("every bandwidth covers zero", color=t["ink2"], loc="left", fontsize=10)
+
+    # Falsification: the same estimate at every other cutoff, the standard placebo plot.
+    ax = fig.add_subplot(grid[1, 1])
+    placebo = []
+    for cutoff in PLACEBO_CUTOFFS:
+        r = mean.index.to_numpy(float) - cutoff
+        if (np.abs(r) <= RD_BANDWIDTH).sum() < 8:
+            continue
+        if (r[np.abs(r) <= RD_BANDWIDTH] < 0).sum() < 3:
+            continue
+        if (r[np.abs(r) <= RD_BANDWIDTH] >= 0).sum() < 3:
+            continue
+        try:
+            placebo.append((cutoff, rdit.fit(r, gini, RD_BANDWIDTH).tau))
+        except ValueError:
+            continue
+    fake = [tau for cutoff, tau in placebo if cutoff != int(rdit.CUTOFF)]
+    ax.scatter([c for c, _ in placebo], [v for _, v in placebo], s=34,
+               color=t["muted"], linewidths=0, zorder=3)
+    true = [v for c, v in placebo if c == int(rdit.CUTOFF)]
+    ax.scatter([int(rdit.CUTOFF)], true, s=76, color=t["s2"], zorder=5,
+               edgecolor=t["surface"], linewidth=1.3)
+    ax.axhline(0, color=t["ink2"], lw=1.2, zorder=2)
+    bigger = sum(1 for v in fake if abs(v) >= abs(true[0])) if true else 0
+    ax.annotate(f"{bigger} of {len(fake)} placebos\nare larger", (int(rdit.CUTOFF), true[0]),
+                textcoords="offset points", xytext=(10, 12), fontsize=8.8,
+                color=t["s2"], fontweight="bold")
+    ax.set_xlabel("cutoff year tested")
+    ax.set_ylabel("estimated jump")
+    ax.set_title("the same estimate at every other year", color=t["ink2"], loc="left",
+                 fontsize=10)
+
+    finish(
+        fig, t,
+        "No discontinuity in regional inequality at the revolution",
+        f"The gap at the cutoff is {fit.tau:+.4f} Gini points, against a bias-aware interval "
+        f"of [{band_lo:+.3f}, {band_hi:+.3f}]. {bigger} of {len(fake)} placebo cutoffs give a "
+        "larger jump.",
+        "tn_governorate_inequality: unweighted Gini across the governorates, share of "
+        "national total, constant geography, averaged over the services complete in each "
+        "year. Local linear with a triangular kernel either side of the cutoff; the interval "
+        "is Armstrong-Kolesar bias-aware, and the worst-case bias here is "
+        f"{bias:.4f} against an estimate of {abs(fit.tau):.4f}, so this rules out a large "
+        "jump rather than establishing a zero one. Faint points lie outside the bandwidth.",
+    )
+    return fig
+
+
 BUILDERS = [
     ("01-expenditure-by-quintile", fig_quintiles, True),
     ("02-regional-gap", fig_regional_gap, True),
@@ -2596,6 +2771,7 @@ BUILDERS = [
     ("41-covid-contamination", fig_covid_contamination, False),
     ("42-weighted-or-not", fig_weighted_or_not, False),
     ("43-index-disagreement", fig_index_disagreement, False),
+    ("44-gini-rdd-governorates", fig_gini_rdd_governorates, False),
 ]
 
 

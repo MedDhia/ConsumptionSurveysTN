@@ -1,6 +1,6 @@
 # RDiT estimates of the January 2011 break, with bias-aware intervals
 
-`data/processed/tn_rdit_estimates.csv` — 155 rows × 19 columns
+`data/processed/tn_rdit_estimates.csv` — 355 rows × 19 columns
 
 Regression-discontinuity-in-time estimates of the January 2011 break, for every outcome this corpus supports — monthly and annual, across a range of bandwidths.
 
