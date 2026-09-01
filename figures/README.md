@@ -1,15 +1,15 @@
 # The evolution of inequality in Tunisia, 1985–2021
 
-Forty-three figures built from `data/processed`. Regenerate with `make figures`.
+Forty-four figures built from `data/processed`. Regenerate with `make figures`.
 
-**Composite indices now appear deliberately, in figures 39–43.** For most of this
+**Composite indices now appear deliberately, in figures 39–44.** For most of this
 directory they still do not: figures 1–34 show either an observed quantity — a group's mean
 expenditure, a poverty rate, a budget share — or the relation between two observed
 quantities, and any number in them can be recovered from the datasets with arithmetic you
 can do in your head. That was a constraint worth keeping for as long as the question was
 *what* the distribution looks like.
 
-It was lifted for figures 39–43, where the question is how regional inequality **evolved**,
+It was lifted for figures 39–44, where the question is how regional inequality **evolved**,
 and a longitudinal answer needs one comparable number per year. Those five report the
 standard family — Gini, Theil-T, Theil-L, Atkinson, the coefficient of variation and
 percentile ratios — rather than a single index, because which index you pick is a choice
@@ -957,6 +957,34 @@ a service above the dashed line moved more at the bottom of its distribution tha
 top. Most sit close to the line — the two Theils usually agree — and the ones that do not
 are where a distributional story exists to be told.
 
+### 44. The revolution left no discontinuity in regional inequality
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="44-gini-rdd-governorates-dark.png">
+  <img alt="Left, between-governorate Gini for nineteen services and their average; middle, the share of services rejecting a permutation test at each candidate cutoff year; right, the local-linear jump at 2011 with bias-aware intervals" src="44-gini-rdd-governorates-light.png">
+</picture>
+
+The regression discontinuity the governorate strand was built for, and it returns a null.
+What makes the null worth drawing rather than stating is the middle panel.
+
+Run at January 2011, a local randomisation test rejects for **nine of the seventeen
+services** it can score. Taken alone that reads as a finding. Run the identical test at
+every other year from 2001 to 2018 and it rejects for **between 39% and 65% of services at
+every one of them** — 2011 ranks sixth of eighteen. The test compares a mean before with a
+mean after, and most of these series trend, so it rejects whatever year is pointed at. The
+2011 rejection is trend, not a break, and nothing but the placebo shows that.
+
+The right panel is the estimator that removes the trend: local linear with the
+Armstrong–Kolesár bias-aware interval. **Zero lies inside every interval.** The worst-case
+bias also exceeds the point estimate for every service, so the honest reading is *not
+identified* rather than *precisely zero* — with seventeen pre-cutoff years there is no
+bandwidth small enough to be local and large enough to fit.
+
+Two limits worth carrying. This is the unweighted Gini, because population weighting needs
+a governorate denominator the corpus does not print before 2005, so it measures inequality
+across administrative units rather than across Tunisians. And a design with nineteen
+services and eight years either side can rule out a large jump, not a small one.
+
 ## Colour
 
 The palette is the dataviz reference instance: blue `#2a78d6` and orange `#eb6834` on
@@ -978,6 +1006,6 @@ governorate panel, and figures 31–34 from the same corpus's monthly trade tabl
 alongside that panel. Figures 35–37 come from `tn_spatial_gini_by_product`, built by
 reading the product-by-region tables out of all four survey volumes. Figure 38 comes from
 `tn_governorate_comparable`, the per-head normalisation of that same governorate panel, and
-figures 39–43 from `tn_governorate_inequality`, the conventional indices computed on it. Every claim above is reproducible from `scripts/make_figures.py`, and
+figures 39–43 from `tn_governorate_inequality`, the conventional indices computed on it, and figure 44 from those indices together with `tn_rdit_estimates`. Every claim above is reproducible from `scripts/make_figures.py`, and
 the numbers quoted here were recomputed from the data before being written rather than
 read off the charts.
