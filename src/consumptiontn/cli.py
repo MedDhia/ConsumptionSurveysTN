@@ -23,6 +23,7 @@ import sys
 import pandas as pd
 
 from . import (
+    build_decomposition,
     build_dwelling,
     build_expenditure,
     build_governorates,
@@ -342,6 +343,60 @@ INTROS = {
         "left on 14 January 2011, so that month is half of each regime; if the two "
         "estimates disagree, the design is picking up the transition rather than a step."
     ),
+    "tn_gini_decomposition": (
+        "The same inequality measured at two geographies, and split into the part that lies "
+        "between INS's seven grandes régions and the part that lies inside them. One row per "
+        "indicator and year.\n\n"
+        "**Two geographies, because the answer depends on which one you ask about.** The 24 "
+        "governorates nest inside the seven regions, so every indicator has a Gini across "
+        "governorates and a Gini across regions — the second computed on the same quantity "
+        "aggregated, since a region's share of the national total is the sum of its "
+        "governorates' shares. The region figure is always the smaller of the two, because "
+        "aggregating hides the dispersion inside each region. *How much* smaller is the "
+        "finding: where the two are close the inequality is between regions, and where they "
+        "diverge it is inside them.\n\n"
+        "**Pre and post, not before and after an effect.** `period` splits at 2011. A "
+        "difference between two period means is a description of what happened, not an "
+        "estimate of what the revolution did: 2011 is one of several things that happened "
+        "between 1994 and 2023, and `tn_rdit_estimates` records what became of the attempt "
+        "to isolate it.\n\n"
+        "**The decomposition is the structural column.** Theil-T is additively decomposable, "
+        "so `theil_governorate` splits exactly into `theil_between` and `theil_within`. "
+        "`identity_gap` is the residual of that identity and is published rather than "
+        "asserted: it is at machine precision, which is the evidence the arithmetic is right "
+        "rather than merely plausible. `between_share` is the between part as a fraction of "
+        "the total, and it is the number the Tunisian literature's coastal/interior framing "
+        "is really about — a rise means inequality moved *between* regions even where the "
+        "total held still.\n\n"
+        "**Unweighted, with a reason.** Population weights need a governorate population, "
+        "which the corpus does not print before 2005, leaving three pre-revolution years. "
+        "Each governorate counts once here, so this is inequality across administrative "
+        "units rather than across Tunisians. `tn_governorate_inequality` carries the "
+        "population-weighted family from 2005 for the indices where it can be computed.\n\n"
+        "Theil is undefined where any governorate reports none of the thing, so those "
+        "indicator-years carry a Gini and an empty decomposition rather than a floored one."
+    ),
+    "tn_gini_pre_post": (
+        "The period means either side of 2011 for each measure in `tn_gini_decomposition`, "
+        "and — the column that matters — how much of the difference the pre-2011 trend "
+        "already predicted.\n\n"
+        "`change` is the raw difference between the two period means. `predicted` is what a "
+        "line fitted to the pre-revolution years alone, extrapolated across the "
+        "post-revolution years, would have produced on its own. `excess` is what is left.\n\n"
+        "**Read `excess`, not `change`.** The largest structural shift in the corpus is the "
+        "between-region share of secondary schooling, which rises 0.15 across the cutoff — "
+        "and had been rising at 0.15 per decade since 2000, through 2011, without a visible "
+        "break. `change` dates that to the revolution; `excess` says how much of it needs "
+        "the revolution to explain, and for that indicator the answer is close to none.\n\n"
+        "Neither column is a causal estimate. A fitted pre-trend is not a counterfactual, "
+        "and nothing here rules out the trend itself turning for reasons of its own; "
+        "`tn_rdit_estimates` is where the attempt to identify a break is recorded, along "
+        "with what became of it.\n\n"
+        "Indicators with fewer than seven pre-revolution or eight post-revolution years are "
+        "absent, because a period mean over one or two printed years is not a period mean "
+        "and a trend fitted to it is worse. `n_pre`, `n_post`, `first_year` and `last_year` "
+        "state the window each row rests on, since the windows are not the same."
+    ),
     "tn_governorate_inequality": (
         "The conventional inequality indices for the distribution of each indicator across "
         "governorates, one row per indicator, basis, geography, year and weighting — the "
@@ -558,6 +613,10 @@ TITLES = {
         "Pre-revolution starting point and region of each governorate",
     "tn_governorate_inequality":
         "Gini, Theil, Atkinson and percentile ratios across governorates, 1994–2023",
+    "tn_gini_decomposition":
+        "Gini at two geographies and the between/within-region split, 2000–2023",
+    "tn_gini_pre_post":
+        "Pre- and post-2011 means, against what the pre-2011 trend predicted",
     "tn_monthly_series":
         "Five national series at monthly frequency, 1995–2023",
     "tn_monthly_reconciliation":
@@ -635,6 +694,9 @@ def build_all() -> dict[str, pd.DataFrame]:
     datasets["tn_governorate_dispersion"] = dispersion
     datasets["tn_governorate_baseline"] = baseline
     datasets["tn_governorate_inequality"] = build_inequality_indices.build(comparable)
+    decomposition = build_decomposition.build(comparable)
+    datasets["tn_gini_decomposition"] = decomposition
+    datasets["tn_gini_pre_post"] = build_decomposition.summary(decomposition)
     monthly, monthly_checks = build_monthly.build(series)
     datasets["tn_monthly_series"] = monthly
     datasets["tn_monthly_reconciliation"] = monthly_checks

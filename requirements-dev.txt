@@ -2,3 +2,5 @@
 
 ruff>=0.6
 matplotlib>=3.8    # scripts/make_figures.py; undeclared until tests imported it
+rdrobust>=1.3        # Calonico-Cattaneo-Titiunik: MSE-optimal bandwidths and
+                     # bias-corrected robust inference for the RD figures

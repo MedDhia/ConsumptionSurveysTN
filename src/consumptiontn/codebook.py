@@ -108,6 +108,55 @@ DERIVED: dict[str, str] = {
     "values_kept": "Cells that survived reconciliation and appear in the series.",
     "values_in_conflict": "Cells dropped because editions disagreed by more than 10%.",
     "status": "Whether this table was extracted, extracted with conflicts, or not at all.",
+    "period": "`pre` for years before 2011, `post` for 2011 onward. A label, not a design.",
+    # Regional inequality at two geographies, and the Theil decomposition beneath it.
+    "gini_governorate": "Gini across the 24 governorates, each counting once.",
+    "gini_region": (
+        "The same Gini across the 7 grandes régions, computed on the same quantity "
+        "aggregated: a region's share of the national total is the sum of its "
+        "governorates' shares. Nearly always the smaller of the two, because seven units "
+        "cannot show the dispersion inside them."
+    ),
+    "theil_governorate": (
+        "Theil-T across the 24 governorates: the quantity that is decomposed. Empty "
+        "where any governorate reports none of the thing, because a logarithm has "
+        "nothing to say about a zero."
+    ),
+    "theil_region": "Theil-T across the 7 grandes régions.",
+    "theil_between": (
+        "The part of `theil_governorate` that lies between the seven regions: "
+        "Σ (n_g/n)(μ_g/μ) ln(μ_g/μ). This is the coastal/interior component."
+    ),
+    "theil_within": (
+        "The part of `theil_governorate` that lies inside regions: Σ (n_g/n)(μ_g/μ) T_g."
+    ),
+    "identity_gap": (
+        "abs(between + within − total). Published rather than asserted: it is at machine "
+        "precision, and the builder refuses to write the file if it exceeds 1e-9."
+    ),
+    "between_share": (
+        "`theil_between / theil_governorate`. The number a structural change would move: "
+        "means inequality shifted *between* regions even where the total held still."
+    ),
+    "measure": "Which column of `tn_gini_decomposition` this row summarises.",
+    "first_year": "First year of the window this row rests on.",
+    "last_year": "Last year of the window this row rests on. The windows differ by row.",
+    "n_pre": "Years before 2011 behind the `pre` mean.",
+    "n_post": "Years from 2011 onward behind the `post` mean.",
+    "pre": "Mean of `measure` over the pre-2011 years.",
+    "post": "Mean of `measure` over the post-2011 years.",
+    "change": "`post − pre`. A difference between two periods, not an effect.",
+    "pre_trend_per_decade": (
+        "Slope of a line fitted to the pre-2011 years alone, per decade."
+    ),
+    "predicted": (
+        "What that pre-2011 line, extrapolated across the post-2011 years, would give for "
+        "`change` on its own."
+    ),
+    "excess": (
+        "`change − predicted`: the part the pre-2011 trend does not already account for. "
+        "Read this rather than `change`, or a decade of drift gets dated to the revolution."
+    ),
 }
 
 UNITS: dict[str, str] = {

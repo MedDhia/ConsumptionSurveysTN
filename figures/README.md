@@ -1,16 +1,16 @@
 # The evolution of inequality in Tunisia, 1985–2021
 
-Forty-five figures built from `data/processed`. Regenerate with `make figures`.
+Forty-nine figures built from `data/processed`. Regenerate with `make figures`.
 
-**Composite indices now appear deliberately, in figures 39–45.** For most of this
+**Composite indices now appear deliberately, in figures 39–49.** For most of this
 directory they still do not: figures 1–34 show either an observed quantity — a group's mean
 expenditure, a poverty rate, a budget share — or the relation between two observed
 quantities, and any number in them can be recovered from the datasets with arithmetic you
 can do in your head. That was a constraint worth keeping for as long as the question was
 *what* the distribution looks like.
 
-It was lifted for figures 39–45, where the question is how regional inequality **evolved**,
-and a longitudinal answer needs one comparable number per year. Those five report the
+It was lifted for figures 39–49, where the question is how regional inequality **evolved**,
+and a longitudinal answer needs one comparable number per year. They report the
 standard family — Gini, Theil-T, Theil-L, Atkinson, the coefficient of variation and
 percentile ratios — rather than a single index, because which index you pick is a choice
 about which part of the distribution matters, and reporting one hides that choice. Figure
@@ -1007,6 +1007,114 @@ finding; it rejects for between 39% and 65% of them at *every* cutoff in this ra
 it compares a mean before with a mean after and most of these series trend. Nothing but the
 placebo distinguishes those two cases.
 
+### 46. For goods, the wave spanning the revolution is not the one that moved
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="46-goods-wave-changes-dark.png">
+  <img alt="Sixteen goods, each with three markers giving the change in its spatial Gini between consecutive survey waves, the 2010-2015 interval marked" src="46-goods-wave-changes-light.png">
+</picture>
+
+Figures 44 and 45 look at services, which the yearbooks report annually. Goods come from
+the household budget surveys, which run every five or six years, and four waves is not a
+running variable. **This is not a regression discontinuity and no estimate here is one:**
+two observations either side of January 2011 with a five-year gap give no bandwidth to
+choose and no local fit to make.
+
+What four waves can support is the placebo comparison. Each good has three
+consecutive-wave changes in its spatial Gini and one of them spans the revolution, so the
+question is whether that one stands out. For **2 of the 16** it is the largest of the
+three, which is about what falling by chance would give.
+
+The sixteen are the largest items of the 2010 budget, chosen at the wave before the
+revolution so the selection cannot depend on what followed.
+
+### 47. Aggregating to regions removes a quarter of the inequality, and almost none of the change
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="47-gini-two-geographies-dark.png">
+  <img alt="Two dumbbell panels giving each service's pre- and post-2011 mean Gini, first across 24 governorates and then across 7 regions, beside a strip showing which years each mean averages" src="47-gini-two-geographies-light.png">
+</picture>
+
+The discontinuity attempt is finished. What the annual data can carry is a description, and
+this is the plainest form of it: two period means, at two geographies.
+
+The 24 governorates nest inside INS's seven grandes régions, and a region's share of the
+national total is the sum of its governorates' shares, so the two panels measure the same
+quantity at two levels of aggregation. **The region figure runs at a median 77% of the
+governorate figure** — the missing quarter is the dispersion inside each region, which
+seven units cannot show. It is the smaller for all but 4 of 533 indicator-years rather than
+always: the regions hold three or four governorates rather than the same number, so
+aggregating them is a mean-preserving contraction only approximately.
+
+The two geographies move the same way for **16 of 18** services, so the choice of unit
+changes the level far more than the direction. The largest rise is cinema screens
+(+0.085), where several governorates print none at all, and the largest among services
+whose Theil can be decomposed is job offers (+0.055).
+
+The third panel is there because a dumbbell hides the window behind it. The pre-period
+mean rests on 7 years for stillbirths and 11 for primary schooling, and services with
+fewer than seven pre-revolution years are absent entirely — a "pre-revolution level"
+computed from 2010 alone is not one.
+
+### 48. Half the governorates share a fifth of the job offers, and less of them after 2011
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="48-lorenz-two-geographies-dark.png">
+  <img alt="Eight Lorenz curve panels: four services across 24 governorates on the top row and across 7 regions on the bottom, each with a pre-2011 and a post-2011 curve" src="48-lorenz-two-geographies-light.png">
+</picture>
+
+Figure 47 compressed each distribution to one number. This is the same thing uncompressed:
+twice the area between each curve and the diagonal is the Gini printed in the panel.
+
+Four services, one from each of the groups figure 44 works with — what the revolution was
+about, a wealth proxy, a privilege proxy, and a deprivation outcome — rather than four from
+one family. Units are ordered smallest share first and each counts once, so the diagonal is
+the distribution in which every unit holds an equal share.
+
+The **12 least-served governorates held 20.9%** of job offers across the 10 years before
+2011 and **17.3%** across the 13 after. Stillbirths are read the other way: a curve further
+from the diagonal there means the burden is more concentrated, and it moved from 13.2% to
+16.2%.
+
+The bottom row is the same data aggregated, and every curve in it sits closer to the
+diagonal, because seven units cannot show dispersion that happens inside them.
+
+One thing to read carefully: the Gini in each panel is computed on the period-average
+distribution, while figure 47 plots the mean of the yearly Ginis. They are close and not
+identical — 0.419 against 0.428 for job offers before 2011 — because averaging a
+distribution is not averaging its Ginis.
+
+### 49. The biggest structural shift after 2011 had been under way since 2000
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="49-between-within-regions-dark.png">
+  <img alt="Left, secondary schooling's Theil split into stacked between-region and within-region bands; centre, its between-region share with the pre-2011 trend extrapolated across the cutoff; right, every service's raw pre/post change against what the pre-trend predicted" src="49-between-within-regions-light.png">
+</picture>
+
+Theil-T is additively decomposable, so total inequality across the 24 governorates splits
+exactly into a between-region part and a within-region one. The left panel is that identity
+drawn: the two bands sum to the line above them, and the residual is zero to the six
+decimals published across every one of the 486 indicator-years that decompose.
+`tn_gini_decomposition` carries it as a column
+and refuses to build if it ever exceeds 1e-9, so the arithmetic is checked rather than
+asserted.
+
+The decomposition is what the Tunisian literature's coastal/interior framing is really
+about, and the between-region share is where a structural change would show. For secondary
+schooling it **rises 0.152 across 2011** — the largest structural shift in the corpus.
+
+The centre panel is why that is not a finding about the revolution. The same share had been
+rising **0.150 per decade since 2000**, straight through the cutoff, with no visible break;
+the pre-2011 trend alone predicts 0.180 of the shift and −0.028 is left over. The right
+panel generalises it: for **8 of the 16** services, and **7 of the 10** outside the library
+family, the pre-2011 trend alone predicts at least as much movement as actually occurred.
+
+A fitted pre-trend is not a counterfactual, and nothing here rules out the trend turning
+for reasons of its own. But a difference a decade of drift already accounts for is not
+evidence of a break at 2011, and `change` read without `predicted` — both are columns of
+`tn_gini_pre_post` — dates to the revolution things that were already happening.
+
+
 ## Colour
 
 The palette is the dataviz reference instance: blue `#2a78d6` and orange `#eb6834` on
@@ -1028,6 +1136,11 @@ governorate panel, and figures 31–34 from the same corpus's monthly trade tabl
 alongside that panel. Figures 35–37 come from `tn_spatial_gini_by_product`, built by
 reading the product-by-region tables out of all four survey volumes. Figure 38 comes from
 `tn_governorate_comparable`, the per-head normalisation of that same governorate panel, and
-figures 39–43 from `tn_governorate_inequality`, the conventional indices computed on it, and figures 44 and 45 from those indices, re-estimated at every cutoff. Every claim above is reproducible from `scripts/make_figures.py`, and
+figures 39–43 from `tn_governorate_inequality`, the conventional indices computed on it,
+and figures 44 and 45 from those indices, re-estimated at every cutoff. Figure 46 returns
+to `tn_spatial_gini_by_product` for the goods side of the same question. Figures 47–49 come
+from `tn_gini_decomposition` and `tn_gini_pre_post`, which measure the same governorate
+panel at both geographies and split its Theil between and within regions. Every claim above
+is reproducible from `scripts/make_figures.py`, and
 the numbers quoted here were recomputed from the data before being written rather than
 read off the charts.
