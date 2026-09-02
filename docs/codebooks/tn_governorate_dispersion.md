@@ -20,7 +20,7 @@ Four measures, because no single one is neutral. `theil_weighted` and `cv_weight
 | `year` | int64 | — | derived | Calendar year the observation refers to. |
 | `governorates` | int64 | — | derived | — |
 | `complete` | bool | — | derived | — |
-| `period` | str | — | derived | — |
+| `period` | str | — | derived | `pre` for years before 2011, `post` for 2011 onward. A label, not a design. |
 | `mean` | float64 | — | derived | — |
 | `theil_weighted` | float64 | — | derived | — |
 | `cv_weighted` | float64 | — | derived | — |

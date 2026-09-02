@@ -97,3 +97,55 @@ def test_the_least_served_half_is_read_off_the_curve(figures):
     # Equal provision would put exactly half with half; concentration puts it below.
     flat_x = flat_y = [0.0, 0.5, 1.0]
     assert figures.least_served_half(flat_x, flat_y) == pytest.approx(0.5)
+
+
+def test_the_unit_lorenz_curve_is_well_formed(figures):
+    """Figures 47-49 read one basis, so 48's curve must give back 47's Gini exactly.
+
+    That is the claim the figure makes in its own source note, and it holds only because
+    the curve counts each unit once rather than weighting by population -- twice the area
+    between an unweighted Lorenz curve and the diagonal is the unweighted Gini. If the two
+    ever drift apart, the note is wrong before the figure is.
+    """
+    import numpy as np
+
+    values = np.array([1.0, 2.0, 3.0, 10.0, 20.0, 30.0])
+    x, y = figures._unit_lorenz(values)
+    assert x[0] == y[0] == 0.0
+    assert x[-1] == pytest.approx(1.0)
+    assert y[-1] == pytest.approx(1.0)
+    assert (np.diff(y) >= -1e-12).all(), "cumulative shares cannot fall"
+    assert (y <= x + 1e-12).all(), "ordered smallest first, so never above the diagonal"
+
+    area = np.trapezoid(y, x) if hasattr(np, "trapezoid") else np.trapz(y, x)
+    assert 1 - 2 * area == pytest.approx(figures._gini_of(values), abs=1e-12)
+
+
+def test_a_flat_distribution_lies_on_the_diagonal(figures):
+    import numpy as np
+
+    x, y = figures._unit_lorenz(np.array([5.0] * 7))
+    assert np.allclose(x, y)
+
+
+def test_the_period_levels_cover_both_sides_of_the_revolution(figures):
+    """The accessor behind figure 48. Every service it draws needs both periods complete."""
+    for indicator, _ in figures.LORENZ_INDICATORS:
+        levels = figures._period_levels(indicator)
+        assert set(levels) == {"pre", "post"}
+        for period in ("pre", "post"):
+            governorates, regions, years = levels[period]
+            assert len(governorates) == 24, f"{indicator} {period}"
+            assert len(regions) == 7, f"{indicator} {period}"
+            assert years >= 6, f"{indicator} {period}: {years} years is not a period"
+            # The region series is the same quantity aggregated, so the totals agree.
+            assert governorates.sum() == pytest.approx(regions.sum())
+
+
+def test_the_pre_post_table_reaches_the_figures(figures):
+    """Each measure figures 47 and 49 plot must survive the window filter."""
+    for measure in ("gini_governorate", "gini_region", "between_share"):
+        table = figures._pre_post(measure)
+        assert len(table) >= 15, measure
+        assert table.index.is_unique
+        assert not table[["pre", "post", "change", "predicted", "excess"]].isna().any().any()

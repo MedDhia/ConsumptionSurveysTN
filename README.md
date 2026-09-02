@@ -182,6 +182,8 @@ Built into `data/processed/` as CSV and Parquet, each with a codebook in
 | `tn_governorate_dispersion` | 2,342 | How unequally each indicator is spread across governorates, by year. |
 | `tn_governorate_baseline` | 648 | Each governorate's pre-revolution level, rank, region and coastal status. |
 | `tn_governorate_inequality` | 3,889 | Gini, Theil, Atkinson, CV and percentile ratios across governorates, by year. |
+| `tn_gini_decomposition` | 533 | The same Gini across 24 governorates and across 7 regions, with Theil split between and within regions. |
+| `tn_gini_pre_post` | 117 | Period means either side of 2011, against what the pre-2011 trend already predicted. |
 | `tn_monthly_series` | 1,565 | Five national series at monthly frequency, 1995–2023, with a running variable on Jan 2011. |
 | `tn_monthly_reconciliation` | 544 | Every arithmetic check on the monthly series, with both figures and the verdict. |
 | `tn_monthly_prices` | 2,604 | Consumer and industrial price indices by month, on each base INS printed them on. |
@@ -477,7 +479,7 @@ which is exactly the kind of error that survives casual checking.
 
 ## Figures
 
-[`figures/`](figures) holds thirty-eight charts on inequality, with a light and a dark
+[`figures/`](figures) holds forty-nine charts on inequality, with a light and a dark
 version of each. Six trace its evolution from 1985 to 2021; six look inside the groups the
 first six average over; four compare the two waves before January 2011 with the two after;
 three come from the statistical yearbooks and cover prices and unemployment annually; and
@@ -485,15 +487,17 @@ seven use the health, education and labour modules and the product-level file; e
 whether the revolution's effect can be identified at all, four from the yearbooks'
 governorate panel and four by regression discontinuity in time; three measure how
 unevenly each consumption good is spread across the regions; and one draws Lorenz curves
-of nineteen services across the 24 governorates; and five track the conventional
-inequality indices across governorates year by year. **Composite indices appear only in
-those last five and in the three regional-spread charts** — across figures 1–34 there is no
-Gini, no Theil and no Atkinson, and every one shows an observed quantity or the relation
-between two observed quantities, so any number in them can be recovered from the datasets
-by hand. Figures 39–43 lift that constraint on purpose: asking how inequality *evolved*
-needs one comparable number per year, and they report the whole index family rather than a
-single one, because which index you pick is a choice about which part of the distribution
-matters. `make figures` redraws them all.
+of nineteen services across the 24 governorates; five track the conventional inequality
+indices across governorates year by year; three test the revolution against those indices
+service by service and good by good; and three ask the same question descriptively, at two
+geographies and with the between/within-region split underneath. **Composite indices appear
+only in figures 35–37 and 39–49** — across figures 1–34 there is no Gini, no Theil and no
+Atkinson, and every one shows an observed quantity or the relation between two observed
+quantities, so any number in them can be recovered from the datasets by hand. Figures 39–49
+lift that constraint on purpose: asking how inequality *evolved* needs one comparable
+number per year, and they report the whole index family rather than a single one, because
+which index you pick is a choice about which part of the distribution matters. `make
+figures` redraws them all.
 
 Two caveats the figures carry in their own text rather than in a footnote. Figures 13–16
 are descriptive before-and-after comparisons, not causal estimates: the 2010–2021 window

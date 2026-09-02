@@ -116,3 +116,51 @@ def test_the_long_series_counts_quoted_in_prose_are_current(series):
 
     longest = int(re.search(r"The longest run (\d+) years", text).group(1))
     assert longest == int(spans.max())
+
+
+NUMBER_WORDS = {
+    30: "thirty", 31: "thirty-one", 32: "thirty-two", 33: "thirty-three",
+    34: "thirty-four", 35: "thirty-five", 36: "thirty-six", 37: "thirty-seven",
+    38: "thirty-eight", 39: "thirty-nine", 40: "forty", 41: "forty-one",
+    42: "forty-two", 43: "forty-three", 44: "forty-four", 45: "forty-five",
+    46: "forty-six", 47: "forty-seven", 48: "forty-eight", 49: "forty-nine",
+    50: "fifty", 51: "fifty-one", 52: "fifty-two", 53: "fifty-three",
+    54: "fifty-four", 55: "fifty-five",
+}
+
+
+def _figure_count() -> int:
+    """One figure is a light/dark pair, so the count is half the PNGs."""
+    pngs = sorted((config.PROJECT_ROOT / "figures").glob("*.png"))
+    light = {p.name.removesuffix("-light.png") for p in pngs if p.name.endswith("-light.png")}
+    dark = {p.name.removesuffix("-dark.png") for p in pngs if p.name.endswith("-dark.png")}
+    assert light == dark, f"missing a mode: {light ^ dark}"
+    return len(light)
+
+
+def test_both_readmes_state_the_right_number_of_figures():
+    """This has gone stale twice: the count was thirty-eight while forty-six were drawn.
+
+    Both files spell the number in words, which is why a regex over digits would not have
+    caught it. The words are enumerated rather than generated because there is no stdlib
+    speller and a wrong one here would assert nothing.
+    """
+    count = _figure_count()
+    word = NUMBER_WORDS[count]
+    readme = _readme()
+    assert re.search(rf"holds {word} charts on inequality", readme), (
+        f"README should say '{word}' charts; {count} are drawn")
+
+    gallery = (config.PROJECT_ROOT / "figures" / "README.md").read_text(encoding="utf-8")
+    assert gallery.startswith("# "), "figures/README.md lost its title"
+    assert f"{word.capitalize()} figures built from" in gallery, (
+        f"figures/README.md should say '{word.capitalize()}'; {count} are drawn")
+
+
+def test_every_drawn_figure_has_a_section_in_the_gallery():
+    """A figure nobody wrote a paragraph for is a figure nobody checked."""
+    gallery = (config.PROJECT_ROOT / "figures" / "README.md").read_text(encoding="utf-8")
+    for name in sorted((config.PROJECT_ROOT / "figures").glob("*-light.png")):
+        stem = name.name.removesuffix("-light.png")
+        assert f'src="{stem}-light.png"' in gallery, f"{stem} has no section"
+        assert f'srcset="{stem}-dark.png"' in gallery, f"{stem} has no dark source"

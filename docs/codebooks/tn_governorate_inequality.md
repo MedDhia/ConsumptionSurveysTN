@@ -21,7 +21,7 @@ Only complete years are measured, for the reason `tn_governorate_dispersion` giv
 | `geography` | str | — | derived | — |
 | `year` | int64 | — | derived | Calendar year the observation refers to. |
 | `weighting` | str | — | derived | — |
-| `period` | str | — | derived | — |
+| `period` | str | — | derived | `pre` for years before 2011, `post` for 2011 onward. A label, not a design. |
 | `governorates` | int64 | — | derived | — |
 | `mean` | float64 | — | derived | — |
 | `gini` | float64 | — | derived | — |
