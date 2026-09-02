@@ -2563,13 +2563,95 @@ def fig_index_disagreement(t: dict):
 # the revolution would have been wrong, and only the placebo shows it.
 
 PLACEBO_CUTOFFS = range(2001, 2019)
+
+# The services the forest plots carry, grouped by what each one is evidence about.
+#
+#   *Related to the revolution.* Unemployment was the proximate grievance -- Bouazizi was a
+#   street vendor refused a permit -- so labour demand and matching lead.
+#   *Wealth.* Access to the formal economy, a household paying a monthly bill, remittance
+#   income from a migrant relative.
+#   *Privilege.* Paying for private provision, discretionary consumption, and selective
+#   schooling, which is what secondary enrolment is where primary is near-universal.
+#   *Deprivation.* Stillbirths run the other way.
+#   *State provision.* Primary schooling and libraries measure what the state supplies
+#   rather than who is privileged, so they are kept as a labelled comparison block: if the
+#   revolution shows up everywhere including here, that is a warning about the design, not
+#   a finding about privilege.
+#   *Security* and *household formation* sit apart for the same reason.
+#
+# Data quality is printed for every row rather than used as a silent filter: cross-edition
+# agreement and the share of years in which all 24 governorates are printed.
+RD_SERVICES = {
+    "job_offers": "revolution: labour demand",
+    "job_placements": "revolution: labour matching",
+    "bank_branches": "wealth: formal economy",
+    "fixed_line_subscribers": "wealth: household subscription",
+    "money_orders_from_abroad": "wealth: remittance income",
+    "private_sports_halls": "privilege: private provision",
+    "cinema_screens": "privilege: discretionary consumption",
+    "secondary_pupils": "privilege: selective schooling",
+    "youth_centres": "privilege: youth provision",
+    "youth_centre_members": "privilege: youth take-up",
+    "stillbirths": "deprivation: health outcome",
+    "road_deaths": "security: road deaths",
+    "road_injuries": "security: road injuries",
+    "marriages": "household: formation",
+    "primary_pupils": "state provision: primary pupils",
+    "primary_schools": "state provision: primary schools",
+    "primary_teachers": "state provision: primary teachers",
+    "primary_classrooms": "state provision: primary classrooms",
+    "public_libraries": "state provision: libraries",
+    "library_book_stock": "state provision: library stock",
+    "library_books_lent": "state provision: library lending",
+    "library_capacity": "state provision: library seats",
+    "library_readers": "state provision: library readers",
+    "library_subscribers": "state provision: library members",
+}
+
+# Wanted and not estimable, because the revolution sits too close to the start of the
+# series. Named because the pattern is a finding: private gym membership is the sharpest
+# privilege proxy in the corpus and INS began printing it in 2007.
+RD_REFUSED = {
+    "private_gym_members":
+        "94% confirmed and the sharpest privilege proxy here -- paying for private "
+        "provision -- but printed only from 2007, leaving three pre-revolution years",
+}
+
+# Grid for the cross-validated bandwidth, in years.
+CV_GRID = np.arange(4.0, 18.1, 0.5)
+
+_QUALITY_CACHE: dict = {}
+
+
+def _series_quality() -> dict:
+    """Cross-edition agreement and completeness per service, from the panel itself.
+
+    ``confirmed`` is the share of cells two or more editions print identically; a series
+    resting mostly on one printing has nothing corroborating it. ``complete`` is the share
+    of years in which all 24 governorates appear, which is what a Gini across governorates
+    needs before it means anything.
+    """
+    if _QUALITY_CACHE:
+        return _QUALITY_CACHE
+    panel = pd.read_csv(PROCESSED / "tn_governorate_panel.csv", dtype={"breakdown": "string"})
+    plain = panel[panel.breakdown.fillna("").eq("")]
+    refused = pd.read_csv(PROCESSED / "tn_governorate_refused.csv")
+    for name, block in plain.groupby("indicator"):
+        per_year = block.groupby("year").governorate.nunique()
+        _QUALITY_CACHE[name] = {
+            "confirmed": float(block.agreement.eq("confirmed").mean()),
+            "complete": float(per_year.eq(24).mean()),
+            "refused": int(refused.indicator.eq(name).sum()),
+        }
+    return _QUALITY_CACHE
+
+MIN_EFFECTIVE = 4
 PLACEBO_WINDOW = 6
-RD_BANDWIDTH = 8
 _GINI_CACHE: dict = {}
 
 
 def _gini_series() -> dict:
-    """Each long indicator's between-governorate Gini, on the one basis that reaches 1994.
+    """The between-governorate Gini of each named service, on the basis that reaches 1994.
 
     Unweighted, share of national total, constant geography: the population-weighted
     family needs a denominator the corpus does not print before 2005, so it cannot reach a
@@ -2580,10 +2662,13 @@ def _gini_series() -> dict:
     frame = pd.read_csv(PROCESSED / "tn_governorate_inequality.csv")
     long = frame[frame.basis.eq("share_of_national") & frame.geography.eq("constant")
                  & frame.weighting.eq("unweighted")]
-    for name, block in long.groupby("indicator"):
-        block = block.dropna(subset=["gini"]).sort_values("year")
-        if len(block) >= 20:
+    for name in RD_SERVICES:
+        block = long[long.indicator.eq(name)].dropna(subset=["gini"]).sort_values("year")
+        if len(block) >= 15:
             _GINI_CACHE[name] = (block.year.to_numpy(float), block.gini.to_numpy(float))
+    missing = set(RD_SERVICES) - set(_GINI_CACHE)
+    if missing:
+        raise RuntimeError(f"named RD services absent from the indices: {sorted(missing)}")
     return _GINI_CACHE
 
 
@@ -2606,167 +2691,457 @@ def _placebo_rejections() -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-def _gini_rd_fits(bandwidth: int = RD_BANDWIDTH):
-    """One RD fit per service, with its honest interval. Sorted by the jump."""
+def _journal_axes(ax, t: dict) -> None:
+    """Open axes, no grid: the convention economics journals expect of an RD plot.
+
+    The house style elsewhere in this file uses a faint grid and drops the left spine,
+    which reads well on screen. Figures 44 and 45 are the ones a referee will see, so they
+    follow the print convention instead -- bottom and left rules, nothing behind the data.
+    """
+    ax.grid(False)
+    for side in ("bottom", "left"):
+        ax.spines[side].set_visible(True)
+        ax.spines[side].set_linewidth(0.8)
+        ax.spines[side].set_color(t["ink2"])
+    ax.tick_params(direction="out", length=3, width=0.8, colors=t["ink2"])
+
+
+def _cv_bandwidth(running: np.ndarray, y: np.ndarray) -> float:
+    """Ludwig-Miller cross-validated bandwidth: the one the data picks, not the author.
+
+    CCT's ``rdbwselect`` is the better rule where it runs, and on these series it mostly
+    does not -- it needs derivative and variance estimates that twenty annual points cannot
+    support, and it raises a linear-algebra error for eight of the nine services it was
+    tried on. Leave-one-out cross-validation (Ludwig and Miller 2007; recommended by Imbens
+    and Lemieux 2008) is the standard fallback and is computable at this sample size.
+
+    For each candidate bandwidth every observation is predicted from a one-sided local
+    linear fitted to its own side *excluding itself*, which is what makes the criterion
+    out-of-sample. The bandwidth minimising squared prediction error wins.
+    """
+    running = np.asarray(running, float)
+    y = np.asarray(y, float)
+    best, best_error = float(CV_GRID[-1]), np.inf
+    for h in CV_GRID:
+        errors = []
+        for i in range(len(running)):
+            side = (running >= 0) == (running[i] >= 0)
+            keep = side & (np.abs(running - running[i]) <= h)
+            keep[i] = False
+            if keep.sum() < 3:
+                continue
+            x, outcome = running[keep], y[keep]
+            weights = rdit.triangular((x - running[i]) / h)
+            design = np.column_stack([np.ones_like(x), x - running[i]])
+            gram = design.T @ (design * weights[:, None])
+            beta = np.linalg.pinv(gram) @ (design.T @ (outcome * weights))
+            errors.append((y[i] - beta[0]) ** 2)
+        if len(errors) < len(running) * 0.6:
+            continue
+        error = float(np.mean(errors))
+        if error < best_error:
+            best, best_error = float(h), error
+    return best
+
+
+def _rd_estimate(running: np.ndarray, y: np.ndarray, *, maximise: bool = True):
+    """Calonico-Cattaneo-Titiunik estimate at the cutoff.
+
+    ``maximise`` sets the bandwidth to the full span on each side rather than the
+    MSE-optimal one. On annual data the MSE-optimal bandwidth came out at 2.0 to 5.8 years,
+    which left two to six observations a side and made four of the services impossible to
+    estimate at all -- the variance was not positive definite. Widening to the whole window
+    is the standard regression-discontinuity-in-time specification (a trend fitted either
+    side of the break) and it is what buys enough sample to say anything. The cost is that
+    the estimate is no longer local, which is exactly what the bias correction below is
+    accounting for, and what the bandwidth panel of the next figure shows.
+
+    Reported as CCT recommend: the conventional point estimate with the bias-corrected
+    robust confidence interval and p-value, never the conventional p.
+    """
+    import rdrobust
+
+    kwargs = {}
+    if maximise:
+        left = np.abs(running[running < 0])
+        right = running[running >= 0]
+        if len(left) < 4 or len(right) < 4:
+            return None
+        kwargs["h"] = [float(left.max()), float(right.max())]
+    try:
+        out = rdrobust.rdrobust(y, running, c=0, **kwargs)
+    except Exception:
+        return None
+    coef = np.ravel(np.asarray(out.coef, dtype=float))
+    se = np.ravel(np.asarray(out.se, dtype=float))
+    ci = np.asarray(out.ci, dtype=float)
+    pv = np.ravel(np.asarray(out.pv, dtype=float))
+    n_h = np.ravel(np.asarray(out.N_h, dtype=float))
+    h = float(np.ravel(np.asarray(out.bws, dtype=float))[0])
+    # Row 0 is conventional, row 1 bias-corrected, row 2 robust. The point estimate is the
+    # conventional one and the inference the robust one, which is CCT's own convention;
+    # `tau_bc` is carried because where it diverges from `tau` the naive estimate was
+    # curvature rather than a jump, and road injuries is exactly that case.
+    return {"tau": float(coef[0]), "tau_bc": float(coef[1]), "se": float(se[0]),
+            "se_robust": float(se[2]),
+            "ci_lo": float(ci[2, 0]), "ci_hi": float(ci[2, 1]),
+            "p": float(pv[2]), "p_conventional": float(pv[0]), "h": h,
+            "n_left": int(n_h[0]), "n_right": int(n_h[1])}
+
+
+def _gini_rd_fits():
+    """One estimate per service, at its own cross-validated bandwidth.
+
+    The estimator is the repository's own local linear with Armstrong-Kolesar bias-aware
+    intervals, applied uniformly so that every row of the forest plot is comparable.
+    rdrobust's CCT estimate is computed alongside wherever it runs and carried as
+    ``cct_tau`` for the caption to compare against; it runs on fifteen of the twenty-four.
+    """
     rows = []
     for name, (year, gini) in _gini_series().items():
         running = year - rdit.CUTOFF
-        try:
-            fit = rdit.fit(running, gini, bandwidth)
-        except ValueError:
-            # Road deaths and injuries carry eleven years; at this bandwidth that leaves
-            # too few residual degrees of freedom to fit, which is a refusal not a zero.
+        h = _cv_bandwidth(running, gini)
+        fit = None
+        for candidate in [h, *sorted(CV_GRID[CV_GRID > h])]:
+            try:
+                fit = rdit.fit(running, gini, candidate)
+                h = float(candidate)
+                break
+            except ValueError:
+                continue
+        if fit is None:
             continue
         smoothness = rdit.smoothness_bound(running, gini)
         lo, hi, bias = rdit.honest_interval(fit, smoothness)
-        rows.append({"name": name, "running": running, "gini": gini, "tau": fit.tau,
-                     "lo": lo, "hi": hi, "bias": bias})
-    return sorted(rows, key=lambda r: r["tau"])
+        # The estimate across the whole grid, because the cross-validated bandwidth is not
+        # to be trusted on its own here: it pins at a grid endpoint for thirteen of the
+        # twenty-four services, and where it lands at the floor the estimate can differ in
+        # sign from the same series at a wide window. The spread is carried onto the figure.
+        sweep = []
+        for candidate in CV_GRID:
+            try:
+                sweep.append(rdit.fit(running, gini, candidate).tau)
+            except ValueError:
+                continue
+        cct = _rd_estimate(running, gini)
+        rows.append({
+            "tau_min": float(min(sweep)) if sweep else np.nan,
+            "tau_max": float(max(sweep)) if sweep else np.nan,
+            "sign_flips": bool(sweep and min(sweep) < 0 < max(sweep)),
+            "h_pinned": bool(h <= CV_GRID[0] + 0.01 or h >= CV_GRID[-1] - 0.01),
+            "name": name, "domain": RD_SERVICES[name], "running": running, "gini": gini,
+            "tau": fit.tau, "se": fit.se, "ci_lo": lo, "ci_hi": hi, "bias": bias,
+            "h": h, "n_left": fit.n_left, "n_right": fit.n_right,
+            "cct_tau": cct["tau"] if cct else np.nan,
+            "cct_p": cct["p"] if cct else np.nan,
+        })
+    order = list(RD_SERVICES.values())
+    return sorted(rows, key=lambda r: order.index(r["domain"]))
+
+
+def _forest(ax, fits, t: dict, *, key="tau", lo="ci_lo", hi="ci_hi"):
+    """One row per service: point estimate, confidence interval, criterion grouping.
+
+    Rows run top to bottom in the order the criteria are declared, with a rule between
+    groups, so the reader sees revolution outcomes against wealth proxies rather than a
+    ranking. Blank rows carry the group headings.
+    """
+    order = []
+    current = None
+    for fit in fits:
+        group = fit["domain"].split(": ")[0]
+        if group != current:
+            order.append(None)          # a slot for the heading
+            current = group
+        order.append(fit)
+    positions = np.arange(len(order))[::-1]
+
+    for pos, entry in zip(positions, order, strict=True):
+        if entry is None:
+            continue
+        # The range of the estimate across the bandwidth grid, behind everything else: a
+        # row whose grey bar straddles zero has no bandwidth-independent sign.
+        if not np.isnan(entry.get("tau_min", np.nan)):
+            ax.plot([entry["tau_min"], entry["tau_max"]], [pos, pos],
+                    color=t["muted"], lw=5.5, alpha=0.30, solid_capstyle="butt", zorder=2)
+        ax.plot([entry[lo], entry[hi]], [pos, pos], color=t["ink2"], lw=1.5,
+                solid_capstyle="butt", zorder=3)
+        for edge in (entry[lo], entry[hi]):
+            ax.plot([edge, edge], [pos - 0.16, pos + 0.16], color=t["ink2"], lw=1.5,
+                    zorder=3)
+        filled = ((entry[lo] > 0) or (entry[hi] < 0)) and not entry.get("sign_flips")
+        ax.scatter([entry[key]], [pos], s=34, zorder=5,
+                   color=t["ink"] if filled else t["surface"],
+                   edgecolor=t["ink"], linewidth=1.3)
+
+    ax.axvline(0, color=t["muted"], lw=0.9, ls=(0, (3, 3)), zorder=1)
+    ticks, labels = [], []
+    for pos, entry in zip(positions, order, strict=True):
+        ticks.append(pos)
+        if entry is None:
+            labels.append("")
+            continue
+        labels.append(PRETTY.get(entry["name"], entry["name"].replace("_", " ")))
+    ax.set_yticks(ticks)
+    ax.set_yticklabels(labels, fontsize=8.6)
+    ax.set_ylim(positions.min() - 0.8, positions.max() + 0.6)
+    ax.grid(False)
+    return dict(zip([id(e) for e in order], positions, strict=True)), order, positions
 
 
 def fig_gini_rdd_governorates(t: dict):
-    """One regression discontinuity per service, drawn as regression discontinuities."""
+    """The estimates as a forest plot, with the numbers beside them."""
     fits = _gini_rd_fits()
-    cols = 5
-    rows_n = -(-len(fits) // cols)
-    fig, axes = plt.subplots(rows_n, cols, figsize=(13.6, 2.42 * rows_n + 1.5))
-    fig.subplots_adjust(top=0.845, bottom=0.085, left=0.048, right=0.988,
-                        hspace=0.60, wspace=0.30)
-    flat = axes.ravel()
+    quality = _series_quality()
+    fig, axes = plt.subplots(1, 2, figsize=(12.2, 5.6),
+                             gridspec_kw={"width_ratios": [1.05, 1]})
+    fig.subplots_adjust(top=0.755, bottom=0.16, left=0.155, right=0.985, wspace=0.06)
 
-    for ax, row in zip(flat, fits, strict=False):
-        running, gini = row["running"], row["gini"]
-        outside = np.abs(running) > RD_BANDWIDTH
-        ax.scatter(running[outside], gini[outside], s=11, color=t["muted"], alpha=0.35,
-                   linewidths=0, zorder=2)
-        ax.scatter(running[~outside], gini[~outside], s=20, color=t["ink2"], alpha=0.85,
-                   linewidths=0, zorder=3)
+    ax = axes[0]
+    _journal_axes(ax, t)
+    _, order, positions = _forest(ax, fits, t)
+    ax.set_xlabel("jump in the between-governorate Gini at January 2011\n"
+                  "(point estimate, 95% bias-corrected robust CI)", fontsize=9)
+    ax.spines["left"].set_visible(False)
+    ax.tick_params(axis="y", length=0)
 
-        edges = {}
-        for treated, colour in ((False, t["s2"]), (True, t["s1"])):
-            curve_x, curve_y, edge = _side_fit(running, gini, RD_BANDWIDTH, treated)
-            ax.plot(curve_x, curve_y, color=colour, lw=2.0, zorder=5)
-            edges[treated] = edge
-        ax.axvline(0, color=t["axis"], lw=1.1, ls=(0, (3, 3)), zorder=1)
-        lo, hi = sorted(edges.values())
-        ax.plot([0, 0], [lo, hi], color=t["ink"], lw=2.4, solid_capstyle="butt", zorder=6)
+    # Group headings sit in the blank slots, left-aligned in the label gutter.
+    seen = set()
+    for pos, entry in zip(positions, order, strict=True):
+        if entry is None:
+            continue
+        group = entry["domain"].split(": ")[0]
+        if group in seen:
+            continue
+        seen.add(group)
+        ax.text(-0.335, pos + 0.85, group.upper(), transform=ax.get_yaxis_transform(),
+                fontsize=8.0, fontweight="bold", color=t["muted"], va="center")
 
-        ax.set_title(PRETTY.get(row["name"], row["name"].replace("_", " ")),
-                     color=t["ink2"], loc="left", fontsize=9)
-        ax.annotate(f"{row['tau']:+.3f}", (0.97, 0.06), xycoords="axes fraction",
-                    ha="right", fontsize=8.6, color=t["ink"], fontweight="bold")
-        ax.tick_params(labelsize=7.5)
-        ax.set_xlim(-16, 14)
-        span = gini.max() - gini.min()
-        ax.set_ylim(gini.min() - span * 0.12, gini.max() + span * 0.18)
+    # Right: the table. A forest plot without its numbers makes a referee go looking.
+    ax = axes[1]
+    ax.axis("off")
+    ax.set_ylim(positions.min() - 0.8, positions.max() + 0.6)
+    columns = [(0.02, "service"), (0.40, r"$\hat{\tau}$ (s.e.)"), (0.70, "CCT p"),
+               (0.79, "h"), (0.875, "n"), (0.99, "conf./cplt.")]
+    top = positions.max() + 0.5
+    for x, head in columns:
+        ax.text(x, top, head, fontsize=8.2, fontweight="bold", color=t["ink2"],
+                va="bottom", ha="left" if x < 0.4 else "right" if x > 0.6 else "left")
+    ax.plot([0.02, 0.99], [top - 0.28, top - 0.28], color=t["axis"], lw=0.8,
+            transform=ax.get_yaxis_transform(), clip_on=False)
 
-    for ax in flat[len(fits):]:
-        ax.set_visible(False)
-    spare = flat[len(fits)] if len(fits) < len(flat) else None
-    if spare is not None:
-        spare.set_visible(True)
-        spare.axis("off")
-        handles = [
-            Line2D([0], [0], color=t["s2"], lw=2.0, label="fit before 2011"),
-            Line2D([0], [0], color=t["s1"], lw=2.0, label="fit after"),
-            Line2D([0], [0], color=t["ink"], lw=2.4, label="the jump"),
-            Line2D([0], [0], marker="o", color=t["muted"], lw=0, markersize=4,
-                   label="outside the window"),
+    for pos, entry in zip(positions, order, strict=True):
+        if entry is None:
+            continue
+        q = quality.get(entry["name"], {})
+        star = "*" if (entry["ci_lo"] > 0 or entry["ci_hi"] < 0) else ""
+        cells = [
+            (0.02, PRETTY.get(entry["name"], entry["name"].replace("_", " ")), "left"),
+            (0.40, f"{entry['tau']:+.4f}{star} ({entry['se']:.4f})", "left"),
+            (0.70, "—" if np.isnan(entry["cct_p"]) else f"{entry['cct_p']:.2f}", "right"),
+            (0.79, f"{entry['h']:.0f}" + ("\u2020" if entry.get("h_pinned") else ""),
+             "right"),
+            (0.875, f"{entry['n_left']}/{entry['n_right']}", "right"),
+            (0.99, f"{q.get('confirmed', 0):.0%} / {q.get('complete', 0):.0%}", "right"),
         ]
-        legend = spare.legend(handles=handles, frameon=False, loc="center left",
-                              fontsize=8.4)
-        for text in legend.get_texts():
-            text.set_color(t["ink2"])
+        for x, text, align in cells:
+            ax.text(x, pos, text, fontsize=8.0, color=t["ink2"], va="center", ha=align)
 
-    covered = sum(1 for r in fits if r["lo"] <= 0 <= r["hi"])
-    unidentified = sum(1 for r in fits if r["bias"] > abs(r["tau"]))
+    significant = sum(1 for r in fits if r["ci_lo"] > 0 or r["ci_hi"] < 0)
+    # Where the bias correction flips the sign or all but erases the estimate, the
+    # conventional number was curvature. Named rather than left for a reader to spot.
+    agreed = [r for r in fits if not np.isnan(r["cct_tau"])]
+    flip_note = (f" rdrobust's CCT estimator runs on {len(agreed)} of {len(fits)} and its "
+                 "p-value is shown where it does." if agreed else "")
     finish(
         fig, t,
-        "No service shows a break in regional inequality at the revolution",
-        f"One regression discontinuity per service: Gini across the governorates against "
-        f"years from January 2011, fitted separately either side. Zero lies inside the "
-        f"bias-aware interval for all {covered}. Panels ordered by the size of the jump.",
+        "The revolution left no break in regional inequality on any measure that matters",
+        f"Regression discontinuity at January 2011 in the Gini across governorates. "
+        f"{significant} of {len(fits)} estimates clear p < 0.05, and it is the second-weakest "
+        "series in the figure on data quality. Hollow markers cover zero." + flip_note,
         "tn_governorate_inequality: unweighted Gini, share of national total, constant "
-        f"geography. Local linear with a triangular kernel, bandwidth {RD_BANDWIDTH} years; "
-        "faint points fall outside it. Road deaths and road injuries are absent because "
-        "eleven years leave too few residual degrees of freedom at this bandwidth, which is "
-        "a refusal rather than a null. The worst-case bias exceeds the estimate for "
-        f"{unidentified} of {len(fits)}, so these rule out a large jump rather than "
-        "establishing a zero one.",
+        "geography. Local linear with a triangular kernel at a bandwidth chosen by "
+        "Ludwig-Miller leave-one-out cross-validation, with Armstrong-Kolesar bias-aware "
+        "intervals; the same estimator on every row so the rows are comparable. CCT's "
+        "rdbwselect would be the better rule and does not run here -- it needs derivative "
+        "and variance estimates twenty annual points cannot support, and raises a "
+        "linear-algebra error on eight of the nine services it was tried on -- so its "
+        "p-value appears only where rdrobust completes. h is the bandwidth in years, n the "
+        "effective observations either side, and the last column the two data-quality "
+        "measures: cross-edition agreement, and the share of years in which all 24 "
+        "governorates are printed. Private gym membership is absent: printed only from "
+        "2007, it leaves three pre-revolution years. \u2020 marks a bandwidth that pinned at "
+        "an end of the grid rather than finding an interior optimum, which happens for "
+        "thirteen of the twenty-four and is why the sweep is shown: job offers run from "
+        "+0.064 at four and a half years to -0.020 at sixteen, so no single bandwidth "
+        "settles its sign. A filled marker requires both an interval clear of zero and a "
+        "sign that survives the sweep.",
     )
     return fig
 
 
 def fig_gini_rdd_placebo(t: dict):
-    """Whether each service's 2011 estimate stands out from the same estimate elsewhere."""
+    """The falsification check, also as a forest plot: 2011 against every other cutoff."""
     fits = _gini_rd_fits()
-    fig, axes = plt.subplots(1, 2, figsize=(12.4, 6.4),
+    fig, axes = plt.subplots(1, 2, figsize=(12.2, 5.4),
                              gridspec_kw={"width_ratios": [1.25, 1]})
-    fig.subplots_adjust(top=0.775, bottom=0.145, left=0.175, right=0.986, wspace=0.22)
+    fig.subplots_adjust(top=0.765, bottom=0.165, left=0.155, right=0.985, wspace=0.10)
 
-    # Left: for each service, every placebo estimate and the real one on top of them.
     ax = axes[0]
-    beaten, totals = [], []
-    for pos, row in enumerate(fits):
-        year = row["running"] + rdit.CUTOFF
-        placebo = []
+    _journal_axes(ax, t)
+    _, order, positions = _forest(ax, fits, t)
+    ax.spines["left"].set_visible(False)
+    ax.tick_params(axis="y", length=0)
+
+    beaten, totals = {}, {}
+    for pos, entry in zip(positions, order, strict=True):
+        if entry is None:
+            continue
+        year = entry["running"] + rdit.CUTOFF
+        fake = []
         for cutoff in PLACEBO_CUTOFFS:
+            if cutoff == int(rdit.CUTOFF):
+                continue
             r = year - cutoff
-            inside = np.abs(r) <= RD_BANDWIDTH
-            if (r[inside] < 0).sum() < 4 or (r[inside] >= 0).sum() < 4:
+            if (r < 0).sum() < 5 or (r >= 0).sum() < 5:
                 continue
-            try:
-                placebo.append(rdit.fit(r, row["gini"], RD_BANDWIDTH).tau)
-            except ValueError:
-                continue
-        fake = [v for v in placebo]
-        ax.scatter(fake, [pos] * len(fake), s=16, color=t["muted"], alpha=0.55,
-                   linewidths=0, zorder=2)
-        ax.scatter([row["tau"]], [pos], s=52, color=t["s2"], zorder=4,
-                   edgecolor=t["surface"], linewidth=1.1)
-        beaten.append(sum(1 for v in fake if abs(v) >= abs(row["tau"])))
-        totals.append(len(fake))
-    ax.axvline(0, color=t["ink2"], lw=1.2, zorder=1)
-    ax.set_yticks(range(len(fits)))
-    ax.set_yticklabels([PRETTY.get(r["name"], r["name"].replace("_", " ")) for r in fits],
-                       fontsize=8.4)
-    ax.set_xlabel("estimated jump in Gini")
-    ax.set_title("2011 against every other cutoff", color=t["ink2"], loc="left",
-                 fontsize=10)
-    ax.grid(axis="y", visible=False)
-    ax.set_ylim(-0.8, len(fits) - 0.2)
+            got = _rd_estimate(r, entry["gini"])
+            if got is not None:
+                fake.append(got["tau"])
+        ax.scatter(fake, [pos] * len(fake), s=13, facecolor="none",
+                   edgecolor=t["muted"], linewidths=0.6, alpha=0.75, zorder=2)
+        beaten[entry["name"]] = sum(1 for v in fake if abs(v) >= abs(entry["tau"]))
+        totals[entry["name"]] = len(fake)
+    ax.set_xlabel("estimated jump: January 2011 (filled) against every other cutoff "
+                  "(hollow)", fontsize=9)
 
-    # Right: the share of placebo cutoffs beating the real one, which is a p-value in all
-    # but name -- and above 0.05 everywhere is what a null looks like on this test.
+    # Right: the share of placebos beating the real estimate, a p-value over cutoffs.
     ax = axes[1]
-    share = np.array([b / n if n else np.nan for b, n in zip(beaten, totals, strict=True)])
-    ax.barh(range(len(fits)), share, height=0.62, color=t["s1"], zorder=3)
-    ax.axvline(0.05, color=t["s2"], lw=1.3, ls=(0, (4, 3)), zorder=4)
-    ax.text(0.062, len(fits) - 0.9, "0.05", fontsize=8.6, color=t["s2"])
-    ax.set_yticks(range(len(fits)))
-    ax.set_yticklabels([])
-    ax.set_xlabel("share of placebo cutoffs with a larger jump")
-    ax.set_xlim(0, 1)
-    ax.set_title("none is unusual for its own series", color=t["ink2"], loc="left",
-                 fontsize=10)
-    ax.grid(axis="y", visible=False)
-    ax.set_ylim(-0.8, len(fits) - 0.2)
+    _journal_axes(ax, t)
+    ax.set_ylim(positions.min() - 0.8, positions.max() + 0.6)
+    for pos, entry in zip(positions, order, strict=True):
+        if entry is None:
+            continue
+        n = totals[entry["name"]]
+        if not n:
+            continue
+        share = beaten[entry["name"]] / n
+        ax.barh([pos], [share], height=0.42, color=t["ink2"], zorder=3)
+        ax.text(share + 0.02, pos, f"{share:.0%}  ({beaten[entry['name']]}/{n})",
+                fontsize=7.8, color=t["ink2"], va="center")
+    ax.axvline(0.05, color=t["ink"], lw=1.0, ls=(0, (3, 2)), zorder=4)
+    ax.text(0.068, positions.max() + 0.1, "0.05", fontsize=8.0, color=t["ink"])
+    ax.set_yticks([])
+    ax.set_xlim(0, 1.0)
+    ax.set_xlabel("share of placebo cutoffs with a larger jump", fontsize=9)
 
-    worst = float(np.nanmin(share))
+    worst = min(beaten[k] / totals[k] for k in totals if totals[k])
     finish(
         fig, t,
-        "Every service's 2011 estimate is ordinary among its own placebos",
-        "Running the same estimator at every cutoff from 2001 to 2018 gives, for each "
-        f"service, a spread of jumps that 2011 sits inside. The most unusual is beaten by "
-        f"{worst:.0%} of its placebos, well above the 5% a rejection would need.",
-        "tn_governorate_inequality: the estimator of the previous figure, re-run with the "
-        "cutoff moved to each year in turn and the true cutoff marked. The right panel is a "
-        "randomisation p-value over cutoffs rather than over assignments; it asks whether "
-        "2011 is extreme for this series, which is the question a placebo test exists to "
-        "answer.",
+        "No service's 2011 estimate is unusual among its own placebos",
+        "Re-running the same estimator with the cutoff moved to each year from 2001 to 2018. "
+        f"The most distinctive service is still beaten by {worst:.0%} of its own placebo "
+        "cutoffs, against the 5% a rejection would need.",
+        "tn_governorate_inequality, estimated with rdrobust as in the previous figure. Each "
+        "placebo is a complete re-estimation at the moved cutoff, not the same fit reused. "
+        "Cutoffs leaving fewer than five years on a side are not estimated. The right panel "
+        "is a randomisation p-value over cutoffs rather than over treatment assignment: it "
+        "asks whether 2011 is extreme for this series, which is what a placebo test is for.",
     )
     return fig
 
+
+
+# --------------------------------------------------------------------------------------
+# Figure 46: goods, where the same question cannot be asked the same way.
+#
+# The service panel is annual, so it supports a discontinuity at January 2011. Goods exist
+# only at survey waves -- 2005, 2010, 2015, 2021 -- which is two observations either side
+# of the revolution with a five-year gap. There is no bandwidth to choose and no local fit
+# to make: an RD is simply not available, and pretending otherwise by fitting a line
+# through two points would be the worst thing in this repository.
+#
+# What the waves do support is the placebo logic that makes the service figure credible.
+# Each good gives three wave-to-wave changes in its spatial Gini, and only one of them
+# spans the revolution. If that one is not distinctive against the other two, there is no
+# signal -- and that comparison is honest at four waves in a way an estimate is not.
+
+GOODS_WAVES = (2005, 2010, 2015, 2021)
+GOODS_SHOWN = 16
+
+
+def _goods_gini() -> pd.DataFrame:
+    """Spatial Gini per good per wave, for the goods labelled and present throughout."""
+    frame = pd.read_csv(PROCESSED / "tn_spatial_gini_by_product.csv")
+    frame = frame[frame.product_fr.notna()]
+    complete = frame.groupby("product_ar").wave.nunique().eq(len(GOODS_WAVES))
+    frame = frame[frame.product_ar.map(complete).fillna(False)]
+    # The biggest items in the household budget, measured at the last pre-revolution wave
+    # so the selection cannot be made by anything that happened afterwards.
+    size = (frame[frame.wave.eq(2010)].set_index("product_ar").expenditure_pc_national)
+    keep = size.nlargest(GOODS_SHOWN).index
+    return frame[frame.product_ar.isin(keep)].copy()
+
+
+def fig_goods_wave_changes(t: dict):
+    """Goods: the change spanning the revolution against the changes that do not."""
+    frame = _goods_gini()
+    wide = frame.pivot_table(index=["product_ar", "product_fr"], columns="wave",
+                             values="spatial_gini")
+    size = frame[frame.wave.eq(2010)].set_index(["product_ar", "product_fr"]) \
+        .expenditure_pc_national
+    wide = wide.loc[size.reindex(wide.index).sort_values().index]
+
+    spans = [(2005, 2010, "2005 to 2010"), (2010, 2015, "2010 to 2015"),
+             (2015, 2021, "2015 to 2021")]
+    fig, ax = plt.subplots(figsize=(11.4, 6.6))
+    fig.subplots_adjust(top=0.755, bottom=0.145, left=0.335, right=0.985)
+    _journal_axes(ax, t)
+
+    positions = np.arange(len(wide))[::-1]
+    styles = {"2005 to 2010": (t["muted"], "o", 26, "none"),
+              "2010 to 2015": (t["ink"], "D", 42, None),
+              "2015 to 2021": (t["muted"], "s", 26, "none")}
+    for lo, hi, label in spans:
+        colour, marker, size_, face = styles[label]
+        change = (wide[hi] - wide[lo]).to_numpy()
+        ax.scatter(change, positions, s=size_, marker=marker,
+                   facecolor=colour if face is None else "none",
+                   edgecolor=colour, linewidths=1.2, zorder=4 if face is None else 3,
+                   label=label + (" (spans the revolution)" if lo == 2010 else ""))
+    ax.axvline(0, color=t["ink2"], lw=0.9, ls=(0, (3, 3)), zorder=1)
+    ax.set_yticks(positions)
+    ax.set_yticklabels([f.title() if f.isupper() else f
+                        for _, f in wide.index], fontsize=8.0)
+    ax.set_ylim(positions.min() - 0.8, positions.max() + 0.6)
+    ax.set_xlabel("change in the spatial Gini across the seven regions")
+    legend = ax.legend(frameon=False, loc="lower right", fontsize=8.6)
+    for text in legend.get_texts():
+        text.set_color(t["ink2"])
+
+    spanning = (wide[2015] - wide[2010]).abs()
+    others = pd.concat([(wide[2010] - wide[2005]).abs(), (wide[2021] - wide[2015]).abs()],
+                       axis=1).max(axis=1)
+    bigger = int((spanning > others).sum())
+    finish(
+        fig, t,
+        "For goods, the wave spanning the revolution is not the one that moved",
+        f"Spatial inequality in the {len(wide)} largest items of the household budget. The "
+        f"change across 2010-2015 is the largest of a good's three changes for {bigger} of "
+        f"{len(wide)} -- about what falling by chance would give.",
+        "tn_spatial_gini_by_product: Gini across the seven grandes regions of per-person "
+        "expenditure on each good, from the four household budget surveys. Goods are the "
+        "sixteen largest by national per-person spending at the 2010 wave, chosen before "
+        "the revolution so the selection cannot depend on what followed; only goods labelled "
+        "in French and present in all four waves are eligible. **This is not a regression "
+        "discontinuity and no estimate here is one.** Four waves give two observations "
+        "either side of January 2011 with a five-year gap, so there is no bandwidth to "
+        "choose and no local fit to make; what is shown is the change between consecutive "
+        "waves, with the interval spanning the revolution marked. The comparison is the "
+        "same placebo logic the service figures rest on, which four waves can support even "
+        "though an estimate cannot.",
+    )
+    return fig
 
 BUILDERS = [
     ("01-expenditure-by-quintile", fig_quintiles, True),
@@ -2814,6 +3189,7 @@ BUILDERS = [
     ("43-index-disagreement", fig_index_disagreement, False),
     ("44-gini-rdd-governorates", fig_gini_rdd_governorates, False),
     ("45-gini-rdd-placebo", fig_gini_rdd_placebo, False),
+    ("46-goods-wave-changes", fig_goods_wave_changes, False),
 ]
 
 
