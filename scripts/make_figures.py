@@ -48,6 +48,7 @@ import numpy as np
 import pandas as pd
 
 from consumptiontn import rdit
+from consumptiontn.build_decomposition import fit_line
 
 mpl.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
@@ -3454,7 +3455,10 @@ def fig_between_within(t: dict):
     ax.plot(share.year, share.between_share, color=t["ink"], lw=2.2, zorder=4,
             marker="o", markersize=3.2, markeredgewidth=0)
     pre = share[share.year.lt(REVOLUTION)]
-    slope, intercept = np.polyfit(pre.year, pre.between_share, 1)
+    # The same fit the published `predicted` column uses, so the drawn line and the
+    # number in `tn_gini_pre_post` cannot disagree.
+    slope, intercept = fit_line(pre.year.to_numpy(dtype=float),
+                                pre.between_share.to_numpy(dtype=float))
     grid = np.linspace(share.year.min(), share.year.max(), 50)
     ax.set_xlim(share.year.min() - 1, share.year.max() + 1)
     ax.plot(grid, np.polyval([slope, intercept], grid), color=t["s2"], lw=1.6,

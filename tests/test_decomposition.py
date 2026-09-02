@@ -200,3 +200,59 @@ def test_the_total_is_not_shipped_twice(built):
     decomposed = built.dropna(subset=["theil_between"])
     assert np.allclose(decomposed.theil_between + decomposed.theil_within,
                        decomposed.theil_governorate, atol=1e-6)
+
+
+# ------------------------------------------------------ the fit has to be machine-portable
+
+def test_the_line_fit_matches_the_closed_form():
+    """`fit_line` is the textbook least-squares line, verified against a known answer."""
+    x = np.array([0.0, 1.0, 2.0, 3.0])
+    y = np.array([1.0, 3.0, 5.0, 7.0])
+    slope, intercept = D.fit_line(x, y)
+    assert slope == pytest.approx(2.0)
+    assert intercept == pytest.approx(1.0)
+
+
+def test_a_vertical_fit_does_not_divide_by_zero():
+    slope, intercept = D.fit_line(np.array([5.0, 5.0, 5.0]), np.array([1.0, 2.0, 3.0]))
+    assert slope == 0.0
+    assert intercept == pytest.approx(2.0)
+
+
+def test_the_fit_agrees_with_polyfit_to_within_float_noise():
+    """Same answer as `np.polyfit`, which is the point: only the last bits differ.
+
+    `fit_line` exists to be *portable*, not to be different. If it ever disagreed with
+    numpy's fit by more than accumulated rounding, it would be wrong rather than careful.
+    """
+    rng = np.random.default_rng(0)
+    for _ in range(20):
+        x = np.sort(rng.uniform(2000, 2023, size=12))
+        y = rng.uniform(0, 1, size=12)
+        assert np.allclose(D.fit_line(x, y), np.polyfit(x, y, 1), atol=1e-9)
+
+
+def test_the_predicted_column_does_not_go_through_lapack(built):
+    """The regression this guards is a one-digit diff that only CI could see.
+
+    `np.polyfit` solves a least-squares system through LAPACK, and IEEE 754 says nothing
+    about that: the answer's last bits depend on the BLAS the machine was built against.
+    `fixed_line_subscribers` predicts exactly 0.0322415 for `theil_region` — a perfect tie
+    at six decimals — and two machines rounded it in opposite directions, which the
+    pipeline's byte-for-byte check caught and nothing else would have.
+
+    This pins the value. It also pins the property that matters more: the fit is computed
+    from `fit_line`, whose operations IEEE 754 requires to be correctly rounded.
+    """
+    table = D.pre_post(built, "theil_region")
+    row = table.set_index("indicator").loc["fixed_line_subscribers"]
+    assert row.predicted == pytest.approx(0.032241, abs=5e-7)
+
+    pre = built[built.indicator.eq("fixed_line_subscribers")
+                & built.period.eq("pre")].dropna(subset=["theil_region"])
+    post = built[built.indicator.eq("fixed_line_subscribers")
+                 & built.period.eq("post")].dropna(subset=["theil_region"])
+    slope, intercept = D.fit_line(pre.year.to_numpy(dtype=float),
+                                  pre.theil_region.to_numpy(dtype=float))
+    expected = slope * float(post.year.mean()) + intercept - float(pre.theil_region.mean())
+    assert row.predicted == pytest.approx(round(expected, D.DECIMALS), abs=1e-12)

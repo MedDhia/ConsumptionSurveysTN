@@ -71,6 +71,33 @@ DECIMALS = 6
 MIN_PRE, MIN_POST = 7, 8
 
 
+def fit_line(x: np.ndarray, y: np.ndarray) -> tuple[float, float]:
+    """Least-squares line through (x, y), in closed form rather than through LAPACK.
+
+    ``np.polyfit`` would be the obvious call and is the wrong one here. It solves a
+    least-squares system through LAPACK, which IEEE 754 says nothing about: the result
+    depends on the BLAS the machine was built against, and the last bits move. That is
+    invisible until a value lands on a rounding boundary, and one here does --
+    ``fixed_line_subscribers`` predicts exactly 0.0322415, a perfect tie at six decimals,
+    which two machines rounded in opposite directions and the pipeline's byte-for-byte
+    check caught.
+
+    The closed form for a degree-1 fit uses only addition, subtraction, multiplication and
+    division, which IEEE 754 *does* require to be correctly rounded. Given identical
+    inputs -- and the inputs here are already rounded to six decimals before they reach
+    this function -- every machine now computes the same float and rounds it the same way.
+    """
+    x = np.asarray(x, dtype=float)
+    y = np.asarray(y, dtype=float)
+    x_mean, y_mean = float(x.mean()), float(y.mean())
+    dx = x - x_mean
+    denominator = float((dx * dx).sum())
+    if denominator == 0:
+        return 0.0, y_mean
+    slope = float((dx * (y - y_mean)).sum()) / denominator
+    return slope, y_mean - slope * x_mean
+
+
 def _theil(y: np.ndarray, weights: np.ndarray | None = None) -> float:
     """Theil-T. Undefined where any unit reports none of the thing."""
     y = np.asarray(y, dtype=float)
@@ -206,12 +233,13 @@ def pre_post(frame: pd.DataFrame, column: str, *,
         post = block[block.period.eq("post")]
         if len(pre) < min_pre or len(post) < min_post:
             continue
-        slope, intercept = np.polyfit(pre.year.to_numpy(dtype=float),
-                                      pre[column].to_numpy(dtype=float), 1)
+        slope, intercept = fit_line(pre.year.to_numpy(dtype=float),
+                                    pre[column].to_numpy(dtype=float))
         pre_mean = float(pre[column].mean())
         post_mean = float(post[column].mean())
-        trend_mean = float(np.polyval([slope, intercept],
-                                      post.year.to_numpy(dtype=float)).mean())
+        # The mean of a straight line over a set of points is the line evaluated at their
+        # mean, so this is two operations rather than a summation over the post years.
+        trend_mean = slope * float(post.year.mean()) + intercept
         rows.append({
             "indicator": indicator, "measure": column,
             "n_pre": len(pre), "n_post": len(post),
